@@ -1,24 +1,18 @@
-import Head from 'next/head'
 import { PostCard, Categories, PostWidget} from '../components'
+import { getPosts } from '../services'
+// import { Header } from '../sections';
 
-const posts = [
-  {title: 'Post 1', excerpt: 'Post 1 excerpt'},
-  {title: 'Post 2', excerpt: 'Post 2 excerpt'},
-  {title: 'Post 3', excerpt: 'Post 3 excerpt'},
-  {title: 'Post 4', excerpt: 'Post 4 excerpt'},
-  {title: 'Post 5', excerpt: 'Post 5 excerpt'},
-]
 
-const Home = () => {
+export default function Home ({ posts }) {
   return (
-    <div className="container mx-auto px-10 mb-8 p-10">
-      <Head>
-        <title>Programmers Life Blog</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <>
+      {/* <Header /> */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-20">
         <div className='lg:col-span-8 col-span-1'>
-        {posts.map((post, index) => <PostCard key={post.title} post={post} />)}
+        {posts.map((post, index) => <PostCard key={post.node.title} post={post.node} />)}
+        </div>
+        <div className='lg:col-span-8 col-span-1'>
+        {posts.map((post, index) => <PostCard key={post.node.title} post={post.node} />)}
         </div>
 
         <div className="lg:col-span-4 col-span-1">
@@ -28,10 +22,15 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      
-    </div>
+    </>
   )
 }
 
-export default Home
+export async function getStaticProps() {
+  const posts = (await getPosts()) || [];
+  return {
+    props: {
+      posts
+    }
+  }
+}
