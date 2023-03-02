@@ -53,7 +53,6 @@ const Header = () => {
           ${isScrolled ? "bg-white" : "bg-transparent"}`}>
       <Navbar.Brand href="/">
         <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
-          {/* Logo */}
           <Logo />
         </div>
         </Navbar.Brand>
