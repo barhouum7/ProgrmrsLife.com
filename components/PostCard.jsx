@@ -16,8 +16,8 @@ const PostCard = ({post}) => {
     // console.log(post.excerpt)
 
   return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-0 lg:p-8 pb-12 mb-8">
-            <div className="relative overflow-hidden shadow-md pb-80 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl shadow-indigo-500/40 p-0 lg:p-8 pb-12 mt-2 mb-8 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10">
+            <div className="relative overflow-hidden shadow-xl pb-80 mb-6">
             <Link href={`/post/${post.slug}`}>
                 <img 
                     src={post.featuredImage.url}
@@ -71,7 +71,7 @@ const PostCard = ({post}) => {
             <p className="text-center text-lg text-gray-700 dark:text-gray-200 font-normal px-4 lg:px-20 mb-8">{post.excerpt}</p>
             <div className='text-center'>
             <Link href={`/post/${post.slug}`}>
-                <p className="inline-block bg-pink-600 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer dark:hover:text-primary-500 transition duration-700 transform ease-in-out hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50">Continue Reading</p>
+                <p className="inline-block bg-pink-600 focus:outline-none active:bg-blue-600 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer dark:hover:text-primary-500 transition duration-700 transform ease-in-out hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50">Continue Reading</p>
             </Link>
             </div>
         </div>
