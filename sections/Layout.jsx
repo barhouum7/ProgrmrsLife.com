@@ -7,7 +7,7 @@ const Layout = ({ children}) => {
     <>
       <Head>
         <title>Programmers Life Blog</title>
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/imgs/favicon.svg" />
       </Head>
       
         <Header />

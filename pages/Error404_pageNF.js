@@ -9,7 +9,7 @@ const Error404_pageNF = () => {
             <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-6 flex text-center items-center justify-center">
                 <Image
                     alt="Error 404 Page Not Found"
-                    src="/404-computer.svg"
+                    src="/imgs/404-computer.svg"
                     width={500}
                     height={500}
                     classNameName='rounded-full cursor-pointer mr-0'

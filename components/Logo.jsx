@@ -1,13 +1,14 @@
 import React from 'react'
+import Image from 'next/image';
 
 const Logo = () => {
     return (
         <div className='flex justify-between items-center'>
-        <img
+        <Image
             alt="Programmers Life logo"
-            src="/logo.png"
-            width={50}
-            height={50}
+            src="/imgs/logo.svg"
+            width={40}
+            height={40}
             className='rounded-full cursor-pointer mr-0'
           />
           <span className="self-center whitespace-nowrap px-3 text-md font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
