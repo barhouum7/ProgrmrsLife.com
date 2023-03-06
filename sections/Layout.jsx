@@ -12,7 +12,7 @@ const Layout = ({ children}) => {
       
         <Header />
         
-        <main className="dark:bg-gray-800 container relative flex-grow rounded-t mx-auto px-10 p-10 sm:px-6 pl-10 trasition ease-in-out duration-500">
+        <main className="dark:bg-gray-800 container relative flex-grow rounded-t mx-auto mt-20 p-4 sm:px-6 trasition ease-in-out duration-500">
             {children}
         </main>
 

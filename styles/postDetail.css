@@ -1,0 +1,50 @@
+/* em::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background-color: pink;
+    transition: width 0.3s ease-out;
+  }
+  
+  em:hover::before {
+    width: 100%;
+  } */
+
+
+  em {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(to right, #f9d423, #ff4e50);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  em::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 3px;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, #f9d423, #ff4e50);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    /* transition: background-position 0.2s; */
+    transition: color 0.2s, background-position 0.2s;
+    transition: width 0.3s ease-out;
+  }
+  
+  em:hover {
+    color: white;
+    background: none;
+  }
+  
+  em:hover::before {
+    width: 100%;
+    background-position: right bottom;
+  }

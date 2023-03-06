@@ -16,20 +16,20 @@ const PostCard = ({post}) => {
     // console.log(post.excerpt)
 
   return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl shadow-indigo-500/40 p-0 lg:p-8 pb-12 mt-2 mb-8 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl hover:shadow-indigo-500/40 p-0 mr-4 lg:p-8 pb-12 mt-5 mb-8 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10">
             <div className="relative overflow-hidden shadow-xl pb-80 mb-6">
-            <Link href={`/post/${post.slug}`}>
-                <img 
-                    src={post.featuredImage.url}
-                    alt={post.title}
-                    className="absolute shadow-lg rounded-t-lg lg:rounded-lg w-full h-80 object-top object-cover cursor-pointer hover:opacity-80 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 hover:rounded-lg hover:rounded-b-none hover:rounded-r-none hover:rounded-l-none hover:rounded-t-none hover:rounded-tl-none hover:rounded-tr-none hover:rounded-bl-none hover:rounded-br-none"
-                />
-            </Link>
+                <Link href={`/post/${post.slug}`}>
+                    <img 
+                        src={post.featuredImage.url}
+                        alt={post.title}
+                        className="absolute shadow-lg rounded-t-lg lg:rounded-lg w-full h-80 object-top object-cover cursor-pointer hover:opacity-80 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 hover:rounded-lg hover:rounded-b-none hover:rounded-r-none hover:rounded-l-none hover:rounded-t-none hover:rounded-tl-none hover:rounded-tr-none hover:rounded-bl-none hover:rounded-br-none"
+                    />
+                </Link>
             </div>
             <h1 className="transition duration-700 text-center cursor-pointer dark:text-gray-400 dark:hover:text-pink-300 text-violet-700 hover:text-pink-300 text-3xl font-semibold mb-8">
-            <Link href={`/post/${post.slug}`}>
-                {post.title}
-            </Link>
+                <Link href={`/post/${post.slug}`}>
+                    {post.title}
+                </Link>
             </h1>
             <div className="block lg:flex text-center items-center justify-center mb-8 w-full">
                 <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8">
@@ -47,7 +47,7 @@ const PostCard = ({post}) => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     <span>
-                        {moment(post.date).format('MMMM Do YYYY')}
+                        {moment(post.createdAt).format('MMMM Do YYYY')}
                     </span>
                         &nbsp;•&nbsp;
                     <span>

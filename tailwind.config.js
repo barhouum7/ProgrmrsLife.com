@@ -8,10 +8,16 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
   ],
+  // safelist: [{
+  //   pattern: /hljs+/,
+  // }],
   theme: {
-    extend: {},
+    // hljs: {
+    //   theme: 'atom-one-dark',
+    // },
   },
   plugins: [
-    require("flowbite/plugin")
+    require("flowbite/plugin"),
+    // require('tailwind-highlightjs')
   ],
 }

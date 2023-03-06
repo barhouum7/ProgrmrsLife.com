@@ -1,23 +1,25 @@
+import React, {useState, useEffect} from 'react'
 import Logo from "../../components/Logo";
 import {useTheme} from "next-themes";
 import { DarkThemeToggle, Navbar, Dropdown } from "flowbite-react";
 import { Flowbite } from "flowbite-react";
 import{ SunIcon } from "@heroicons/react/20/solid";
-import {useState, useEffect} from "react";
+
 import SearchBar from "./SearchBar";
 
 import Link from "next/link";
+import { getCategories } from '../../services'
 
-const categories = [
-  { name: "React", slug: "react" },
-  { name: "Next.js", slug: "nextjs" },
-  { name: "Tailwind CSS", slug: "tailwindcss" },
-  { name: "JavaScript", slug: "javascript" },
-  { name: "TypeScript", slug: "typescript" },
-];
 
 
 const Header = () => {
+  
+  const [categories, setCategories] = useState([])
+    useEffect(() => {
+      getCategories()
+        .then((newCategories) => setCategories(newCategories))
+        .catch((err) => console.log(err))
+  }, [])
 
   const [isScrolled, setIsScrolled] = useState(false);
 
