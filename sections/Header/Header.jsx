@@ -56,19 +56,22 @@ const Header = () => {
       <Navbar.Brand href="/">
         <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
           <Logo />
+          <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 rounded-lg">
+            Programmers Life
+          </span>
         </div>
         </Navbar.Brand>
         
         <Navbar.Collapse>
-          <Navbar.Link href="/" active>
+          <Navbar.Link className='navbar-item' href="/" active>
             Home
           </Navbar.Link>
-          <Navbar.Link href="/Error404_pageNF">About</Navbar.Link>
-          <Navbar.Link href="/Error404_pageNF">Services</Navbar.Link>
+          <Navbar.Link className='navbar-item' href="/Error404_pageNF">About</Navbar.Link>
+          <Navbar.Link className='navbar-item' href="/Error404_pageNF">Services</Navbar.Link>
           
             <Dropdown label="Categories" inline={true} trigger="hover" className="transition duration-700 ease-in-out transition-all">
                 {categories.map((category) => (
-              <Dropdown.Item>
+              <Dropdown.Item className='navbar-item'>
                   <Link key={category.slug} href={`/categories/${category.slug}`}>
                         {category.name}
                     </Link>
@@ -76,7 +79,7 @@ const Header = () => {
                 ))}
             </Dropdown>
           
-          <Navbar.Link href="/Error404_pageNF">Contact</Navbar.Link>
+          <Navbar.Link className='navbar-item' href="/Error404_pageNF">Contact</Navbar.Link>
         </Navbar.Collapse>
         
         <div className="flex md:order-2">

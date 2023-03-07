@@ -19,6 +19,7 @@
     "moment": "^2.29.4",
     "next": "latest",
     "next-themes": "^0.2.1",
+    "ninja-keys": "^1.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-multi-carousel": "^2.8.2",

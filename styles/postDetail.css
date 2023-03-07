@@ -1,17 +1,33 @@
-/* em::before {
+.navbar-item::before {
     content: '';
-    position: absolute;
-    bottom: 0;
+    position: absolute;;
+    bottom: 0px;
     left: 0;
     width: 0%;
-    height: 4px;
+    height: 2px;
     background-color: pink;
     transition: width 0.3s ease-out;
   }
   
-  em:hover::before {
+  .navbar-item:hover::before {
     width: 100%;
-  } */
+  }
+
+.border-b-effect::before {
+content: '';
+position: absolute;
+bottom: 0px;
+left: 0;
+width: 0%;
+height: 2px;
+border-radius: 100px;
+background-color: pink;
+transition: width 0.3s ease-out;
+}
+
+.border-b-effect:hover::before {
+width: 100%;
+}
 
 
   em {
