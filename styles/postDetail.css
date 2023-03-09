@@ -64,3 +64,137 @@ width: 100%;
     width: 100%;
     background-position: right bottom;
   }
+
+
+  .custom-error-message {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(to right, #ff4e50, transparent);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .custom-error-message::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 3px;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, #f9d423, #ff4e50, transparent);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    /* transition: background-position 0.2s; */
+    transition: color 0.2s, background-position 0.2s;
+    transition: width 0.3s ease-out;
+  }
+  
+  .custom-error-message:hover {
+    background: none;
+  }
+  
+  .custom-error-message:hover::before {
+    width: 100%;
+    background-position: right bottom;
+  }
+  
+  
+  
+  .custom-success-message {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(to right, #5eef2a, transparent);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .custom-success-message::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 3px;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, #f9d423, #83cc0e, transparent);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    /* transition: background-position 0.2s; */
+    transition: color 0.2s, background-position 0.2s;
+    transition: width 0.3s ease-out;
+  }
+  
+  .custom-success-message:hover {
+    background: none;
+  }
+  
+  .custom-success-message:hover::before {
+    width: 100%;
+    background-position: right bottom;
+  }
+
+/* Path: styles\postDetail.css */
+    .animated {
+        animation-name: flash;
+        animation-duration: 2s;
+        animation-fill-mode: both;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-out;
+        transform-origin: center bottom;
+    }
+
+
+@keyframes flash {
+    0% {
+        opacity: 0;
+        transform: scaleX(0) translateX(-100%);
+    }
+    80% { transform: scaleX(0) translateX(0%); opacity: 0.1; }
+    81% { transform: scaleX(4) translateX(0%); opacity: 0.2; }
+    100% { transform: scaleX(50) translateX(100%); opacity: 0; }
+}
+
+@-webkit-keyframes flash {
+    0% {
+        opacity: 0;
+        -webkit-transform: scaleX(0) translateX(-100%);
+    }
+    80% { -webkit-transform: scaleX(0) translateX(0%); opacity: 0.1; }
+    81% { -webkit-transform: scaleX(4) translateX(0%); opacity: 0.2; }
+    100% { -webkit-transform: scaleX(50) translateX(100%); opacity: 0; }
+}
+
+/* @keyframes flash {
+    0% { transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { transform: scale(50) rotate(45deg); opacity: 0; }
+} */
+
+/* @keyframes flash {
+    0% { transform: translateX(-100%, -100%); opacity: 0; }
+    70% { transform: translateX(0%, 0%); opacity: 0.2; }
+    80% { transform: translateX(0%, 0%); opacity: 0.5; }
+    81% { transform: translateX(0%, 0%); opacity: 1; }
+    100% { transform: translateX(100%, 100%); opacity: 0; }
+} */
+
+
+
+/* @keyframes flash {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  } */

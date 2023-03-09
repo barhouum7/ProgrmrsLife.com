@@ -6,7 +6,7 @@ import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm } fr
 
 const PostDetails = ({ post }) => {
     return (
-        <div className="dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+        <div className="dark:bg-gray-800 rounded-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div className='lg:col-span-8 col-span-1'>
                     <PostDetail post={post} />

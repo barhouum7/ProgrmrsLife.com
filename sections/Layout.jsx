@@ -12,11 +12,11 @@ const Layout = ({ children}) => {
       
         <Header />
         
-        <main className="dark:bg-gray-800 container relative flex-grow rounded-t mx-auto mt-20 p-4 sm:px-6 trasition ease-in-out duration-500">
+        <main className="dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-2 transition ease-in-out duration-500">
             {children}
         </main>
 
-        <div className="dark:bg-gray-800 flex-grow container rounded-b mx-auto px-10 mb-1 sm:px-6 trasition ease-in-out duration-500">
+        <div className="dark:bg-gray-800 flex-grow container rounded-b mx-auto px-10 mb-1 sm:px-6 transition ease-in-out duration-500">
         <Footer />
         </div>
     </>
