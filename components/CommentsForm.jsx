@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import { Tooltip, Checkbox } from "flowbite-react";
+import { Tooltip, Checkbox, Toast, Flowbite, Alert } from "flowbite-react";
 
 import { submitComment } from '../services'
 
@@ -7,6 +7,7 @@ const CommentsForm = ({ slug }) => {
     const [error, setError] = useState(false)
     const [localStorage, setLocalStorage] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+    const [showUndoSave, setShowUndoSave] = useState(false)
     const commentEl = useRef()
     const nameEl = useRef()
     const emailEl = useRef()
@@ -16,6 +17,7 @@ const CommentsForm = ({ slug }) => {
         nameEl.current.value = window.localStorage.getItem('name') || ''
         emailEl.current.value = window.localStorage.getItem('email') || ''
     }, [])
+    
 
     const handleCommentSubmission = () => {
         setError(false);
@@ -46,7 +48,11 @@ const CommentsForm = ({ slug }) => {
                     setShowSuccessMessage(false)
                 }, 30000)
             })
+        
+        
+        setShowUndoSave(true)
     }
+    // console.log(showUndoSave, "++++ showUndoSave on submission.")
 
   return (
     <div className='bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 sm:p-8 pb-12 m-0 mb-8 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl'>
@@ -166,6 +172,29 @@ const CommentsForm = ({ slug }) => {
                     Save my name, email, and website in this browser for the next time I comment.
                 </label>
             </div>
+            {showUndoSave &&
+                <Toast>
+                        <div className="text-sm font-normal">
+                            Conversation archived.
+                        </div>
+                        <div className="ml-auto flex items-center space-x-2">
+                            <button
+                            type="submit"
+                            onClick={() => 
+                                {
+                                    setShowUndoSave(false);
+                                    window.localStorage.removeItem('name');
+                                    window.localStorage.removeItem('email');
+                                }}
+                            className="rounded-lg p-1.5 text-sm font-medium text-blue-600 hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-700"
+                            href="#"
+                            >
+                            Undo
+                            </button>
+                            <Toast.Toggle />
+                        </div>
+                </Toast>
+            }
         </div>
         { error && 
             <div className='flex'>
@@ -199,14 +228,31 @@ const CommentsForm = ({ slug }) => {
         
         <div className='transition duration-700 ease-in-out'>
             { showSuccessMessage && 
-                <div className='flex my-8'>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 mr-2 text-green-500">
-                        <circle fill="currentColor" cx="12" cy="12" r="11"/>
-                        <path fill="#FFF" d="M17.83 7.8L10.587 15.043l-3.23-3.23a.984.984 0 0 0-1.392 0 .984.984 0 0 0 0 1.392l3.59 3.59a.984.984 0 0 0 1.392 0l7.667-7.667a.984.984 0 0 0 0-1.392.984.984 0 0 0-1.392 0z"/>
-                    </svg>
+                <div className='flex flex-col my-8'>
+                    <div className='flex mb-2'>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 mr-2 text-green-500">
+                            <circle fill="currentColor" cx="12" cy="12" r="11"/>
+                            <path fill="#FFF" d="M17.83 7.8L10.587 15.043l-3.23-3.23a.984.984 0 0 0-1.392 0 .984.984 0 0 0 0 1.392l3.59 3.59a.984.984 0 0 0 1.392 0l7.667-7.667a.984.984 0 0 0 0-1.392.984.984 0 0 0-1.392 0z"/>
+                        </svg>
 
-                    <p className="custom-success-message font-semibold dark:text-white text-sm italic">Your comment has been submitted for review.</p>
+                        <p className="custom-success-message font-semibold dark:text-white text-sm italic">Comment Submitted Successfully!</p>
+                    </div>
+                    
+                    <div className='flex mb-2'>
+                        <Alert
+                        color="success"
+                        onDismiss={function onDismiss(){setShowSuccessMessage(false); return alert("Alert dismissed!")}}
+                        >
+                        <span>
+                            <span className="font-medium">
+                            Success alert!
+                            </span>
+                            {' '}Thank you for your comment! We'll review it and publish it as soon as possible.
+                        </span>
+                        </Alert>
+                    </div>
                 </div>
+                
             }
         </div>
     </div>

@@ -230,36 +230,62 @@ const PostDetail = ({ post }) => {
                         h4: ({ children }) => <h4 className="text-xl font-semibold my-4">{children}</h4>,
                         h5: ({ children }) => <h5 className="text-gray-700 font-semibold">{children}</h5>,
                         h6: ({ children }) => <h6 className="text-gray-700 font-semibold">{children}</h6>,
-                        p: ({ children }) => <p className="text-gray-900 dark:text-gray-400">{children}</p>,
+                        p: ({ children }) => <p className="mb-8 text-gray-900 dark:text-gray-400">{children}</p>,
                         bold: ({ children }) => <span className="font-semibold text-sm text-gray-900 dark:text-gray-400">{children}</span>,
-                        italic: ({ children }) => <em className="relative text-gray-900 dark:text-white mr-1">{children}</em>,
+                        italic: ({ children }) => <em className="relative text-gray-900 dark:text-white mr-0">{children}</em>,
                         code: ({ children }) => <code className="bg-gray-200 dark:bg-gray-600 px-2 py-0 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</code>,
                         code_block:
                             ({ children }) => 
                         {
                             const [preContent, setPreContent] = useState("");
 
+                            // useEffect(() => {
+                            //     const childArray = React.Children.toArray(children);
+                            //     console.log(childArray[0]);
+                            //     let content = "";
+                            //     for (let i = 0; i < childArray.length; i++) {
+                            //         const child = childArray[i].props.content[0].text;
+                            //         // console.log(child);
+                            //         if (typeof child === "string") {
+                            //         content += child;
+                            //         } else if (child.props && child.props.children) {
+                            //         const grandchildArray = React.Children.toArray(child.props.children);
+                            //         for (let j = 0; j < grandchildArray.length; j++) {
+                            //             const grandchild = grandchildArray[j];
+                            //             if (typeof grandchild === "string") {
+                            //             content += grandchild;
+                            //             }
+                            //         }
+                            //         }
+                            //     }
+                            //     setPreContent(content);
+                            //     }, [children]);
+
                             useEffect(() => {
                                 const childArray = React.Children.toArray(children);
-                                console.log(childArray[0]);
+                                    // console.log(childArray[0]);
+                                    
                                 let content = "";
                                 for (let i = 0; i < childArray.length; i++) {
-                                    const child = childArray[i].props.content[0].text;
-                                    // console.log(child);
-                                    if (typeof child === "string") {
+                                  const child = childArray[i];
+                                //   console.log(child.props.content[0].children[0].text);
+                                  if (child.props && child.props.content && Array.isArray(child.props.content)) {
+                                    const text = child.props.content.reduce((acc, cur) => acc + cur.text, "");
+                                    content += text;
+                                  } else if (typeof child === "string") {
                                     content += child;
-                                    } else if (child.props && child.props.children) {
-                                    const grandchildArray = React.Children.toArray(child.props.children);
+                                  } else if (child.props && child.props.content.children) {
+                                    const grandchildArray = React.Children.toArray(child.props.content.children);
                                     for (let j = 0; j < grandchildArray.length; j++) {
-                                        const grandchild = grandchildArray[j];
-                                        if (typeof grandchild === "string") {
+                                      const grandchild = grandchildArray[j].props.content[0].children[0].text;
+                                      if (typeof grandchild === "string") {
                                         content += grandchild;
-                                        }
+                                      }
                                     }
-                                    }
+                                  }
                                 }
                                 setPreContent(content);
-                                }, [children]);
+                              }, [children]);
 
                             return (
                                 <div>
@@ -282,6 +308,8 @@ const PostDetail = ({ post }) => {
                         blockquote: ({ children }) => <blockquote className="text-red-700">{children}</blockquote>,
                         ol: ({ children }) => <ol className="list-decimal list-inside leading-10 bg-gray-200 dark:bg-gray-700 px-2 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
                         li: ({ children }) => <li className="text-gray-900 dark:text-gray-400">{children}</li>,
+                        ul: ({ children }) => <ul className="list-disc list-inside px-2 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
+                        
                         
                         }}
                     />

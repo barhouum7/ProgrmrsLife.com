@@ -71,8 +71,8 @@ const Header = () => {
           
             <Dropdown label="Categories" inline={true} trigger="hover" className="transition duration-700 ease-in-out transition-all">
                 {categories.map((category) => (
-              <Dropdown.Item className='navbar-item'>
-                  <Link key={category.slug} href={`/categories/${category.slug}`}>
+              <Dropdown.Item key={category.slug} className='navbar-item'>
+                  <Link href={`/categories/${category.slug}`}>
                         {category.name}
                     </Link>
               </Dropdown.Item>

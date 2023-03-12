@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import parser from 'html-react-parser'
 import Avatar from 'react-avatar';
+import md5 from 'md5'
 
 import { getComments } from '../services'
 
@@ -11,6 +12,21 @@ const Comments = ({ slug }) => {
         getComments(slug)
             .then((result) => setComments(result))
     }, [])
+
+
+    const getGravatarURL = ( email ) => {
+    // Trim leading and trailing whitespace from
+    // an email address and force all characters
+    // to lower case
+    const address = String( email ).trim().toLowerCase();
+
+    // Create an MD5 hash of the final string
+    const hash = md5( address );
+
+    // Grab the actual image URL
+    return `https://www.gravatar.com/avatar/${ hash }`;
+    }
+
 
     return (
         <div>
@@ -29,7 +45,8 @@ const Comments = ({ slug }) => {
                 </h3>
                 {comments.map((comment) => (
                     <div key={comment.createdAt} className='border-b border-gray-100 dark:border-gray-700 mb-4 pb-4'>
-                        <p className='mb-4'>
+                        {/* {console.log(comment.email)} */}
+                        <div className='mb-4'>
                             <span className='mr-1'>
                                 <Avatar 
                                 name={comment.name}
@@ -38,6 +55,8 @@ const Comments = ({ slug }) => {
                                 color="#5E60CE"
                                 fgColor="#F1F1F1"
                                 className='cursor-pointer'
+                                facebook-id="invalidfacebookusername"
+                                src={getGravatarURL(comment.email)}
                                 />
                             </span>
                             {' '}
@@ -46,7 +65,7 @@ const Comments = ({ slug }) => {
                             &nbsp;•&nbsp;
                             {' '}
                             <span className='text-gray-500 dark:text-gray-400'>{moment(comment.createdAt).fromNow()}</span>
-                        </p>
+                        </div>
                         <p className='whitespace-pre-line text-gray-600 dark:text-gray-400 w-full'>{parser(comment.comment)}</p>
                     </div>
                 ))}

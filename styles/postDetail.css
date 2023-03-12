@@ -29,6 +29,23 @@ transition: width 0.3s ease-out;
 width: 100%;
 }
 
+  .menu-item:hover .border-b-effect-footer {
+    transform: scaleX(1);
+  }
+  
+  .border-b-effect-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background-color: pink;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  
+
 
   em {
     position: relative;
