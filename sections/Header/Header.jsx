@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Logo from "../../components/Logo";
 import {useTheme} from "next-themes";
-import { DarkThemeToggle, Navbar, Dropdown } from "flowbite-react";
+import { DarkThemeToggle, Navbar, Dropdown, Tooltip } from "flowbite-react";
 import { Flowbite } from "flowbite-react";
 import{ SunIcon } from "@heroicons/react/20/solid";
 
@@ -86,7 +86,9 @@ const Header = () => {
           <Navbar.Toggle />
           {/* {renderThemeChanger()} */}
           <Flowbite>
-            <DarkThemeToggle />
+            <Tooltip content="Dark Mode is better!🤩" placement="left" style="dark" className='transition duration-700 ease-in-out'>
+              <DarkThemeToggle />
+            </Tooltip>
           </Flowbite>
           <SearchBar />
         </div>

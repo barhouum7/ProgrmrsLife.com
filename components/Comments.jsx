@@ -24,8 +24,24 @@ const Comments = ({ slug }) => {
     const hash = md5( address );
 
     // Grab the actual image URL
-    return `https://www.gravatar.com/avatar/${ hash }`;
-    }
+    const avatars = [
+    `https://www.gravatar.com/avatar/${ hash }?s=200&d=retro`,
+    `https://www.gravatar.com/avatar/${ hash }?s=200&d=identicon`,
+    `https://www.gravatar.com/avatar/${ hash }?s=200&d=monsterid`,
+    `https://www.gravatar.com/avatar/${ hash }?s=200&d=robohash`,
+    `https://www.gravatar.com/avatar/${ hash }?s=200&d=wavatar`,
+    // `https://www.gravatar.com/avatar/${ hash }?s=200&d=blank`,
+    `https://www.gravatar.com/avatar/${ hash }`,
+    
+];
+    
+
+    
+    const avatar = Math.floor( Math.random() * avatars.length );
+    
+    return avatars[avatar];
+
+}
 
 
     return (
@@ -55,7 +71,10 @@ const Comments = ({ slug }) => {
                                 color="#5E60CE"
                                 fgColor="#F1F1F1"
                                 className='cursor-pointer'
-                                facebook-id="invalidfacebookusername"
+                                // facebookId={comment.name}
+                                // googleId="118096717852922241760"
+                                // githubHandle={comment.name}
+                                // twitterHandle={comment.name}
                                 src={getGravatarURL(comment.email)}
                                 />
                             </span>

@@ -75,8 +75,8 @@ const CommentsForm = ({ slug }) => {
                             Name
                         </label>
                         <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4">
-                                <path fill="currentColor" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </span>
                     </div>
@@ -109,8 +109,8 @@ const CommentsForm = ({ slug }) => {
                             Email
                         </label>
                         <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4">
-                                <path fill="currentColor" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </span>
                     </div>
@@ -138,8 +138,8 @@ const CommentsForm = ({ slug }) => {
                         Comment
                     </label>
                     <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4">
-                            <path fill="currentColor" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </span>
                 </div>
@@ -173,25 +173,35 @@ const CommentsForm = ({ slug }) => {
                 </label>
             </div>
             {showUndoSave &&
-                <Toast>
+                <Toast className='bg-gray-200 shadow-xl hover:shadow-indigo-500/40 mb-4 transition duration-700 ease-in-out hover:shadow-2xl'>
                         <div className="text-sm font-normal">
                             Conversation archived.
                         </div>
                         <div className="ml-auto flex items-center space-x-2">
-                            <button
-                            type="submit"
-                            onClick={() => 
-                                {
-                                    setShowUndoSave(false);
-                                    window.localStorage.removeItem('name');
-                                    window.localStorage.removeItem('email');
-                                }}
-                            className="rounded-lg p-1.5 text-sm font-medium text-blue-600 hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-700"
-                            href="#"
+                            <Tooltip
+                            content="This removes your name and email from your browser, you'll have to enter them next time you comment."
+                            style="dark"
                             >
-                            Undo
-                            </button>
-                            <Toast.Toggle />
+                                <button
+                                type="submit"
+                                onClick={() => 
+                                    {
+                                        setShowUndoSave(false);
+                                        window.localStorage.removeItem('name');
+                                        window.localStorage.removeItem('email');
+                                    }}
+                                className="rounded-lg p-1.5 text-sm font-medium text-blue-600 hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-700"
+                                href="#"
+                                >
+                                Undo
+                                </button>
+                            </Tooltip>
+                            <Tooltip
+                            content="Click here to close this notification. If you want to keep your information saved for the next time you comment."
+                            style="dark"
+                            >
+                                <Toast.Toggle className='my-2' />
+                            </Tooltip>
                         </div>
                 </Toast>
             }
