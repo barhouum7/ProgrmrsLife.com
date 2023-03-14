@@ -150,7 +150,7 @@ const CommentsForm = ({ slug }) => {
             id="comment"
             name="comment"
             placeholder="Enter your comment here..."
-            className="block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline mb-4 resize-none h-32 font-normal "
+            className="block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline mb-4 resize-none h-32 font-normal"
             required
             />
         </div>

@@ -53,23 +53,39 @@ const BsGithub = () => {
   )
 }
 
-{/* <div className="text-center text-sm text-dark">
-        <div className="container mx-auto px-4">
-          <div className="flex pb-5 justify-center"> */}
-            {/* <div className="p-2">
-              <span className="font-bold text-lg mr-2 dark:text-gray-200"> Programmers Life</span>
-              <span className="dark:text-gray-400">
-                &copy; {new Date().getFullYear()}   All Rights Reserved
-              </span>
-            </div> */}
+const BsLinkedin = () => {
+  return (
+    
+      <Tooltip content="ProgrammersLife on LinkedIn" placement="top" style="dark" className="transition duration-700 ease-in-out">
+        <a href="https://www.linkedin.com/in/barhouum7/" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="mr-3 h-6 w-6 text-dark hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="0 2 67 70">
+            <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
+          </svg>
+        </a>
+      </Tooltip>
+  )
+}
+
+const BsYoutube = () => {
+  return (
+      <Tooltip content="ProgrammersLife on Youtube" placement="top" style="dark" className="transition duration-700 ease-in-out">
+        <a href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+        <svg viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mr-3">
+          <circle cx="12" cy="12" r="11" fill="currentColor" className="hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:hover:text-white dark:text-gray-400 transition duration-700 ease-in-out"/>
+          <path fill="currentColor" d="M9.75 15.438v-6.876l5.625 3.438-5.625 3.438z" className="text-red-700 dark:text-gray-800 dark:hover:text-red"/>
+        </svg>
+        </a>
+      </Tooltip>
+  )
+}
 
 const FooterSection = () => {
   return (
         
-    <footer className="p-4 sm:p-6 dark:bg-gray-900">
+    <footer className="p-4 container sm:p-6 dark:bg-gray-900 flex-grow container rounded-b mx-auto px-10 mb-1 sm:px-6 transition ease-in-out duration-500">
         <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-                <a href="https://programmerslife.site/" className="flex items-center">
+                <a href="https://programmerslife.site/" target="_blank" rel="noopener noreferrer" className="flex items-center">
                     <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
                     <img
                       alt="Programmers Life logo"
@@ -89,15 +105,15 @@ const FooterSection = () => {
                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                     <ul className="text-gray-900 dark:text-gray-400">
                         <li className="mb-4 relative flex">
-                            <a href="https://portfolio.programmerslife.site/" className="menu-item">Services <span className="border-b-effect-footer"></span></a>
+                            <a href="https://portfolio.programmerslife.site/" target="_blank" rel="noopener noreferrer" className="menu-item">Services <span className="border-b-effect-footer"></span></a>
                             <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
                         </li>
-                        <li className="mb-4 relative flex px-10">
-                            <a href="https://ask-chatgpt.programmerslife.site/" className="menu-item">Free Ai tools <span className="border-b-effect-footer"></span></a>
+                        <li className="mb-4 relative flex">
+                            <a href="https://ask-chatgpt.programmerslife.site/" target="_blank" rel="noopener noreferrer" className="menu-item">Free Ai tools <span className="border-b-effect-footer"></span></a>
                             <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
                         </li>
                         <li className="mb-4 relative">
-                            <a href="https://programmerslife.site/" className="menu-item">Blog <span className="border-b-effect-footer"></span></a>
+                            <a href="https://programmerslife.site/" target="_top" rel="noopener noreferrer" className="menu-item">Blog <span className="border-b-effect-footer"></span></a>
                         </li>
                     </ul>
                 </div>
@@ -105,11 +121,11 @@ const FooterSection = () => {
                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                     <ul className="text-gray-900 dark:text-gray-400">
                         <li className="mb-4 relative flex">
-                            <a href="https://github.com/barhouum7" className="menu-item">Github <span className="border-b-effect-footer"></span></a>
+                            <a href="https://github.com/barhouum7" target="_blank" rel="noopener noreferrer" className="menu-item">Github <span className="border-b-effect-footer"></span></a>
                             <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
                         </li>
                         <li className="mb-4 relative flex">
-                            <a href="http://link.programmerslife.site/" className="menu-item">LinkedIn <span className="border-b-effect-footer"></span></a>
+                            <a href="http://link.programmerslife.site/" target="_blank" rel="noopener noreferrer" className="menu-item">LinkedIn <span className="border-b-effect-footer"></span></a>
                             <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
                         </li>
                     </ul>
@@ -118,10 +134,10 @@ const FooterSection = () => {
                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                     <ul className="text-gray-900 dark:text-gray-400">
                         <li className="mb-4 relative">
-                            <a href="#" className="menu-item">Privacy Policy <span className="border-b-effect-footer"></span></a>
+                            <a href="#" target="_top" rel="noopener noreferrer" className="menu-item">Privacy Policy <span className="border-b-effect-footer"></span></a>
                         </li>
                         <li className="mb-4 relative">
-                            <a href="#" className="menu-item">Terms &amp; Conditions <span className="border-b-effect-footer"></span></a>
+                            <a href="#" target="_top" rel="noopener noreferrer" className="menu-item">Terms &amp; Conditions <span className="border-b-effect-footer"></span></a>
                         </li>
                     </ul>
                 </div>
@@ -129,7 +145,7 @@ const FooterSection = () => {
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
-            <span className="text-sm text-gray-900 sm:text-center dark:text-gray-400">© 2023 
+            <span className="text-sm text-gray-900 sm:text-center dark:text-gray-400">&copy; {new Date().getFullYear()}
             </span>
             &nbsp;
             <span className="text-sm sm:text-center text-gray-900 hover:text-white sm:text-center dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out">
@@ -144,86 +160,11 @@ const FooterSection = () => {
               <BsTwitter />
               <BsInstagram />
               <BsGithub />
-              {/* <BsLinkedin /> */}
-              {/* <BsYoutube /> */}
+              <BsLinkedin />
+              <BsYoutube />
             </div>
         </div>
     </footer>
-    
-    
-        // <Footer container={true}>
-        //   <div className="w-full">
-        //     <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-        //       <div>
-        //         <Footer.Brand href="/">
-        //         <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
-        //           <Logo />
-        //           <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
-        //             Programmers Life
-        //           </span>
-        //         </div>
-        //         </Footer.Brand>
-        //       </div>
-        //       <div className="grid grid-cols-4 gap-4 sm:mt-4 sm:grid-cols-3 sm:gap-6">
-        //         <div>
-        //           <Footer.Title title="about" />
-        //           <Footer.LinkGroup col={true}>
-        //             <Footer.Link href="#">
-        //               Flowbite
-        //             </Footer.Link>
-        //             <Footer.Link href="#">
-        //               Tailwind CSS
-        //             </Footer.Link>
-        //           </Footer.LinkGroup>
-        //         </div>
-        //         <div>
-        //           <Footer.Title title="Follow us" />
-        //           <Footer.LinkGroup col={true}>
-        //             <Footer.Link href="#">
-        //               Github
-        //             </Footer.Link>
-        //             <Footer.Link href="#">
-        //               Discord
-        //             </Footer.Link>
-        //           </Footer.LinkGroup>
-        //         </div>
-        //         <div>
-        //           <Footer.Title title="Legal" />
-        //           <Footer.LinkGroup col={true}>
-        //             <Footer.Link href="#">
-        //               Privacy Policy
-        //             </Footer.Link>
-        //             <Footer.Link href="#">
-        //               Terms & Conditions
-        //             </Footer.Link>
-        //           </Footer.LinkGroup>
-        //         </div>
-        //       </div>
-        //     </div>
-        //     <Footer.Divider />
-        //     <div className="w-full sm:flex sm:items-center sm:justify-between">
-        //       <Footer.Copyright
-        //         href="#"
-        //         by="Flowbite™"
-        //         year={2022}
-        //       />
-        //       <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-        //         <Footer.Icon
-        //           icon={BsFacebook}
-        //         />
-        //         <Footer.Icon
-        //           icon={BsInstagram}
-        //         />
-        //         <Footer.Icon
-        //           icon={BsTwitter}
-        //         />
-        //         <Footer.Icon
-        //           icon={BsGithub}
-        //         />
-        //       </div>
-        //     </div>
-        //   </div>
-        // </Footer>
   );
 };
 

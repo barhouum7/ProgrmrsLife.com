@@ -1,5 +1,6 @@
 import Header from "./Header/Header";
 import Footer from "./FooterSection";
+import { Subscribe } from "../components";
 import Head from "next/head";
 
 const Layout = ({ children}) => {
@@ -15,10 +16,11 @@ const Layout = ({ children}) => {
         <main className="dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-2 transition ease-in-out duration-500">
             {children}
         </main>
-
-        <div className="dark:bg-gray-800 flex-grow container rounded-b mx-auto px-10 mb-1 sm:px-6 transition ease-in-out duration-500">
+        
+        <Subscribe />
+        {/* <div className="dark:bg-gray-800 flex-grow container rounded-b mx-auto px-10 mb-1 sm:px-6 transition ease-in-out duration-500"> */}
         <Footer />
-        </div>
+        {/* </div> */}
     </>
   );
 };

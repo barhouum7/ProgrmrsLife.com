@@ -8,8 +8,12 @@ import moment from 'moment';
 
 import Link from 'next/link';
 
-const PostDetail = ({ post }) => {
+import { Tooltip } from "flowbite-react";
 
+
+
+const PostDetail = ({ post }) => {
+    
     const getMinutesRead = (text) => {
         const words = text.split(' ').length;
         const wordsPerMinute = 10;
@@ -17,6 +21,56 @@ const PostDetail = ({ post }) => {
         return minutes;
     }
     
+    const BsFacebook = () => {
+        return (
+            <div className="mr-3">
+            <Tooltip content="Share on Facebook" placement="top" style="dark" className="transition duration-700 ease-in-out">
+            <a href={`https://www.facebook.com/v5.0/dialog/share?app_id=5864440530335233&href=${encodeURIComponent(`https://programmerslife.site/post/${post.slug}`)}&display=page&redirect_uri=https%3A%2F%2Fprogrammerslife.site%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`} target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path></svg>
+                </a>  
+            </Tooltip>
+            </div>
+        )
+        }
+        
+        
+        const BsTwitter = () => {
+        return (
+            <div className="mr-3">
+            <Tooltip content="Share on Twitter" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                <a href={`https://twitter.com/share?url=${encodeURIComponent(`https://programmerslife.site/post/${post.slug}`)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path></svg>
+                </a>
+            </Tooltip>
+            </div>
+        )
+        }
+        
+        const BsLinkedin = () => {
+        return (
+            
+            <Tooltip content="ProgrammersLife on LinkedIn" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                <a href="https://www.linkedin.com/in/barhouum7/" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="mr-3 h-6 w-6 text-dark hover:text-white animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="0 2 67 70">
+                    <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
+                </svg>
+                </a>
+            </Tooltip>
+        )
+        }
+        
+        const BsYoutube = () => {
+        return (
+            <Tooltip content="ProgrammersLife on Youtube" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                <a href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+                <svg viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mr-3">
+                <circle cx="12" cy="12" r="11" fill="currentColor" className="hover:text-white animate-bounce dark:hover:text-white dark:text-gray-400 transition duration-700 ease-in-out"/>
+                <path fill="currentColor" d="M9.75 15.438v-6.876l5.625 3.438-5.625 3.438z" className="text-red-700 dark:text-gray-800 dark:hover:text-red"/>
+                </svg>
+                </a>
+            </Tooltip>
+        )
+    }
 
     // const getContentFragment = (index, text, obj, type) => {
     // let modifiedText = text;
@@ -179,6 +233,10 @@ const PostDetail = ({ post }) => {
                                 {getMinutesRead(post.excerpt)} min read
                             </span>
                         </div>
+                    </div>
+                    <div className='flex'>
+                        <BsTwitter />
+                        <BsFacebook />
                     </div>
                     <h1 className='mb-8 mt-4 text-3xl font-semibold'>
                         {post.title}
