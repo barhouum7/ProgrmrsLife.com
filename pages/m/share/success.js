@@ -13,11 +13,11 @@ const success = () => {
                     <p className="mb-4 text-md md:text-lg text-white dark:text-gray-400">Your support means the world to us. <br/><br/>If you enjoyed this content, consider subscribing to our newsletter to receive more articles like this one in your inbox every week.<br/><br/> We also encourage you to join the conversation by leaving your thoughts and comments in post page, or on our social media channels.</p>
                 </div>
                 <Image
-                    alt="Error 404 Page Not Found"
-                    src="/imgs/404-computer.svg"
+                    alt="Successfully done"
+                    src="/imgs/successfully-done.gif"
                     width={500}
                     height={500}
-                    className='cursor-pointer ml-0 mr-0 sm:ml-0 sm:mr-0 w-1/1 md:w-full'
+                    className='cursor-pointer ml-0 mr-0 sm:ml-0 sm:mr-0'
                 />
             </div>
             <div className="sm:flex flex items-center justify-center mt-0">

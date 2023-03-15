@@ -87,7 +87,10 @@ const Header = () => {
           {/* {renderThemeChanger()} */}
           <Flowbite>
             <Tooltip content="Dark Mode is better!🤩" placement="left" style="dark" className='transition duration-700 ease-in-out'>
-              <DarkThemeToggle />
+              <span className="w-10 h-10 text-gray-900 dark:hover:text-yellow-400 dark:hover:shadow-lg dark:hover:scale-110 dark:hover:rotate-12 dark:hover:translate-x-2 dark:hover:translate-y-2 dark:hover:skew-x-6 dark:hover:skew-y-6 dark:hover:origin-center dark:hover:duration-500 dark:hover:ease-in-out dark:hover:transition-all dark:hover:transform-gpu dark:hover:transform-none dark:hover:transform md:hover:transform-none md:hover:transform md:hover:transform-gpu md:hover:transition-all md:hover:ease-in-out md:hover:duration-500 md:hover:origin-center md:hover:skew-y-6 md:hover:skew-x-6 md:hover:translate-y-2 md:hover:translate-x-2 md:hover:rotate-12 md:hover:scale-110 md:hover:shadow-lg md:hover:text-yellow-400 md:hover:text-gray-900">
+                <DarkThemeToggle
+                />
+              </span>
             </Tooltip>
           </Flowbite>
           <SearchBar />

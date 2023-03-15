@@ -1,73 +1,245 @@
 import React, { useState, useEffect, useRef } from 'react';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
+
 import { Prism } from '@mantine/prism';
 
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import moment from 'moment';
 
 import Link from 'next/link';
-
 import { Tooltip } from "flowbite-react";
 
 
 
-const PostDetail = ({ post }) => {
+
+const PostDetail = ({ post, onCopyToClipboard, isCopied }) => {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isPaused, setIsPaused] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+
+
+    const handlePause = () => {
+        setIsPlaying(false);
+        setIsPaused(true);
+        
+        const synth = window.speechSynthesis;
+        if (synth.speaking) {
+          synth.pause();
+        }
+      };
+
+    const handlePlay = () => {
+        setIsPlaying(true);
+        setIsPaused(false);
+        
+        const synth = window.speechSynthesis;
+        
+        if (synth.paused) {
+            synth.resume();
+        } else {
+        
+            // const voices = synth.getVoices();
+            // const voice = voices.find(voice => voice.name === "Google UK English Female");
+            const utterance = new SpeechSynthesisUtterance([post.title, post.content.html]);
+            // setIsPlaying(true);
+            utterance.onstart = () => setIsPlaying(true);
+            utterance.onend = () => setIsPlaying(false);
+            utterance.onerror = () => setIsPlaying(false);
+            utterance.rate = 0.8;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            utterance.lang = 'en-US';
+            utterance.voice = synth.getVoices()[1];
+            utterance.voiceURI = 'native';
+            utterance.currentTime = currentTime;
+            synth.speak(utterance);
+            // window.speechSynthesis.speak(utterance);
+        }
+    };
+    
+        useEffect(() => {
+        return () => {
+            window.speechSynthesis.cancel();
+        };
+        }, []);
+
+        const handleStop = () => {
+            setIsPlaying(false);
+            setIsPaused(false);
+            const synth = window.speechSynthesis;
+            synth.cancel();
+        };
+
+        const handleForward = () => {
+            const synth = window.speechSynthesis;
+            if (synth.speaking && !synth.paused) {
+                const time = Math.min(currentTime + 10000, synth.getVoices()[1].utteranceLength);
+                setCurrentTime(time);
+                synth.cancel();
+                handlePlay();
+            }
+        };
+        
+        const handleBackward = () => {
+            const synth = window.speechSynthesis;
+            if (synth.speaking && !synth.paused) {
+                const time = Math.max(currentTime - 10000, 0);
+                setCurrentTime(time);
+                synth.cancel();
+                handlePlay();
+            }
+        };
+    
+    
+    const [buttonText, setButtonText] = useState(false);
+    const handleLinkedInClick = () => {
+        const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+        const articleTitle = encodeURIComponent(post.title);
+        const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?mini=true&url=${articleUrl}&title=${articleTitle}`;
+        window.open(linkedInUrl, 'linkedin-share-dialog', 'width=626,height=436');
+        };
+
+        const handleFacebookClick = () => {
+        const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+        const facebookAppId = '5864440530335233';
+        const facebookUrl = `https://www.facebook.com/dialog/share?app_id=${facebookAppId}&display=popup&href=${articleUrl}&redirect_uri=https%3A%2F%2Fprogrammerslife.site%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`;
+        window.open(facebookUrl, 'facebook-share-dialog', 'width=626,height=436');
+        };
+
+        const handleTwitterClick = () => {
+        const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+        const articleTitle = encodeURIComponent(post.title);
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${articleTitle}&url=${articleUrl}`;
+        window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
+        };
+
+        const handleCopyClick = () => {
+            onCopyToClipboard();
+        };
+
+        useEffect(() => {
+            if (isCopied) {
+                setButtonText(true);
+                setTimeout(() => {
+                setButtonText(false);
+                }, 2000);
+            } else {
+              setButtonText(false);
+            }
+          }, [isCopied]);
+
     
     const getMinutesRead = (text) => {
         const words = text.split(' ').length;
-        const wordsPerMinute = 10;
+        const wordsPerMinute = 60;
         const minutes = Math.round(words / wordsPerMinute);
         return minutes;
     }
     
+    const BsPlayFill = () => {
+        return (
+            <Tooltip content="Listen to this article" placement="top" style="dark" className="transition duration-700 ease-in-out">
+            <button
+            onClick={handlePlay}
+            className='flex ml-3 mt-1'
+            >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 text-green-500 hover:text-black hover:animate-bounce dark:text-green-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm2.8 8.51l-3.69 2.46a.62.62 0 0 1-.96-.5V5.53a.62.62 0 0 1 .96-.51l3.7 2.46a.62.62 0 0 1 0 1.02z" fill="currentColor"></path></svg>
+                <span className='text-gray-700 dark:text-gray-200 ml-1 mb-1 text-sm font-semibold'>{isPlaying ? "Listening..." : "Listen"}</span>
+            </button>
+            
+            </Tooltip>
+        )
+    }
+    
+    const BsPauseFill = () => {
+        return (
+            <Tooltip content="Pause the speech" placement="top" style="dark" className="transition duration-700 ease-in-out">
+            <button
+            onClick={handlePause}
+            className='flex ml-3 mt-1'
+            >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 text-green-500 hover:text-black hover:animate-bounce dark:text-green-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM6.77 10.46a.62.62 0 1 1-1.23 0V5.54a.62.62 0 0 1 1.23 0v4.92zm3.7 0a.62.62 0 1 1-1.24 0V5.54a.62.62 0 0 1 1.23 0v4.92z" fill="currentColor"></path></svg>
+                <span className='text-gray-700 dark:text-gray-200 ml-1 mb-1 text-sm font-semibold'>{isPlaying ? "Listening..." : "Listen"}</span>
+            </button>
+            
+            </Tooltip>
+        )
+    }
+    
+    const BsStopFill = () => {
+        return (
+            <Tooltip content="Stop the speech" placement="top" style="dark" className="transition duration-700 ease-in-out">
+            &nbsp;•&nbsp;
+            <button onClick={handleStop} className="mr-1 mt-1 cursor-pointer">
+                <svg className='h-4 w-4 text-green-500 hover:text-black hover:animate-bounce dark:text-green-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24">
+                    <circle cx="12" cy="12" r="11" stroke="currentColor" strokeWidth="2" fill="none" />
+                    <rect x="9" y="9" width="6" height="6" fill="currentColor" />
+                </svg>
+            </button>
+            
+            </Tooltip>
+        )
+    }
+    
+    const BsBackwardFill = () => {
+        return (
+            <Tooltip content="Backward the speech" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                &nbsp;•&nbsp;<button onClick={handleBackward} className="mr-1 cursor-pointer">-10s</button>
+            </Tooltip>
+        )
+    }
+    
+    const BsForwardFill = () => {
+        return (
+            <Tooltip content="Forward the speech" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                &nbsp;•&nbsp;<button onClick={handleForward} className="mr-1 cursor-pointer">+10s</button>
+            </Tooltip>
+        )
+    }
+
     const BsFacebook = () => {
         return (
-            <div className="mr-3">
             <Tooltip content="Share on Facebook" placement="top" style="dark" className="transition duration-700 ease-in-out">
-            <a href={`https://www.facebook.com/v5.0/dialog/share?app_id=5864440530335233&href=${encodeURIComponent(`https://programmerslife.site/post/${post.slug}`)}&display=page&redirect_uri=https%3A%2F%2Fprogrammerslife.site%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`} target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path></svg>
-                </a>  
+            <button onClick={handleFacebookClick} className="mr-3 cursor-pointer">
+                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path></svg> 
+            </button>
             </Tooltip>
-            </div>
         )
-        }
+    }
         
         
         const BsTwitter = () => {
         return (
-            <div className="mr-3">
-            <Tooltip content="Share on Twitter" placement="top" style="dark" className="transition duration-700 ease-in-out">
-                <a href={`https://twitter.com/share?url=${encodeURIComponent(`https://programmerslife.site/post/${post.slug}`)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+            <Tooltip content="Tweet this post" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                <button onClick={handleTwitterClick} className="mr-3 cursor-pointer">                
                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path></svg>
-                </a>
-            </Tooltip>
-            </div>
-        )
-        }
-        
-        const BsLinkedin = () => {
-        return (
-            
-            <Tooltip content="ProgrammersLife on LinkedIn" placement="top" style="dark" className="transition duration-700 ease-in-out">
-                <a href="https://www.linkedin.com/in/barhouum7/" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="mr-3 h-6 w-6 text-dark hover:text-white animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="0 2 67 70">
-                    <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
-                </svg>
-                </a>
+                </button>
             </Tooltip>
         )
         }
         
-        const BsYoutube = () => {
+        const BsLinkedIn = () => {
         return (
-            <Tooltip content="ProgrammersLife on Youtube" placement="top" style="dark" className="transition duration-700 ease-in-out">
-                <a href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
-                <svg viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mr-3">
-                <circle cx="12" cy="12" r="11" fill="currentColor" className="hover:text-white animate-bounce dark:hover:text-white dark:text-gray-400 transition duration-700 ease-in-out"/>
-                <path fill="currentColor" d="M9.75 15.438v-6.876l5.625 3.438-5.625 3.438z" className="text-red-700 dark:text-gray-800 dark:hover:text-red"/>
-                </svg>
-                </a>
+            <Tooltip content="Share on LinkedIn" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                <button onClick={handleLinkedInClick} className="mr-3 mt-1 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="0 2 67 70">
+                        <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
+                    </svg>
+                </button>
+            </Tooltip>
+        )
+        }
+        
+        const BsLink = () => {
+        return (
+            <Tooltip content={ buttonText ? 'Link copied to clipboard!' : 'Copy link' } placement="top" style="dark" className="transition duration-700 ease-in-out">
+                <button onClick={handleCopyClick} className="mr-3 cursor-pointer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className='h-6 w-6 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out'>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M3.57 14.67c0-.57.13-1.11.38-1.6l.02-.02v-.02l.02-.02c0-.02 0-.02.02-.02.12-.26.3-.52.57-.8L7.78 9v-.02l.01-.02c.44-.41.91-.7 1.44-.85a4.87 4.87 0 0 0-1.19 2.36A5.04 5.04 0 0 0 8 11.6L6.04 13.6c-.19.19-.32.4-.38.65a2 2 0 0 0 0 .9c.08.2.2.4.38.57l1.29 1.31c.27.28.62.42 1.03.42.42 0 .78-.14 1.06-.42l1.23-1.25.79-.78 1.15-1.16c.08-.09.19-.22.28-.4.1-.2.15-.42.15-.67 0-.16-.02-.3-.06-.45l-.02-.02v-.02l-.07-.14s0-.03-.04-.06l-.06-.13-.02-.02c0-.02 0-.03-.02-.05a.6.6 0 0 0-.14-.16l-.48-.5c0-.04.02-.1.04-.15l.06-.12 1.17-1.14.09-.09.56.57c.02.04.08.1.16.18l.05.04.03.06.04.05.03.04.04.06.1.14.02.02c0 .02.01.03.03.04l.1.2v.02c.1.16.2.38.3.68a1 1 0 0 1 .04.25 3.2 3.2 0 0 1 .02 1.33 3.49 3.49 0 0 1-.95 1.87l-.66.67-.97.97-1.56 1.57a3.4 3.4 0 0 1-2.47 1.02c-.97 0-1.8-.34-2.49-1.03l-1.3-1.3a3.55 3.55 0 0 1-1-2.51v-.01h-.02v.02zm5.39-3.43c0-.19.02-.4.07-.63.13-.74.44-1.37.95-1.87l.66-.67.97-.98 1.56-1.56c.68-.69 1.5-1.03 2.47-1.03.97 0 1.8.34 2.48 1.02l1.3 1.32a3.48 3.48 0 0 1 1 2.48c0 .58-.11 1.11-.37 1.6l-.02.02v.02l-.02.04c-.14.27-.35.54-.6.8L16.23 15l-.01.02-.01.02c-.44.42-.92.7-1.43.83a4.55 4.55 0 0 0 1.23-3.52L18 10.38c.18-.21.3-.42.35-.65a2.03 2.03 0 0 0-.01-.9 1.96 1.96 0 0 0-.36-.58l-1.3-1.3a1.49 1.49 0 0 0-1.06-.42c-.42 0-.77.14-1.06.4l-1.2 1.27-.8.8-1.16 1.15c-.08.08-.18.21-.29.4a1.66 1.66 0 0 0-.08 1.12l.02.03v.02l.06.14s.01.03.05.06l.06.13.02.02.01.02.01.02c.05.08.1.13.14.16l.47.5c0 .04-.02.09-.04.15l-.06.12-1.15 1.15-.1.08-.56-.56a2.3 2.3 0 0 0-.18-.19c-.02-.01-.02-.03-.02-.04l-.02-.02a.37.37 0 0 1-.1-.12c-.03-.03-.05-.04-.05-.06l-.1-.15-.02-.02-.02-.04-.08-.17v-.02a5.1 5.1 0 0 1-.28-.69 1.03 1.03 0 0 1-.04-.26c-.06-.23-.1-.46-.1-.7v.01z" fill="currentColor">
+                        </path>
+                    </svg>
+                </button>
             </Tooltip>
         )
     }
@@ -197,7 +369,7 @@ const PostDetail = ({ post }) => {
                     />
                 </div>
                 <div className="px-4 lg:px-0">
-                    <div className="lg:flex block items-center mb-8 w-full">
+                    <div className="lg:flex block items-center mb-4 w-full">
                         <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-2">
                             <img
                                 alt={post.author.name}
@@ -230,13 +402,24 @@ const PostDetail = ({ post }) => {
                                 </svg>
                             </span>
                             <span className='text-gray-700 dark:text-gray-200'>
-                                {getMinutesRead(post.excerpt)} min read
+                                {getMinutesRead(post.content.html)} min read
                             </span>
                         </div>
                     </div>
-                    <div className='flex'>
+                    <div className='sm:flex flex items-center justify-center mb-8'>
                         <BsTwitter />
                         <BsFacebook />
+                        <BsLinkedIn />
+                        <BsLink />
+                        &nbsp;•&nbsp;
+                        {isPlaying ? <BsPauseFill /> : <BsPlayFill />}
+                        {isPlaying &&
+                            <span className='flex text-gray-700 dark:text-gray-200'>
+                                <BsStopFill />
+                                <BsBackwardFill />
+                                <BsForwardFill />
+                            </span>
+                        }
                     </div>
                     <h1 className='mb-8 mt-4 text-3xl font-semibold'>
                         {post.title}
