@@ -82,7 +82,7 @@ const BsYoutube = () => {
 const FooterSection = () => {
   return (
         
-    <footer className="p-4 container sm:p-6 dark:bg-gray-900 flex-grow container rounded-b mx-auto px-10 mb-1 sm:px-6 transition ease-in-out duration-500">
+    <footer className="p-4 container sm:p-6 dark:bg-gray-900 flex-grow rounded-b mx-auto px-10 mb-1 sm:px-6 transition ease-in-out duration-500">
         <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
                 <a href="https://programmerslife.site/" target="_blank" rel="noopener noreferrer" className="flex items-center">

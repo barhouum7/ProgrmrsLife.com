@@ -12,7 +12,7 @@ const Layout = ({ children}) => {
       </Head>
       
         <Header />
-        <main className="dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-2 transition ease-in-out duration-500">
+        <main className="container relative flex-grow rounded-t mx-auto transition ease-in-out duration-500">
             {children}
         </main>
         <ScrollToTopButton />
