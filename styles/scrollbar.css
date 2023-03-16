@@ -1,0 +1,20 @@
+::-webkit-scrollbar {
+    width: 8px; /* width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* color of the track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    /* color of the scroll thumb */
+    background: linear-gradient(190deg, #00b4db 10%, #a20dc7 100%);
+    border-radius: 3px; /* roundness of the scroll thumb */
+  }
+  
+  /* force the scrollbar to appear even if there is not enough content */
+  .scroll-container {
+    overflow-y: scroll;
+    height: 200px; /* set the height of the container */
+  }
+  

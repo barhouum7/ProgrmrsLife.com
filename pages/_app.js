@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes"
 
 import '../styles/globals.scss'
 import '../styles/postDetail.css'
+import '../styles/scrollbar.css'
 import 'tailwindcss/tailwind.css'
 
 
