@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+// import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { getPosts, getPostDetails } from "../../services"
 
-import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm } from "../../components"
+import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader } from "../../components"
 import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post }) => {
     const [isCopied, setIsCopied] = useState(false);
 
+
+    // const router = useRouter();
+    // if (router.isFallback) {
+    //     return <Loader />
+    // }
 
     const copyToClipboard = () => {
         const link = `https://programmerslife.site/post/${post.slug}`;

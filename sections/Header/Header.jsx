@@ -51,7 +51,7 @@ const Header = () => {
   return (              
     <header className="relative h-32 w-32">
     {/* <Navbar fluid className="w-full backdrop-filter backdrop-blur-lg fixed top-0 h-16 z-30  duration-500"> */}
-    <Navbar fluid={true} className={`w-full h-16 z-10 fixed top-0 left-0 w-screen backdrop-filter backdrop-blur-lg dark:bg-gray-800 flex-grow sm:px-6 rounded-b shadow-lg dark:border-gray-700 trasition ease-in-out transition-all duration-500
+    <Navbar fluid={true} className={`w-full h-16 z-10 fixed top-0 left-0 w-screen backdrop-filter backdrop-blur-lg dark:bg-gray-800 flex-grow sm:px-6 rounded-b shadow-lg dark:border-gray-700 transition ease-in-out transition-all duration-500
           ${isScrolled ? "bg-white" : "bg-transparent"}`}>
       <Navbar.Brand href="/">
         <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
@@ -72,7 +72,7 @@ const Header = () => {
             <Dropdown label="Categories" inline={true} trigger="hover" className="transition duration-700 ease-in-out transition-all">
                 {categories.map((category) => (
               <Dropdown.Item key={category.slug} className='navbar-item'>
-                  <Link href={`/categories/${category.slug}`}>
+                  <Link href={`/category/${category.slug}`}>
                         {category.name}
                     </Link>
               </Dropdown.Item>
