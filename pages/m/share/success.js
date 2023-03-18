@@ -15,8 +15,8 @@ const success = () => {
                 <Image
                     alt="Successfully done"
                     src="/imgs/successfully-done.gif"
-                    width={500}
-                    height={500}
+                    width={300}
+                    height={300}
                     className='cursor-pointer ml-0 mr-0 sm:ml-0 sm:mr-0'
                 />
             </div>
