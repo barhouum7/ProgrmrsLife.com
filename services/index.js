@@ -144,6 +144,17 @@ export const getCategories = async () => {
 }
 
 
+export const submitEmail = async (obj) => {
+    const result = await fetch('/api/newsletterSubscribers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+    })
+
+    return result.json();
+}
+
+
 export const submitComment = async (obj) => {
     const result = await fetch('/api/comments', {
         method: 'POST',
@@ -153,6 +164,7 @@ export const submitComment = async (obj) => {
 
     return result.json();
 }
+
 
 
 export const getComments = async (slug) => {

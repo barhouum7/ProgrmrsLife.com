@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
-import { Tooltip, Flowbite, Alert } from "flowbite-react";
+import { Alert } from "flowbite-react";
+import { submitEmail } from '../services'
+
 
 const Subscribe = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
@@ -8,10 +10,18 @@ const Subscribe = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Your newsletter subscription logic here
-        console.log(email);
-        setTimeout(() => {
-            setShowSuccessMessage(true);
-        }, 2000);
+
+        const emailObj = {
+            email: email
+        }
+
+        submitEmail(emailObj)
+            .then((res) => {
+                setShowSuccessMessage(true)
+                setTimeout(() => {
+                    setShowSuccessMessage(false)
+                }, 30000)
+            })
     };
 
 return (
