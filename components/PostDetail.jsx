@@ -93,25 +93,39 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied }) => {
     
     
     const [buttonText, setButtonText] = useState(false);
-    const handleLinkedInClick = () => {
-        const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
-        const articleTitle = encodeURIComponent(post.title);
-        const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?mini=true&url=${articleUrl}&title=${articleTitle}`;
-        window.open(linkedInUrl, 'linkedin-share-dialog', 'width=626,height=436');
+        const handleLinkedInClick = () => {
+            const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+            const articleTitle = encodeURIComponent(post.title);
+            const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
+            const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?mini=true&url=${articleUrl}&title=${articleTitle}&redirect_uri=${redirectUri}`;
+            window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank')
+            setTimeout(() => {
+                window.open(linkedInUrl, 'linkedin-share-dialog', 'width=626,height=436');
+            }, 1000);
+            // window.open(redirectUri, '_blank');
+            // window.open(linkedInUrl, '_blank');
         };
 
         const handleFacebookClick = () => {
         const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
         const facebookAppId = '5864440530335233';
         const facebookUrl = `https://www.facebook.com/dialog/share?app_id=${facebookAppId}&display=popup&href=${articleUrl}&redirect_uri=https%3A%2F%2Fprogrammerslife.site%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`;
-        window.open(facebookUrl, 'facebook-share-dialog', 'width=626,height=436');
+        window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank')
+        setTimeout(() => {
+            window.open(facebookUrl, 'facebook-share-dialog', 'width=626,height=436');
+        }, 1000);
+        // window.open(facebookUrl, '_blank');
         };
 
         const handleTwitterClick = () => {
         const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
         const articleTitle = encodeURIComponent(post.title);
-        const twitterUrl = `https://twitter.com/intent/tweet?text=${articleTitle}&url=${articleUrl}`;
-        window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
+        const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr&url=${redirectUri}`;
+        window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank')
+        setTimeout(() => {
+            window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
+        }, 1000);
         };
 
         const handleCopyClick = () => {
