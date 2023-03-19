@@ -1,4 +1,5 @@
-import { request, gql } from 'graphql-request'
+import { request, gql } from 'graphql-request';
+import handleErrors from './handleErrors';
 
 // import * as dotenv from 'dotenv';
 
@@ -42,7 +43,7 @@ export const getPosts = async () => {
         }
       }
     `
-    const result = await request(graphqlAPI, query)
+    const result = await handleErrors(graphqlAPI, query)
 
     // return result.postsConnection.edges.map(({ node }) => node)
     return result.postsConnection.edges;
@@ -80,7 +81,7 @@ export const getPostDetails = async (slug) => {
         }
     }
     `
-    const result = await request(graphqlAPI, query, { slug })
+    const result = await handleErrors(graphqlAPI, query, { slug })
 
     return result.post;
 };
@@ -102,7 +103,7 @@ export const getRecentPosts = async () => {
         }
     }
     `
-    const result = await request(graphqlAPI, query)
+    const result = await handleErrors(graphqlAPI, query)
     return result.posts;
 }
 
@@ -125,7 +126,7 @@ export const getSimilarPosts = async (categories, slug) => {
         }
     }
     `
-    const result = await request(graphqlAPI, query, { categories, slug })
+    const result = await handleErrors(graphqlAPI, query, { categories, slug })
     return result.posts;
 }
 
@@ -139,7 +140,7 @@ export const getCategories = async () => {
         }
     }
     `
-    const result = await request(graphqlAPI, query)
+    const result = await handleErrors(graphqlAPI, query)
     return result.categories;
 }
 
@@ -178,7 +179,7 @@ export const getComments = async (slug) => {
             }
         }
     `
-    const result = await request(graphqlAPI, query, { slug })
+    const result = await handleErrors(graphqlAPI, query, { slug })
     return result.comments;
 }
 
@@ -203,7 +204,7 @@ export const getComments = async (slug) => {
         }   
     `;
 
-    const result = await request(graphqlAPI, query);
+    const result = await handleErrors(graphqlAPI, query);
 
     return result.posts;
     };
@@ -238,7 +239,7 @@ export const getAdjacentPosts = async (createdAt, slug) => {
         }
     `;
     
-    const result = await request(graphqlAPI, query, { slug, createdAt });
+    const result = await handleErrors(graphqlAPI, query, { slug, createdAt });
     
     return { next: result.next[0], previous: result.previous[0] };
     };
@@ -275,7 +276,7 @@ export const getCategoryPost = async (slug) => {
         }
     `;
     
-    const result = await request(graphqlAPI, query, { slug });
+    const result = await handleErrors(graphqlAPI, query, { slug });
     
     return result.postsConnection.edges;
     };
