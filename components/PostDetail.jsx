@@ -13,11 +13,11 @@ import { Tooltip } from "flowbite-react";
 
 
 
-const PostDetail = ({ post, onCopyToClipboard, isCopied }) => {
+const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
-
+    const [buttonText, setButtonText] = useState(false);
 
     const handlePause = () => {
         setIsPlaying(false);
@@ -91,41 +91,98 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied }) => {
             }
         };
     
-    
-    const [buttonText, setButtonText] = useState(false);
-        const handleLinkedInClick = () => {
+        const handleLinkedInClick  = () => {
             const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
             const articleTitle = encodeURIComponent(post.title);
             const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
             const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?mini=true&url=${articleUrl}&title=${articleTitle}&redirect_uri=${redirectUri}`;
-            window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank')
-            setTimeout(() => {
-                window.open(linkedInUrl, 'linkedin-share-dialog', 'width=626,height=436');
-            }, 1000);
+
             // window.open(redirectUri, '_blank');
             // window.open(linkedInUrl, '_blank');
+
+            const linkedInWindow = window.open(linkedInUrl, 'linkedin-share-dialog', 'width=626,height=436');
+            const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+
+            if ((!linkedInWindow || !successWindow) || (linkedInWindow.closed || successWindow.closed) || (typeof linkedInWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
+                // Display a message to the user asking them to enable popups for your website
+                onEnablePopupMessage();
+                linkedInWindow.close();
+            } else if (!(!linkedInWindow || !successWindow) || !(linkedInWindow.closed || successWindow.closed) || !(typeof linkedInWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
+                successWindow.close();
+            } else if (typeof linkedInWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined') {
+                successWindow.close();
+            } else if (window.document.readyState === 'complete') {
+                successWindow.close();
+            } else {
+                window.open(linkedInUrl, 'linkedIn-share-dialog', 'width=626,height=436');
+            }
+            if (!(typeof linkedInWindow.closed === 'undefined' || linkedInWindow.closed)) {
+                window.setTimeout(function() {
+                    window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+                }, 20000);
+            }
+
         };
 
         const handleFacebookClick = () => {
-        const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
-        const facebookAppId = '5864440530335233';
-        const facebookUrl = `https://www.facebook.com/dialog/share?app_id=${facebookAppId}&display=popup&href=${articleUrl}&redirect_uri=https%3A%2F%2Fprogrammerslife.site%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`;
-        window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank')
-        setTimeout(() => {
-            window.open(facebookUrl, 'facebook-share-dialog', 'width=626,height=436');
-        }, 1000);
-        // window.open(facebookUrl, '_blank');
+            const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+            const facebookAppId = '5864440530335233';
+            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=${facebookAppId}&display=popup&href=${articleUrl}&redirect_uri=https%3A%2F%2Fprogrammerslife.site%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`;
+
+            // window.open(facebookUrl, '_blank');
+            
+            const facebookWindow = window.open(facebookUrl, 'facebook-share-dialog', 'width=626,height=436');
+            const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            
+            if ((!facebookWindow || !successWindow) || (facebookWindow.closed || successWindow.closed) || (typeof facebookWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
+                // Display a message to the user asking them to enable popups for your website
+                onEnablePopupMessage();
+                facebookWindow.close();
+            } else if (!(!facebookWindow || !successWindow) || !(facebookWindow.closed || successWindow.closed) || !(typeof facebookWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
+                successWindow.close();
+            } else if (typeof facebookWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined') {
+                successWindow.close();
+            } else if (window.document.readyState === 'complete') {
+                successWindow.close();
+            } else {
+                window.open(facebookUrl, 'facebook-share-dialog', 'width=626,height=436');
+            }
+            // if (!(typeof facebookWindow.closed === 'undefined' || facebookWindow.closed)) {
+            //     window.setTimeout(function() {
+            //         window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            //     }, 20000);
+            // }
         };
 
         const handleTwitterClick = () => {
-        const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
-        const articleTitle = encodeURIComponent(post.title);
-        const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
-        const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr&url=${redirectUri}`;
-        window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank')
-        setTimeout(() => {
-            window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
-        }, 1000);
+            const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+            const articleTitle = encodeURIComponent(post.title);
+            const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
+            const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr&url=${redirectUri}`;
+
+            
+            const twitterWindow = window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
+            const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+
+            if ((!twitterWindow || !successWindow) || (twitterWindow.closed || successWindow.closed) || (typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
+                // Display a message to the user asking them to enable popups for your website
+                onEnablePopupMessage();
+                twitterWindow.close();
+            } else if (!(!twitterWindow || !successWindow) || !(twitterWindow.closed || successWindow.closed) || !(typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
+                successWindow.close();
+            } else if (typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined') {
+                successWindow.close();
+            } else if (window.document.readyState === 'complete') {
+                successWindow.close();
+            } else {
+                window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
+            }
+            if (!(typeof twitterWindow.closed === 'undefined' || twitterWindow.closed)) {
+                window.setTimeout(function() {
+                    window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+                }, 20000);
+            }
+
         };
 
         const handleCopyClick = () => {
@@ -236,7 +293,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied }) => {
         const BsLinkedIn = () => {
         return (
             <Tooltip content="Share on LinkedIn" placement="top" style="dark" className="transition duration-700 ease-in-out">
-                <button onClick={handleLinkedInClick} className="mr-3 mt-1 cursor-pointer">
+                <button onClick={ handleLinkedInClick } className="mr-3 mt-1 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="0 2 67 70">
                         <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
                     </svg>
