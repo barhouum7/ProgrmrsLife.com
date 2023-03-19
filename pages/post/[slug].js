@@ -16,6 +16,24 @@ const PostDetails = ({ post }) => {
     //     return <Loader />
     // }
 
+    const enablePopupMessage = () => {
+        // console.log('Please allow popups for this website to share this article.');
+        //alert Error
+        alert('⚠ Please allow popups for this website to share this article.🔐☝');
+        setTimeout(() => {
+            toast.error('⚠ Please allow popups for this website to share this article.🔐☝', {
+                duration: 30000,
+                position: 'top-left',
+                // Styling
+                style: {
+                background: '#212A38',
+                color: '#fff',
+                },
+            })
+        }, 1000);
+    }
+
+
     const copyToClipboard = () => {
         const link = `https://programmerslife.site/post/${post.slug}`;
         navigator.clipboard.writeText(link)
@@ -76,7 +94,7 @@ const PostDetails = ({ post }) => {
             <div className="dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div className='lg:col-span-8 col-span-1'>
-                        <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} />
+                        <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} />
                         <Author author={post.author} />
                         <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
                         <CommentsForm slug={post.slug} />
