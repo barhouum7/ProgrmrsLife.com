@@ -59,7 +59,7 @@ return (
                     (
                     <>
                         <div className="lg:text-center">
-                            <h2 className="text-3xl leading-8 font-extrabold tracking-tight lg:text-4xl text-pink-500 dark:text-indigo-400 uppercase">
+                            <h2 className="text-3xl leading-8 font-semibold tracking-tight lg:text-4xl text-pink-500 dark:text-indigo-400 uppercase">
                                 Subscribe to our newsletter
                             </h2>
                             <p className="lg:text-lg text-sm mt-2 leading-8 font-semibold tracking-wide text-white dark:text-gray-400">
