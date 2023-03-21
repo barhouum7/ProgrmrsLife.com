@@ -59,13 +59,13 @@ return (
                     (
                     <>
                         <div className="lg:text-center">
-                            <h2 className="text-3xl leading-8 font-extrabold tracking-tight sm:text-4xl text-base text-pink-500 dark:text-indigo-400 font-semibold uppercase">
+                            <h2 className="text-3xl leading-8 font-extrabold tracking-tight lg:text-4xl text-pink-500 dark:text-indigo-400 uppercase">
                                 Subscribe to our newsletter
                             </h2>
-                            <p className="mt-2 leading-8 font-semibold tracking-wide text-white dark:text-gray-400">
+                            <p className="lg:text-lg text-sm mt-2 leading-8 font-semibold tracking-wide text-white dark:text-gray-400">
                                 Stay up-to-date with our latest news and articles.<br />Read our articles directly inside your inbox.
                             </p>
-                            <p className="mt-4 max-w-2xl text-xl text-white dark:text-gray-400 lg:mx-auto">
+                            <p className="mt-4 max-w-2xl lg:text-xl text-md text-white dark:text-gray-400 lg:mx-auto">
                                 Sign up for our newsletter to receive updates on new products,
                                 promotions, and events. Don't miss out.
                             </p>
