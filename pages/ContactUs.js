@@ -92,9 +92,9 @@ const ContactUs = () => {
     <div className='bg-white dark:bg-gray-800 rounded-t-lg shadow-xl p-8 sm:p-8 pb-12 m-0 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl'>
         {/* Comment Form */}
         <div className="max-w-6xl mx-auto py-12 sm:px-6 lg:px-8">
-            <div className="lg:text-center">
-                <h1 className="text-4xl text-indigo-600 font-extrabold tracking-wide uppercase mb-8">Contact Us</h1>
-                <h3 className='text-xl font-semibold border-b pb-4 mb-8'>
+            <div className="text-center">
+                <h1 className="lg:text-4xl text-2xl text-pink-500 dark:text-indigo-400 leading-8 font-extrabold tracking-wide uppercase mb-8">Contact Us</h1>
+                <h3 className='lg:text-xl md:text-lg font-semibold border-b pb-4 mb-8'>
                     Say hello, and Let's brainstorm together! 📝
                 </h3>
             </div>
