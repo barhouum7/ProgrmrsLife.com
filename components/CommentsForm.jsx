@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import { Tooltip, Checkbox, Toast, Flowbite, Alert } from "flowbite-react";
+import {HiMail, HiPencilAlt, HiUser} from "react-icons/hi";
 
 import { submitComment } from '../services'
 
@@ -36,9 +37,11 @@ const CommentsForm = ({ slug }) => {
         if (storeData) {
             window.localStorage.setItem('name', name)
             window.localStorage.setItem('email', email)
+            setShowUndoSave(true)
         } else {
             window.localStorage.removeItem('name')
             window.localStorage.removeItem('email')
+            setShowUndoSave(false)
         }
         
         submitComment(commentObj)
@@ -48,9 +51,6 @@ const CommentsForm = ({ slug }) => {
                     setShowSuccessMessage(false)
                 }, 30000)
             })
-        
-        
-        setShowUndoSave(true)
     }
     // console.log(showUndoSave, "++++ showUndoSave on submission.")
 
@@ -65,9 +65,19 @@ const CommentsForm = ({ slug }) => {
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             {/* Name Input */}
-            <div>
+            <div className='relative'>
                 <Tooltip
-                content="We'd love to know your Name!😍"
+                content={
+                    <div>
+                        We'd love to know your Name!😍 <br />
+                        <p className='flex'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
+                                <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                            </svg>                        
+                            We'll never share your details.
+                        </p>
+                    </div>
+                }
                 style="dark"
                 >
                     <div className='flex'>
@@ -81,26 +91,31 @@ const CommentsForm = ({ slug }) => {
                         </span>
                     </div>
                 </Tooltip>
+                <HiUser className="w-5 h-5 absolute top-10 left-1 lg:left-1 sm:left-1 text-gray-500 dark:text-gray-400" />
             <input
                 ref={nameEl}
                 type="text"
                 id="name"
                 name="name"
                 placeholder='Enter your name here...'
-                className="block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 mb-4 resize-none font-normal"
+                className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 mb-4 resize-none font-normal"
                 required
             />
             </div>
             {/* Email Input */}
-            <div>
+            <div className='relative'>
                 <Tooltip
                 content={
-                    <p className='flex'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
-                            <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
-                        </svg>
-                        Your email will not be published. We'll only use it to contact you if we have any questions about your comment.
-                    </p>
+                    <div>
+                        <p className='flex'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
+                                <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                            </svg>
+                            Your email will not be published. 
+                        </p>
+                            <br />We'll only use it to contact you, if we have any questions about your comment.
+                            Read our&nbsp;<a href='/Error404_pageNF' className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</a>.
+                    </div>
                 }
                 style="dark"
                 >
@@ -115,13 +130,14 @@ const CommentsForm = ({ slug }) => {
                         </span>
                     </div>
                 </Tooltip>
+                <HiMail className="w-5 h-5 absolute top-10 left-1 lg:left-1 sm:left-1 text-gray-500 dark:text-gray-400" />
                 <input
                     ref={emailEl}
                     type="email"
                     id="email"
                     name="email"
                     placeholder="Enter your email here..."
-                    className="block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 mb-4 resize-none font-normal"
+                    className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 mb-4 resize-none font-normal"
                     required
                 />
             </div>
@@ -129,35 +145,48 @@ const CommentsForm = ({ slug }) => {
         {/* Comment Input */}
 
         <div className="grid grid-cols-1 gap-4 mb-4 w-full">
-            <Tooltip
-            content="We'd love to hear your feedback on this post!😍"
-            style="dark"
-            >
-                <div className='flex'>
-                    <label htmlFor="comment" className="block text-gray-700 dark:text-gray-400 font-bold mb-2">
-                        Comment
-                    </label>
-                    <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </span>
-                </div>
-            </Tooltip>
-
-            <textarea
-            ref={commentEl}
-            id="comment"
-            name="comment"
-            placeholder="Enter your comment here..."
-            className="block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline mb-4 resize-none h-32 font-normal"
-            required
-            />
+            <div className='relative'>
+                <Tooltip
+                content="We'd love to hear your feedback on this post!😍"
+                style="dark"
+                >
+                    <div className='flex'>
+                        <label htmlFor="comment" className="block text-gray-700 dark:text-gray-400 font-bold mb-2">
+                            Comment
+                        </label>
+                        <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </Tooltip>
+                <HiPencilAlt className="w-5 h-5 absolute top-10 left-1 lg:left-1 sm:left-1 text-gray-500 dark:text-gray-400" />
+                <textarea
+                ref={commentEl}
+                id="comment"
+                name="comment"
+                placeholder="Enter your comment here..."
+                className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline mb-4 resize-none h-32 font-normal"
+                required
+                />
+            </div>
         </div>
         <div className="grid grid-cols-1 gap-4 mb-4">
             <div className='flex'>
                 <Tooltip
-                content="Choose if you want to save your information for future comments."
+                content={
+                    <div>
+                        <p className='flex'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
+                                <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                            </svg>                        
+                            Choose if you want to save your information for future comments. <br />
+                        </p>
+                        
+                            We'll never share your details.
+                    </div>
+                }
                 style="dark"
                 >
                     <Checkbox 
@@ -179,7 +208,17 @@ const CommentsForm = ({ slug }) => {
                         </div>
                         <div className="ml-auto flex items-center space-x-2">
                             <Tooltip
-                            content="This removes your name and email from your browser, you'll have to enter them next time you comment."
+                            content={
+                                <div>
+                                    <p className='flex'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
+                                            <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                                        </svg>                        
+                                        This removes your name and email from your browser, <br />
+                                    </p>
+                                        you'll have to enter them next time you comment.
+                                </div>
+                            }
                             style="dark"
                             >
                                 <button
@@ -197,7 +236,17 @@ const CommentsForm = ({ slug }) => {
                                 </button>
                             </Tooltip>
                             <Tooltip
-                            content="Click here to close this notification. If you want to keep your information saved for the next time you comment."
+                            content={
+                                <div>
+                                    <p className='flex'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
+                                            <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                                        </svg>                        
+                                        Click here to close this notification or simply dismiss it <br />
+                                    </p>
+                                    If you want to keep your information saved for the next time you comment.
+                                </div>
+                            }
                             style="dark"
                             >
                                 <Toast.Toggle className='my-2' />
@@ -223,7 +272,7 @@ const CommentsForm = ({ slug }) => {
         {/* Submit Button */}
         <div className="mt-8">
         <Tooltip
-            content="Send your comment"
+            content="Send your comment to the author."
             style="dark"
         >
             <button
@@ -251,6 +300,8 @@ const CommentsForm = ({ slug }) => {
                     <div className='flex mb-2'>
                         <Alert
                         color="success"
+                        rounded={true}
+                        withBorderAccent={true}
                         onDismiss={function onDismiss(){setShowSuccessMessage(false); return alert("Alert dismissed!")}}
                         >
                         <span>
