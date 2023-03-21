@@ -66,8 +66,8 @@ const Header = () => {
           <Navbar.Link className='navbar-item' href="/" active>
             Home
           </Navbar.Link>
-          <Navbar.Link className='navbar-item' href="/Error404_pageNF">About</Navbar.Link>
-          <Navbar.Link className='navbar-item' href="/Error404_pageNF">Services</Navbar.Link>
+          <Navbar.Link className='navbar-item' href="/AboutUs">About</Navbar.Link>
+          <Navbar.Link className='navbar-item' href="/Error404_pageNF" target="_blank" >Services</Navbar.Link>
           
             <Dropdown label="Categories" inline={true} trigger="hover" className="transition duration-700 ease-in-out transition-all">
                 {categories.map((category) => (
@@ -79,7 +79,7 @@ const Header = () => {
                 ))}
             </Dropdown>
           
-          <Navbar.Link className='navbar-item' href="/Error404_pageNF">Contact</Navbar.Link>
+          <Navbar.Link className='navbar-item' href="/ContactUs">Contact</Navbar.Link>
         </Navbar.Collapse>
         
         <div className="flex md:order-2">
