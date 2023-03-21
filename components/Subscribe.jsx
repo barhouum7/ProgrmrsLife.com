@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import { Alert } from "flowbite-react";
+import {HiMail} from "react-icons/hi";
 import { submitEmail } from '../services'
 
 
@@ -62,25 +63,26 @@ return (
                                 Subscribe to our newsletter
                             </h2>
                             <p className="mt-2 leading-8 font-semibold tracking-wide text-white dark:text-gray-400">
-                                Stay up-to-date with our latest news and articles
+                                Stay up-to-date with our latest news and articles.<br />Read our articles directly inside your inbox.
                             </p>
                             <p className="mt-4 max-w-2xl text-xl text-white dark:text-gray-400 lg:mx-auto">
                                 Sign up for our newsletter to receive updates on new products,
-                                promotions, and events.
+                                promotions, and events. Don't miss out.
                             </p>
                         </div>
                         <div className="mt-10">
-                            <form onSubmit={handleSubmit} className="w-full sm:flex items-center justify-center">
+                            <form onSubmit={handleSubmit} className="relative w-full sm:flex items-center justify-center">
                                 <label htmlFor="email-address" className="sr-only">
                                 Email address
                                 </label>
+                                <HiMail className="w-6 h-6 top-3 left-2 lg:ml-8 md:ml-8 sm:-ml-4 lg:mt-0 md:mt-0 sm:mt-0 absolute lg:left-20 sm:left-20 text-gray-500 dark:text-gray-400" />
                                 <input
                                     id="email-address"
                                     name="email-address"
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="appearance-none w-full px-4 py-3 text-gray-700 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:max-w-xs bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline font-normal"
+                                    className="appearance-none w-full pl-10 px-4 py-3 text-gray-700 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:max-w-xs bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline font-normal"
                                     placeholder="Enter your email here..."
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
