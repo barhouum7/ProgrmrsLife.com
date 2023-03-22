@@ -100,8 +100,8 @@ const FooterSection = () => {
                     </div>
                 </a>
             </div>
-            <div className="grid grid-cols-4 gap-4 sm:gap-4 sm:grid-cols-3 footer-items-size">
-                <div>
+            <div className="sm:flex sm:flex-col sm:-mr-4 grid-cols-4 gap-4 mr-8 footer-items-size">
+                <div className="mr-8 ml-0">
                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                     <ul className="text-gray-900 dark:text-gray-400">
                         <li className="mb-4 relative flex">
@@ -117,7 +117,7 @@ const FooterSection = () => {
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div className="mr-8">
                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                     <ul className="text-gray-900 dark:text-gray-400">
                         <li className="mb-4 relative flex">
@@ -130,7 +130,7 @@ const FooterSection = () => {
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div className="mr-8">
                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                     <ul className="text-gray-900 dark:text-gray-400">
                         <li className="mb-4 relative">
