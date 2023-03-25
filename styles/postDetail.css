@@ -196,7 +196,7 @@ width: 100%;
         }
         80% { transform: scaleX(0) translateX(0%); opacity: 0.1; }
         81% { transform: scaleX(4) translateX(0%); opacity: 0.2; }
-        100% { transform: scaleX(30) translateX(100%); opacity: 0; }
+        100% { transform: scaleX(20) translateX(100%); opacity: 0; }
     }
     
     @-webkit-keyframes flash {
@@ -206,7 +206,7 @@ width: 100%;
         }
         80% { -webkit-transform: scaleX(0) translateX(0%); opacity: 0.1; }
         81% { -webkit-transform: scaleX(4) translateX(0%); opacity: 0.2; }
-        100% { -webkit-transform: scaleX(30) translateX(100%); opacity: 0; }
+        100% { -webkit-transform: scaleX(20) translateX(100%); opacity: 0; }
     }
 }
 
