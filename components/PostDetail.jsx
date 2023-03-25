@@ -240,7 +240,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
     
     const BsStopFill = () => {
         return (
-            <Tooltip content="Stop the speech" placement="top" style="dark" className="transition duration-700 ease-in-out">
+            <Tooltip content="Stop the speech" placement="right" style="dark" className="transition duration-700 ease-in-out">
             &nbsp;•&nbsp;
             <button onClick={handleStop} className="mr-1 mt-1 cursor-pointer">
                 <svg className='h-4 w-4 text-green-500 hover:text-black hover:animate-bounce dark:text-green-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24">
@@ -255,7 +255,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
     
     const BsBackwardFill = () => {
         return (
-            <Tooltip content="Backward the speech" placement="top" style="dark" className="transition duration-700 ease-in-out">
+            <Tooltip content="Backward the speech" placement="right" style="dark" className="transition duration-700 ease-in-out">
                 &nbsp;•&nbsp;<button onClick={handleBackward} className="mr-1 cursor-pointer">-10s</button>
             </Tooltip>
         )
@@ -263,7 +263,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
     
     const BsForwardFill = () => {
         return (
-            <Tooltip content="Forward the speech" placement="top" style="dark" className="transition duration-700 ease-in-out">
+            <Tooltip content="Forward the speech" placement="right" style="dark" className="transition duration-700 ease-in-out">
                 &nbsp;•&nbsp;<button onClick={handleForward} className="mr-1 cursor-pointer">+10s</button>
             </Tooltip>
         )
@@ -485,7 +485,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                         &nbsp;•&nbsp;
                         {isPlaying ? <BsPauseFill /> : <BsPlayFill />}
                         {isPlaying &&
-                            <span className='flex text-gray-700 dark:text-gray-200'>
+                            <span className='flex-col text-xs lg:text-md text-gray-700 dark:text-gray-200'>
                                 <BsStopFill />
                                 <BsBackwardFill />
                                 <BsForwardFill />
