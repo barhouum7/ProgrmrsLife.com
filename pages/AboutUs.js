@@ -27,7 +27,7 @@ const AboutUs = () => {
                       className='rounded-full cursor-pointer mr-0 inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10'
                     />
                   </div>
-                  <h3 className="ml-11 text-xl font-bold">Ibrahim BHMBS</h3>
+                  <h3 className="ml-12 text-xl font-bold">Ibrahim BHMBS</h3>
                 </div>
                 <p className="text-lg mb-2 font-thin italic">Founder & CEO</p>
                 <p className="text-lg mb-4">Ibo is a tech Enthusiast and an aspiring self-taught full-stack web2.0/Web3.0 Developer.<br />
