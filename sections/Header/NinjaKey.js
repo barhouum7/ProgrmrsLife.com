@@ -57,7 +57,11 @@ export default function NinjaKey() {
 
   return (
     <div>
-      <NinjaKeys ref={ninjaKeys} />
+      <NinjaKeys 
+      ref={ninjaKeys}
+      data={hotkeys}
+      theme="dark"
+      />
     </div>
   );
 }
