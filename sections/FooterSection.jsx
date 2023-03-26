@@ -134,10 +134,10 @@ const FooterSection = () => {
                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                     <ul className="text-gray-900 dark:text-gray-400">
                         <li className="mb-4 relative">
-                            <a href="#" target="_top" rel="noopener noreferrer" className="menu-item">Privacy Policy <span className="border-b-effect-footer"></span></a>
+                            <a href="/privacyPolicy" target="_top" rel="noopener noreferrer" className="menu-item">Privacy Policy <span className="border-b-effect-footer"></span></a>
                         </li>
                         <li className="mb-4 relative">
-                            <a href="#" target="_top" rel="noopener noreferrer" className="menu-item">Terms &amp; Conditions <span className="border-b-effect-footer"></span></a>
+                            <a href="/terms_and_conditions" target="_top" rel="noopener noreferrer" className="menu-item">Terms &amp; Conditions <span className="border-b-effect-footer"></span></a>
                         </li>
                     </ul>
                 </div>

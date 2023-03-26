@@ -155,7 +155,7 @@ const ContactUs = () => {
                                         Your email will not be published. 
                                     </p>
                                         <br />We'll only use it to contact you, if we have any questions about your comment.
-                                        Read our&nbsp;<a href='/Error404_pageNF' className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</a>.
+                                        Read our&nbsp;<a href='/privacyPolicy' className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</a>.
                                 </div>
                             }
                             style="dark"

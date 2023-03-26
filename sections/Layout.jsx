@@ -2,6 +2,7 @@ import Header from "./Header/Header";
 import Footer from "./FooterSection";
 import { Subscribe, ScrollToTopButton, ConsentPreferenceLink } from "../components";
 import Head from "next/head";
+import Script from "next/script";
 
 const Layout = ({ children}) => {
   return (
@@ -9,14 +10,13 @@ const Layout = ({ children}) => {
       <Head>
         <title>ProgrammersLife™</title>
         <link rel="icon" href="/imgs/favicon.svg" />
-        <script
-          type="text/javascript"
+      </Head>
+      <Script
           src="https://app.termly.io/embed.min.js"
           data-auto-block="off"
           data-website-uuid="6be0f015-e759-4ffd-8346-ebb290ddbdf9"
           async
         />
-      </Head>
         <Header />
         <main className="container relative flex-grow rounded-t mx-auto transition ease-in-out duration-500">
             {children}

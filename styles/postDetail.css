@@ -47,7 +47,7 @@ width: 100%;
   
 
 
-  em {
+  .post-detail-em {
     position: relative;
     display: inline-block;
     background: linear-gradient(to right, #f9d423, #ff4e50);
@@ -55,7 +55,7 @@ width: 100%;
     cursor: pointer;
   }
   
-  em::before {
+  .post-detail-em::before {
     content: "";
     position: absolute;
     top: 0;
@@ -72,12 +72,12 @@ width: 100%;
     transition: width 0.3s ease-out;
   }
   
-  em:hover {
+  .post-detail-em:hover {
     color: white;
     background: none;
   }
   
-  em:hover::before {
+  .post-detail-em:hover::before {
     width: 100%;
     background-position: right bottom;
   }
