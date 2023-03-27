@@ -10,6 +10,111 @@ const Layout = ({ children}) => {
       <Head>
         <title>ProgrammersLife™</title>
         <link rel="icon" href="/imgs/favicon.svg" />
+        <meta name="description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
+        <meta name="keywords" content="programming, web development, tech, latest technologies, frameworks, libraries, latest news, tech world" />
+        <meta name="author" content="ProgrammersLife™" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <meta property="og:title" content="ProgrammersLife™" />
+        <meta property="og:description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
+        <meta property="og:image" content="/imgs/logo.svg" />
+        <meta property="og:url" content="https://programmerslife.site/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="ProgrammersLife™" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale:alternate" content="es_ES" />
+        <meta property="og:locale:alternate" content="fr_FR" />
+        <meta property="og:locale:alternate" content="de_DE" />
+        <meta property="og:locale:alternate" content="it_IT" />
+        <meta property="og:locale:alternate" content="pt_PT" />
+        <meta property="og:locale:alternate" content="ru_RU" />
+        <meta property="og:locale:alternate" content="zh_CN" />
+        <meta property="og:locale:alternate" content="ja_JP" />
+        <meta property="og:locale:alternate" content="ko_KR" />
+        <meta property="og:locale:alternate" content="ar_SA" />
+        <meta property="og:locale:alternate" content="tr_TR" />
+        <meta property="og:locale:alternate" content="nl_NL" />
+        <meta property="og:locale:alternate" content="pl_PL" />
+        <meta property="og:locale:alternate" content="sv_SE" />
+        <meta property="og:locale:alternate" content="da_DK" />
+        <meta property="og:locale:alternate" content="no_NO" />
+        <meta property="og:locale:alternate" content="fi_FI" />
+        <meta property="og:locale:alternate" content="cs_CZ" />
+        <meta property="og:locale:alternate" content="hu_HU" />
+        <meta property="og:locale:alternate" content="ro_RO" />
+        <meta property="og:locale:alternate" content="sk_SK" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@programmerslife" />
+        <meta name="twitter:creator" content="@programmerslife" />
+        <meta name="twitter:title" content="ProgrammersLife™" />
+        <meta name="twitter:description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
+        <meta name="twitter:image" content="/imgs/logo.svg" />
+        <meta name="twitter:image:alt" content="ProgrammersLife™" />
+        <meta name="twitter:domain" content="https://programmerslife.site/" />
+        <meta name="twitter:app:country" content="US" />
+        <meta name="twitter:app:name:iphone" content="ProgrammersLife™" />
+        <meta name="twitter:app:id:iphone" content="id1520000000" />
+        <meta name="twitter:app:url:iphone" content="https://programmerslife.site/" />
+        <meta name="twitter:app:name:ipad" content="ProgrammersLife™" />
+        <meta name="twitter:app:id:ipad" content="id1520000000" />
+        <meta name="twitter:app:url:ipad" content="https://programmerslife.site/" />
+        <meta name="twitter:app:name:googleplay" content="ProgrammersLife™" />
+        <meta name="twitter:app:id:googleplay" content="com.programmerslife" />
+        <meta name="twitter:app:url:googleplay" content="https://programmerslife.site/" />
+        <meta name="twitter:app:country" content="US" />
+        <meta name="twitter:app:name:iphone" content="ProgrammersLife™" />
+        <meta name="twitter:app:id:iphone" content="id1520000000" />
+
+        <meta name="apple-mobile-web-app-title" content="ProgrammersLife™" />
+        <meta name="application-name" content="ProgrammersLife™" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileImage" content="/imgs/logo.svg" />
+
+        <meta name="google-site-verification" content="google-site-verification" />
+        <meta name="yandex-verification" content="yandex-verification" />
+        <meta name="msvalidate.01" content="msvalidate.01" />
+        <meta name="p:domain_verify" content="p:domain_verify" />
+        <meta name="norton-safeweb-site-verification" content="norton-safeweb-site-verification" />
+
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="bingbot" content="index, follow" />
+        <meta name="yandex" content="index, follow" />
+        <meta name="msnbot" content="index, follow" />
+        <meta name="slurp" content="index, follow" />
+        <meta name="duckduckbot" content="index, follow" />
+        <meta name="teoma" content="index, follow" />
+        <meta name="exabot" content="index, follow" />
+        <meta name="facebot" content="index, follow" />
+        <meta name="ia_archiver" content="index, follow" />
+        <meta name="mj12bot" content="index, follow" />
+        <meta name="pinterest" content="index, follow" />
+        <meta name="twitterbot" content="index, follow" />
+        <meta name="googlebot-news" content="index, follow" />
+        <meta name="googlebot-image" content="index, follow" />
+        <meta name="googlebot-video" content="index, follow" />
+        <meta name="googlebot-mobile" content="index, follow" />
+        <meta name="googlebot-ads" content="index, follow" />
+        <meta name="googlebot-amp" content="index, follow" />
+        <meta name="googlebot-favicons" content="index, follow" />
+        <meta name="googlebot-webmasters" content="index, follow" />
+        <meta name="googlebot-structured-data" content="index, follow" />
+        <meta name="googlebot-nosnippet" content="index, follow" />
+        <meta name="googlebot-noscript" content="index, follow" />
+        <meta name="googlebot-crawl-delay" content="index, follow" />
+        <meta name="googlebot-translation" content="index, follow" />
+        <meta name="googlebot-translation-robots" content="index, follow" />
+        <meta name="googlebot-translation-language" content="index, follow" />
+        <meta name="googlebot-translation-country" content="index, follow" />
+        <meta name="googlebot-translation-region" content="index, follow" />
+        <meta name="googlebot-translation-variant" content="index, follow" />
+        <meta name="googlebot-translation-variant-country" content="index, follow" />
+        <meta name="googlebot-translation-variant-region" content="index, follow" />
+        <meta name="googlebot-translation-variant-language" content="index, follow" />
+        <meta name="googlebot-translation-variant-variant" content="index, follow" />
+        <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
+        <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
       </Head>
       <Script
           src="https://app.termly.io/embed.min.js"
