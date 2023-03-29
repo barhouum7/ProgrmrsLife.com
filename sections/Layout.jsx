@@ -116,12 +116,6 @@ const Layout = ({ children}) => {
         <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
       </Head>
-      <Script
-          src="https://app.termly.io/embed.min.js"
-          data-auto-block="off"
-          data-website-uuid="6be0f015-e759-4ffd-8346-ebb290ddbdf9"
-          async
-        />
         <Header />
         <main className="container relative flex-grow rounded-t mx-auto transition ease-in-out duration-500">
             {children}
@@ -135,6 +129,12 @@ const Layout = ({ children}) => {
         <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
           <ConsentPreferenceLink />
         </div>
+        <Script
+          src="https://app.termly.io/embed.min.js"
+          data-auto-block="off"
+          data-website-uuid="6be0f015-e759-4ffd-8346-ebb290ddbdf9"
+          async
+        />
     </>
   );
 };
