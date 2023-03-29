@@ -25,7 +25,7 @@ const PostWidget = ({ categories, slug }) => {
             <h3 className='text-xl font-semibold border-b pb-4 mb-8'>
                 {slug ? 'Related Posts' : 'Recent Posts'}
             </h3>
-            {relatedPosts.map((post) => (
+            {relatedPosts.length > 0 && relatedPosts.map((post) => (
                 <div key={post.title} className='flex items-center w-full mb-4'>
                     <div className="w-10 flex-none rounded-full">
                         <img 
@@ -48,6 +48,12 @@ const PostWidget = ({ categories, slug }) => {
                     </div>
                 </div>
             ))}
+            {relatedPosts.length === 0 && (
+                <p className='text-gray-500 dark:text-gray-400 font-xs'>
+                    No posts found
+                </p>
+            )
+            }
 
         </div>
     )
