@@ -97,7 +97,9 @@ const PostDetails = ({ post }) => {
                         <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} />
                         <Author author={post.author} />
                         <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
-                        <CommentsForm slug={post.slug} />
+                        <div id='commentForm'>
+                            <CommentsForm slug={post.slug} />
+                        </div>
                         <Comments slug={post.slug} />
                     </div>
 
