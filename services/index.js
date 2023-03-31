@@ -77,6 +77,7 @@ export const getPostDetails = async (slug) => {
                 raw
                 html
                 json
+                text
             }
         }
     }

@@ -17,6 +17,9 @@ import { Tooltip } from "flowbite-react";
 
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
+    const formattedText = post.content.text.replace(/\\n/g, '\n\n');
+    // console.log(formattedText);
+
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
@@ -45,7 +48,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         
             // const voices = synth.getVoices();
             // const voice = voices.find(voice => voice.name === "Google UK English Female");
-            const utterance = new SpeechSynthesisUtterance([post.title, post.content.html]);
+            const utterance = new SpeechSynthesisUtterance([post.title, formattedText]);
             // setIsPlaying(true);
             utterance.onstart = () => setIsPlaying(true);
             utterance.onend = () => setIsPlaying(false);
