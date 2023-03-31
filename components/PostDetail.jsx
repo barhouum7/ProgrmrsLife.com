@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FaPlay } from 'react-icons/fa';
+import { Helmet } from 'react-helmet-async';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
 
@@ -8,12 +10,14 @@ import { RichText } from '@graphcms/rich-text-react-renderer';
 import moment from 'moment';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Tooltip } from "flowbite-react";
 
 
 
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -432,6 +436,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
 
     return (
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+                <Helmet>
+                    <title>{post.title} | ProgrammersLife™</title>
+                    <meta name="description" content={post.excerpt} />
+                    
+                    <link rel="canonical" href={`https://programmerslife.site/posts/${post.slug}`} />
+                </Helmet>
                 <div className="relative overflow-hidden shadow-xl mb-6">
                     <img 
                         src={post.featuredImage.url}
@@ -621,7 +631,47 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                         ol: ({ children }) => <ol className="list-decimal list-inside leading-10 bg-gray-200 dark:bg-gray-700 px-2 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
                         li: ({ children }) => <li className="text-gray-900 dark:text-gray-400">{children}</li>,
                         ul: ({ children }) => <ul className="list-disc list-inside px-2 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
+                        img: ({ src }) => <img className="w-full h-full cursor-pointer shadow-lg rounded-lg hover:shadow-2xl mb-4" src={src} />,
+                        video: ({ src, children }) => {
+                            // console.log(thumbnail);
+                            // console.log(children);
 
+                            // const videoId = src.split("/").pop();
+
+                            const DynamicReactPlayer = dynamic(() => import('react-player'), {
+                                ssr: false
+                              });
+                            return (
+                                <div className="cursor-pointer shadow-lg rounded-t-lg lg:rounded-lg object-top transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 hover:rounded-lg hover:rounded-b-none hover:rounded-r-none hover:rounded-l-none hover:rounded-t-none hover:rounded-tl-none hover:rounded-tr-none hover:rounded-bl-none hover:rounded-br-none">
+                                    <div className="hygraph-player">
+                                        <DynamicReactPlayer url={src} controls width="100%" height="100%" />
+                                    </div>
+                                </div>
+                                // <div className="hygraph-player">
+                                //     {!isVideoPlaying && (
+                                //         <img
+                                //             src={`${thumbnailUrl}`}
+                                //             alt="Video thumbnail"
+                                //             onClick={() => setIsVideoPlaying(true)}
+                                //         />
+                                //         )}
+                                //         {isVideoPlaying && (
+                                //         <div className="react-player-wrapper">
+                                //             <DynamicReactPlayer
+                                //             url={src}
+                                //             playing={true}
+                                //             width="100%"
+                                //             height="100%"
+                                //             onEnded={() => setIsVideoPlaying(false)}
+                                //             />
+                                //         </div>
+                                //         )}
+                                //         <div className="play-button" onClick={() => setIsVideoPlaying(true)}>
+                                //         <FaPlay />
+                                //         </div>
+                                // </div>
+                            );
+                        },
                         
                         }}
                     />

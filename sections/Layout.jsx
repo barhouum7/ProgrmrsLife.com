@@ -71,12 +71,6 @@ const Layout = ({ children}) => {
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/imgs/logo.svg" />
 
-        <meta name="google-site-verification" content="google-site-verification" />
-        <meta name="yandex-verification" content="yandex-verification" />
-        <meta name="msvalidate.01" content="msvalidate.01" />
-        <meta name="p:domain_verify" content="p:domain_verify" />
-        <meta name="norton-safeweb-site-verification" content="norton-safeweb-site-verification" />
-
         <meta name="robots" content="index, follow" />
         <meta name="googlebot" content="index, follow" />
         <meta name="bingbot" content="index, follow" />
