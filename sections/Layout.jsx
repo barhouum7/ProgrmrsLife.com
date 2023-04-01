@@ -109,6 +109,11 @@ const Layout = ({ children}) => {
         <meta name="googlebot-translation-variant-variant" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+          crossorigin="anonymous"
+        />
       </Head>
         <Header />
         <main className="container relative flex-grow rounded-t mx-auto transition ease-in-out duration-500">
