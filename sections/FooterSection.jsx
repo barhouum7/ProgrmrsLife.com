@@ -105,7 +105,7 @@ const FooterSection = () => {
                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                     <ul className="text-gray-900 dark:text-gray-400">
                         <li className="mb-4 relative flex">
-                            <a href="https://portfolio.programmerslife.site/" target="_blank" rel="noopener noreferrer" className="menu-item">Services <span className="border-b-effect-footer"></span></a>
+                            <a href="https://ask-chatgpt.programmerslife.site/coming-soon-page.html" target="_blank" rel="noopener noreferrer" className="menu-item">Services <span className="border-b-effect-footer"></span></a>
                             <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
                         </li>
                         <li className="mb-4 relative flex">
