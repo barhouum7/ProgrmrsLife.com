@@ -497,7 +497,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                 </svg>
                             </span>
                             <span className='text-gray-700 dark:text-gray-200'>
-                                {getMinutesRead(post.content.html)} min read
+                                {getMinutesRead(post.content.text)} min read
                             </span>
                         </div>
                     </div>
