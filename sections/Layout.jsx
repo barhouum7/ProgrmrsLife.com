@@ -116,15 +116,14 @@ const Layout = ({ children}) => {
         />
       </Head>
         <Header />
-        <main className="container relative flex-grow rounded-t mx-auto transition ease-in-out duration-500">
+        <main className="container relative rounded-t mx-auto transition ease-in-out duration-500">
             {children}
         </main>
-        <ScrollToTopButton />
         
         <Subscribe />
-        {/* <div className="dark:bg-gray-800 flex-grow container rounded-b mx-auto px-10 mb-1 sm:px-6 transition ease-in-out duration-500"> */}
         <Footer />
-        {/* </div> */}
+        
+        <ScrollToTopButton />
         <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
           <ConsentPreferenceLink />
         </div>
