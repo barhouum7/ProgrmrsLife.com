@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { useRouter } from "next/router";
 import Logo from "../../components/Logo";
 import {useTheme} from "next-themes";
 import { DarkThemeToggle, Navbar, Dropdown, Tooltip } from "flowbite-react";
@@ -11,8 +12,32 @@ import Link from "next/link";
 import { getCategories } from '../../services'
 
 
-
 const Header = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isItemHovered, setIsItemHovered] = useState("");
+  const [ isToggleSwitched, setIsToggleSwitched] = useState(false);
+  const router = useRouter();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    const link = e.target.getAttribute("href");
+    router.push(link);
+  };
   
   const [categories, setCategories] = useState([])
     useEffect(() => {
@@ -21,8 +46,6 @@ const Header = () => {
         .catch((err) => console.log(err))
   }, [])
 
-  const [isScrolled, setIsScrolled] = useState(false);
-
   const {systemTheme , theme, setTheme} = useTheme ();
   const [mounted, setMounted] = useState(false);
   
@@ -30,72 +53,231 @@ const Header = () => {
     setMounted(true);
   },[])
 
-   const renderThemeChanger= () => {
-      if(!mounted) return null;
+    
 
-      const currentTheme = theme === "system" ? systemTheme : theme ;
+    const renderThemeChanger= () => {
+        if(!mounted) return null;
 
-      if(currentTheme ==="dark"){
-        return (
-          <SunIcon className="mt-1 mr-1 w-8 h-8 text-yellow-400 " role="button" onClick={() => setTheme('light')} />
-        )
-      }
+        const currentTheme = theme === "system" ? systemTheme : theme ;
 
-      else {
-        return (
-          <DarkThemeToggle className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} />
-        )
-      }
-   };
+        if(currentTheme ==="dark"){
+          return (
+            <SunIcon className="rounded-lg p-2 w-10 h-10 text-yellow-400 " role="button" onClick={() => setTheme('light')} 
+            style={{
+              backgroundColor: isHovered ? "#4B5563" : "transparent",
+              color: isHovered ? "#F3F4F6" : !isToggleSwitched ? "yellow" : "#9CA3AF",
+              transition: "background-color 0.2s ease",
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onChange={() => setIsToggleSwitched(!isToggleSwitched)}
+            />
+          )
+        }
+
+        else {
+          return (
+            <DarkThemeToggle className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} 
+            style={{
+              backgroundColor: isHovered ? "#4B5563" : "transparent",
+              color: isHovered ? "#F3F4F6" : "rgba(55, 65, 81, 1)",
+              transition: "background-color 0.2s ease",
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            />
+          )
+        }
+  };
+
+  const darkMode = function () {
+    
+    if (theme === "dark") {
+        
+        // console.log('Dark: '+ theme);
+        return true;
+    } else {
+
+      // console.log('Light: '+ theme);
+      return false;
+    }
+  }
 
   return (              
     <header className="relative h-32">
       {/* <Navbar fluid className="w-full backdrop-filter backdrop-blur-lg fixed top-0 h-16 z-30  duration-500"> */}
-      <Navbar fluid={true} className={`w-full h-16 z-10 fixed top-0 left-0 w-screen backdrop-filter backdrop-blur-lg dark:bg-gray-800 flex-grow sm:px-6 rounded-b shadow-lg dark:border-gray-700 transition ease-in-out transition-all duration-500
-            ${isScrolled ? "bg-white" : "bg-transparent"}`}>
-        <Navbar.Brand href="/">
-          <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
-            <Logo />
-            <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
-              Programmers Life
-            </span>
-          </div>
-          </Navbar.Brand>
-          
-          <Navbar.Collapse>
-            <Navbar.Link className='navbar-item' href="/" active>
-              Home
-            </Navbar.Link>
-            <Navbar.Link className='navbar-item' href="/AboutUs">About</Navbar.Link>
-            <Navbar.Link className='navbar-item' href="/Services" target="_top" >Services</Navbar.Link>
-            
-              <Dropdown label="Categories" inline={true} trigger="hover" className="transition duration-700 ease-in-out transition-all">
-                  {categories.map((category) => (
-                <Dropdown.Item key={category.slug} className='navbar-item'>
-                    <Link href={`/category/${category.slug}`}>
-                          {category.name}
-                      </Link>
-                </Dropdown.Item>
-                  ))}
-              </Dropdown>
-            
-            <Navbar.Link className='navbar-item' href="/ContactUs">Contact</Navbar.Link>
-          </Navbar.Collapse>
-          
-          <div className="flex md:order-2">
-            <Navbar.Toggle />
-            {/* {renderThemeChanger()} */}
-            <Flowbite>
-              <Tooltip content="Dark Mode is better!🤩" placement="left" style="dark" className='transition duration-700 ease-in-out'>
-                <span className="w-10 h-10 text-gray-900 dark:hover:text-yellow-400 dark:hover:shadow-lg dark:hover:scale-110 dark:hover:rotate-12 dark:hover:translate-x-2 dark:hover:translate-y-2 dark:hover:skew-x-6 dark:hover:skew-y-6 dark:hover:origin-center dark:hover:duration-500 dark:hover:ease-in-out dark:hover:transition-all dark:hover:transform-gpu dark:hover:transform-none dark:hover:transform md:hover:transform-none md:hover:transform md:hover:transform-gpu md:hover:transition-all md:hover:ease-in-out md:hover:duration-500 md:hover:origin-center md:hover:skew-y-6 md:hover:skew-x-6 md:hover:translate-y-2 md:hover:translate-x-2 md:hover:rotate-12 md:hover:scale-110 md:hover:shadow-lg md:hover:text-yellow-400 md:hover:text-gray-900">
-                  <DarkThemeToggle
-                  />
+      {/* <nav className={`w-full h-16 z-10 fixed top-0 left-0 w-screen backdrop-filter backdrop-blur-lg dark:bg-gray-800 flex-grow sm:px-6 rounded-b shadow-lg dark:border-gray-700 transition ease-in-out transition-all duration-500
+            bg-transparent ${isScrolled ? "bg-transparent" : "bg-white"}`}> */}
+        <Flowbite>
+          <Navbar fluid={true} 
+          className={`w-full h-16 z-10 fixed top-0 left-0 w-screen flex-grow sm:px-6 rounded-b shadow-lg transition ease-in-out transition-all duration-500 
+          `}
+          style={{
+            backgroundColor: isScrolled
+            ? "transparent"
+            : (darkMode() ? "rgba(28, 35, 43, 0.8)" : "rgba(255, 255, 255, 0.9)"),
+            backdropFilter: isScrolled ? "blur(10px)" : "none",
+          }}
+          >
+            <Navbar.Brand href="/">
+              <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
+                <Logo />
+                <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
+                  Programmers Life
                 </span>
-              </Tooltip>
-            </Flowbite>
-            <SearchBar />
-          </div>
-      </Navbar>
+              </div>
+              </Navbar.Brand>
+              
+              <Navbar.Collapse 
+                className={`${darkMode() ? "text-gray-400" : "text-gray-700"}`}
+                style={{
+                  color: isScrolled ? "#bd6FF6" : "inherit",
+                }}
+              >
+                <Navbar.Link className='navbar-item' href="/" active={router.pathname === "/"}
+                onClick={handleClick}
+                onMouseLeave={() => setIsItemHovered("")}
+                onMouseEnter={() => setIsItemHovered("home")}
+                style={{
+                  position: 'relative',
+                  color: isItemHovered === "home" ? "#8B5CF6" : router.pathname === "/" ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
+                }}
+                >
+                  Home
+                  <span 
+                    style={{
+                      content: "''",
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      width: isItemHovered === "home" ? '100%' : '0%',
+                      height: '2px',
+                      backgroundColor: 'violet',
+                      transition: 'width 0.3s ease-out',
+                    }}
+                  />
+                </Navbar.Link>
+                <Navbar.Link className='navbar-item' href="/AboutUs" active={router.pathname === "/AboutUs"}
+                onClick={handleClick}
+                onMouseLeave={() => setIsItemHovered("")}
+                onMouseEnter={() => setIsItemHovered("about")}
+                style={{
+                  position: 'relative',
+                  color: isItemHovered === "about" ? "#8B5CF6" : router.pathname === "/AboutUs" ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
+                }}
+                >
+                  About
+                  <span 
+                    style={{
+                      content: "''",
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      width: isItemHovered === "about" ? '100%' : '0%',
+                      height: '2px',
+                      backgroundColor: 'violet',
+                      transition: 'width 0.3s ease-out',
+                    }}
+                  />
+                </Navbar.Link>
+                <Navbar.Link className='navbar-item' href="/Services" target="_top" active={router.pathname === "/Services"}
+                onClick={handleClick}
+                onMouseLeave={() => setIsItemHovered("")}
+                onMouseEnter={() => setIsItemHovered("services")}
+                style={{
+                  position: 'relative',
+                  color: isItemHovered === "services" ? "#8B5CF6" : router.pathname === "/Services" ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
+                }}
+                >
+                  Services
+                  <span 
+                    style={{
+                      content: "''",
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      width: isItemHovered === "services" ? '100%' : '0%',
+                      height: '2px',
+                      backgroundColor: 'violet',
+                      transition: 'width 0.3s ease-out',
+                    }}
+                  />
+                </Navbar.Link>
+                
+                  <Dropdown label="Categories" inline={true} trigger="hover" className="transition duration-700 ease-in-out transition-all">
+                      {categories.map((category) => (
+                    <Dropdown.Item key={category.slug} className='navbar-item'>
+                        <Link active={router.pathname === category.name ? category.name : undefined } onClick={handleClick} href={`/category/${category.slug}`}
+                        onMouseLeave={() => setIsItemHovered("")}
+                        onMouseEnter={() => setIsItemHovered(category.name)}
+                        style={{
+                          position: 'relative',
+                          color: isItemHovered === category.name ? "#8B5CF6" : router.pathname === category.name ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
+                        }}
+                        >
+                          {category.name}
+                          <span
+                            style={{
+                              content: "''",
+                              position: 'absolute',
+                              bottom: 0,
+                              left: 0,
+                              width: isItemHovered === category.name ? '100%' : '0%',
+                              height: '2px',
+                              backgroundColor: 'violet',
+                              transition: 'width 0.3s ease-out',
+                            }}
+                          />
+                        </Link>
+                    </Dropdown.Item>
+                      ))}
+                  </Dropdown>
+                
+                <Navbar.Link className='navbar-item' href="/ContactUs" active={router.pathname === "/ContactUs"}
+                onClick={handleClick}
+                onMouseLeave={() => setIsItemHovered("")}
+                onMouseEnter={() => setIsItemHovered("contact")}
+                style={{
+                  position: 'relative',
+                  color: isItemHovered === "contact" ? "#8B5CF6" : router.pathname === "/ContactUs" ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
+                }}
+                >
+                  Contact
+                  <span 
+                    style={{
+                      content: "''",
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      width: isItemHovered === "contact" ? '100%' : '0%',
+                      height: '2px',
+                      backgroundColor: 'violet',
+                      transition: 'width 0.3s ease-out',
+                    }}
+                  />
+                </Navbar.Link>
+              </Navbar.Collapse>
+              
+              <div className="flex md:order-2">
+                <Navbar.Toggle 
+                />
+                <Tooltip content={
+                  darkMode() ? "Switch to Light Mode!🌞" : "Dark Mode is better!🤩"
+                } placement="left" style="dark" className='transition duration-700 ease-in-out'>
+                  {renderThemeChanger()}
+                </Tooltip>
+                {/* <Flowbite>
+                  <Tooltip content="Dark Mode is better!🤩" placement="left" style="dark" className='transition duration-700 ease-in-out'>
+                      <DarkThemeToggle
+                        
+                      />
+                  </Tooltip>
+                </Flowbite> */}
+                <SearchBar />
+              </div>
+            </Navbar>
+          </Flowbite>
+      {/* </nav> */}
     </header>
   );
 };
