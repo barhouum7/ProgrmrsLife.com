@@ -273,7 +273,7 @@ const Header = () => {
                       />
                   </Tooltip>
                 </Flowbite> */}
-                <SearchBar />
+                <SearchBar isScrolled={isScrolled}/>
               </div>
             </Navbar>
           </Flowbite>
