@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Toaster } from "react-hot-toast";
 import { Layout } from "../sections"
 import { ThemeProvider } from "next-themes"
 import { HelmetProvider } from 'react-helmet-async';
@@ -12,8 +13,10 @@ import {
   useMatches,
   createAction,
   ActionId,
+  ActionImpl,
   NO_GROUP
 } from "kbar";
+import useThemeActions from "../hooks/useThemeActions";
 
 import '../styles/globals.scss'
 import '../styles/postDetail.css'
@@ -28,10 +31,9 @@ const searchStyle = {
   boxSizing: "border-box",
   outline: "none",
   border: "none",
-  background: "rgba(23, 23, 23, 1)",
+  background: "var(--background)",
   color: "var(--foreground)",
-  "--background": "bg-gray-900",
-  "--foreground": "text-gray-100",
+  
 };
 // TailwindCSS equivalent
 // const searchStyle = "p-3 text-base w-full box-border outline-none border-none bg-gray-900 text-gray-100";
@@ -39,13 +41,12 @@ const searchStyle = {
 const animatorStyle = {
   maxWidth: "600px",
   width: "100%",
-  background: "rgba(23, 23, 23, 0.9)",
-  color: "white",
+  // background: "rgba(23, 23, 23, 0.9)",
+  background: "#1a202c",
+  // background: "#1c1c1c",
   borderRadius: "8px",
   overflow: "hidden",
   boxShadow: "var(--shadow)",
-  "--background": "bg-gray-900",
-  "--foreground": "text-gray-100",
 };
 
 // TailwindCSS equivalent
@@ -82,9 +83,9 @@ const RenderResults = () => {
 const ResultItem = React.forwardRef(
   (
     {
-      action,
+      action = ActionImpl.NO_ACTION,
       active,
-      currentRootActionId,
+      currentRootActionId = ActionId.NO_ACTION,
     },
     ref
   ) => {
@@ -104,16 +105,19 @@ const ResultItem = React.forwardRef(
       <div
         ref={ref}
         style={{
-          padding: "12px 16px",
-          background: active ? "rgba(23, 23, 23, 1)" : "rgba(23, 23, 23, 0.9)",
-          borderLeft: `2px solid ${
-            active ? "var(--foreground)" : "rgba(23, 23, 23, 1)"
-          }`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          cursor: "pointer",
+          // padding: "12px 16px",
+          // background: active ? "rgba(0 0 0 / .1)" : "transparent",
+          // borderLeft: `2px solid ${
+          //   active ? "white" : "transparent"
+          // }`,
+          // display: "flex",
+          // alignItems: "center",
+          // justifyContent: "space-between",
+          // cursor: "pointer",
         }}
+        className={`dark:hover:bg-transparent dark:bg-black dark:bg-opacity-10 flex justify-between items-center cursor-pointer p-3 border-l-2 border-black dark:border-white border-opacity-0 dark:border-opacity-0
+          ${active ? "bg-gray-100 text-gray-900 dark:text-gray-100 dark:bg-transparent dark:bg-opacity-10 border-opacity-100 dark:border-opacity-100" : "bg-white text-gray-900 dark:text-white"}
+          `}
       >
         <div
           style={{
@@ -124,7 +128,11 @@ const ResultItem = React.forwardRef(
           }}
         >
           {action.icon && action.icon}
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", flexDirection: "column",
+            gap: "4px",
+            padding: "8px",
+            borderRadius: "8px",
+          }}>
             <div>
               {ancestors.length > 0 &&
                 ancestors.map((ancestor) => (
@@ -133,6 +141,10 @@ const ResultItem = React.forwardRef(
                       style={{
                         opacity: 0.5,
                         marginRight: 8,
+                        background: "rgba(0 0 0 / .1)",
+                        padding: "4px 6px",
+                        borderRadius: "4px",
+                        color: "rgba(255, 255, 255, 0.7)",
                       }}
                     >
                       {ancestor.name}
@@ -149,7 +161,10 @@ const ResultItem = React.forwardRef(
               <span>{action.name}</span>
             </div>
             {action.subtitle && (
-              <span style={{ fontSize: 12 }}>{action.subtitle}</span>
+              <span style={{ fontSize: 12,
+                opacity: 0.7,
+                marginTop: 4,
+              }}>{action.subtitle}</span>
             )}
           </div>
         </div>
@@ -177,6 +192,33 @@ const ResultItem = React.forwardRef(
     );
   }
 );
+
+function CommandBar() {
+  useThemeActions();
+  return (
+    <KBarPortal> 
+    {/* Renders the content outside the root node */}
+    <KBarPositioner>
+      {/* Position the KBar, Centers the content by default */}
+      <KBarAnimator
+        // style={animatorStyle}
+        className="bg-white dark:bg-gray-800 dark:text-white text-black rounded-lg overflow-hidden shadow-lg sm:max-w-4xl sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl"
+        // className={`${animatorStyle} dark:${animatorStyle["--background"]} dark:${animatorStyle["--foreground"]}`}
+      >
+        {/* Handles the show/hide and height animations */}
+        <KBarSearch
+          style={searchStyle}
+          // className="bg-white dark:bg-gray-800 dark:text-white text-black"
+          // className={`${searchStyle} dark:${searchStyle["--background"]} dark:${searchStyle["--foreground"]}`}
+        />
+        {/* Renders the search input */}
+        <RenderResults />
+        {/* Renders the results */}
+      </KBarAnimator>
+    </KBarPositioner>
+  </KBarPortal>
+  )
+}
 
 
 function MyApp({ Component, pageProps }) {
@@ -322,32 +364,20 @@ const actions = [
     subtitle: "Go to our Github profile",
   }),
 ]
+
   return (
     <HelmetProvider>
       <ThemeProvider enableSystem={true} attribute="class">
-        <KBarProvider actions={actions}>
-          <KBarPortal> 
-            {/* Renders the content outside the root node */}
-            <KBarPositioner>
-              {/* Position the KBar, Centers the content by default */}
-              <KBarAnimator
-                style={animatorStyle}
-                className={`${animatorStyle} dark:${animatorStyle["--background"]} dark:${animatorStyle["--foreground"]}`}
-              >
-                {/* Handles the show/hide and height animations */}
-                <KBarSearch
-                  style={searchStyle}
-                  className={`${searchStyle} dark:${searchStyle["--background"]} dark:${searchStyle["--foreground"]}`}
-                />
-                {/* Renders the search input */}
-                <RenderResults />
-                {/* Renders the results */}
-              </KBarAnimator>
-            </KBarPositioner>
-          </KBarPortal>
+        <KBarProvider actions={actions}
+          options={{
+            enableHistory: true,
+          }}
+        >
+          <CommandBar />
           <Layout>
               <Component {...pageProps} />
           </Layout>
+          
         </KBarProvider>
       </ThemeProvider>
     </HelmetProvider>
