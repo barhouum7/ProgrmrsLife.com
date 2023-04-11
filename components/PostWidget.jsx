@@ -50,7 +50,7 @@ const PostWidget = ({ categories, slug }) => {
             ))}
             {relatedPosts.length === 0 && (
                 <p className='text-gray-500 dark:text-gray-400 font-xs'>
-                    No posts found
+                    Loading posts...
                 </p>
             )
             }
