@@ -1,5 +1,6 @@
 import React from "react";
 import { AiFillGithub, AiFillTwitterCircle } from "react-icons/ai";
+import { BsFacebook, BsLinkedin } from "react-icons/bs";
 import { useRegisterActions, createAction } from "kbar";
 
 export default function useCategoriesActions() {
@@ -110,6 +111,24 @@ export default function useCategoriesActions() {
                     subtitle: "Go to the events category page",
                     parent: "categories",
                 },
+            createAction({
+                name: "LinkedIn",
+                shortcut: ["g", "l"],
+                keywords: "social contact dm",
+                section: "Social Media",
+                perform: () => window.open("https://www.linkedin.com/in/ibrahimbs", "_blank"),
+                subtitle: "Go to our LinkedIn profile",
+                icon: <BsLinkedin className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white w-5 h-5" />,
+            }),
+            createAction({
+                name: "Facebook Page",
+                shortcut: ["g", "f"],
+                keywords: "social contact dm",
+                section: "Social Media",
+                perform: () => window.open("https://www.facebook.com/mindh4q3rr", "_blank"),
+                subtitle: "Go to our Facebook page",
+                icon: <BsFacebook className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white w-5 h-5" />,
+            }),
             {
                 id: "twitterAction",
                 name: "Twitter",
