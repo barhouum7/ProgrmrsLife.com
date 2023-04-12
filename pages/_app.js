@@ -180,12 +180,14 @@ const ResultItem = React.forwardRef(
             {action.shortcut.map((sc) => (
               <kbd
                 key={sc}
-                style={{
-                  padding: "4px 6px",
-                  background: "rgba(0 0 0 / .1)",
-                  borderRadius: "4px",
-                  fontSize: 14,
-                }}
+                // style={{
+                //   padding: "4px 6px",
+                //   background: "rgba(0 0 0 / .1)",
+                //   borderRadius: "4px",
+                //   fontSize: 14,
+                // }}
+                // className="bg-gray-800 bg-opacity-10 dark:bg-gray-300 dark:bg-opacity-10 text-gray-900 dark:text-gray-100 rounded px-2 py-1"
+                className="rounded bg-gray-300 dark:bg-gray-700 cursor-pointer px-2 my-1 text-sm tracking-normal border-gray-400 border-opacity-20 border-b-2 hover:border-none hover:shadow-inner hover:bg-gray-200 dark:hover:bg-gray-600 shadow-darker text-grey-600 dark:text-white"
               >
                 {sc}
               </kbd>
@@ -220,6 +222,37 @@ function CommandBar() {
         {/* Renders the search input */}
         <RenderResults />
         {/* Renders the results */}
+          <div>
+              <div className="flex items-center justify-center w-full py-2 px-2 rounded border-t border-l border-r border-white dark:border-transparent leading-none">
+                <span className="text-xs tracking-tighter">
+                  <kbd className="rounded bg-gray-300 dark:bg-gray-700 cursor-pointer px-1 border-gray-400 border-opacity-20 border-b-2 hover:border-none hover:shadow-inner hover:bg-gray-200 dark:hover:bg-gray-600 shadow-darker text-grey-600 dark:text-white mr-2">
+                    Enter ↩
+                  </kbd>
+                </span>
+                <span className="text-xs mr-4 tracking-normal text-gray-600 dark:text-gray-400">
+                  to select
+                </span>
+                <span className="text-xs tracking-tighter">
+                  <kbd className="rounded bg-gray-300 dark:bg-gray-700 cursor-pointer px-1 border-gray-400 border-opacity-20 border-b-2 hover:border-none hover:shadow-inner hover:bg-gray-200 dark:hover:bg-gray-600 shadow-darker text-grey-600 dark:text-white mr-2">
+                    ↑
+                  </kbd>
+                  <kbd className="rounded bg-gray-300 dark:bg-gray-700 cursor-pointer px-1 border-gray-400 border-opacity-20 border-b-2 hover:border-none hover:shadow-inner hover:bg-gray-200 dark:hover:bg-gray-600 shadow-darker text-grey-600 dark:text-white mr-2">
+                    ↓
+                  </kbd>
+                </span>
+                <span className="text-xs mr-4 tracking-normal text-gray-600 dark:text-gray-400">
+                  to navigate
+                </span>
+                <span className="text-xs tracking-tighter">
+                  <kbd className="rounded bg-gray-300 dark:bg-gray-700 cursor-pointer px-1 border-gray-400 border-opacity-20 border-b-2 hover:border-none hover:shadow-inner hover:bg-gray-200 dark:hover:bg-gray-600 shadow-darker text-grey-600 dark:text-white mr-2">
+                    Esc
+                  </kbd>
+                </span>
+                <span className="text-xs mr-4 tracking-normal text-gray-600 dark:text-gray-400">
+                  to close the search
+                </span>
+              </div>
+          </div>
       </KBarAnimator>
     </KBarPositioner>
   </KBarPortal>
