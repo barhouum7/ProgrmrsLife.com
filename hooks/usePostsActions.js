@@ -3,30 +3,57 @@ import { useRegisterActions } from "kbar";
 import { getPosts } from "../services/index";
 
 export default function usePostsActions() {
-  const [postsResults, setPostsResults] = useState([]);
+  const [posts, setPosts] = useState([]);
+
+  const [postsLoaded, setPostsLoaded] = useState(null);
 
   useEffect(() => {
     getPosts().then((data) => {
-      setPostsResults(data);
+      setPosts(data);
       
     }).catch((err) => { console.log(err); })
   }, []);
+
+  console.log("Posts Results: ", posts);
   
-  
-  const postsAction = useMemo(() => {
-    // console.log("Posts: ", postsResults);
-    return postsResults.map((post) => ({
+  useEffect(() => {
+    setPostsLoaded(!!posts && posts.length > 0);
+  }, [posts]);
+
+  const defaultActions = useMemo(
+    () => [
+      {
+        id: "loading-posts",
+        name: "Loading Posts...",
+        keywords: ["loading posts"],
+        section: "",
+        perform: () => {
+          window.location.href = "/";
+        },
+        subtitle: "Loading Posts...",
+        parent: "posts",
+      },
+    ],
+    []
+  );
+
+  const postsActions = useMemo(() => {
+    if (!postsLoaded) {
+      return defaultActions;
+    }
+
+    return posts.map((post) => ({
       id: post.node.slug,
       name: post.node.title,
       keywords: [post.node.title, post.node.slug],
-      section: "Articles",
+      section: "",
       perform: () => {
         window.location.href = `/post/${post.node.slug}`;
       },
       subtitle: post.node.excerpt,
       parent: "posts",
     }));
-  }, [postsResults]);
+  }, [postsLoaded, defaultActions, posts]);
 
   useRegisterActions([
     {
@@ -46,21 +73,7 @@ export default function usePostsActions() {
       subtitle: "Go to all posts",
       icon: <PostsIcon />,
     },
-    ...(postsResults.length > 0
-      ? postsAction
-      : [
-          {
-            id: "loading-posts",
-            name: "Loading Posts...",
-            keywords: ["loading posts"],
-            section: "",
-            perform: () => {
-              window.location.href = "/";
-            },
-            subtitle: "Loading Posts...",
-            parent: "posts",
-          },
-        ]),
+    ...postsActions,
   ]);
 
   return null;
