@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState} from "react";
 import { PostCard, Categories, PostWidget, FeaturedPosts} from '../components'
 import { getPosts } from '../services/index'
 
 export default function Home ({ posts }) {
-
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 3;
   const indexOfLastPost = currentPage * postsPerPage;
