@@ -367,16 +367,20 @@ const Header = () => {
                       //     renderThemeChanger() : renderKbarThemeChanger()
                       // isKbarDarkThemeChanged() ? renderThemeChanger() : renderKbarThemeChanger()
 
-                      !isMoonIcon ?
-                        !isKbarDarkThemeChanged() ?
-                          renderKbarThemeChanger()  : renderThemeChanger() 
-                      :
-                      !isSunIcon ?
-                        isKbarDarkThemeChanged() ?
-                          renderKbarThemeChanger()  : renderThemeChanger()
-                      :
-                        !isKbarDarkThemeChanged() ?
-                          renderThemeChanger() : renderSunIcon()
+                      // !isMoonIcon ?
+                      //   !isKbarDarkThemeChanged() ?
+                      //     renderKbarThemeChanger()  : renderThemeChanger() 
+                      // :
+                      // !isSunIcon ?
+                      //   isKbarDarkThemeChanged() ?
+                      //     renderKbarThemeChanger()  : renderThemeChanger()
+                      // :
+                      //   !isKbarDarkThemeChanged() ?
+                      //     renderThemeChanger() : renderSunIcon()
+
+                      // isKbarDarkThemeChanged() ? renderThemeChanger() : renderKbarThemeChanger()
+                      // isKbarDarkThemeChanged() ? !isMoonIcon() ? renderThemeChanger() : renderKbarThemeChanger() : !isMoonIcon() ? renderKbarThemeChanger() : renderThemeChanger()
+                      renderThemeChanger()
                     }
                   </Tooltip>
                   {/* <Flowbite>
