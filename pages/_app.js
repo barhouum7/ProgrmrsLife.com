@@ -1,4 +1,5 @@
 import { Layout } from "../sections"
+import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "next-themes"
 import { HelmetProvider } from 'react-helmet-async';
 import { KBarProvider } from "kbar";
@@ -60,11 +61,15 @@ const actions = [
             enableHistory: true,
           }}
         >
-          <CommandBar />
           <Layout>
-              <Component {...pageProps} />
+            <CommandBar {...pageProps} />
+            <Component {...pageProps} />
           </Layout>
-          
+          <Toaster
+            // toastOptions={{
+            //   position: "bottom-right",
+            // }}
+          />
         </KBarProvider>
       </ThemeProvider>
     </HelmetProvider>
