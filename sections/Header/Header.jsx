@@ -8,6 +8,7 @@ import { Flowbite } from "flowbite-react";
 import{ SunIcon } from "@heroicons/react/20/solid";
 
 import SearchBar from "./SearchBar";
+import useThemeActions from '../../hooks/useThemeActions';
 
 import Link from "next/link";
 import { getCategories } from '../../services'
@@ -178,20 +179,25 @@ const Header = () => {
     }
   }
 
-  useEffect(() => {
-    const navbar = document.querySelector('nav');
-    const html = document.querySelector('html');
-      if (!isScrolled) {
-          if (html.classList.contains('dark')) {
-            navbar.style.backgroundColor = 'rgba(28, 35, 43, 0.8)';
-          } else if (!(html.classList.contains('dark'))) {
-            navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-          }
-          // if (navbar.style.backgroundColor.includes('rgba')) {
-          //   navbar.style.backgroundColor = '';
-          // }
-      }
-  }, [isScrolled]);
+  useThemeActions(isScrolled, darkMode());
+
+
+  // useEffect(() => {
+  //   const navbar = document.querySelector('nav');
+  //   const html = document.querySelector('html');
+  //     // if (!isScrolled) {
+  //         if ((darkMode() && document.querySelector('nav').style.backgroundColor.includes('rgba(255, 255, 255, 0.9)') || !isScrolled) || isHovered || !isHovered) {
+  //           navbar.style.backgroundColor = 'rgba(28, 35, 43, 0.8)';
+  //         } else if (!(darkMode() && document.querySelector('nav').style.backgroundColor.includes('rgba(255, 255, 255, 0.9)')) || isHovered || !isHovered) {
+  //           navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+  //         } else {
+  //           navbar.style.backgroundColor = '';
+  //         }
+  //         // if (navbar.style.backgroundColor.includes('rgba')) {
+  //         //   navbar.style.backgroundColor = '';
+  //         // }
+  //     // }
+  // }, []);
 
   return (
       <header className="relative h-32">
@@ -207,7 +213,7 @@ const Header = () => {
             style={{
               backgroundColor: isScrolled
               ? "transparent"
-              : (darkMode() ? "rgba(28, 35, 43, 0.8)" : "rgba(255, 255, 255, 0.9)"),
+              : (isKbarDarkThemeChanged() ? "rgba(28, 35, 43, 0.8)" : "rgba(255, 255, 255, 0.9)"),
               backdropFilter: isScrolled ? "blur(10px)" : "none",
             }}
             >
