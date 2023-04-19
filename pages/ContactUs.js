@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import { Tooltip, Checkbox, Toast, Flowbite, Alert } from "flowbite-react";
 import {HiMail, HiPencil, HiPencilAlt, HiUser} from "react-icons/hi";
-
+import { getPosts } from '../services/index'
 
 const ContactUs = () => {
     const [error, setError] = useState(false)
@@ -433,3 +433,11 @@ const ContactUs = () => {
 }
 
 export default ContactUs
+
+// Fetch data at build time
+export async function getStaticProps() {
+    const posts = (await getPosts()) || [];
+    return {
+      props: { posts },
+    };
+  }

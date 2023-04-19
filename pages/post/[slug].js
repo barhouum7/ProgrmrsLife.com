@@ -173,9 +173,11 @@ export default PostDetails
 // Fetch data at build time
 export async function getStaticProps({ params }) {
     const data = await getPostDetails(params.slug);
+    const posts = (await getPosts()) || [];
     return {
         props: {
-            post: data
+            post: data,
+            posts,
         }
     };
 }

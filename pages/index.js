@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { PostCard, Categories, PostWidget, FeaturedPosts} from '../components'
+import { PostCard, Categories, PostWidget, FeaturedPosts } from '../components'
 import { getPosts } from '../services/index'
 
 export default function Home ({ posts }) {
@@ -16,6 +16,7 @@ export default function Home ({ posts }) {
   }
 
   return (
+    <>
       <div>
         <FeaturedPosts />
         <div className='dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-4 transition ease-in-out duration-500'>
@@ -67,6 +68,7 @@ export default function Home ({ posts }) {
           </div>
         </div>
       </div>
+      </>
   );
 }
 

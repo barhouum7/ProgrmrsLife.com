@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Head from 'next/head'
 import Link from 'next/link';
+import { getPosts } from '../services/index';
 
 const Card = ({ title, description, imgSrc }) => {
     const [hover, setHover] = useState(false);
@@ -120,3 +121,11 @@ function Services() {
 }
 
 export default Services
+
+// Fetch data at build time
+export async function getStaticProps() {
+    const posts = (await getPosts()) || [];
+    return {
+      props: { posts },
+    };
+  }

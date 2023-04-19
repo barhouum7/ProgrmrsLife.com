@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { getPosts } from '../services/index';
 
 const AboutUs = () => {
   return (
@@ -65,3 +66,11 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
+
+// Fetch data at build time
+export async function getStaticProps() {
+  const posts = (await getPosts()) || [];
+  return {
+    props: { posts },
+  };
+}

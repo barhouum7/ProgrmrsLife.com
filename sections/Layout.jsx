@@ -4,7 +4,8 @@ import { Subscribe, ScrollToTopButton, ConsentPreferenceLink } from "../componen
 import Head from "next/head";
 import Script from "next/script";
 
-const Layout = ({ children}) => {
+
+const Layout = ({ children }) => {
   return (
     <>
       <Head>
