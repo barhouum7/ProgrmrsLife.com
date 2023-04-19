@@ -189,8 +189,9 @@ const searchStyle = {
     }
   );
 
-export default function CommandBar() {
-    usePostsActions();
+export default function CommandBar({posts}) {
+  // console.log('CommandBar: ', posts);
+    usePostsActions(posts);
     useCategoriesActions();
     useThemeActions();
     return (
