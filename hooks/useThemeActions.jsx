@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useContext, useEffect } from "react";
 import { useRegisterActions } from "kbar";
 import toast from "react-hot-toast";
 
@@ -48,8 +48,19 @@ function ToastLight({ title, action, buttonText }) {
   );
 }
 
-export default function useThemeActions() {
+export default function useThemeActions(isScrolled, darkMode) {
     // const {renderThemeChanger} = useContext(ScrollContext);
+
+    useEffect(() => {
+        const doc = document.documentElement;
+        const nav = document.querySelector('nav');
+        if (darkMode && !isScrolled) {
+            nav.style.backgroundColor = "rgba(28, 35, 43, 0.8)"; // Set the initial background color for dark mode
+        } else if (!darkMode && !isScrolled){
+            nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"; // Set the background color for light mode
+        }
+    }, []);
+
     useRegisterActions([
         {
             id: "theme",
