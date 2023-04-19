@@ -281,3 +281,17 @@ export const getCategoryPost = async (slug) => {
     
     return result.postsConnection.edges;
     };
+
+    export const getCategory = async (slug) => {
+        const query = gql`
+            query GetCategory($slug: String!) {
+                category(where: { slug: $slug }) {
+                    name
+                }
+            }
+        `;
+        
+        const result = await handleErrors(graphqlAPI, query, { slug });
+        
+        return result.category.name;
+    };
