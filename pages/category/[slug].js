@@ -1,4 +1,6 @@
 import React from 'react';
+import Head from 'next/head';
+import Script from 'next/script';
 // import { useRouter } from 'next/router';
 
 import { getCategories, getCategoryPost, getCategory, getPosts } from '../../services';
@@ -12,6 +14,48 @@ const CategoryPost = ({ posts, categoryName }) => {
 //   }
 
   return (
+    <>
+    <Head>
+      <title>{`${categoryName} | Programmers Life`}</title>
+      <meta name="description" content={
+        `Programmers Life is a blog for programmers. We write about programming, web development, and software development.`
+      } />
+      <meta name="keywords" content="programming, web development, software development, programming blog, web development blog, software development blog" />
+      <meta name="author" content="Programmers Life" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="robots" content="index, follow" />
+      <meta name="googlebot" content="index, follow" />
+      <meta name="google" content="nositelinkssearchbox" />
+      <meta name="google" content="notranslate" />
+      <meta name="google" content="notranslate" />
+      <meta http-equiv="Content-Language" content="en" />
+      <meta name="language" content="English" />
+      <meta property="og:title" content={`${categoryName} | Programmers Life`} />
+      <meta property="og:description" content={
+        `Programmers Life is a blog for programmers. We write about programming, web development, and software development.`
+      } />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://programmerslife.site" />
+      <meta property="og:site_name" content="Programmers Life" />
+      <link rel="icon" href="/imgs/favicon.svg" />
+      <link rel="canonical" href="https://programmerslife.site" />
+      <link rel="alternate" href="https://programmerslife.site" hrefLang="en" />
+      <link rel="alternate" href="https://programmerslife.site" hrefLang="x-default" />
+      <link rel="alternate" href="https://programmerslife.site" hrefLang="en-US" />
+    </Head>
+    {/* <!-- Google tag (gtag.js) --> */}
+    <Script 
+        async 
+        src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
+    />
+    <Script>
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-PEF01PTY1T');
+        `}
+    </Script>
     <div className="bg-white dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="col-span-1 lg:col-span-12 text-center">
@@ -31,6 +75,7 @@ const CategoryPost = ({ posts, categoryName }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 export default CategoryPost;

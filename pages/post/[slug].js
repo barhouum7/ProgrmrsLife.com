@@ -101,6 +101,7 @@ const PostDetails = ({ post }) => {
             <Head>
                 <title>{`${post.title} | Programmers Life`}</title>
                 <meta name="description" content={post.excerpt} />
+                <link rel="icon" href="/imgs/favicon.svg" />
                 <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
                 <meta name="author" content={post.author.name} />
                 <meta name="og:title" property="og:title" content={post.title} />
@@ -142,6 +143,19 @@ const PostDetails = ({ post }) => {
                     crossOrigin="anonymous"
                 />
             </Head>
+            {/* <!-- Google tag (gtag.js) --> */}
+            <Script 
+                async 
+                src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
+            />
+            <Script>
+                {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-PEF01PTY1T');
+                `}
+            </Script>
 
             <Toaster position="top-center" reverseOrder={false} />
             <div className="dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">

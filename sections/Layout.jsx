@@ -116,6 +116,20 @@ const Layout = ({ children }) => {
           crossorigin="anonymous"
         />
       </Head>
+      {/* <!-- Google tag (gtag.js) --> */}
+      <Script 
+          async 
+          src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
+      />
+      <Script>
+          {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-PEF01PTY1T');
+          `}
+      </Script>
+      {/* <!-- End Google tag (gtag.js) --> */}
         <Header />
         <main className="container relative rounded-t mx-auto transition ease-in-out duration-500">
             {children}
