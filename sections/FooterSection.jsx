@@ -10,7 +10,7 @@ const BsFacebook = () => {
       <Tooltip content="ProgrammersLife on Facebook" placement="top" style="dark" className="transition duration-700 ease-in-out">
         <a href="https://facebook.com/groups/programmmerslife/" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
           <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-dark hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path></svg>
-        </a>  
+        </a>
       </Tooltip>
     </div>
   )
@@ -57,7 +57,7 @@ const BsLinkedin = () => {
   return (
     
       <Tooltip content="ProgrammersLife on LinkedIn" placement="top" style="dark" className="transition duration-700 ease-in-out">
-        <a href="https://www.linkedin.com/in/barhouum7/" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+        <a href="https://www.linkedin.com/in/ibrahimbs/" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="mr-3 h-6 w-6 text-dark hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="0 2 67 70">
             <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
           </svg>
@@ -86,12 +86,12 @@ const FooterSection = () => {
         <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
                 <a href="https://programmerslife.site/" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
+                    <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center mr-8">
                     <img
                       alt="Programmers Life logo"
                       src="/imgs/logo.svg"
-                      width={100}
-                      height={100}
+                      width={50}
+                      height={50}
                       className='rounded-full cursor-pointer mr-1 inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10'
                     />
                       <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
@@ -99,46 +99,88 @@ const FooterSection = () => {
                       </span>
                     </div>
                 </a>
+                <div className="mt-4 text-gray-900 dark:text-gray-400 max-w-sm sm:px-6 lg:px-8">
+                  <p className="text-sm">Programmers Life is a community dedicated to helping IT professionals and enthusiasts by providing free resources, tools, and expert tips to help them succeed in their careers and stay up-to-date with the latest industry trends.</p>
+                </div>
             </div>
-            <div className="sm:flex sm:flex-col sm:-mr-4 grid-cols-4 gap-4 mr-8 footer-items-size">
-                <div className="mr-8 ml-0">
-                    <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
-                    <ul className="text-gray-900 dark:text-gray-400">
-                        <li className="mb-4 relative flex">
-                            <a href="https://ask-chatgpt.programmerslife.site/coming-soon-page.html" target="_blank" rel="noopener noreferrer" className="menu-item">Services <span className="border-b-effect-footer"></span></a>
-                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
+            <div className="sm:flex sm:flex-col grid-cols-4 gap-4 footer-items-size">
+                <div className="mr-8 px-4 lg:px-0">
+                    <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-white inline items-center h-9">About</h2>
+                    <ul className="mt-4 text-gray-900 dark:text-gray-400">
+                        <li className="mb-4 hover:text-pink-300 cursor-pointer align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <a href="/AboutUs" target="_top" rel="noopener noreferrer" className="relative menu-item">About Us <span className="border-b-effect-footer"></span></a>
                         </li>
-                        <li className="mb-4 relative flex">
-                            <a href="https://ask-chatgpt.programmerslife.site/" target="_blank" rel="noopener noreferrer" className="menu-item">Free Ai tools <span className="border-b-effect-footer"></span></a>
-                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
+                        <li className="mb-4 hover:text-pink-300 cursor-pointer align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <a href="/ContactUs" target="_top" rel="noopener noreferrer" className="relative menu-item">Contact Us <span className="border-b-effect-footer"></span></a>
                         </li>
-                        <li className="mb-4 relative">
-                            <a href="https://programmerslife.site/" target="_top" rel="noopener noreferrer" className="menu-item">Blog <span className="border-b-effect-footer"></span></a>
+                        <li className="mb-4 hover:text-pink-300 cursor-pointer align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <a href="/privacyPolicy" target="_top" rel="noopener noreferrer" className="relative menu-item">Privacy Policy <span className="border-b-effect-footer"></span></a>
                         </li>
-                    </ul>
-                </div>
-                <div className="mr-8">
-                    <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
-                    <ul className="text-gray-900 dark:text-gray-400">
-                        <li className="mb-4 relative flex">
-                            <a href="https://github.com/barhouum7" target="_blank" rel="noopener noreferrer" className="menu-item">Github <span className="border-b-effect-footer"></span></a>
-                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
-                        </li>
-                        <li className="mb-4 relative flex">
-                            <a href="http://link.programmerslife.site/" target="_blank" rel="noopener noreferrer" className="menu-item">LinkedIn <span className="border-b-effect-footer"></span></a>
-                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
+                        <li className="mb-4 hover:text-pink-300 cursor-pointer align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <a href="/terms_and_conditions" target="_top" rel="noopener noreferrer" className="relative menu-item">Terms &amp; Conditions <span className="border-b-effect-footer"></span></a>
                         </li>
                     </ul>
                 </div>
-                <div className="mr-8">
-                    <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
-                    <ul className="text-gray-900 dark:text-gray-400">
-                        <li className="mb-4 relative">
-                            <a href="/privacyPolicy" target="_top" rel="noopener noreferrer" className="menu-item">Privacy Policy <span className="border-b-effect-footer"></span></a>
+                <div className="mr-8 px-4 lg:px-0">
+                    <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-white inline items-center h-9">Resources</h2>
+                    <ul className="mt-4 text-gray-900 dark:text-gray-400">
+                        <li className="mb-4 cursor-pointer flex hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <a href="https://ask-chatgpt.programmerslife.site/coming-soon-page.html" target="_blank" rel="noopener noreferrer" className="relative menu-item">Services <span className="border-b-effect-footer"></span></a>
+                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
                         </li>
-                        <li className="mb-4 relative">
-                            <a href="/terms_and_conditions" target="_top" rel="noopener noreferrer" className="menu-item">Terms &amp; Conditions <span className="border-b-effect-footer"></span></a>
+                        <li className="mb-4 cursor-pointer flex hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <a href="https://ask-chatgpt.programmerslife.site/" target="_blank" rel="noopener noreferrer" className="relative menu-item">Free Ai tools <span className="border-b-effect-footer"></span></a>
+                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
                         </li>
+                        <li className="mb-4 cursor-pointer hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <a href="https://programmerslife.site/" target="_top" rel="noopener noreferrer" className="relative menu-item">Blog <span className="border-b-effect-footer"></span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="mr-8 px-4 lg:px-0">
+                    <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-white inline items-center h-9">Follow us</h2>
+                    <ul className="mt-4 text-gray-900 dark:text-gray-400">
+                          <Tooltip content="ProgrammersLife on Github" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                            <li className="mb-4 cursor-pointer flex hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="mr-2 w-4 h-auto text-dark hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:text-gray-400 dark:hover:text-white" xmlns="http://www.w3.org/2000/svg"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                <a href="https://github.com/barhouum7" target="_blank" rel="noopener noreferrer" className="relative menu-item">Github <span className="border-b-effect-footer"></span></a>
+                                <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
+                            </li>
+                          </Tooltip>
+                          <Tooltip content="ProgrammersLife on Facebook" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                            <li className="mb-4 cursor-pointer flex hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="mr-2 w-4 h-auto text-dark hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path></svg>
+                                <a href="https://facebook.com/groups/programmmerslife/" target="_blank" rel="noopener noreferrer" className="relative menu-item">Facebook <span className="border-b-effect-footer"></span></a>
+                                <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
+                            </li>
+                          </Tooltip>
+                          <Tooltip content="ProgrammersLife on YouTube" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                            <li className="mb-4 cursor-pointer flex hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                                <svg fill="currentColor" className="mr-2 w-4 h-auto text-dark hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path>
+                                </svg>
+                                <a href="https://facebook.com/groups/programmmerslife/" target="_blank" rel="noopener noreferrer" className="relative menu-item">YouTube <span className="border-b-effect-footer"></span></a>
+                                <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
+                            </li>
+                          </Tooltip>
+                          <Tooltip content="ProgrammersLife on LinkedIn" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                            <li className="mb-4 cursor-pointer flex hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="mr-2 w-4 h-auto text-dark hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="4 0 60 70">
+                                <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
+                              </svg>
+                              <a href="https://www.linkedin.com/in/ibrahimbs/" target="_blank" rel="noopener noreferrer" className="relative menu-item">LinkedIn <span className="border-b-effect-footer"></span></a>
+                              <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
+                            </li>
+                          </Tooltip>
+                        <Tooltip content="Show your support😍" placement="top" style="dark" className="transition duration-700 ease-in-out">
+                          <li className="mb-4 cursor-pointer flex hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                              <svg fill="currentColor" className="w-4 h-auto mr-2 text-dark hover:text-white hover:animate-ping-slow hover:animate-[ping_4s_cubic-bezier(0_0_0.2_1)_infinite] dark:text-gray-400 dark:hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                  <path d="M431.5 177.6L480 32H88C39.38 32 0 71.38 0 120V208C0 216.9 7.125 224 16 224h32C56.88 224 64 216.9 64 208V136C64 113.9 81.88 96 104 96h13.38l27.38 82.13C95.38 217.9 64 277.8 64 344.6c0 51.5 18.62 84.74 49.62 117.7C124.5 473.6 139.5 480 155.1 480l265.8 0c15.62 0 30.57-6.192 41.32-17.57C493.2 429.6 512 396.1 512 344.6C512 278.4 481.4 217.9 431.5 177.6zM445.9 320H130.6c6.75-39 28.88-72.88 60.5-96h195.8C417.1 247.2 439.5 281.2 445.9 320z"></path>
+                              </svg>
+                              <a href="https://www.buymeacoffee.com/programmerslife" target="_blank" rel="noopener noreferrer" className="relative menu-item">Buy Me a Coffee <span className="border-b-effect-footer"></span></a>
+                              <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
+                          </li>
+                        </Tooltip>
                     </ul>
                 </div>
             </div>
@@ -148,7 +190,7 @@ const FooterSection = () => {
             <span className="text-sm text-gray-900 sm:text-center dark:text-gray-400">&copy; {new Date().getFullYear()}
             </span>
             &nbsp;
-            <span className="text-sm sm:text-center text-gray-900 hover:text-white sm:text-center dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out">
+            <span className="text-sm sm:text-center text-gray-900 hover:text-pink-300 sm:text-center dark:text-gray-400 dark:hover:text-pink-300 transition duration-700 ease-in-out">
               <a href="https://programmerslife.site/">ProgrammersLife™</a>.
             </span>
             &nbsp;
