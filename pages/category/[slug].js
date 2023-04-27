@@ -6,7 +6,7 @@ import Script from 'next/script';
 import { getCategories, getCategoryPost, getCategory, getPosts } from '../../services';
 import { PostCard, Categories, Loader } from '../../components';
 
-const CategoryPost = ({ posts, categoryName }) => {
+const CategoryPost = ({ catPosts, categoryName }) => {
 //   const router = useRouter();
 
 //   if (router.isFallback) {
@@ -64,7 +64,7 @@ const CategoryPost = ({ posts, categoryName }) => {
           </h1>
         </div>
         <div className="col-span-1 lg:col-span-8">
-          {posts.map((post, index) => (
+          {catPosts.map((post, index) => (
             <PostCard key={post.node.title} post={post.node} />
           ))}
         </div>
@@ -91,7 +91,7 @@ export async function getStaticProps({ params }) {
     props: {
       catPosts,
       categoryName,
-      posts,
+      posts, // Passing this prop to be able to load posts from the Kbar Quick Search
     },
   };
 }
