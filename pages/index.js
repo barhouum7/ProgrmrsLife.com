@@ -7,7 +7,7 @@ export default function Home ({ posts }) {
   const postsPerPage = 3;
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost).reverse();
 
   const totalPages = Math.ceil(posts.length / postsPerPage);
 
