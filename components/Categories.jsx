@@ -22,6 +22,13 @@ const Categories = () => {
                 </span>
             </Link>
         ))}
+        {
+            categories.length === 0 && (
+                <p className='text-gray-500 dark:text-gray-400 font-xs'>
+                    Loading categories...
+                </p>
+            )
+        }
     </div>
   )
 }
