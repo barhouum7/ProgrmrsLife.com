@@ -222,7 +222,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
             onClick={handlePlay}
             className='flex ml-3 mt-1'
             >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 text-green-500 hover:text-black hover:animate-bounce dark:text-green-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm2.8 8.51l-3.69 2.46a.62.62 0 0 1-.96-.5V5.53a.62.62 0 0 1 .96-.51l3.7 2.46a.62.62 0 0 1 0 1.02z" fill="currentColor"></path></svg>
+                <div className="relative">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 text-green-500 hover:text-black dark:text-green-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm2.8 8.51l-3.69 2.46a.62.62 0 0 1-.96-.5V5.53a.62.62 0 0 1 .96-.51l3.7 2.46a.62.62 0 0 1 0 1.02z" fill="currentColor"></path></svg>
+                    <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-green-400 hover:bg-opacity-50 hover:animate-ping bg-green-400 dark:hover:bg-green-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
+                </div>
                 <span className='text-gray-700 dark:text-gray-200 ml-1 mb-1 text-sm font-semibold'>{isPlaying ? "Listening..." : "Listen"}</span>
             </button>
             
@@ -280,7 +283,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         return (
             <Tooltip content="Share on Facebook" placement="top" style="dark" className="transition duration-700 ease-in-out">
             <button onClick={handleFacebookClick} className="mr-3 cursor-pointer">
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path></svg> 
+                <div className='relative'>
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path></svg>
+                    <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-blue-600 bg-opacity-50 hover:animate-ping'></div>
+                </div>
             </button>
             </Tooltip>
         )
@@ -291,7 +297,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         return (
             <Tooltip content="Tweet this post" placement="top" style="dark" className="transition duration-700 ease-in-out">
                 <button onClick={handleTwitterClick} className="mr-3 ml-3 cursor-pointer">                
-                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path></svg>
+                    <div className='relative'>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="h-5 w-5 text-gray-400 hover:text-black dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path></svg>
+                        <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-sky-400 bg-opacity-50 hover:animate-ping'></div>
+                    </div>
                 </button>
             </Tooltip>
         )
@@ -301,9 +310,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         return (
             <Tooltip content="Share on LinkedIn" placement="top" style="dark" className="transition duration-700 ease-in-out">
                 <button onClick={ handleLinkedInClick } className="mr-3 mt-1 cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="0 2 67 70">
-                        <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
-                    </svg>
+                    <div className='relative'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6 text-gray-400 hover:text-black dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out rounded-full" viewBox="0 2 67 70">
+                            <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z"/>
+                        </svg>
+                        <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-blue-800 bg-opacity-50 hover:animate-ping'></div>
+                    </div>
                 </button>
             </Tooltip>
         )
@@ -326,7 +338,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
             <Tooltip content="Leave a Comment, We're excited to hear from you!😍" placement="top" style="dark" className="transition duration-700 ease-in-out">
                 <button className="mr-3 cursor-pointer">
                     <a href='#commentForm'>
-                        <FaComment className="h-6 w-6 text-gray-400 hover:text-black hover:animate-bounce dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" />
+                        <div className='relative'>
+                            <FaComment className="h-6 w-6 text-gray-400 hover:text-black dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" />
+                            <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-slate-400 dark:hover:bg-white bg-opacity-50 hover:animate-ping'></div>
+                        </div>
                     </a>
                 </button>
             </Tooltip>
@@ -456,25 +471,30 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                     
                     <link rel="canonical" href={`https://programmerslife.site/posts/${post.slug}`} />
                 </Helmet>
-                <div className="relative overflow-hidden shadow-xl mb-6">
+                <div className="relative overflow-hidden shadow-xl mb-6 cursor-pointer transition duration-700 ease-in-out transform hover:opacity-80">
                     <img 
                         src={post.featuredImage.url}
                         alt={post.title}
-                        className="object-top w-full h-full rounded-t-lg"
+                        className="object-top w-full h-full rounded-t-lg hover:shadow-inner"
                     />
                 </div>
                 <div className="px-4 lg:px-0">
                     <div className="lg:flex block items-center justify-center mb-4 w-full">
-                        <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-2">
-                            <img
-                                alt={post.author.name}
-                                height="30"
-                                width="30"
-                                src={post.author.photo.url}
-                                className="rounded-full align-middle border-none shadow-lg cursor-pointer"
-                            />
-                            <p className="inline align-middle text-gray-700 dark:text-gray-200 ml-2 text-lg">{post.author.name}</p>
-                        </div>
+                        <a href="#authorBio">
+                            <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-2">
+                                <div className='relative'>
+                                    <img
+                                        alt={post.author.name}
+                                        height="30"
+                                        width="30"
+                                        src={post.author.photo.url}
+                                        className="rounded-full align-middle border-none shadow-lg cursor-pointer"
+                                    />
+                                    <div className='w-full h-full rounded-full align-middle absolute top-0 bg-transparent hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
+                                </div>
+                                <p className="inline align-middle text-gray-700 dark:text-gray-200 ml-2 text-lg cursor-pointer">{post.author.name}</p>
+                            </div>
+                        </a>
                         <div className="flex items-center justify-center w-full lg:w-auto font-medium text-gray-700 dark:text-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline mr-2 text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
