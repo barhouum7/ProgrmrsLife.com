@@ -6,6 +6,12 @@ import Script from "next/script";
 
 
 const Layout = ({ children }) => {
+  if (typeof window !== "undefined") {
+    window.document.querySelector("html").addEventListener("copy", (e) => {
+      e.preventDefault();
+      e.clipboardData.setData("text/plain", "Copying is not allowed.");
+    });
+  }
   return (
     <>
       <Head>
