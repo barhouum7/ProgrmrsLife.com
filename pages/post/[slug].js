@@ -162,12 +162,16 @@ const PostDetails = ({ post }) => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div className='lg:col-span-8 col-span-1'>
                         <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} />
-                        <Author author={post.author} />
+                        <div id='authorBio'>
+                            <Author author={post.author} />
+                        </div>
                         <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
                         <div id='commentForm'>
                             <CommentsForm slug={post.slug} />
                         </div>
-                        <Comments slug={post.slug} />
+                        <div id='allComments'>
+                            <Comments slug={post.slug} />
+                        </div>
                     </div>
 
                     <div className="lg:col-span-4 col-span-1">
