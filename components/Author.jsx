@@ -14,7 +14,7 @@ const Author = ({ author }) => {
                             width={100}
                             height={100}
                         />
-                        <div className='w-full h-full rounded-full align-middle absolute top-0 bg-transparent hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
+                        <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-transparent dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
                     </div>
                 </div>
                 <h3 className='text-white font-bold py-4 text-xl'>{author.name}</h3>
