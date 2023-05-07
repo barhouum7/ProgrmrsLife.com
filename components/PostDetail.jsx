@@ -490,7 +490,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                         src={post.author.photo.url}
                                         className="rounded-full align-middle border-none shadow-lg cursor-pointer"
                                     />
-                                    <div className='w-full h-full rounded-full align-middle absolute top-0 bg-transparent hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
+                                    <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
                                 </div>
                                 <p className="inline align-middle text-gray-700 dark:text-gray-200 ml-2 text-lg cursor-pointer">{post.author.name}</p>
                             </div>
