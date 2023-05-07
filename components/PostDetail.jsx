@@ -663,7 +663,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                             );
                         }
                         ,
-                        blockquote: ({ children }) => <blockquote className="text-red-700">{children}</blockquote>,
+                        blockquote: ({ children }) => <blockquote className="mb-8 italic text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-gray-200 dark:shadow-gray-700 shadow-inner">{children}</blockquote>,
                         ol: ({ children }) => <ol className="list-decimal list-inside leading-10 bg-gray-200 dark:bg-gray-700 px-2 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
                         li: ({ children }) => <li className="text-gray-900 dark:text-gray-400">{children}</li>,
                         ul: ({ children }) => <ul className="list-disc list-inside px-2 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
