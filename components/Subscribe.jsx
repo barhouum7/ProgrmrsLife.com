@@ -1,12 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react'
-import { Alert } from "flowbite-react";
-import {HiMail} from "react-icons/hi";
+import { Alert, Tooltip } from "flowbite-react";
+import {HiMail, HiUser} from "react-icons/hi";
 import { submitEmail } from '../services'
 
 
 const Subscribe = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [email, setEmail] = useState("");
+    const nameEl = useRef();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,29 +71,98 @@ return (
                                 promotions, and events. Don't miss out.
                             </p>
                         </div>
-                        <div className="mt-10">
-                            <form onSubmit={handleSubmit} className="relative w-full sm:flex items-center justify-center">
-                                <label htmlFor="email-address" className="sr-only">
-                                Email address
-                                </label>
-                                <HiMail className="w-6 h-6 top-3 left-2 lg:ml-8 md:ml-8 sm:-ml-4 lg:mt-0 md:mt-0 sm:mt-0 absolute lg:left-20 sm:left-20 text-gray-500 dark:text-gray-400" />
-                                <input
-                                    id="email-address"
-                                    name="email-address"
-                                    type="email"
-                                    autoComplete="email"
-                                    required
-                                    className="appearance-none w-full pl-10 px-4 py-3 text-gray-700 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:max-w-xs bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline font-normal"
-                                    placeholder="Enter your email here..."
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
+                        <div className="grid grid-cols-1 gap-4 mt-12">
+                            <form onSubmit={handleSubmit} className="sm:flex items-center justify-center">
+                                <div className='sm:flex justify-center'>
+                                    {/* Name Input */}
+                                    <div className='relative mr-3'>
+                                        <Tooltip
+                                        content={
+                                            <div>
+                                                We'd love to know your Name!😍 <br />
+                                                <p className='flex'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
+                                                        <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                                                    </svg>                        
+                                                    We'll never share your details.
+                                                </p>
+                                            </div>
+                                        }
+                                        style="dark"
+                                        >
+                                            <div className='flex'>
+                                                <label htmlFor="name" className="block text-gray-700 dark:text-gray-400 font-bold mb-2">
+                                                    Name
+                                                </label>
+                                                <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </Tooltip>
+                                        <HiUser className="w-5 h-5 absolute top-11 left-1 lg:left-1 sm:left-1 text-gray-500 dark:text-gray-400" />
+                                        <input
+                                            ref={nameEl}
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            placeholder='Enter your name here...'
+                                            className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-3 px-4 mb-2 outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
+                                            required
+                                        />
+                                    </div>
+                                    {/* Email Input */}
+                                    <div className='relative'>
+                                        <Tooltip
+                                        content={
+                                            <div>
+                                                Please enter your email address to Subscribe!<br />
+                                                <p className='flex'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
+                                                        <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                                                    </svg>
+                                                    Don't worry, we'll never share it.
+                                                </p>
+                                                <br />Read our&nbsp;<a href='/privacyPolicy' className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</a>.
+                                            </div>
+                                        }
+                                        style="dark"
+                                        >
+                                            <div className='flex'>
+                                                <label htmlFor="email-address" className="block text-gray-700 dark:text-gray-400 font-bold mb-2">
+                                                    Email
+                                                </label>
+                                                <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </Tooltip>
+                                        {/* <HiMail className="w-6 h-6 top-3 left-2 lg:ml-8 md:ml-8 sm:-ml-4 lg:mt-0 md:mt-0 sm:mt-0 absolute lg:left-20 sm:left-20 text-gray-500 dark:text-gray-400" /> */}
+                                        <HiMail className="w-6 h-6 absolute top-11 left-1 lg:left-1 sm:left-1 text-gray-500 dark:text-gray-400" />
+                                        <input
+                                            id="email-address"
+                                            name="email-address"
+                                            type="email"
+                                            autoComplete="email"
+                                            required
+                                            className="pl-8 block w-full px-4 py-3 text-gray-700 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:max-w-xs bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline resize-none font-normal outline-none"
+                                            placeholder="Enter your email here..."
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className='mt-6'>
                                     <button
                                     type="submit"
-                                    className="mt-3 w-full px-4 py-3 text-base font-medium text-white bg-indigo-600 rounded-md shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                                    className="px-4 py-3 text-base font-medium text-white bg-indigo-600 rounded-md shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                                     >
                                         Subscribe
                                     </button>
+                                </div>
                             </form>
                         </div>
                     </>
