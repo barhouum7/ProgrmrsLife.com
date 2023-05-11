@@ -1,15 +1,27 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { PostCard, Categories, PostWidget, FeaturedPosts } from '../components'
 import { getPosts } from '../services/index'
 
 export default function Home ({ posts }) {
+  const [shuffledPosts, setShuffledPosts] = useState([]);
+
+  useEffect(() => {
+    // Shuffle the posts array using Fisher-Yates shuffle algorithm
+    let array = [...posts];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    setShuffledPosts(array);
+  }, [posts]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 3;
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost).reverse();
+  const currentPosts = shuffledPosts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const totalPages = Math.ceil(shuffledPosts.length / postsPerPage);
 
   function handlePageChange(pageNumber) {
     setCurrentPage(pageNumber);
@@ -22,7 +34,6 @@ export default function Home ({ posts }) {
         <div className='dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-4 transition ease-in-out duration-500'>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
               <div className='lg:col-span-8 col-span-1'>
-                {/* {console.log(posts.length)} */}
                 {
                   currentPosts.map((post, index) => (
                     <PostCard key={index} post={post.node} />
