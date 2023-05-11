@@ -161,35 +161,61 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
             // }
         };
 
-        const handleTwitterClick = () => {
-            const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
-            const articleTitle = encodeURIComponent(post.title);
-            const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
-            const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr&url=${redirectUri}`;
+        // const handleTwitterClick = () => {
+        //     const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+        //     const articleTitle = encodeURIComponent(post.title);
+        //     // const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
+        //     const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr`;
 
             
+        //     const twitterWindow = window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
+        //     const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+
+        //     if ((!twitterWindow || !successWindow) || (twitterWindow.closed || successWindow.closed) || (typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
+        //         // Display a message to the user asking them to enable popups for your website
+        //         onEnablePopupMessage();
+        //         twitterWindow.close();
+        //     } else if (!(!twitterWindow || !successWindow) || !(twitterWindow.closed || successWindow.closed) || !(typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
+        //         successWindow.close();
+        //     } else if (typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined') {
+        //         successWindow.close();
+        //     } else if (window.document.readyState === 'complete') {
+        //         successWindow.close();
+        //     } else {
+        //         window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
+        //     }
+        //     if (!(typeof twitterWindow.closed === 'undefined' || twitterWindow.closed)) {
+        //         window.setTimeout(function() {
+        //             window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+        //         }, 20000);
+        //     }
+
+        // };
+
+        const openTwitterShareWindow = (twitterUrl) => {
             const twitterWindow = window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
             const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
-
-            if ((!twitterWindow || !successWindow) || (twitterWindow.closed || successWindow.closed) || (typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
-                // Display a message to the user asking them to enable popups for your website
+            
+            if (!twitterWindow || !successWindow || twitterWindow.closed || successWindow.closed) {
                 onEnablePopupMessage();
-                twitterWindow.close();
-            } else if (!(!twitterWindow || !successWindow) || !(twitterWindow.closed || successWindow.closed) || !(typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
-                successWindow.close();
-            } else if (typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined') {
-                successWindow.close();
-            } else if (window.document.readyState === 'complete') {
-                successWindow.close();
+                twitterWindow?.close();
             } else {
-                window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
+                successWindow.close();
             }
-            if (!(typeof twitterWindow.closed === 'undefined' || twitterWindow.closed)) {
-                window.setTimeout(function() {
+            
+            if (!twitterWindow?.closed) {
+                window.setTimeout(() => {
                     window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
                 }, 20000);
             }
-
+        };
+            
+        const handleTwitterClick = () => {
+            const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+            const articleTitle = encodeURIComponent(post.title);
+            const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr`;
+            
+            openTwitterShareWindow(twitterUrl);
         };
 
         const handleCopyClick = () => {
