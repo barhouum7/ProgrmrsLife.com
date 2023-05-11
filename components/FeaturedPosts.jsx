@@ -36,9 +36,21 @@ const FeaturedPosts = () => {
     });
   }, []);
 
+  const [shuffledFeaturedPosts, setShuffledFeaturedPosts] = useState([]);
+
+  useEffect(() => {
+    // Shuffle the FeaturedPosts array using Fisher-Yates shuffle algorithm
+    let array = [...featuredPosts];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    setShuffledFeaturedPosts(array);
+  }, [featuredPosts]);
+
   const customLeftArrow = (
     <div className="absolute arrow-btn left-0 text-center py-3 cursor-pointer bg-pink-600 rounded-full">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 text-white w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
       </svg>
     </div>
@@ -46,7 +58,7 @@ const FeaturedPosts = () => {
 
   const customRightArrow = (
     <div className="absolute arrow-btn right-0 text-center py-3 cursor-pointer bg-pink-600 rounded-full">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 text-white w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
       </svg>
     </div>
@@ -55,7 +67,7 @@ const FeaturedPosts = () => {
   return (
     <div className="mb-8">
       <Carousel infinite customLeftArrow={customLeftArrow} customRightArrow={customRightArrow} responsive={responsive} itemClass="px-4">
-        {dataLoaded && featuredPosts.map((post, index) => (
+        {dataLoaded && shuffledFeaturedPosts.map((post, index) => (
           <FeaturedPostCard key={index} post={post} />
         ))}
       </Carousel>
