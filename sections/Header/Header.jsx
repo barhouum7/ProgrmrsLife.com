@@ -5,7 +5,7 @@ import Logo from "../../components/Logo";
 import {useTheme} from "next-themes";
 import { DarkThemeToggle, Navbar, Dropdown, Tooltip } from "flowbite-react";
 import { Flowbite } from "flowbite-react";
-import{ SunIcon } from "@heroicons/react/20/solid";
+import{ SunIcon, MoonIcon } from "@heroicons/react/20/solid";
 
 import SearchBar from "./SearchBar";
 import useThemeActions from '../../hooks/useThemeActions';
@@ -105,7 +105,7 @@ const Header = () => {
     
     if(currentTheme === "dark" || isKbarDarkThemeChanged() === true) {
       return (
-        <SunIcon id='sun-icon' className="rounded-lg p-2 w-10 h-10 text-yellow-400 " role="button" onClick={() => setTheme('light')} 
+        <SunIcon id='sun-icon' className="rounded-lg p-2 w-10 h-10 text-yellow-400" role="button" onClick={() => setTheme('light')} 
         style={{
           backgroundColor: isHovered ? "#4B5563" : "transparent",
           color: isHovered ? "#F3F4F6" : !isToggleSwitched ? "yellow" : "#9CA3AF",
@@ -120,7 +120,7 @@ const Header = () => {
 
     else {
       return (
-        <DarkThemeToggle id='moon-icon' className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} 
+        <MoonIcon id='moon-icon' className="rounded-lg p-2 w-10 h-10 text-gray-900" role="button" onClick={() => setTheme('dark')} 
         style={{
           backgroundColor: isHovered ? "#4B5563" : "transparent",
           color: isHovered ? "#F3F4F6" : "rgba(55, 65, 81, 1)",
