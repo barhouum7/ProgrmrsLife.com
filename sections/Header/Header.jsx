@@ -202,12 +202,12 @@ const Header = () => {
   return (
       <header className="relative h-32">
         {/* <Navbar fluid className="w-full backdrop-filter backdrop-blur-lg fixed top-0 h-16 z-30  duration-500"> */}
-        {/* <nav className={`w-full h-16 z-10 fixed top-0 left-0 w-screen backdrop-filter backdrop-blur-lg dark:bg-gray-800 flex-grow sm:px-6 rounded-b shadow-lg dark:border-gray-700 transition ease-in-out transition-all duration-500
+        {/* <nav className={`w-full h-16 z-10 fixed top-0 left-0 backdrop-filter backdrop-blur-lg dark:bg-gray-800 flex-grow sm:px-6 rounded-b shadow-lg dark:border-gray-700 transition ease-in-out transition-all duration-500
               bg-transparent ${isScrolled ? "bg-transparent" : "bg-white"}`}> */}
           <Flowbite>
             <Navbar
             fluid={true} 
-            className={`w-full h-16 z-10 fixed top-0 left-0 w-screen flex-grow sm:px-6 rounded-b shadow-lg
+            className={`w-full h-16 z-10 fixed top-0 left-0 flex-grow sm:px-6 rounded-b shadow-lg
               dark:bg-opacity-90 dark:bg-gray-800 bg-opacity-90
             `}
             style={{
