@@ -7,13 +7,14 @@ import { submitEmail } from '../services'
 const Subscribe = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [email, setEmail] = useState("");
-    const nameEl = useRef();
+    const [name, setName] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Your newsletter subscription logic here
 
         const emailObj = {
+            name: name,
             email: email
         }
 
@@ -51,7 +52,7 @@ return (
                                     <span className="font-medium">
                                     Success alert!
                                     </span>
-                                    {' '}Thanks for subscribing!
+                                    {' '}Thanks for subscribing! We'll be in touch soon.
                                 </span>
                                 </Alert>
                             </div>
@@ -91,10 +92,10 @@ return (
                                         style="dark"
                                         >
                                             <div className='flex'>
-                                                <label htmlFor="name" className="block text-gray-700 dark:text-gray-400 font-bold mb-2">
+                                                <label htmlFor="name" className="block text-white dark:text-gray-400 font-bold mb-2">
                                                     Name
                                                 </label>
-                                                <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
+                                                <span className='ml-1 mt-1 text-green-300 dark:text-gray-400'>
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                     </svg>
@@ -103,13 +104,14 @@ return (
                                         </Tooltip>
                                         <HiUser className="w-5 h-5 absolute top-11 left-1 lg:left-1 sm:left-1 text-gray-500 dark:text-gray-400" />
                                         <input
-                                            ref={nameEl}
                                             type="text"
                                             id="name"
                                             name="name"
                                             placeholder='Enter your name here...'
-                                            className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-3 px-4 mb-2 outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
+                                            className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 text-gray-700 shadow-xl focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:max-w-xs dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border dark:border-none rounded-md py-3 px-4 mb-2 focus:outline-none focus:bg-white dark:focus:bg-gray-800 border-gray-200 focus:border-indigo-500 dark:focus:border-indigo-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
                                             required
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
                                         />
                                     </div>
                                     {/* Email Input */}
@@ -130,10 +132,10 @@ return (
                                         style="dark"
                                         >
                                             <div className='flex'>
-                                                <label htmlFor="email-address" className="block text-gray-700 dark:text-gray-400 font-bold mb-2">
+                                                <label htmlFor="email-address" className="block text-white dark:text-gray-400 font-bold mb-2">
                                                     Email
                                                 </label>
-                                                <span className='ml-1 mt-1 text-gray-700 dark:text-gray-400'>
+                                                <span className='ml-1 mt-1 text-green-300 dark:text-gray-400'>
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                     </svg>
@@ -148,7 +150,7 @@ return (
                                             type="email"
                                             autoComplete="email"
                                             required
-                                            className="pl-8 block w-full px-4 py-3 text-gray-700 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:max-w-xs bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline resize-none font-normal outline-none"
+                                            className="pl-8 block w-full px-4 py-3 text-gray-700 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:max-w-xs bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] transition ease-in-out duration-700 dark:text-gray-200 border border-gray-200 dark:border-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 dark:focus:border-indigo-500 focus:shadow-outline resize-none font-normal outline-none"
                                             placeholder="Enter your email here..."
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
