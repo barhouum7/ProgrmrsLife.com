@@ -21,8 +21,8 @@ export default async function newsletterSubscribers (req, res) {
     });
 
     const query = gql`
-        mutation CreateNewsletterSubscriber($email: String!) {
-            createNewsletterSubscriber(data: {email: $email}) {
+        mutation CreateNewsletterSubscriber($name: String!, $email: String!) {
+            createNewsletterSubscriber(data: {name: $name, email: $email}) {
                 id
             }
         }
