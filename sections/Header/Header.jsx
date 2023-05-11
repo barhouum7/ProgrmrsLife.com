@@ -103,7 +103,7 @@ const Header = () => {
 
     const currentTheme = theme === "system" ? systemTheme : theme;
     
-    if(currentTheme === "dark" || isKbarDarkThemeChanged() === true) {
+    if(currentTheme === "dark") {
       return (
         <SunIcon id='sun-icon' className="rounded-lg p-2 w-10 h-10 text-yellow-400" role="button" onClick={() => setTheme('light')} 
         style={{
