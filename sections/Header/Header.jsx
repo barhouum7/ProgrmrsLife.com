@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 
 import { useRouter } from "next/router";
 import Logo from "../../components/Logo";
-import {useTheme} from "next-themes";
+// import {useTheme} from "next-themes";
 import { DarkThemeToggle, Navbar, Dropdown, Tooltip } from "flowbite-react";
 import { Flowbite } from "flowbite-react";
-import{ SunIcon, MoonIcon } from "@heroicons/react/20/solid";
+// import{ SunIcon, MoonIcon } from "@heroicons/react/20/solid";
 
 import SearchBar from "./SearchBar";
 import useThemeActions from '../../hooks/useThemeActions';
@@ -16,7 +16,7 @@ import { getCategories } from '../../services'
 const Header = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isItemHovered, setIsItemHovered] = useState("");
-  const [ isToggleSwitched, setIsToggleSwitched] = useState(false);
+  // const [ isToggleSwitched, setIsToggleSwitched] = useState(false);
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -47,12 +47,12 @@ const Header = () => {
         .catch((err) => console.log(err))
   }, [])
 
-  const {systemTheme , theme, setTheme} = useTheme ();
-  const [mounted, setMounted] = useState(false);
+  // const {systemTheme , theme, setTheme} = useTheme ();
+  // const [mounted, setMounted] = useState(false);
   
-  useEffect(() =>{
-    setMounted(true);
-  },[])
+  // useEffect(() =>{
+  //   setMounted(true);
+  // },[])
   
   const isKbarDarkThemeChanged = () => {
     
@@ -65,119 +65,121 @@ const Header = () => {
     }
   }
 
-  const isMoonIcon = () => {
-    const moonIcon = typeof window !== 'undefined' && window.document.getElementById('moon-icon');
-    if (moonIcon) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // const isMoonIcon = () => {
+  //   const moonIcon = typeof window !== 'undefined' && window.document.getElementById('moon-icon');
+  //   if (moonIcon) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
-  const isSunIcon = () => {
-    const sunIcon = typeof window !== 'undefined' && window.document.getElementById('sun-icon');
-    if (sunIcon) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // const isSunIcon = () => {
+  //   const sunIcon = typeof window !== 'undefined' && window.document.getElementById('sun-icon');
+  //   if (sunIcon) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
-  const renderSunIcon = () => {
-    return (
-      <SunIcon id='sun-icon' className="rounded-lg p-2 w-10 h-10 text-yellow-400" role="button" onClick={() => setTheme('light')}
-      style={{
-        backgroundColor: isHovered ? "#4B5563" : "transparent",
-        color: isHovered ? "#F3F4F6" : !isToggleSwitched ? "yellow" : "#9CA3AF",
-        transition: "background-color 0.2s ease",
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onChange={() => setIsToggleSwitched(!isToggleSwitched)}
-      />
-    )
-  }
+  // const renderSunIcon = () => {
+  //   return (
+  //     <SunIcon id='sun-icon' className="rounded-lg p-2 w-10 h-10 text-yellow-400" role="button" onClick={() => setTheme('light')}
+  //     style={{
+  //       backgroundColor: isHovered ? "#4B5563" : "transparent",
+  //       color: isHovered ? "#F3F4F6" : !isToggleSwitched ? "yellow" : "#9CA3AF",
+  //       transition: "background-color 0.2s ease",
+  //     }}
+  //     onMouseEnter={() => setIsHovered(true)}
+  //     onMouseLeave={() => setIsHovered(false)}
+  //     onChange={() => setIsToggleSwitched(!isToggleSwitched)}
+  //     />
+  //   )
+  // }
 
-  const renderThemeChanger = () => {
-    if(!mounted) return null;
+//   const renderThemeChanger = () => {
+//     if(!mounted) return null;
 
-    const currentTheme = theme === "system" ? systemTheme : theme;
+//     const currentTheme = theme === "system" ? systemTheme : theme;
     
-    if(currentTheme === "dark") {
-      return (
-        <SunIcon id='sun-icon' className="rounded-lg p-2 w-10 h-10 text-yellow-400" role="button" onClick={() => setTheme('light')} 
-        style={{
-          backgroundColor: isHovered ? "#4B5563" : "transparent",
-          color: isHovered ? "#F3F4F6" : !isToggleSwitched ? "yellow" : "#9CA3AF",
-          transition: "background-color 0.2s ease",
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onChange={() => setIsToggleSwitched(!isToggleSwitched)}
-        />
-      )
-    }
+//     if(currentTheme === "dark") {
+//       return (
+//         <SunIcon id='sun-icon' className={`rounded-lg p-2 w-10 h-10 text-yellow-400
+//         `}
+//       role="button" 
+//         onClick={() => setTheme('light')}
+//         style={{
+//           backgroundColor: isHovered ? "#4B5563" : "transparent",
+//           color: isHovered ? "#F3F4F6" : !isToggleSwitched ? "yellow" : "#9CA3AF",
+//           transition: "background-color 0.2s ease",
+//         }}
+//         onMouseEnter={() => setIsHovered(true)}
+//         onMouseLeave={() => setIsHovered(false)}
+//         onChange={() => setIsToggleSwitched(!isToggleSwitched)}
+//         />
+//       )
+//     }
 
-    else {
-      return (
-        <MoonIcon id='moon-icon' className="rounded-lg p-2 w-10 h-10 text-gray-900" role="button" onClick={() => setTheme('dark')} 
-        style={{
-          backgroundColor: isHovered ? "#4B5563" : "transparent",
-          color: isHovered ? "#F3F4F6" : "rgba(55, 65, 81, 1)",
-          transition: "background-color 0.2s ease",
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        />
-      )
-    }
-};
+//     else {
+//       return (
+//         <MoonIcon id='moon-icon'
+//         className={`rounded-lg p-2 w-10 h-10 text-gray-900
+//         `}
+//         role="button"
+//         onClick={() => setTheme('dark')} 
+//         style={{
+//           backgroundColor: isHovered ? "#4B5563" : "transparent",
+//           color: isHovered ? "#F3F4F6" : "rgba(55, 65, 81, 1)",
+//           transition: "background-color 0.2s ease",
+//         }}
+//         onMouseEnter={() => setIsHovered(true)}
+//         onMouseLeave={() => setIsHovered(false)}
+//         />
+//       )
+//     }
+// };
   
-  const renderKbarThemeChanger = () => {
-        if(!mounted) return null;
+  // const renderKbarThemeChanger = () => {
+  //       if(!mounted) return null;
         
-        if(isKbarDarkThemeChanged === true) {
-          return (
-            <SunIcon id='sun-icon' className="rounded-lg p-2 w-10 h-10 text-yellow-400" role="button" onClick={() => setTheme('light')}
-            style={{
-              backgroundColor: isHovered ? "#4B5563" : "transparent",
-              color: isHovered ? "#F3F4F6" : !isToggleSwitched ? "yellow" : "#9CA3AF",
-              transition: "background-color 0.2s ease",
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onChange={() => setIsToggleSwitched(!isToggleSwitched)}
-            />
-          )
-        }
+  //       if(isKbarDarkThemeChanged === true) {
+  //         return (
+  //           <SunIcon id='sun-icon' className="rounded-lg p-2 w-10 h-10 text-yellow-400" role="button" onClick={() => setTheme('light')}
+  //           style={{
+  //             backgroundColor: isHovered ? "#4B5563" : "transparent",
+  //             color: isHovered ? "#F3F4F6" : !isToggleSwitched ? "yellow" : "#9CA3AF",
+  //             transition: "background-color 0.2s ease",
+  //           }}
+  //           onMouseEnter={() => setIsHovered(true)}
+  //           onMouseLeave={() => setIsHovered(false)}
+  //           onChange={() => setIsToggleSwitched(!isToggleSwitched)}
+  //           />
+  //         )
+  //       }
 
-        else {
-          return (
-            <DarkThemeToggle id='moon-icon' className="w-10 h-10 text-gray-900" role="button" onClick={() => setTheme('dark')}
-            style={{
-              backgroundColor: isHovered ? "#4B5563" : "transparent",
-              color: isHovered ? "#F3F4F6" : "rgba(55, 65, 81, 1)",
-              transition: "background-color 0.2s ease",
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            />
-          )
-        }
-  };
-
-  const darkMode = function () {
-    
-    if (theme === "dark") {
-        
-        // console.log('Dark: '+ theme);
-        return true;
+  //       else {
+  //         return (
+  //           <DarkThemeToggle id='moon-icon' className="w-10 h-10 text-gray-900" role="button" onClick={() => setTheme('dark')}
+  //           style={{
+  //             backgroundColor: isHovered ? "#4B5563" : "transparent",
+  //             color: isHovered ? "#F3F4F6" : "rgba(55, 65, 81, 1)",
+  //             transition: "background-color 0.2s ease",
+  //           }}
+  //           onMouseEnter={() => setIsHovered(true)}
+  //           onMouseLeave={() => setIsHovered(false)}
+  //           />
+  //         )
+  //       }
+  // };
+  
+  const darkMode = () => {
+    if (typeof window !== 'undefined' && window.localStorage.getItem('theme') === 'dark') {
+      return true;
     } else {
-
-      // console.log('Light: '+ theme);
       return false;
     }
-  }
+  };
 
   useThemeActions(isScrolled, darkMode());
 
@@ -199,6 +201,22 @@ const Header = () => {
   //     // }
   // }, []);
 
+//   useEffect(() => {
+//     const nav = document.querySelector('nav');
+//     if (darkMode && !nav.style.backgroundColor.includes('rgba(28, 35, 43, 0.8)') && !isScrolled) {
+//         nav.style.backgroundColor = "rgba(28, 35, 43, 0.8)"; // Set the initial background color for dark mode
+//     } else if (!darkMode && !nav.style.backgroundColor.includes('rgba(255, 255, 255, 0.9)') && !isScrolled){
+//         nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"; // Set the background color for light mode
+//     }
+// }, []);
+
+  const style = useMemo(() => ({
+    backgroundColor: isHovered ? "#4B5563" : "transparent",
+    color: isHovered ? "#F3F4F6" : darkMode() ? "yellow" : "#9CA3AF",
+    transition: "background-color 0.2s ease",
+    border: "none",
+  }), [isHovered]);
+
   return (
       <header className="relative h-32">
         {/* <Navbar fluid className="w-full backdrop-filter backdrop-blur-lg fixed top-0 h-16 z-30  duration-500"> */}
@@ -213,7 +231,7 @@ const Header = () => {
             style={{
               backgroundColor: isScrolled
               ? "transparent"
-              : (isKbarDarkThemeChanged() ? "rgba(28, 35, 43, 0.8)" : "rgba(255, 255, 255, 0.9)"),
+              : (darkMode() ? "rgba(28, 35, 43, 0.8)" : !isKbarDarkThemeChanged() ? "rgba(255, 255, 255, 0.9)" : "rgba(28, 35, 43, 0.8)"),
               backdropFilter: isScrolled ? "blur(10px)" : "none",
             }}
             >
@@ -302,7 +320,7 @@ const Header = () => {
                     />
                   </Navbar.Link>
                   
-                    <Dropdown label="Categories" inline={true} trigger="hover" className="transition duration-700 ease-in-out transition-all">
+                    <Dropdown label="Categories" inline={true} trigger="hover" className="transition duration-700 ease-in-out">
                         {categories.map((category) => (
                       <Dropdown.Item key={category.slug} className='navbar-item'>
                           <Link active={router.pathname === category.name ? category.name : undefined } onClick={handleClick} href={`/category/${category.slug}`}
@@ -360,7 +378,7 @@ const Header = () => {
                   <Navbar.Toggle 
                   />
                   <Tooltip content={
-                    isSunIcon() ?
+                    darkMode() ?
                     "Switch to Light Mode!🌞" : "Dark Mode is better!🌚🤩"
                     
                   } placement="left" style="dark" className='transition duration-700 ease-in-out'>
@@ -386,8 +404,14 @@ const Header = () => {
 
                       // isKbarDarkThemeChanged() ? renderThemeChanger() : renderKbarThemeChanger()
                       // isKbarDarkThemeChanged() ? !isMoonIcon() ? renderThemeChanger() : renderKbarThemeChanger() : !isMoonIcon() ? renderKbarThemeChanger() : renderThemeChanger()
-                      renderThemeChanger()
+                      // renderThemeChanger()
                     }
+                      <DarkThemeToggle 
+                      className="rounded-lg p-2 w-10 h-10"
+                      style={style}
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                    />
                   </Tooltip>
                   {/* <Flowbite>
                     <Tooltip content="Dark Mode is better!🤩" placement="left" style="dark" className='transition duration-700 ease-in-out'>
