@@ -17,7 +17,7 @@ module.exports = {
     // },
     extend: {
       animation: {
-        'spin-slow': 'spin 4s linear infinite',
+        'spin': 'spin 6s linear infinite',
         'ping-slow': 'ping 4s cubic-bezier(0, 0, 0.2, 1) infinite',
       }
     }

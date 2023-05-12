@@ -8,6 +8,7 @@ import CommandBar from "../components/CommandBar";
 import '../styles/globals.scss'
 import '../styles/postDetail.css'
 import '../styles/scrollbar.css'
+import '../styles/moonSunBg.css'
 
 import 'tailwindcss/tailwind.css'
 
