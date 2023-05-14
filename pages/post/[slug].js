@@ -167,7 +167,7 @@ const PostDetails = ({ post }) => {
                         </div>
                         <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
                         <div id='commentForm'>
-                            <CommentsForm slug={post.slug} />
+                            <CommentsForm slug={post.slug} postTitle={post.title} />
                         </div>
                         <div id='allComments'>
                             <Comments slug={post.slug} />

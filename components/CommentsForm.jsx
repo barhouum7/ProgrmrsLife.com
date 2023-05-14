@@ -4,7 +4,7 @@ import {HiMail, HiPencilAlt, HiUser} from "react-icons/hi";
 
 import { submitComment } from '../services'
 
-const CommentsForm = ({ slug }) => {
+const CommentsForm = ({ slug, postTitle }) => {
     const [error, setError] = useState(false)
     const [localStorage, setLocalStorage] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
@@ -20,7 +20,7 @@ const CommentsForm = ({ slug }) => {
     }, [])
     
 
-    const handleCommentSubmission = () => {
+    const handleCommentSubmission = async (e) => {
         setError(false);
         const { value: comment } = commentEl.current;
         const { value: name } = nameEl.current;
@@ -51,10 +51,35 @@ const CommentsForm = ({ slug }) => {
                     setShowSuccessMessage(false)
                 }, 30000)
             })
-    }
-    // console.log(showUndoSave, "++++ showUndoSave on submission.")
 
-  return (
+            const emailObj = { name, email, postTitle, slug }
+            e.preventDefault();
+    
+            try {
+              const response = await fetch("/api/sendCommentConfirmationEmail", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(emailObj),
+              });
+        
+                const data = await response.json();
+    
+                if (!response.ok) {
+                    throw new Error(data.message || 'Something went wrong!');
+                } else if (response.ok) {
+                    console.log(data.message)
+                } else {
+                    throw new Error(data.message || 'Something went wrong!');
+                }
+                // console.log(data);
+            } catch (error) {
+                console.error(error);
+            }
+    }
+
+return (
     <div className='bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 sm:p-8 pb-12 m-0 mb-8 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl'>
         {/* Comment Form */}
         <h3 className='text-xl font-semibold border-b pb-4 mb-8'>
