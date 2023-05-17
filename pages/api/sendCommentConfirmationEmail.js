@@ -246,7 +246,7 @@ const handler = (req, res) => {
                                                                                                         <p
                                                                                                             style=color:#242020;font-size:18px;font-weight:400;line-height:1.5em;text-align:left>
                                                                                                             <br>Dear
-                                                                                                            ${name},
+                                                                                                            <b><i>${name}</i></b>,
                                                                                                         <p
                                                                                                             style=color:#242020;font-size:18px;font-weight:400;line-height:1.5em;text-align:left>
                                                                                                             <br><span
@@ -265,7 +265,7 @@ const handler = (req, res) => {
                                                                                                                     our
                                                                                                                     blog
                                                                                                                     post,
-                                                                                                                    "${postTitle}",
+                                                                                                                    "<b><i>${postTitle}</i></b>",
                                                                                                                     has
                                                                                                                     been
                                                                                                                     published
@@ -275,9 +275,10 @@ const handler = (req, res) => {
                                                                                                                 href=https://www.programmerslife.site/post/${slug}#allComments
                                                                                                                 target=_blank
                                                                                                                 rel="noopener
-        noreferrer" style=background-color:#fff;color:#15c;font-family:Tahoma,Geneva,sans-serif;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0;text-transform:none;white-space:normal;word-spacing:0>website's
+                noreferrer" style=background-color:#fff;color:#15c;font-family:Tahoma,Geneva,sans-serif;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0;text-transform:none;white-space:normal;word-spacing:0>website's
                                                                                                                 comments
-                                                                                                                section</a><span
+                                                                                                                section
+                                                                                                                ↗</a><span
                                                                                                                 style=background-color:#fff;color:#222;font-family:Tahoma,Geneva,sans-serif><span
                                                                                                                     style=display:inline!important;float:none;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-indent:0;text-transform:none;white-space:normal;word-spacing:0>.
                                                                                                                     We
@@ -332,7 +333,7 @@ const handler = (req, res) => {
                                                                                                                 target=_blank
                                                                                                                 rel="noopener noreferrer"
                                                                                                                 style=background-color:#fff;color:#15c;font-family:Tahoma,Geneva,sans-serif;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0;text-transform:none;white-space:normal;word-spacing:0>contact
-                                                                                                                form</a><span
+                                                                                                                form ↗</a><span
                                                                                                                 style=background-color:#fff;color:#222;font-family:Tahoma,Geneva,sans-serif><span
                                                                                                                     style=display:inline!important;float:none;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-indent:0;text-transform:none;white-space:normal;word-spacing:0>.
                                                                                                                     We
