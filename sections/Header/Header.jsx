@@ -184,7 +184,7 @@ const Header = () => {
     
     if(currentTheme === "dark") {
       return (
-        // <div class="sunny-background">
+        // <div className="sunny-background">
           <HiSun id='sun-icon' className={`rounded-lg p-2 mt-1 w-9 h-9 text-yellow-400 animate-spin hover:animate-none
           `}
           role="button" 
@@ -204,7 +204,7 @@ const Header = () => {
 
     else {
       return (
-        <div class="starry-background">
+        <div className="starry-background">
           <HiMoon id='moon-icon'
           className={`rounded-lg p-2 mt-1 w-9 h-9 text-gray-900 animate-spin hover:animate-none
           `}
