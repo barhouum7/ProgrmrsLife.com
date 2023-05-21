@@ -24,6 +24,16 @@ const ChatWithAIButton = () => {
   };
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keyup', (event) => {
+      if (event.key === 'Escape') {
+          setShowChatWindow(false);
+      }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     const handleOutsideClick = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         setShowChatWindow(false);
