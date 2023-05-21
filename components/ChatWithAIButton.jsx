@@ -93,14 +93,14 @@ const ChatWithAIButton = () => {
                 onClick={onTNAiButtonClick}
               >
                 <span className="text-white">
-                  Tunisian's Dialect ChatGPT Assistant 🇹🇳
+                  Tunisian's Dialect ChatGPT-4 Assistant 🇹🇳
                 </span>
               </button>
               )}
               {showTNAi && (
                 <>
                   <span className="text-white text-md mb-2">
-                    Tunisian's Dialect ChatGPT Assistant 🇹🇳
+                    Tunisian's Dialect ChatGPT-4 Assistant 🇹🇳
                   </span>
                     <div style={{ height: "500px", width: "600px" }} className="mr-2 shadow-inner shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] hover:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)]">
                     <iframe
@@ -119,14 +119,14 @@ const ChatWithAIButton = () => {
                 onClick={onProgrammerAiButtonClick}
               >
                 <span className="text-white">
-                  Programmers Life ChatGPT 👨‍💻
+                  Programmers Life ChatGPT-4 👨‍💻
                 </span>
               </button>
               )}
               {showProgrammerAi && (
                 <>
                   <span className="text-white text-md mb-2">
-                  Programmers Life ChatGPT 👨‍💻
+                  Programmers Life ChatGPT-4 👨‍💻
                   </span>
                   <div style={{ height: "500px", width: "600px" }} className="mr-2 shadow-inner shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] hover:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)]">
                       <iframe
