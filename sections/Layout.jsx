@@ -1,6 +1,6 @@
 import Header from "./Header/Header";
 import Footer from "./FooterSection";
-import { Subscribe, ScrollToTopButton, ConsentPreferenceLink } from "../components";
+import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton } from "../components";
 import Head from "next/head";
 import Script from "next/script";
 
@@ -140,11 +140,11 @@ const Layout = ({ children }) => {
         <main className="container relative rounded-t mx-auto transition ease-in-out duration-500">
             {children}
         </main>
-        
         <Subscribe />
         <Footer />
         
         <ScrollToTopButton />
+        <ChatWithAIButton />
         <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
           <ConsentPreferenceLink />
         </div>
