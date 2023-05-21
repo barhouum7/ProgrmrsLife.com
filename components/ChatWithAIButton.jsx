@@ -128,7 +128,7 @@ const ChatWithAIButton = () => {
                   <span className="text-white text-md mb-2">
                   Programmers Life ChatGPT-4 👨‍💻
                   </span>
-                  <div style={{ height: "500px", width: "600px" }} className="mr-2 shadow-inner shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] hover:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)]">
+                  <div style={{ height: "500px", width: "1000px" }} className="mr-2 shadow-inner shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] hover:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)]">
                       <iframe
                           src={`https://ora.ai/embed/3dd613cd-73df-4abc-a254-bc4e0497c623`}
                           width="100%"
