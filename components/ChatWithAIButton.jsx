@@ -86,7 +86,7 @@ const ChatWithAIButton = () => {
     </div>
 
       {showChatWindow && (
-            <div ref={popupRef} style={{ height: "550px", width: "700px" }} className="fixed bottom-0 right-0 p-4 rounded-tl-3xl border-none shadow-2xl z-50 flex flex-col justify-center items-center bg-gray-800">
+            <div ref={popupRef} style={{ height: "550px", width: "1100px" }} className="fixed bottom-0 right-0 p-4 rounded-tl-3xl border-none shadow-2xl z-50 flex flex-col justify-center items-center bg-gray-800">
               {!showTNAi && !showProgrammerAi && (
                 <button 
                 className="mb-2 w-1/2 h-12 rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out"
@@ -102,7 +102,7 @@ const ChatWithAIButton = () => {
                   <span className="text-white text-md mb-2">
                     Tunisian's Dialect ChatGPT-4 Assistant 🇹🇳
                   </span>
-                    <div style={{ height: "500px", width: "600px" }} className="mr-2 shadow-inner shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] hover:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)]">
+                    <div style={{ height: "500px", width: "1000px" }} className="mr-2 shadow-inner shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] hover:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)]">
                     <iframe
                         src={`https://ora.ai/embed/e15e194c-088d-4413-92fe-642f8359cf51`}
                         width="100%"
