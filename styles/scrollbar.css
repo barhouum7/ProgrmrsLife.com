@@ -10,7 +10,7 @@ html {
   /* width */
 
 ::-webkit-scrollbar {
-    width: 8px; /* width of the scrollbar */
+    width: 10px; /* width of the scrollbar */
   }
   
   ::-webkit-scrollbar-track {
