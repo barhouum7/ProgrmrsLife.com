@@ -17,16 +17,6 @@ class MyDocument extends Document {
               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
               crossOrigin="anonymous"
           />
-          <Script type="text/javascript" data-cfasync="false">
-          {`
-            var pmauid = '72784';
-            var pmawid = '73107';
-            var fq = '0';
-          `}
-          </Script>
-          <Script type="text/javascript" data-cfasync="false" src="https://cdn.popmyads.com/pma.js" />
-            
-          {/* <!-- PopMyAds.com Popunder Code End --> */}
         </Head>
         <body>
           <Main />
