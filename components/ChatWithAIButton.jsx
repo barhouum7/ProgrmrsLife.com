@@ -108,6 +108,9 @@ const ChatWithAIButton = () => {
         setShowChatWindow(true);
         setShowProgrammerAi(true);
       }
+      if (hash === '#showChatWindow') {
+        setShowChatWindow(true);
+      }
     };
 
     handleInitialChatState();
@@ -139,6 +142,22 @@ const ChatWithAIButton = () => {
 
   const onCloseButtonClick = () => {
     setShowChatWindow(false);
+    const hash = window.location.hash;
+    if (hash === '#showENAi') {
+      window.location.hash = '';
+    }
+    if (hash === '#showTNAi') {
+      window.location.hash = '';
+    }
+    if (hash === '#showFRAi') {
+      window.location.hash = '';
+    }
+    if (hash === '#showProgrammerAi') {
+      window.location.hash = '';
+    }
+    if (hash === '#showChatWindow') {
+      window.location.hash = '';
+    }
   };
 
   useEffect(() => {
@@ -146,6 +165,22 @@ const ChatWithAIButton = () => {
       window.addEventListener('keyup', (event) => {
       if (event.key === 'Escape') {
           setShowChatWindow(false);
+          const hash = window.location.hash;
+          if (hash === '#showENAi') {
+            window.location.hash = '';
+          }
+          if (hash === '#showTNAi') {
+            window.location.hash = '';
+          }
+          if (hash === '#showFRAi') {
+            window.location.hash = '';
+          }
+          if (hash === '#showProgrammerAi') {
+            window.location.hash = '';
+          }
+          if (hash === '#showChatWindow') {
+            window.location.hash = '';
+          }
       }
       });
     }
@@ -159,6 +194,22 @@ const ChatWithAIButton = () => {
         setShowTNAi(false);
         setShowENAi(false);
         setShowFRAi(false);
+        const hash = window.location.hash;
+        if (hash === '#showENAi') {
+          window.location.hash = '';
+        }
+        if (hash === '#showTNAi') {
+          window.location.hash = '';
+        }
+        if (hash === '#showFRAi') {
+          window.location.hash = '';
+        }
+        if (hash === '#showProgrammerAi') {
+          window.location.hash = '';
+        }
+        if (hash === '#showChatWindow') {
+          window.location.hash = '';
+        }
       }
     };
 
@@ -218,7 +269,7 @@ const ChatWithAIButton = () => {
               // style={{ width: `${windowWidth}px`, height: `${windowHeight}px` }}
             >
               <div 
-                className="resizable fixed bottom-5 right-5 p-4 shadow-2xl z-40 flex flex-col justify-center items-center bg-gray-800 bg-opacity-95 sm:max-w-7xl sm:w-full sm:mx-auto sm:rounded-lg sm:p-8 pb-12 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl border-solid border-2 border-blue-600"
+                className="resizable fixed bottom-5 right-5 p-4 shadow-2xl z-40 flex flex-col justify-center items-center bg-gray-800 bg-opacity-95 sm:max-w-6xl sm:w-full sm:mx-auto sm:rounded-lg sm:p-8 pb-12 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl border-solid border-2 border-blue-600"
                 style={{height: "90vh", maxHeight: "90vh"}}
                 // style={{ width: `${windowWidth}px`, height: `${windowHeight}px` }}
               >
