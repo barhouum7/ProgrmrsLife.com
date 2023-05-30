@@ -546,6 +546,7 @@ const ChatWithAIButton = () => {
                       setShowTNAi(false)
                       setShowENAi(false)
                       setShowFRAi(false)
+                      setShowDEAi(false)
                     }
                     }
                   >
