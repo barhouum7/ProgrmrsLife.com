@@ -85,6 +85,7 @@ const ChatWithAIButton = () => {
   const [showTNAi, setShowTNAi] = useState(false);
   const [showENAi, setShowENAi] = useState(false);
   const [showFRAi, setShowFRAi] = useState(false);
+  const [showDEAi, setShowDEAi] = useState(false);
   const [showProgrammerAi, setShowProgrammerAi] = useState(false);
   const popupRef = useRef(null); // Reference to the popup window container
   const [isResizing, setIsResizing] = useState(false);
@@ -111,6 +112,9 @@ const ChatWithAIButton = () => {
       if (hash === '#showChatWindow') {
         setShowChatWindow(true);
       }
+      if (hash === '#showDEAi') {
+        setShowDEAi(true);
+      }
     };
 
     handleInitialChatState();
@@ -136,6 +140,10 @@ const ChatWithAIButton = () => {
     setShowFRAi(true);
   };
 
+  const onDEAiButtonClick = () => {
+    setShowDEAi(true);
+  };
+
   const onChatWithAIButtonClick = () => {
     setShowChatWindow(true);
   };
@@ -156,6 +164,9 @@ const ChatWithAIButton = () => {
       window.location.hash = '';
     }
     if (hash === '#showChatWindow') {
+      window.location.hash = '';
+    }
+    if (hash === '#showDEAi') {
       window.location.hash = '';
     }
   };
@@ -179,6 +190,9 @@ const ChatWithAIButton = () => {
             window.location.hash = '';
           }
           if (hash === '#showChatWindow') {
+            window.location.hash = '';
+          }
+          if (hash === '#showDEAi') {
             window.location.hash = '';
           }
       }
@@ -208,6 +222,9 @@ const ChatWithAIButton = () => {
           window.location.hash = '';
         }
         if (hash === '#showChatWindow') {
+          window.location.hash = '';
+        }
+        if (hash === '#showDEAi') {
           window.location.hash = '';
         }
       }
@@ -285,7 +302,7 @@ const ChatWithAIButton = () => {
                 }
               
               {/********* Tunisian's Dialect Ai bot code **********/}
-              {!showTNAi && !showProgrammerAi && !showENAi && !showFRAi && (
+              {!showTNAi && !showProgrammerAi && !showENAi && !showFRAi && !showDEAi && (
               <button 
               className="rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out
               mb-4 w-1/2 h-12 py-0 px-4 text-white text-xs lg:text-lg
@@ -316,7 +333,7 @@ const ChatWithAIButton = () => {
                 </div>
               )}
               {/* ******* English Ai bot code ******** */}
-              {!showENAi && !showTNAi && !showProgrammerAi && !showFRAi && (
+              {!showENAi && !showTNAi && !showProgrammerAi && !showFRAi && !showDEAi && (
               <button
                 className="rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out
                 mb-4 w-1/2 h-12 py-0 px-4 text-white text-xs lg:text-lg
@@ -347,7 +364,7 @@ const ChatWithAIButton = () => {
                 </div>
               )}
               {/* ******* French Ai bot code ******** */}
-              {!showFRAi && !showTNAi && !showProgrammerAi && !showENAi && (
+              {!showFRAi && !showTNAi && !showProgrammerAi && !showENAi && !showDEAi && (
               <button
                 className="rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out
                 mb-4 w-1/2 h-12 py-0 px-4 text-white text-xs lg:text-lg
@@ -378,8 +395,40 @@ const ChatWithAIButton = () => {
                 </div>
               )}
 
+              {/* ******* German Ai bot code ******** */}
+              {!showDEAi && !showTNAi && !showProgrammerAi && !showENAi && !showFRAi && (
+              <button
+                className="rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out
+                mb-4 w-1/2 h-12 py-0 px-4 text-white text-xs lg:text-lg
+                "
+                onClick={onDEAiButtonClick}
+              >
+                German ChatGPT-4 Assistant 🇩🇪
+              </button>
+              )}
+              {showDEAi && (
+                <div
+                  className="flex flex-col justify-center items-center"
+                >
+                  <span className="text-white text-md mb-2">
+                    Ask me anything about German 🇩🇪
+                  </span>
+                  <div className="sm:max-w-6xl sm:w-full sm:mx-auto mr-2 shadow-inner shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] hover:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)]"
+                    style={{height: "80vh", maxHeight: "90vh",
+                    width: "70vw", maxWidth: "80vw", minWidth: "30vw", minHeight: "30vh", resize: "both", overflow: "hidden"
+                  }}
+                  >
+                    <iframe
+                        title="German ChatGPT-4 Assistant 🇩🇪"
+                        src={`https://ora.ai/embed/a8778c78-0f7b-435e-b0b7-c6c467325f82`}
+                        style={{ border: "0", borderRadius: "4px", resize: "both", overflow: "hidden", width: "100%", height: "100%"}}
+                    />
+                  </div>
+                </div>
+              )}
+
               {/* ******* Programmer AI BOT ******** */}
-              {!showProgrammerAi && !showTNAi && !showENAi && !showFRAi && (
+              {!showProgrammerAi && !showTNAi && !showENAi && !showFRAi && !showDEAi && (
                 <button 
                 className="rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out
                 mb-4 w-1/2 h-12 py-0 px-4 text-white text-xs lg:text-lg
@@ -410,7 +459,7 @@ const ChatWithAIButton = () => {
                 </div>
               )}
               {
-                !showProgrammerAi && !showTNAi && !showENAi && !showFRAi && (
+                !showProgrammerAi && !showTNAi && !showENAi && !showFRAi && !showDEAi && (
                   <button
                     className="absolute bottom-10 w-1/2 h-12 rounded-full shadow-inner shadow-sky-600 bg-gray-800 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out"
                     onClick={onCloseButtonClick}
@@ -462,7 +511,7 @@ const ChatWithAIButton = () => {
                   </div>
 
               {
-                (showProgrammerAi || showTNAi || showENAi || showFRAi) && (
+                (showProgrammerAi || showTNAi || showENAi || showFRAi || showDEAi) && (
                   <>
                     <button
                     className="absolute right-2 -top-100 mb-10 w-10 h-10 rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out"
