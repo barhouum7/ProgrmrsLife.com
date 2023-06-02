@@ -17,6 +17,14 @@ import { Tooltip } from "flowbite-react";
 
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
+
+    useEffect(() => {
+        const divElement = document.querySelector('div.how-to'); // Select the specific <div> element with class name 'how-to'
+        if (divElement) {
+          divElement.id = 'how-to'; // Add the ID 'how-to' to the selected <div> element
+        }
+    }, []);
+
     const formattedText = post.content.text.replace(/\\n/g, '\n\n');
     // console.log(formattedText);
 
