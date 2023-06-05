@@ -152,6 +152,40 @@ width: 100%;
     width: 100%;
     background-position: right bottom;
   }
+  
+  .waiting-block__p {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(to right, #5eef2a, transparent);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .waiting-block__p::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 3px;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, #f9d423, #83cc0e, transparent);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    /* transition: background-position 0.2s; */
+    transition: color 0.2s, background-position 0.2s;
+    transition: width 0.3s ease-out;
+  }
+  
+  .waiting-block__p:hover {
+    background: none;
+  }
+  
+  .waiting-block__p:hover::before {
+    width: 100%;
+    background-position: right bottom;
+  }
 
 /* Path: styles\postDetail.css */
     .animated {
