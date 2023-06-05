@@ -17,6 +17,24 @@ import { Tooltip } from "flowbite-react";
 
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
+    const [showWaitingBlock, setShowWaitingBlock] = useState(false);
+    const [countdown, setCountdown] = useState(50);
+
+    useEffect(() => {
+        const countdownTimeout = setInterval(() => {
+        setCountdown(prevCountdown => prevCountdown - 1);
+        }, 1000); // 1-second countdown
+
+        setTimeout(() => {
+        setShowWaitingBlock(true);
+        clearInterval(countdownTimeout);
+        }, 50000); // 30-second countdown
+
+        return () => {
+        clearTimeout(countdownTimeout); // Clear the timeout when the component is unmounted or updated
+        };
+    }, []);
+
 
     useEffect(() => {
         const divElement = document.querySelector('div.how-to'); // Select the specific <div> element with class name 'how-to'
@@ -697,7 +715,25 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                             );
                         }
                         ,
-                        blockquote: ({ children }) => <blockquote className="mb-8 italic text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-gray-200 dark:shadow-gray-700 shadow-inner">{children}</blockquote>,
+                        blockquote: ({ children }) => {
+                            return (
+                                <blockquote className="mb-8 italic text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-gray-200 dark:shadow-gray-700 shadow-inner">
+                                {children}
+                                </blockquote>
+                            );
+                        },
+                        class: ({ children }) => {
+                            const childArray = React.Children.toArray(children);
+                            const isWaitingBlock = childArray.map(child => child.props.parent.className === 'waiting-block')
+                        
+                            if (isWaitingBlock) {
+                                if (!showWaitingBlock) {
+                                    return <p className="waiting-block__p mb-8 text-gray-900 dark:text-gray-400">Please wait <strong>{countdown}s</strong> to get the link</p>
+                                } else {
+                                    return <div className="waiting-block">{children}</div>;
+                                }
+                            }
+                        },
                         ol: ({ children }) => <ol className="list-decimal list-inside leading-10 bg-gray-200 dark:bg-gray-700 px-2 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
                         li: ({ children }) => <li className="text-gray-900 dark:text-gray-400">{children}</li>,
                         ul: ({ children }) => <ul className="list-disc list-inside px-2 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
