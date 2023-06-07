@@ -18,22 +18,23 @@ import { Tooltip } from "flowbite-react";
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
-    const [countdown, setCountdown] = useState(50);
+    const [showWaitingText, setShowWaitingText] = useState(false);
+    const [countdown, setCountdown] = useState(30);
 
-    useEffect(() => {
+    const startCountdown = () => {
         const countdownTimeout = setInterval(() => {
-        setCountdown(prevCountdown => prevCountdown - 1);
+            setCountdown(prevCountdown => prevCountdown - 1);
         }, 1000); // 1-second countdown
 
         setTimeout(() => {
-        setShowWaitingBlock(true);
-        clearInterval(countdownTimeout);
-        }, 50000); // 30-second countdown
+            setShowWaitingBlock(true);
+            clearInterval(countdownTimeout);
+        }, 30000); // 30-second countdown
 
         return () => {
-        clearTimeout(countdownTimeout); // Clear the timeout when the component is unmounted or updated
+            clearTimeout(countdownTimeout); // Clear the timeout when the component is unmounted or updated
         };
-    }, []);
+    }
 
 
     useEffect(() => {
@@ -727,11 +728,37 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                             const isWaitingBlock = childArray.map(child => child.props.parent.className === 'waiting-block')
                         
                             if (isWaitingBlock) {
-                                if (!showWaitingBlock) {
-                                    return <p className="waiting-block__p mb-8 text-gray-900 dark:text-gray-400">Please wait <strong>{countdown}s</strong> to get the link</p>
-                                } else {
-                                    return <div className="waiting-block">{children}</div>;
-                                }
+                                    return (
+                                        <>
+                                            {
+                                                !showWaitingText && !showWaitingBlock && (
+                                                    <div className='flex justify-center align-middle -mt-4'>
+                                                            <button
+                                                            onClick={() => {
+                                                                setShowWaitingText(true);
+                                                                startCountdown();
+                                                            }}
+                                                            className="relative w-2/5 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 hover:text-white dark:text-gray-100 hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
+                                                            >
+                                                                Get the link
+                                                                <div className='w-1/6 h-full rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
+                                                            </button>
+                                                    </div>
+                                                )
+                                            }
+
+                                            {
+                                                showWaitingText && !showWaitingBlock && (
+                                                    <p className="waiting-block__p mb-8 text-gray-900 dark:text-gray-400">Please wait <strong>{countdown}s</strong> to get the link</p>
+                                                )
+                                            }
+                                            {
+                                                showWaitingText && showWaitingBlock && (
+                                                    <div className="waiting-block">{children}</div>
+                                                )
+                                            }
+                                        </>
+                                    )
                             }
                         },
                         ol: ({ children }) => <ol className="list-decimal list-inside leading-10 bg-gray-200 dark:bg-gray-700 px-2 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
