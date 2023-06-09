@@ -723,9 +723,13 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                 </blockquote>
                             );
                         },
-                        class: ({ children }) => {
-                            const childArray = React.Children.toArray(children);
-                            const isWaitingBlock = childArray.map(child => child.props.parent.className === 'waiting-block')
+                        class: ({ children, className }) => {
+                            // const childArray = React.Children.toArray(children);
+                            // const isWaitingBlock = childArray.map(child => child.props.parent.className === 'waiting-block')
+                            // console.log(className);
+                            const isWaitingBlock = className === 'waiting-block';
+                            // console.log(isWaitingBlock);
+                            const isCaptionText = className === 'caption-text';
                         
                             if (isWaitingBlock) {
                                     return (
@@ -759,6 +763,14 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                             }
                                         </>
                                     )
+                            } else if (isCaptionText) {
+                                return (
+                                    <div className="caption-text text-center italic font-extralight mb-8 text-gray-900 dark:text-gray-400">{children}</div>
+                                )
+                            } else {
+                                return (
+                                    <div className={className}>{children}</div>
+                                )
                             }
                         },
                         ol: ({ children }) => <ol className="list-decimal list-inside leading-10 bg-gray-200 dark:bg-gray-700 px-2 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
