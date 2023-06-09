@@ -38,9 +38,13 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
 
 
     useEffect(() => {
-        const divElement = document.querySelector('div.how-to'); // Select the specific <div> element with class name 'how-to'
-        if (divElement) {
-          divElement.id = 'how-to'; // Add the ID 'how-to' to the selected <div> element
+        const howToElement = document.querySelector('div.how-to'); // Select the specific <div> element with class name 'how-to'
+        const freeAutoGPTRepoElement = document.querySelector('div.free-autogpt-repo'); // Select the specific <div> element with class name 'free-autogpt-repo'
+        if (howToElement) {
+          howToElement.id = 'how-to'; // Add the ID 'how-to' to the selected <div> element
+        }
+        if (freeAutoGPTRepoElement) {
+            freeAutoGPTRepoElement.id = 'free-autogpt-repo'; // Add the ID 'free-autogpt-repo' to the selected <div> element
         }
     }, []);
 
