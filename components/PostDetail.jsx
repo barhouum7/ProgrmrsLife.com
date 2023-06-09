@@ -769,7 +769,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                     )
                             } else if (isCaptionText) {
                                 return (
-                                    <div className="caption-text text-center italic font-extralight mb-8 text-gray-900 dark:text-gray-400">{children}</div>
+                                    <div className="caption-text text-center text-xs italic font-extralight mb-8 text-gray-900 dark:text-gray-400">{children}</div>
                                 )
                             } else {
                                 return (
