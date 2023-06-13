@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   //   });
   // }
   return (
-    <>
+    <div>
       <Head>
         <title>ProgrammersLife™</title>
         <link rel="icon" href="/imgs/favicon.svg" />
@@ -116,25 +116,25 @@ const Layout = ({ children }) => {
         <meta name="googlebot-translation-variant-variant" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
-        <Script
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
       </Head>
       {/* <!-- Google tag (gtag.js) --> */}
-      <Script 
+      <script 
           async 
           src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
       />
-      <Script>
+      <script>
           {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-PEF01PTY1T');
           `}
-      </Script>
+      </script>
       {/* <!-- End Google tag (gtag.js) --> */}
         <Header />
         <main className="container relative rounded-t mx-auto transition ease-in-out duration-500">
@@ -148,14 +148,14 @@ const Layout = ({ children }) => {
         <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
           <ConsentPreferenceLink />
         </div>
-        <Script
+        <script
           src="https://app.termly.io/embed.min.js"
           data-auto-block="off"
           data-website-uuid="6be0f015-e759-4ffd-8346-ebb290ddbdf9"
           async
         />
-        <Script async src="https://assets.aweber-static.com/aweberjs/aweber.js" />
-          <Script>
+        <script async src="https://assets.aweber-static.com/aweberjs/aweber.js" />
+          <script>
               {`
                 var AWeber = window.AWeber || [];
                 AWeber.push(function() {
@@ -166,8 +166,8 @@ const Layout = ({ children }) => {
                     );
                 });
               `}
-          </Script>
-    </>
+          </script>
+    </div>
   );
 };
 
