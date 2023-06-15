@@ -394,7 +394,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         return (
             <Tooltip content="Leave a Comment, We're excited to hear from you!😍" placement="top" style="dark" className="transition duration-700 ease-in-out">
                 <button className="mr-3 cursor-pointer">
-                    <a href='#commentForm'>
+                    <a href={`/post/${post.slug}#commentForm`}>
                         <div className='relative'>
                             <FaComment className="h-6 w-6 text-gray-400 hover:text-black dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" />
                             <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-slate-400 dark:hover:bg-white bg-opacity-50 hover:animate-ping'></div>
@@ -537,7 +537,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                 </div>
                 <div className="px-4 lg:px-0">
                     <div className="lg:flex block items-center justify-center mb-4 w-full">
-                        <a href="#authorBio">
+                        <a href={`/post/${post.slug}#authorBio`}>
                             <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-2">
                                 <div className='relative'>
                                     <img
