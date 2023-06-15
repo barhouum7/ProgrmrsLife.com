@@ -26,14 +26,25 @@ class MyDocument extends Document {
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: `
-                  var AWeber = window.AWeber || [];
-                  AWeber.push(function() {
-                    AWeber.WebPush.init(
-                      'BPWeSrUv87tnPkdoNOpUlMTllSqJ-fyJCJlYT2eeU8M6fBSFwO4FfQWcU83SEte8wowpIdhAH2P19HJDkUuAmAc',
-                      'a8f015e0-3041-4a1c-be7f-e8817369ba07',
-                      '9b0f384d-00c7-46f4-b678-2d996e3f2e4a'
-                    );
-                  });
+                  (function() {
+                    var AWeber = window.AWeber || [];
+                    AWeber.push(function() {
+                      AWeber.WebPush.init(
+                        'BPWeSrUv87tnPkdoNOpUlMTllSqJ-fyJCJlYT2eeU8M6fBSFwO4FfQWcU83SEte8wowpIdhAH2P19HJDkUuAmAc',
+                        'a8f015e0-3041-4a1c-be7f-e8817369ba07',
+                        '9b0f384d-00c7-46f4-b678-2d996e3f2e4a'
+                      );
+                    });
+                  })();
+              `,
+            }}
+          />
+          <Script async src="http://resources.infolinks.com/js/infolinks_main.js" />
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: `
+                  (function(){var infolinks_pid = 3398255; var infolinks_wsid = 0;})();
               `,
             }}
           />
