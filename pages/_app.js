@@ -1,6 +1,6 @@
-import { Layout } from "../sections"
+import { Layout } from "../sections";
 import { Toaster } from "react-hot-toast";
-import { ThemeProvider } from "next-themes"
+import { ThemeProvider } from "next-themes";
 import { HelmetProvider } from 'react-helmet-async';
 import { KBarProvider } from "kbar";
 import CommandBar from "../components/CommandBar";
@@ -55,25 +55,27 @@ const actions = [
 ]
 
   return (
-    <HelmetProvider>
-      <ThemeProvider enableSystem={true} attribute="class">
-        <KBarProvider actions={actions}
-          options={{
-            enableHistory: true,
-          }}
-        >
-          <Layout>
-            <CommandBar {...pageProps} />
-            <Component {...pageProps} />
-          </Layout>
-          <Toaster
-            // toastOptions={{
-            //   position: "bottom-right",
-            // }}
-          />
-        </KBarProvider>
-      </ThemeProvider>
-    </HelmetProvider>
+    <>
+      <HelmetProvider>
+        <ThemeProvider enableSystem={true} attribute="class">
+          <KBarProvider actions={actions}
+            options={{
+              enableHistory: true,
+            }}
+          >
+            <Layout>
+              <CommandBar {...pageProps} />
+              <Component {...pageProps} />
+            </Layout>
+            <Toaster
+              // toastOptions={{
+              //   position: "bottom-right",
+              // }}
+            />
+          </KBarProvider>
+        </ThemeProvider>
+      </HelmetProvider>
+    </>
   )
 }
 
