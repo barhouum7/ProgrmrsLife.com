@@ -40,6 +40,15 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
     useEffect(() => {
         const howToElement = document.querySelector('div.how-to'); // Select the specific <div> element with class name 'how-to'
         const freeAutoGPTRepoElement = document.querySelector('div.free-autogpt-repo'); // Select the specific <div> element with class name 'free-autogpt-repo'
+        const subtitleClasses = ['subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7']; // Array of class names for subtitles, in order to handle the selection and assignment of IDs to the subtitle elements
+
+        subtitleClasses.forEach((subtitleClass, index) => { // Loop through the array of subtitle class names
+        const subtitle = document.querySelector(`div.${subtitleClass}`); // Select the specific <div> element with class name 'subtitle-*'
+        if (subtitle) {
+            subtitle.id = `subtitle-${index + 1}`; // Add the ID 'subtitle-*' to the selected <div> element
+        }
+        });
+        
         if (howToElement) {
           howToElement.id = 'how-to'; // Add the ID 'how-to' to the selected <div> element
         }
@@ -770,6 +779,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                             } else if (isCaptionText) {
                                 return (
                                     <div className="caption-text text-center text-xs italic font-extralight mb-8 text-gray-900 dark:text-gray-400">{children}</div>
+                                )
+                            } else if (className === 'table-of-contents') {
+                                return (
+                                    <div className="p-4 my-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-400">{children}</div>
                                 )
                             } else {
                                 return (
