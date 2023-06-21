@@ -310,3 +310,7 @@ width: 100%;
     fill: #fff;
   }  
    */
+
+  .table-of-contents h6 {
+    margin-bottom: 1rem;
+  }
