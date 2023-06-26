@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaComment } from 'react-icons/fa';
+import '@fortawesome/fontawesome-free/css/all.css';
 import { Helmet } from 'react-helmet-async';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
@@ -36,25 +37,99 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         };
     }
 
-
+    // Content customizations ...
     useEffect(() => {
-        const howToElement = document.querySelector('div.how-to'); // Select the specific <div> element with class name 'how-to'
-        const freeAutoGPTRepoElement = document.querySelector('div.free-autogpt-repo'); // Select the specific <div> element with class name 'free-autogpt-repo'
-        const subtitleClasses = ['subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7', 'subtitle-8']; // Array of class names for subtitles, in order to handle the selection and assignment of IDs to the subtitle elements
-
-        subtitleClasses.forEach((subtitleClass, index) => { // Loop through the array of subtitle class names
-        const subtitle = document.querySelector(`div.${subtitleClass}`); // Select the specific <div> element with class name 'subtitle-*'
-        if (subtitle) {
-            subtitle.id = `subtitle-${index + 1}`; // Add the ID 'subtitle-*' to the selected <div> element
+        // A helper function takes a class name as an argument and returns the corresponding element using querySelector
+        const getElement = (className) => document.querySelector(`div.${className}`);
+        // This helper function checks if an element exists and assigns the provided ID to it
+        const addIdToElement = (element, id) => {
+        if (element) {
+        element.id = id;
         }
+    };
+    
+        const subtitleClasses = ['subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7', 'subtitle-8', 'how-to', 'free-autogpt-repo'];
+        subtitleClasses.forEach((subtitleClass, index) => { // Loop through the array of subtitle class names
+            const subtitle = getElement(subtitleClass); // Select the specific <div> element with class name 'subtitle-*'
+            addIdToElement(subtitle, `subtitle-${index + 1}`); // Add the ID 'subtitle-*' to the selected <div> element
         });
         
-        if (howToElement) {
-          howToElement.id = 'how-to'; // Add the ID 'how-to' to the selected <div> element
-        }
-        if (freeAutoGPTRepoElement) {
-            freeAutoGPTRepoElement.id = 'free-autogpt-repo'; // Add the ID 'free-autogpt-repo' to the selected <div> element
-        }
+
+        // Show the first three elements of the table of contents, and show 'view all' after the third element, and show all elements in the table of contents after clicking 'view all'
+        const tableOfContentsPTags = document.querySelectorAll('.table-of-contents p');
+        const viewAllPTag = tableOfContentsPTags[3];
+        tableOfContentsPTags.forEach((pTag, index) => {
+            const isViewAll = pTag.innerText === 'View All';
+            const isViewLess = pTag.innerText === 'View Less';
+            const pTagChildren = pTag.children[0];
+        
+            if (index > 3) {
+            pTag.classList.add('hidden');
+            }
+        
+            // Change the style of the span element within the p tag
+            if (isViewAll || isViewLess) {
+                pTagChildren.classList.add('cursor-pointer', 'font-bold', 'text-indigo-600', 'hover:text-indigo-800', 'hover:underline', 'dark:text-indigo-400', 'dark:hover:text-indigo-500', 'dark:hover:underline', 'transition', 'duration-500', 'ease-in-out');
+                pTagChildren.addEventListener('click', () => {
+                    tableOfContentsPTags.forEach((pTag, i) => {
+                    if (isViewAll && i > 3) {
+                        pTag.classList.remove('hidden');
+                        viewAllPTag.classList.add('hidden');
+                    } else if (isViewLess && i > 3) {
+                        pTag.classList.add('hidden');
+                        pTag.scrollIntoView();
+                        viewAllPTag.classList.remove('hidden');
+                    }
+                    });
+                });
+            }
+
+            const tableOfContents = document.querySelector('.table-of-contents'); // Select the specific <div> element with class name 'table-of-contents'
+            // Add an absolutely positioned element to the table of contents
+            if (tableOfContents) {
+                tableOfContents.classList.add('relative', 'shadow-inner', 'transition', 'duration-500', 'ease-in-out');
+    
+                tableOfContents.insertAdjacentHTML('beforeend', '<div class="toggle-element absolute top-5 right-5 cursor-pointer font-bold text-indigo-600"><i class="fas fa-chevron-up"></i></div>');
+                
+                const toggleElement = tableOfContents.querySelector('.toggle-element');
+                toggleElement.classList.add('bg-gray-200', 'hover:bg-gray-300', 'dark:bg-gray-800', 'dark:hover:bg-gray-700', 'rounded-full', 'px-1');
+    
+                toggleElement.addEventListener('click', () => {
+                    const pTags = tableOfContents.querySelectorAll('p');
+                    const isHidden = pTags[0].classList.contains('hidden');
+                    
+                    if (isHidden) {
+                        toggleElement.classList.remove('rotate-180');
+                    } else {
+                        toggleElement.classList.add('rotate-180', 'font-bold', 'transition', 'duration-500', 'ease-in-out', 'bg-gray-200', 'dark:bg-gray-800', 'dark:hover:bg-gray-700', 'shadow-xl', 'dark:shadow-xl', 'rounded-full', 'px-1', 'hover:shadow-inner', 'hover:bg-gray-300', 'hover:shadow-indigo-200', 'dark:hover:shadow-gray-700', 'shadow-indigo-600', 'dark:shadow-indigo-600');
+                    }
+    
+                    pTags.forEach((pTag, i) => {
+                        if (isHidden && i <= 3) {
+                            pTag.classList.remove('hidden');
+                        } else {
+                            pTag.classList.add('hidden');
+                        }
+                    });
+                });
+    
+                tableOfContents.appendChild(toggleElement);
+            }
+
+            const toggleElements = document.querySelectorAll('.table-of-contents .toggle-element');
+            const classNames = new Set(); // Create a new Set object to store the class names of the toggle elements in the table of contents (to avoid duplicate class names)
+
+            toggleElements.forEach((element) => {
+                const className = element.className.trim(); // Remove the leading and trailing whitespace characters from the class name string and assign it to a variable called 'className'
+                if (classNames.has(className)) { // Check if the Set object already contains the class name
+                    element.parentNode.removeChild(element); // Remove the duplicate toggle element from the DOM
+                } else {
+                    classNames.add(className); // Add the class name to the Set object if it doesn't already exist in the Set object
+                }
+            });
+
+        });
+
     }, []);
 
     const formattedText = post.content.text.replace(/\\n/g, '\n\n');
@@ -790,9 +865,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                 )
                             }
                         },
-                        ol: ({ children }) => <ol className="list-decimal list-inside leading-10 bg-gray-200 dark:bg-gray-700 px-2 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
+                        ol: ({ children }) => <ol className="list-decimal leading-10 bg-gray-200 dark:bg-gray-700 px-10 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
                         li: ({ children }) => <li className="text-gray-900 dark:text-gray-400">{children}</li>,
-                        ul: ({ children }) => <ul className="list-disc list-inside px-2 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
+                        ul: ({ children }) => <ul className="list-disc px-10 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
                         img: ({ src }) => <img className="w-full h-full cursor-pointer shadow-lg rounded-lg hover:shadow-2xl mb-4" src={src} />,
                         video: ({ src, children }) => {
                             // console.log(thumbnail);
