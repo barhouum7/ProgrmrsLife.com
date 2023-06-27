@@ -55,6 +55,33 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         });
         
 
+        const tableOfContents = document.querySelector('.table-of-contents'); // Select the specific <div> element with class name 'table-of-contents'
+            // Add an absolutely positioned element to the table of contents
+            const toggleElement = document.createElement('div');
+            toggleElement.classList.add('toggle-element', 'absolute', 'top-5', 'right-5', 'cursor-pointer', 'font-bold', 'text-indigo-600', 'bg-gray-200', 'hover:bg-gray-300', 'dark:bg-gray-800', 'dark:hover:bg-gray-700', 'rounded-full', 'px-1');
+            toggleElement.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            if (tableOfContents) {
+                tableOfContents.classList.add('relative', 'shadow-inner', 'transition', 'duration-500', 'ease-in-out');
+                
+                toggleElement.addEventListener('click', () => {
+                    toggleElement.classList.add('rotate-180', 'font-bold', 'transition', 'duration-500', 'ease-in-out', 'bg-gray-200', 'dark:bg-gray-800', 'dark:hover:bg-gray-700', 'shadow-xl', 'dark:shadow-xl', 'rounded-full', 'px-1', 'hover:shadow-inner', 'hover:bg-gray-300', 'hover:shadow-indigo-200', 'dark:hover:shadow-gray-700', 'shadow-indigo-600', 'dark:shadow-indigo-600');
+                    const pTags = tableOfContents.querySelectorAll('p');
+                    const isCollapsed = pTags[0].classList.contains('hidden');
+                    pTags.forEach((pTag, index) => {
+                        if (isCollapsed && index <= 3) {
+                            pTag.classList.remove('hidden');
+                            toggleElement.classList.remove('rotate-180');
+                        } else {
+                            pTag.classList.add('hidden');
+                        }
+                    });
+                });
+            
+                tableOfContents.appendChild(toggleElement);
+            }
+
+
+
         // Show the first three elements of the table of contents, and show 'view all' after the third element, and show all elements in the table of contents after clicking 'view all'
         const tableOfContentsPTags = document.querySelectorAll('.table-of-contents p');
         const viewAllPTag = tableOfContentsPTags[3];
@@ -84,38 +111,6 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                 });
             }
 
-            const tableOfContents = document.querySelector('.table-of-contents'); // Select the specific <div> element with class name 'table-of-contents'
-            // Add an absolutely positioned element to the table of contents
-            if (tableOfContents) {
-                tableOfContents.classList.add('relative', 'shadow-inner', 'transition', 'duration-500', 'ease-in-out');
-    
-                tableOfContents.insertAdjacentHTML('beforeend', '<div class="toggle-element absolute top-5 right-5 cursor-pointer font-bold text-indigo-600"><i class="fas fa-chevron-up"></i></div>');
-                
-                const toggleElement = tableOfContents.querySelector('.toggle-element');
-                toggleElement.classList.add('bg-gray-200', 'hover:bg-gray-300', 'dark:bg-gray-800', 'dark:hover:bg-gray-700', 'rounded-full', 'px-1');
-    
-                toggleElement.addEventListener('click', () => {
-                    const pTags = tableOfContents.querySelectorAll('p');
-                    const isHidden = pTags[0].classList.contains('hidden');
-                    
-                    if (isHidden) {
-                        toggleElement.classList.remove('rotate-180');
-                    } else {
-                        toggleElement.classList.add('rotate-180', 'font-bold', 'transition', 'duration-500', 'ease-in-out', 'bg-gray-200', 'dark:bg-gray-800', 'dark:hover:bg-gray-700', 'shadow-xl', 'dark:shadow-xl', 'rounded-full', 'px-1', 'hover:shadow-inner', 'hover:bg-gray-300', 'hover:shadow-indigo-200', 'dark:hover:shadow-gray-700', 'shadow-indigo-600', 'dark:shadow-indigo-600');
-                    }
-    
-                    pTags.forEach((pTag, i) => {
-                        if (isHidden && i <= 3) {
-                            pTag.classList.remove('hidden');
-                        } else {
-                            pTag.classList.add('hidden');
-                        }
-                    });
-                });
-    
-                tableOfContents.appendChild(toggleElement);
-            }
-
             const toggleElements = document.querySelectorAll('.table-of-contents .toggle-element');
             const classNames = new Set(); // Create a new Set object to store the class names of the toggle elements in the table of contents (to avoid duplicate class names)
 
@@ -127,7 +122,17 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                     classNames.add(className); // Add the class name to the Set object if it doesn't already exist in the Set object
                 }
             });
+        });
 
+        const toggleElements = document.querySelectorAll('.table-of-contents .toggle-element');
+
+        toggleElements.forEach((element) => {
+            const className = element.className.trim();
+            const classList = className.split(' ');
+            
+            if (className.includes('toggle-element') && classList.length === 7) {
+                element.parentNode.removeChild(element);
+            }
         });
 
     }, []);
