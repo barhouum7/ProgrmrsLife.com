@@ -59,6 +59,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
     // Content customizations ...
     useEffect(() => {
         const tableOfContents = document.querySelector('.table-of-contents'); // Select the specific <div> element with class name 'table-of-contents'
+        if (!tableOfContents) return; // If the table of contents doesn't exist, return
 
             tableOfContents.classList.add('relative', 'shadow-inner', 'transition', 'duration-500', 'ease-in-out');
             // Add an absolutely positioned element to the table of contents
@@ -103,6 +104,8 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
     useEffect(() => {
         // Show the first three elements of the table of contents, and show 'view all' after the third element, and show all elements in the table of contents after clicking 'view all'
         const tableOfContentsPTags = document.querySelectorAll('.table-of-contents p');
+        if (!tableOfContentsPTags) return; // If the table of contents doesn't exist, return
+
         const viewAllPTag = tableOfContentsPTags[3];
         tableOfContentsPTags.forEach((pTag, index) => {
             const isViewAll = pTag.innerText === 'View All';
