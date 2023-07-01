@@ -48,62 +48,38 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         }
     };
     
-        const subtitleClasses = ['subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7', 'subtitle-8', 'how-to', 'free-autogpt-repo'];
+        const subtitleClasses = ['subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7', 'subtitle-8', 'subtitle-9', 'subtitle-10', 'how-to', 'free-autogpt-repo'];
         subtitleClasses.forEach((subtitleClass, index) => { // Loop through the array of subtitle class names
             const subtitle = getElement(subtitleClass); // Select the specific <div> element with class name 'subtitle-*'
             addIdToElement(subtitle, `subtitle-${index + 1}`); // Add the ID 'subtitle-*' to the selected <div> element
         });
 
     }, []);
-
-    // Content customizations ...
-    useEffect(() => {
-        const tableOfContents = document.querySelector('.table-of-contents'); // Select the specific <div> element with class name 'table-of-contents'
+    
+    
+    // Table of Contents customizations ...
+    const handleToggleElementClick = () => {
+        
+            typeof window !== 'undefined' && window.document.querySelector('.table-of-contents .toggle-element').classList.add('rotate-180', 'transition', 'duration-500', 'ease-in-out');
+        
+        const tableOfContents = typeof window !== 'undefined' && window.document.querySelector('.table-of-contents'); // Select the specific <div> element with class name 'table-of-contents'
+        
         if (!tableOfContents) return; // If the table of contents doesn't exist, return
-
-            tableOfContents.classList.add('relative', 'shadow-inner', 'transition', 'duration-500', 'ease-in-out');
-            // Add an absolutely positioned element to the table of contents
-            const toggleElement = document.createElement('div');
-            toggleElement.classList.add('toggle-element', 'absolute', 'top-5', 'right-5', 'cursor-pointer', 'font-bold', 'text-indigo-600', 'bg-gray-200', 'hover:bg-gray-300', 'dark:bg-gray-800', 'dark:hover:bg-gray-700', 'rounded-full', 'px-1');
-            toggleElement.innerHTML = '<i class="fas fa-chevron-up"></i>';
-            
-            const handleToggleClick = () => {
-                // Toggle element click event handler logic...
-                toggleElement.classList.add('rotate-180', 'font-bold', 'transition', 'duration-500', 'ease-in-out', 'bg-gray-200', 'dark:bg-gray-800', 'dark:hover:bg-gray-700', 'shadow-xl', 'dark:shadow-xl', 'rounded-full', 'px-1', 'hover:shadow-inner', 'hover:bg-gray-300', 'hover:shadow-indigo-200', 'dark:hover:shadow-gray-700', 'shadow-indigo-600', 'dark:shadow-indigo-600');
-                const pTags = tableOfContents.querySelectorAll('p');
-                const isCollapsed = pTags[0].classList.contains('hidden');
-                pTags.forEach((pTag, index) => {
-                    if (isCollapsed && index <= 3) {
-                        pTag.classList.remove('hidden');
-                        toggleElement.classList.remove('rotate-180');
-                    } else {
-                        pTag.classList.add('hidden');
-                    }
-                });
-            };
-            toggleElement.addEventListener('click', handleToggleClick);
-            
-            tableOfContents.appendChild(toggleElement);
-
-            
-
-        const toggleElements = document.querySelectorAll('.table-of-contents .toggle-element');
-
-        toggleElements.forEach((element) => {
-            const className = element.className.trim();
-            const classList = className.split(' ');
-            
-            if (className.includes('toggle-element') && classList.length === 7) {
-                element.parentNode.removeChild(element);
+        
+        // Toggle element click event handler logic...
+        const pTags = tableOfContents.querySelectorAll('p');
+        const isCollapsed = pTags[0].classList.contains('hidden');
+        pTags.forEach((pTag, index) => {
+            if (isCollapsed && index <= 3) {
+                pTag.classList.remove('hidden');
+                typeof window !== 'undefined' && window.document.querySelector('.table-of-contents .toggle-element').classList.remove('rotate-180');
+            } else {
+                pTag.classList.add('hidden');
             }
         });
 
-    }, []);
-    
-    // Content customizations ...
-    useEffect(() => {
         // Show the first three elements of the table of contents, and show 'view all' after the third element, and show all elements in the table of contents after clicking 'view all'
-        const tableOfContentsPTags = document.querySelectorAll('.table-of-contents p');
+        const tableOfContentsPTags = typeof window !== 'undefined' && window.document.querySelectorAll('.table-of-contents p');
         if (!tableOfContentsPTags) return; // If the table of contents doesn't exist, return
 
         const viewAllPTag = tableOfContentsPTags[3];
@@ -118,6 +94,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         
             // Change the style of the span element within the p tag
             if (isViewAll || isViewLess) {
+                pTagChildren.classList.remove('hidden')
                 pTagChildren.classList.add('cursor-pointer', 'font-bold', 'text-indigo-600', 'hover:text-indigo-800', 'hover:underline', 'dark:text-indigo-400', 'dark:hover:text-indigo-500', 'dark:hover:underline', 'transition', 'duration-500', 'ease-in-out');
                 const handleViewAllClick = () => {
                     tableOfContentsPTags.forEach((pTag, i) => {
@@ -132,28 +109,26 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                         });
                 };
                 pTagChildren.addEventListener('click', handleViewAllClick);
-                return () => {
-                    // Clean up the event listeners when the component unmounts
-                    tableOfContentsPTags.forEach((pTag) => {
-                        const pTagChildren = pTag.children[0];
-                        pTagChildren.removeEventListener('click', handleViewAllClick);
-                    });
-                };
             }
-
-            const toggleElements = document.querySelectorAll('.table-of-contents .toggle-element');
-            const classNames = new Set(); // Create a new Set object to store the class names of the toggle elements in the table of contents (to avoid duplicate class names)
-
-            toggleElements.forEach((element) => {
-                const className = element.className.trim(); // Remove the leading and trailing whitespace characters from the class name string and assign it to a variable called 'className'
-                if (classNames.has(className)) { // Check if the Set object already contains the class name
-                    element.parentNode.removeChild(element); // Remove the duplicate toggle element from the DOM
-                } else {
-                    classNames.add(className); // Add the class name to the Set object if it doesn't already exist in the Set object
-                }
-            });
         });
+    }
 
+    useEffect(() => {
+        const tableOfContentsPTags = typeof window !== 'undefined' && window.document.querySelectorAll('.table-of-contents p');
+        if (!tableOfContentsPTags) return; // If the table of contents doesn't exist, return
+
+        // const viewAllPTag = tableOfContentsPTags[3];
+        tableOfContentsPTags.forEach((pTag, index) => {
+            const isViewAll = pTag.innerText === 'View All';
+            const isViewLess = pTag.innerText === 'View Less';
+            const pTagChildren = pTag.children[0];
+        
+        
+            // Change the style of the span element within the p tag
+            if (isViewAll || isViewLess) {
+                pTagChildren.classList.add('hidden');
+            }
+        });
     }, []);
 
     const formattedText = post.content.text.replace(/\\n/g, '\n\n');
@@ -881,7 +856,20 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                 )
                             } else if (className === 'table-of-contents') {
                                 return (
-                                    <div className="table-of-contents rounded-md p-4 my-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-400">{children}</div>
+                                    <div className="table-of-contents relative rounded-md p-4 my-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-400 shadow-inner transition duration-500 ease-in-out">
+                                        {/* // Add an absolutely positioned element to the table of contents */}
+                                        {/* // that will be used to toggle the table of contents */}
+                                        {/* toggleElement.innerHTML = '<i class="fas fa-chevron-up"></i>'; */}
+                                        <div onClick={() => {
+                                            handleToggleElementClick();
+                                        }}
+                                        className="toggle-element absolute top-5 right-5 cursor-pointer font-bold text-indigo-600 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full px-1 shadow-xl dark:shadow-xl hover:shadow-inner hover:shadow-indigo-200 dark:hover:shadow-gray-700 shadow-indigo-600 dark:shadow-indigo-600"
+                                        >
+                                            <i className="fas fa-chevron-up"></i>
+                                        </div>
+
+                                        {children}
+                                    </div>
                                 )
                             } else {
                                 return (
