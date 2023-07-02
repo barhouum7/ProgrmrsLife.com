@@ -78,6 +78,21 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
             }
         });
 
+        // Change the text of the toggle elements `View All` and `View Less`
+        const tableOfContentsDivTags = typeof window !== 'undefined' && window.document.querySelectorAll('.table-of-contents div');
+        tableOfContentsDivTags.forEach((divTag) => {
+            
+            const isViewAll = divTag.classList.contains('view-all-tag');
+            const isViewLess = divTag.classList.contains('view-less-tag');
+            const divTagChildren = divTag.children[0];
+
+            if (isViewAll) {
+                divTagChildren.innerHTML = '<span>View All</span>';
+            } else if (isViewLess) {
+                divTagChildren.innerHTML = '<span>View Less</span>';
+            }
+        });
+
         // Show the first three elements of the table of contents, and show 'view all' after the third element, and show all elements in the table of contents after clicking 'view all'
         const tableOfContentsPTags = typeof window !== 'undefined' && window.document.querySelectorAll('.table-of-contents p');
         if (!tableOfContentsPTags) return; // If the table of contents doesn't exist, return
@@ -86,6 +101,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         tableOfContentsPTags.forEach((pTag, index) => {
             const isViewAll = pTag.innerText === 'View All';
             const isViewLess = pTag.innerText === 'View Less';
+            
             const pTagChildren = pTag.children[0];
         
             if (index > 3) {
@@ -94,7 +110,6 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         
             // Change the style of the span element within the p tag
             if (isViewAll || isViewLess) {
-                pTagChildren.classList.remove('hidden')
                 pTagChildren.classList.add('cursor-pointer', 'font-bold', 'text-indigo-600', 'hover:text-indigo-800', 'hover:underline', 'dark:text-indigo-400', 'dark:hover:text-indigo-500', 'dark:hover:underline', 'transition', 'duration-500', 'ease-in-out');
                 const handleViewAllClick = () => {
                     tableOfContentsPTags.forEach((pTag, i) => {
@@ -112,24 +127,6 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
             }
         });
     }
-
-    useEffect(() => {
-        const tableOfContentsPTags = typeof window !== 'undefined' && window.document.querySelectorAll('.table-of-contents p');
-        if (!tableOfContentsPTags) return; // If the table of contents doesn't exist, return
-
-        // const viewAllPTag = tableOfContentsPTags[3];
-        tableOfContentsPTags.forEach((pTag, index) => {
-            const isViewAll = pTag.innerText === 'View All';
-            const isViewLess = pTag.innerText === 'View Less';
-            const pTagChildren = pTag.children[0];
-        
-        
-            // Change the style of the span element within the p tag
-            if (isViewAll || isViewLess) {
-                pTagChildren.classList.add('hidden');
-            }
-        });
-    }, []);
 
     const formattedText = post.content.text.replace(/\\n/g, '\n\n');
     // console.log(formattedText);
@@ -859,10 +856,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                     <div className="table-of-contents relative rounded-md p-4 my-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-400 shadow-inner transition duration-500 ease-in-out">
                                         {/* // Add an absolutely positioned element to the table of contents */}
                                         {/* // that will be used to toggle the table of contents */}
-                                        {/* toggleElement.innerHTML = '<i class="fas fa-chevron-up"></i>'; */}
-                                        <div onClick={() => {
-                                            handleToggleElementClick();
-                                        }}
+                                        <div onClick={handleToggleElementClick}
                                         className="toggle-element absolute top-5 right-5 cursor-pointer font-bold text-indigo-600 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full px-1 shadow-xl dark:shadow-xl hover:shadow-inner hover:shadow-indigo-200 dark:hover:shadow-gray-700 shadow-indigo-600 dark:shadow-indigo-600"
                                         >
                                             <i className="fas fa-chevron-up"></i>
