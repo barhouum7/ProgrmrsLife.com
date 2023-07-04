@@ -84,7 +84,7 @@ const BsLinkedin = () => {
 const BsYoutube = () => {
   return (
       <Tooltip content="ProgrammersLife on Youtube" placement="top" style="dark" className="transition duration-700 ease-in-out">
-        <a href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
+        <a href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw?sub_confirmation=1" target="_blank" rel="noopener noreferrer" className="align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10 cursor-pointer">
           <div className='relative'>
             <svg viewBox="1 0 26 26" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mr-3">
               <circle cx="12" cy="12" r="11" fill="currentColor" className="hover:text-white dark:hover:text-white dark:text-gray-400 transition duration-700 ease-in-out"/>
@@ -180,7 +180,7 @@ const FooterSection = () => {
                                       <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path>
                                   </svg>
                                   <div className='w-4 h-4 mt-1 rounded-full align-middle absolute top-0 hover:bg-red-800 hover:bg-opacity-50 hover:animate-ping bg-gray-700 dark:hover:bg-red-800 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
-                                <a href="https://facebook.com/groups/programmmerslife/" target="_blank" rel="noopener noreferrer" className="relative menu-item">YouTube <span className="border-b-effect-footer"></span></a>
+                                <a href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw?sub_confirmation=1" target="_blank" rel="noopener noreferrer" className="relative menu-item">YouTube <span className="border-b-effect-footer"></span></a>
                                 <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>
                             </li>
                           </Tooltip>
