@@ -946,17 +946,17 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                             } else if (className === 'popup-page') {
                                 return (
                                     <>
-                                        <div className="popup-page">
+                                        <div id='popup-page-link' className="popup-page">
                                             <blockquote className='mb-8 italic text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-gray-200 dark:shadow-gray-700 shadow-inner'>
                                                 Log in using these &nbsp;
-                                                <a onClick={() => {
+                                                <span onClick={() => {
                                                     setShowPopupPage(true)
                                                     const popupPageElement = document.querySelector('.popup-page');
                                                     if (popupPageElement) {
                                                         popupPageElement.scrollIntoView();
                                                     }
                                                 }}
-                                                className="text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500 hover:underline dark:hover:underline" href="#showPopupPage" target="_top" rel="noopener noreferrer" title="LinkedIn Learning Free trial Accounts">Free trials here ⬇</a>
+                                                className="text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500 hover:underline dark:hover:underline" title="LinkedIn Learning Free trial Accounts">Free trials here ⬇</span>
                                             </blockquote>
                                         </div>
                                         {
@@ -978,7 +978,13 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
 
                                                             <button
                                                                 className="absolute right-1 top-1 w-8 h-8 rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out"
-                                                                onClick={onCloseButtonClick}
+                                                                onClick={() => {
+                                                                    onCloseButtonClick();
+                                                                    const popupPageLink = document.getElementById("popup-page-link");
+                                                                    if (popupPageLink) {
+                                                                        popupPageLink.scrollIntoView();
+                                                                    }
+                                                                }}
                                                             >
                                                                 <Tooltip
                                                                 content="Close"
