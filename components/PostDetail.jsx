@@ -353,17 +353,18 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                 setButtonText(false);
                 }, 2000);
             } else {
-              setButtonText(false);
+                setButtonText(false);
             }
-          }, [isCopied]);
+        }, [isCopied]);
 
-    
-    const getMinutesRead = (text) => {
-        const words = text.split(' ').length;
-        const wordsPerMinute = 60;
-        const minutes = Math.round(words / wordsPerMinute);
-        return minutes;
-    }
+
+        const getMinutesRead = (text) => {
+            const cleanedText = text.replace(/({[^}]*}|\[[^\]]*])/g, '');
+            const words = cleanedText.split(' ').length;
+            const wordsPerMinute = 60;
+            const minutes = Math.round(words / wordsPerMinute);
+            return minutes;
+        };
     
     const BsPlayFill = () => {
         return (
