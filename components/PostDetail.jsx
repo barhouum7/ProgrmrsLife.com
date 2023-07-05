@@ -13,13 +13,17 @@ import moment from 'moment';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { Tooltip } from "flowbite-react";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
+    const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
     const [showWaitingText, setShowWaitingText] = useState(false);
+    const [showGetLinkButton, setShowGetLinkButton] = useState(false);
+    const [isSubscribed, setIsSubscribed] = useState(false);
     const [countdown, setCountdown] = useState(30);
 
     const startCountdown = () => {
@@ -36,6 +40,15 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
             clearTimeout(countdownTimeout); // Clear the timeout when the component is unmounted or updated
         };
     }
+
+
+
+    // Popup page customizations ...
+
+    const onCloseButtonClick = () => {
+        setShowPopupPage(false);
+    };
+
 
     // Content customizations ...
     useEffect(() => {
@@ -602,6 +615,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
 
     return (
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+                <Toaster position="top-center" reverseOrder={false} />
                 <Helmet>
                     <title>{post.title} | ProgrammersLife™</title>
                     <meta name="description" content={post.excerpt} />
@@ -701,7 +715,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                             if (href.match(/^https?:\/\/|^\/\//i)) {
                             return (
                                     <a
-                                    className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'
+                                    className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500'
                                     href={href}
                                     target={openInNewTab ? '_blank' : '_self'}
                                     rel={rel || 'noopener noreferrer'}
@@ -792,7 +806,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                         getPrismTheme={(_theme, colorScheme) =>
                                         colorScheme === "dark" ? duotoneLight : duotoneDark
                                         }
-                                        className="m-2"
+                                        className="m-2 sm:max-w-lg max-w-xs overflow-x-auto"
                                     >
                                         {preContent}
                                     </Prism>
@@ -819,25 +833,88 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                     return (
                                         <>
                                             {
+                                                !showGetLinkButton && (
+                                                    <div className='flex justify-center align-middle -mt-4 mb-4'>
+                                                        <Tooltip
+                                                            content="Subscribe our YouTube"
+                                                            placement="top"
+                                                            style='dark'
+                                                        >
+                                                            <a href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw?sub_confirmation=1"
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <button
+                                                                    onClick={() => {
+                                                                        setIsSubscribed(true);
+                                                                    }}
+                                                                    className="relative w-40 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
+                                                                    >
+                                                                    YouTube
+                                                                    <div className='absolute w-40'>
+                                                                        <div className='relative w-40 z-20 text-xs rounded-sm align-middle -top-5 -left-16 sm:-ml-20 hover:bg-opacity-50 dark:hover:bg-opacity-50 hover:shadow-2xl bg-gradient-to-r from-violet-500 to-transparent'>
+                                                                            ✅ Follow Step One
+                                                                            {/* Chevron UP SVG code:
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 m-2 text-white dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 11l5-5m0 0l5 5m-5-5v12" />
+                                                                            </svg> */}
+                                                                            <div className='z-20 w-40 h-4 rounded-sm align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </button>
+                                                            </a>
+                                                        </Tooltip>
+                                                    </div>
+                                                )
+                                            }
+                                            {
                                                 !showWaitingText && !showWaitingBlock && (
                                                     <div className='flex justify-center align-middle -mt-4'>
+                                                        <Tooltip
+                                                            content="Get Link"
+                                                            placement="top"
+                                                            style='dark'
+                                                        >
                                                             <button
                                                             onClick={() => {
-                                                                setShowWaitingText(true);
-                                                                startCountdown();
+                                                                if (isSubscribed) {
+                                                                    toast.success('Thank you for subscribing our YouTube channel!', {
+                                                                        position: "top-center",
+                                                                        duration: 10000,
+                                                                        style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                    });
+                                                                    setShowGetLinkButton(true);
+                                                                    setShowWaitingText(true);
+                                                                    startCountdown();
+                                                                } else {
+                                                                    // typeof window !== 'undefined' && window.alert("Please subscribe our YouTube channel first!");
+                                                                    toast.error("Please subscribe our YouTube channel first!", {
+                                                                        position: "top-center",
+                                                                        duration: 6000,
+                                                                        // Styling
+                                                                        style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                    });
+                                                                }
                                                             }}
-                                                            className="relative w-2/5 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 hover:text-white dark:text-gray-100 hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
+                                                            className="relative w-40 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
                                                             >
                                                                 Get the link
                                                                 <div className='w-10 h-10 rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
+                                                                <div className='absolute w-40'>
+                                                                    <div className='relative w-40 z-20 text-xs rounded-sm align-middle -top-5 -left-16 sm:-ml-20 hover:bg-opacity-50 dark:hover:bg-opacity-50 hover:shadow-2xl bg-gradient-to-r from-violet-500 to-transparent'>
+                                                                        ✅ Follow Step Two
+                                                                        <div className='z-20 w-40 h-4 rounded-sm align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
+                                                                    </div>
+                                                                </div>
                                                             </button>
+                                                        </Tooltip>
                                                     </div>
                                                 )
                                             }
 
                                             {
                                                 showWaitingText && !showWaitingBlock && (
-                                                    <p className="waiting-block__p mb-8 text-gray-900 dark:text-gray-400">Please wait <strong>{countdown}s</strong> to get the link</p>
+                                                    <p className="waiting-block__p mb-8 text-gray-900 dark:text-white">Please wait <strong>{countdown}s</strong> to get the link</p>
                                                 )
                                             }
                                             {
@@ -865,7 +942,70 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                         {children}
                                     </div>
                                 )
-                            } else {
+                            } else if (className === 'popup-page') {
+                                return (
+                                    <>
+                                        <div className="popup-page">
+                                            <blockquote className='mb-8 italic text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-gray-200 dark:shadow-gray-700 shadow-inner'>
+                                                Log in using these &nbsp;
+                                                <a onClick={() => {
+                                                    setShowPopupPage(true)
+                                                    const popupPageElement = document.querySelector('.popup-page');
+                                                    if (popupPageElement) {
+                                                        popupPageElement.scrollIntoView();
+                                                    }
+                                                }}
+                                                className="text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500 hover:underline dark:hover:underline" href="#showPopupPage" target="_top" rel="noopener noreferrer" title="LinkedIn Learning Free trial Accounts">Free trials here ⬇</a>
+                                            </blockquote>
+                                        </div>
+                                        {
+                                            showPopupPage && (
+                                                <>
+                                                    <div className="popup-page sticky p-8 text-sm shadow-2xl z-40 flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-800 dark:bg-opacity-95 w-full sm:mx-auto transition duration-500 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+                                                            <div className="popup-page__content__header text-gray-900 dark:text-white justify-center items-center text-center mt-4">
+                                                                <p>If you appreciate my work, maybe you could show your support by buying me a cup of coffee/tea ☕️🤗</p>
+
+                                                                <div className="flex justify-center items-center mt-4 mb-4">
+                                                                    <a href="https://www.buymeacoffee.com/ProgrammersLife" target="_blank" rel="noopener noreferrer" title="Buy me a coffee" className="flex justify-center items-center text-gray-900 dark:text-white hover:text-gray-900 dark:hover:text-white transition duration-500 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700">
+                                                                        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" className="w-40" />
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div className="popup-page__content__body text-gray-900 dark:text-white px-8 sm:p-4 sm:max-w-lg max-w-sm">
+                                                                {children}
+                                                            </div>
+
+                                                            <button
+                                                                className="absolute right-1 top-1 w-8 h-8 rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out"
+                                                                onClick={onCloseButtonClick}
+                                                            >
+                                                                <Tooltip
+                                                                content="Close"
+                                                                placement="left"
+                                                                style="dark"
+                                                                className="text-xs transition duration-700 ease-in-out"
+                                                                >
+                                                                <svg
+                                                                    className="w-6 h-6 text-white text-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                    strokeWidth="2"
+                                                                    fill="none"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                >
+                                                                    <path d="M18 6L6 18M6 6l12 12" />
+                                                                </svg>
+                                                                </Tooltip>
+                                                            </button>
+                                                    </div>
+                                                </>
+                                            )
+                                        }
+                                    </>
+                                )
+                            }
+                            else {
                                 return (
                                     <div className={className}>{children}</div>
                                 )
