@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
+import { FaEllipsisH } from 'react-icons/fa';
 import { PostCard, Categories, PostWidget, FeaturedPosts, Loader } from '../components'
 import { getPosts } from '../services/index'
 
@@ -47,6 +48,52 @@ export default function Home ({ posts, error }) {
     setCurrentPage(pageNumber);
   }
 
+
+// To display a limited number of page buttons and represent the remaining pages with an ellipsis icon
+
+const MAX_VISIBLE_PAGES = 3; // Maximum number of visible page buttons
+
+// Calculate the range of page numbers to display
+const startPage = Math.max(1, currentPage - Math.floor(MAX_VISIBLE_PAGES / 2));
+const endPage = Math.min(startPage + MAX_VISIBLE_PAGES - 1, totalPages);
+
+// Generate the page buttons
+const pageButtons = [];
+
+for (let pageNumber = startPage; pageNumber <= endPage; pageNumber++) {
+  pageButtons.push(
+    <button
+      className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+        pageNumber === currentPage ? "font-extrabold bg-violet-700 px-2 shadow-xl" : "rounded-l-full px-2"
+      } ${pageNumber !== currentPage ? "rounded-r-full px-2" : ""}`}
+      key={pageNumber}
+      onClick={() => handlePageChange(pageNumber)}
+    >
+      {pageNumber}
+    </button>
+  );
+}
+
+// Add ellipsis icon if there are more pages
+if (totalPages > MAX_VISIBLE_PAGES) {
+  if (startPage > 1) {
+    pageButtons.unshift(
+      <span className="inline-flex items-center px-2 py-2 text-sm text-white dark:text-white" key="ellipsis-start">
+        <FaEllipsisH size={16} />
+      </span>
+    );
+  }
+  if (endPage < totalPages) {
+    pageButtons.push(
+      <span className="inline-flex items-center px-2 py-2 text-sm text-white dark:text-white" key="ellipsis-end">
+        <FaEllipsisH size={16} />
+      </span>
+    );
+  }
+}
+
+
+
   return (
     <>
       <div>
@@ -93,9 +140,7 @@ export default function Home ({ posts, error }) {
                             )}
                             
                             {
-                            Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
-                              <button className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${pageNumber === currentPage ? 'font-extrabold bg-violet-700 px-2 shadow-xl' : 'rounded-l-full px-2'} ${pageNumber !== currentPage ? 'rounded-r-full px-2' : ''}`} key={pageNumber} onClick={() => handlePageChange(pageNumber)}>{pageNumber}</button>
-                            ))
+                              pageButtons
                             }
   
                             {currentPage < totalPages && (
