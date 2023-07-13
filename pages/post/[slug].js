@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-// import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Script from 'next/script';
 import toast, { Toaster } from 'react-hot-toast';
@@ -10,32 +10,14 @@ import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loa
 import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [blogPosts, setBlogPosts] = useState([]);
-
-    useEffect(() => {
-        setIsLoading(true);
-        // Fetch posts from API
-        getPosts()
-        .then((data) => {
-        // Update posts data and set loading state to false
-        setBlogPosts(data);
-        setIsLoading(false);
-        })
-        .catch((error) => {
-        // Handle error and set loading state to false
-        console.error(error);
-        setIsLoading(false);
-        });
-    }, []);
-    
     const [isCopied, setIsCopied] = useState(false);
 
 
-    // const router = useRouter();
-    // if (router.isFallback) {
-    //     return <Loader />
-    // }
+    const router = useRouter();
+
+    if (router.isFallback) {
+        return <Loader />
+    }
 
     const enablePopupMessage = () => {
         // console.log('Please allow popups for this website to share this article.');
@@ -117,11 +99,7 @@ const PostDetails = ({ post, error }) => {
 
     return (
         <>
-            {/* Render loading state or post cards based on isLoading */}
             {
-                isLoading ? (
-                    <Loader />
-                ) :
                 error ? (
                         <div className="text-center justify-center">
                             <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
@@ -257,7 +235,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: false,
+        fallback: true,
     };
     } catch (error) {
     console.error("Error fetching posts:", error);
