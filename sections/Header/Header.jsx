@@ -245,8 +245,9 @@ const Header = () => {
               <Navbar.Brand href="/">
                 <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
                   <Logo />
-                  <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
+                  <span className="relative self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
                     Programmers Life
+                    <div className="absolute left-1 z-40 inset-0 bg-white rounded-lg shadow-2xl animated-slow__for-logo w-2 h-15"></div>
                   </span>
                 </div>
                 </Navbar.Brand>

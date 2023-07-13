@@ -10,6 +10,7 @@ import '../styles/postDetail.css'
 import '../styles/scrollbar.css'
 import '../styles/moonSunBg.css'
 import '../styles/loader.css'
+import '../styles/animation.css'
 
 import 'tailwindcss/tailwind.css'
 
