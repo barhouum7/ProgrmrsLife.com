@@ -36,6 +36,8 @@ export default function Home ({ posts, error }) {
     setShuffledPosts(array);
   }, [posts]);
 
+  // Pagination
+  // Update the state with the current page number
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 3;
   const indexOfLastPost = currentPage * postsPerPage;
