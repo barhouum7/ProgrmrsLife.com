@@ -214,8 +214,6 @@ export async function getStaticProps({ params }) {
     } catch (error) {
         return {
             props: {
-                post: data,
-                posts,
                 error: true,
             }
         };
@@ -241,8 +239,6 @@ export async function getStaticPaths() {
     console.error("Error fetching posts:", error);
     return {
         props: {
-            post: null,
-            posts: [],
             error: true,
         },
     };
