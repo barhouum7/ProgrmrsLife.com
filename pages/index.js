@@ -65,8 +65,8 @@ const pageButtons = [];
 for (let pageNumber = startPage; pageNumber <= endPage; pageNumber++) {
   pageButtons.push(
     <button
-      className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
-        pageNumber === currentPage ? "font-extrabold bg-violet-700 px-2 shadow-xl" : "rounded-l-full px-2"
+    className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white ${
+      pageNumber === currentPage ? "font-extrabold text-white bg-violet-700 dark:bg-opacity-20 px-2 shadow-xl shadow-gray-700 dark:shadow-gray-900" : "rounded-l-full px-2"
       } ${pageNumber !== currentPage ? "rounded-r-full px-2" : ""}`}
       key={pageNumber}
       onClick={() => handlePageChange(pageNumber)}
