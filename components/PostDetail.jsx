@@ -61,7 +61,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
         }
     };
     
-        const subtitleClasses = ['subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7', 'subtitle-8', 'subtitle-9', 'subtitle-10', 'how-to', 'free-autogpt-repo'];
+        const subtitleClasses = ['subtitle-intro', 'subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7', 'subtitle-8', 'subtitle-9', 'subtitle-10', 'subtitle-11',
+        'subtitle-12', 'subtitle-13', 'subtitle-14', 'subtitle-15', 'subtitle-16', 'subtitle-17', 'subtitle-18', 'subtitle-19', 'subtitle-20', 'subtitle-21', 'subtitle-22', 'subtitle-23', 'subtitle-24',
+        'subtitle-25','how-to', 'free-autogpt-repo'];
         subtitleClasses.forEach((subtitleClass, index) => { // Loop through the array of subtitle class names
             const subtitle = getElement(subtitleClass); // Select the specific <div> element with class name 'subtitle-*'
             addIdToElement(subtitle, `subtitle-${index + 1}`); // Add the ID 'subtitle-*' to the selected <div> element
