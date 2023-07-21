@@ -146,11 +146,6 @@ const PostDetails = ({ post, error }) => {
                                 <link rel="alternate" type="application/atom+xml" title="Programmers Life" href="https://programmerslife.site/atom.xml" />
                                 <link rel="alternate" type="application/json" title="Programmers Life" href="https://programmerslife.site/feed.json" />
                                 <link rel="alternate" type="application/json" title="Programmers Life" href="https://programmerslife.site/feed.json" /> */}
-                                <Script
-                                    async
-                                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-                                    crossOrigin="anonymous"
-                                />
                             </Head>
                             {/* <!-- Google tag (gtag.js) --> */}
                             <Script 

@@ -12,11 +12,6 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="icon" href="/favicon.svg" />
-          <Script
-              async
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-              crossOrigin="anonymous"
-          />
         </Head>
         <body>
           <Main />
