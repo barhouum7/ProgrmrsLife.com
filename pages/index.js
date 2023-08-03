@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import { FaEllipsisH } from 'react-icons/fa';
-import { PostCard, Categories, PostWidget, FeaturedPosts, Loader, AWeberScript, AdsenseScript, WeglotScript } from '../components'
+import { PostCard, Categories, PostWidget, FeaturedPosts, Loader, AWeberScript, AdsenseScript } from '../components'
 import { getPosts } from '../services/index'
 
 export default function Home ({ posts, error }) {
@@ -119,7 +119,6 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                     data-full-width-responsive="true"></ins>
               <AdsenseScript />
               <AWeberScript />
-              <WeglotScript />
               <FeaturedPosts />
               <div className='dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-4 transition ease-in-out duration-500'>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">

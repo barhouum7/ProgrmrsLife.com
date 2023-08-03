@@ -5,7 +5,7 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 
 import { getCategories, getCategoryPost, getCategory, getPosts } from '../../services';
-import { PostCard, Categories, Loader, AWeberScript, AdsenseScript, WeglotScript } from '../../components';
+import { PostCard, Categories, Loader, AWeberScript, AdsenseScript } from '../../components';
 
 const CategoryPost = ({ catPosts, categoryName, error }) => {
   const router = useRouter();
@@ -146,7 +146,6 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                     data-full-width-responsive="true"></ins>
             <AdsenseScript />
             <AWeberScript />
-            <WeglotScript />
             <div className="bg-white dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div className="col-span-1 lg:col-span-12 text-center">
