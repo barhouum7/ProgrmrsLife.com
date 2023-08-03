@@ -1070,6 +1070,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                     
                     </div>
                 </div>
+                {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
+                <p className='text-center'>
+                    <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-gray-600 dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent hover:text-gray-900 dark:hover:text-white">Let us know your reaction</span>
+                </p>
+                <div className="sharethis-inline-reaction-buttons"></div>
+                {/* <!-- ShareThis END --> */}
             </div>
     )
 }

@@ -176,9 +176,6 @@ const PostDetails = ({ post, error }) => {
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                                     <div className='lg:col-span-8 col-span-1'>
                                         <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} />
-                                        {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
-                                            <div className="sharethis-inline-reaction-buttons"></div>
-                                        {/* <!-- ShareThis END --> */}
                                         <div id='authorBio'>
                                             <Author author={post.author} />
                                         </div>
