@@ -116,7 +116,25 @@ const Layout = ({ children }) => {
         <meta name="googlebot-translation-variant-variant" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
+
+        {/* Weglot integration code for website translation */}
+        <link rel="alternate" hreflang="en" href="https://www.programmerslife.site" />
+        <link rel="alternate" hreflang="fr" href="https://fr.programmerslife.site" />
+
+
+        {/* Sharethis integration code */}
+        <Script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=inline-reaction-buttons&source=platform" async="async" />
+
+        {/* // Code from AdSense */}
+        <Script 
+          id="adsbygoogle-init"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+          async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+        />
       </Head>
+      <Script async src="https://assets.aweber-static.com/aweberjs/aweber.js" />
+          <Script async src="http://resources.infolinks.com/js/infolinks_main.js" />
       {/* <!-- Google tag (gtag.js) --> */}
       <Script 
           async 
@@ -149,20 +167,6 @@ const Layout = ({ children }) => {
           data-website-uuid="6be0f015-e759-4ffd-8346-ebb290ddbdf9"
           async
         />
-      
-      <Script async src="https://assets.aweber-static.com/aweberjs/aweber.js" />
-      <Script
-        onLoad={() => {
-          var AWeber = window.AWeber || [];
-          AWeber.push(function() {
-              AWeber.WebPush.init(
-                  'BPWeSrUv87tnPkdoNOpUlMTllSqJ-fyJCJlYT2eeU8M6fBSFwO4FfQWcU83SEte8wowpIdhAH2P19HJDkUuAmAc',
-                  'a8f015e0-3041-4a1c-be7f-e8817369ba07',
-                  '9b0f384d-00c7-46f4-b678-2d996e3f2e4a'
-              );
-          });
-        }}
-      />
     </div>
   );
 };
