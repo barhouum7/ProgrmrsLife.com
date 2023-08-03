@@ -12,13 +12,13 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="icon" href="/imgs/favicon.svg" />
-        {/* Sharethis integration code */}
-        <Script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=inline-reaction-buttons&source=platform" async="async" />
+          {/* Sharethis integration code */}
+          <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=inline-reaction-buttons' async='async'></script>
         </Head>
         <body>
           <Main />
           <NextScript />
-          {/* Paste the AWeber script below */}
+          {/* AWeber script below */}
           <script
             async
             src="https://assets.aweber-static.com/aweberjs/aweber.js"
