@@ -4,7 +4,6 @@ import { ThemeProvider } from "next-themes";
 import { HelmetProvider } from 'react-helmet-async';
 import { KBarProvider } from "kbar";
 import CommandBar from "../components/CommandBar";
-import Script from 'next/script';
 
 import '../styles/globals.scss'
 import '../styles/postDetail.css'
@@ -70,13 +69,6 @@ const actions = [
               <CommandBar {...pageProps} />
               <Component {...pageProps} />
             </Layout>
-            {/* // Code from AdSense */}
-            <Script 
-              id="adsbygoogle-init"
-              strategy="afterInteractive"
-              crossOrigin="anonymous"
-              async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-            />
             <Toaster
               // toastOptions={{
               //   position: "bottom-right",

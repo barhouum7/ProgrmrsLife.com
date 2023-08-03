@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link'
 
-const Error404_pageNF = () => {
+const Custom404 = () => {
   return (
     <div className='dark:bg-gray-800 container relative flex-grow rounded-t mx-auto transition ease-in-out duration-500'>
         <section className="dark:bg-gray-900 rounded w-full h-full">
@@ -26,4 +26,4 @@ const Error404_pageNF = () => {
   )
 }
 
-export default Error404_pageNF
+export default Custom404

@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Error from 'next/error';
-import Error404_pageNF from './Error404_pageNF';
 
 export default function CustomError({ statusCode }) {
 if (statusCode === 404) {
     // Render the custom "404 Not Found" page
-    return <Error404_pageNF />;
+    return <Custom404 />;
 }
 
 // Render the default error page

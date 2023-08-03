@@ -11,14 +11,13 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="/favicon.svg" />
+          <link rel="icon" href="/imgs/favicon.svg" />
         </Head>
         <body>
           <Main />
           <NextScript />
           
-          <Script async src="http://resources.infolinks.com/js/infolinks_main.js" />
-          <script
+          <Script
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: `
