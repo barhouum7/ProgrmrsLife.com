@@ -11,13 +11,44 @@ import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loa
 import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
+    useEffect(() => {
+    // Initialize ShareThis buttons on component mount
+    if (window?.SHARETHIS) {
+        window.SHARETHIS.init({
+        inlineReactionButtons: {
+            alignment: 'center',  // alignment of buttons (left, center, right)
+            enabled: true,        // show/hide buttons (true, false)
+            language: 'en',       // which language to use (see LANGUAGES)
+            min_count: 0,         // hide react counts less than min_count (INTEGER)
+            padding: 12,          // padding within buttons (INTEGER)
+            reactions: [          // which reactions to include (see REACTIONS)
+            'slight_smile',
+            'heart_eyes',
+            'laughing',
+            'astonished',
+            'sob',
+            'rage'
+            ],
+            size: 48,             // the size of each button (INTEGER)
+            spacing: 8,           // the spacing between buttons (INTEGER)
+        }
+        });
+    }
+    }, []);
 
+    useEffect(() => {
+    // Reinitialize ShareThis buttons when the 'post' prop changes
+    if (window?.SHARETHIS) {
+        window.SHARETHIS.inlineReactionButtons().init();
+    }
+    }, [post]);
+    
     useEffect(() => {
         const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
         if (stickyShareButtons) {
             stickyShareButtons.classList.remove('st-hidden');
         }
-
+    
         const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
         if (stickyShareButton) {
             stickyShareButton.forEach((button) => {
@@ -29,6 +60,7 @@ const PostDetails = ({ post, error }) => {
         if (inlineReactionButtons) {
             inlineReactionButtons.classList.remove('st-hidden');
         }
+    
     }, []);
 
     const [isCopied, setIsCopied] = useState(false);
@@ -202,28 +234,13 @@ const PostDetails = ({ post, error }) => {
                                                 {/* <p className='text-center'>
                                                 <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-white dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent dark:hover:text-white">Let us know your reaction</span>
                                             </p> */}
-                                            <p className='text-center'>
-                                                <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-gray-600 dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent hover:text-gray-900 dark:hover:text-white">Let us know your reaction</span>
-                                            </p>
-                                            <InlineReactionButtons
-                                            config={{
-                                                alignment: 'center',  // alignment of buttons (left, center, right)
-                                                enabled: true,        // show/hide buttons (true, false)
-                                                language: 'en',       // which language to use (see LANGUAGES)
-                                                min_count: 0,         // hide react counts less than min_count (INTEGER)
-                                                padding: 12,          // padding within buttons (INTEGER)
-                                                reactions: [          // which reactions to include (see REACTIONS)
-                                                'slight_smile',
-                                                'heart_eyes',
-                                                'laughing',
-                                                'astonished',
-                                                'sob',
-                                                'rage'
-                                                ],
-                                                size: 48,             // the size of each button (INTEGER)
-                                                spacing: 8,           // the spacing between buttons (INTEGER)
-                                            }}
-                                            />
+                                            <div className='justify-center text-center'>
+                                                <p>
+                                                    <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-gray-600 dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent hover:text-gray-900 dark:hover:text-white">Let us know your reaction</span>
+                                                </p>
+                                                <InlineReactionButtons
+                                                />
+                                            </div>
                                             {/* <!-- ShareThis END --> */}
                                         </div>
                                         

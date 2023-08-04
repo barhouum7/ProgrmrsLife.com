@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "./Header/Header";
 import Footer from "./FooterSection";
 import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton } from "../components";
@@ -5,6 +6,16 @@ import Head from "next/head";
 import Script from "next/script";
 
 const Layout = ({ children }) => {
+
+  useEffect(() => {
+    const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+    if (stickyShareButton) {
+        stickyShareButton.forEach((button) => {
+            button.style.height = '46px';
+        });
+    }
+
+}, []);
 
   // if (typeof window !== "undefined") {
   //   window.document.querySelector("html").addEventListener("copy", (e) => {
