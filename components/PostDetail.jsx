@@ -16,8 +16,6 @@ import { Tooltip } from "flowbite-react";
 import toast, { Toaster } from 'react-hot-toast';
 
 
-
-
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
     const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
@@ -617,7 +615,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
     // };
 
     return (
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+            <div>
                 <Toaster position="top-center" reverseOrder={false} />
                 <Helmet>
                     <title>{post.title} | ProgrammersLife™</title>
@@ -1070,12 +1068,6 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                     
                     </div>
                 </div>
-                {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
-                <p className='text-center'>
-                    <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-gray-600 dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent hover:text-gray-900 dark:hover:text-white">Let us know your reaction</span>
-                </p>
-                <div className="sharethis-inline-reaction-buttons"></div>
-                {/* <!-- ShareThis END --> */}
             </div>
     )
 }

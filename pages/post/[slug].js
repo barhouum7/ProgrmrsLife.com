@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Script from 'next/script';
 import toast, { Toaster } from 'react-hot-toast';
+import {InlineReactionButtons} from 'sharethis-reactjs';
 
 import { getPosts, getPostDetails } from "../../services"
 
@@ -10,6 +11,26 @@ import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loa
 import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
+
+    useEffect(() => {
+        const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
+        if (stickyShareButtons) {
+            stickyShareButtons.classList.remove('st-hidden');
+        }
+
+        const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+        if (stickyShareButton) {
+            stickyShareButton.forEach((button) => {
+                button.style.height = '46px';
+            });
+        }
+
+        const inlineReactionButtons = document.querySelector('.st-inline-reaction-buttons');
+        if (inlineReactionButtons) {
+            inlineReactionButtons.classList.remove('st-hidden');
+        }
+    }, []);
+
     const [isCopied, setIsCopied] = useState(false);
 
 
@@ -175,7 +196,37 @@ const PostDetails = ({ post, error }) => {
                             <div className="dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                                     <div className='lg:col-span-8 col-span-1'>
-                                        <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} />
+                                        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+                                            <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} />
+                                            {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
+                                                {/* <p className='text-center'>
+                                                <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-white dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent dark:hover:text-white">Let us know your reaction</span>
+                                            </p> */}
+                                            <p className='text-center'>
+                                                <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-gray-600 dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent hover:text-gray-900 dark:hover:text-white">Let us know your reaction</span>
+                                            </p>
+                                            <InlineReactionButtons
+                                            config={{
+                                                alignment: 'center',  // alignment of buttons (left, center, right)
+                                                enabled: true,        // show/hide buttons (true, false)
+                                                language: 'en',       // which language to use (see LANGUAGES)
+                                                min_count: 0,         // hide react counts less than min_count (INTEGER)
+                                                padding: 12,          // padding within buttons (INTEGER)
+                                                reactions: [          // which reactions to include (see REACTIONS)
+                                                'slight_smile',
+                                                'heart_eyes',
+                                                'laughing',
+                                                'astonished',
+                                                'sob',
+                                                'rage'
+                                                ],
+                                                size: 48,             // the size of each button (INTEGER)
+                                                spacing: 8,           // the spacing between buttons (INTEGER)
+                                            }}
+                                            />
+                                            {/* <!-- ShareThis END --> */}
+                                        </div>
+                                        
                                         <div id='authorBio'>
                                             <Author author={post.author} />
                                         </div>
