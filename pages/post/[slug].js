@@ -239,6 +239,23 @@ const PostDetails = ({ post, error }) => {
                                                     <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-gray-600 dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent hover:text-gray-900 dark:hover:text-white">Let us know your reaction</span>
                                                 </p>
                                                 <InlineReactionButtons
+                                                    config={{
+                                                        alignment: 'center',  // alignment of buttons (left, center, right)
+                                                        enabled: true,        // show/hide buttons (true, false)
+                                                        language: 'en',       // which language to use (see LANGUAGES)
+                                                        min_count: 0,         // hide react counts less than min_count (INTEGER)
+                                                        padding: 12,          // padding within buttons (INTEGER)
+                                                        reactions: [          // which reactions to include (see REACTIONS)
+                                                        'slight_smile',
+                                                        'heart_eyes',
+                                                        'laughing',
+                                                        'astonished',
+                                                        'sob',
+                                                        'rage'
+                                                        ],
+                                                        size: 48,             // the size of each button (INTEGER)
+                                                        spacing: 8,           // the spacing between buttons (INTEGER)
+                                                    }}
                                                 />
                                             </div>
                                             {/* <!-- ShareThis END --> */}
