@@ -15,34 +15,9 @@ const PostDetails = ({ post, error }) => {
     const [postSlug, setPostSlug] = useState('');
 
     useEffect(() => {
-        // Initialize ShareThis buttons on component mount
-        if (window?.SHARETHIS) {
-        window.SHARETHIS.init({
-            inlineReactionButtons: {
-                alignment: 'center',  // alignment of buttons (left, center, right)
-                enabled: true,        // show/hide buttons (true, false)
-                language: 'en',       // which language to use (see LANGUAGES)
-                min_count: 0,         // hide react counts less than min_count (INTEGER)
-                padding: 12,          // padding within buttons (INTEGER)
-                reactions: [          // which reactions to include (see REACTIONS)
-                'slight_smile',
-                'heart_eyes',
-                'laughing',
-                'astonished',
-                'sob',
-                'rage'
-                ],
-                size: 48,             // the size of each button (INTEGER)
-                spacing: 8,           // the spacing between buttons (INTEGER)
-            }
-        });
-        }
-    }, []);
-
-    useEffect(() => {
         // Reinitialize ShareThis buttons when the post slug changes
-        if (window?.SHARETHIS && postSlug !== '') {
-        window.SHARETHIS.inlineReactionButtons().init();
+        if (window?.__sharethis__ && postSlug !== '') {
+            window.__sharethis__.initialize();
         }
         
 
@@ -58,17 +33,16 @@ const PostDetails = ({ post, error }) => {
             });
         }
 
-        const inlineReactionButtons = document.querySelector('.st-inline-reaction-buttons');
-        if (inlineReactionButtons) {
-            inlineReactionButtons.classList.remove('st-hidden');
-        }
+        // const inlineReactionButtons = document.querySelector('.st-inline-reaction-buttons');
+        // if (inlineReactionButtons) {
+        //     inlineReactionButtons.classList.remove('st-hidden');
+        // }
 
     }, [postSlug]);
 
     useEffect(() => {
         // Update the post slug whenever the router's route changes (including query changes)
         setPostSlug(router.query.slug || '');
-        console.log('router.query.slug', router.query.slug);
     }, [router.asPath]);
 
     const [isCopied, setIsCopied] = useState(false);
@@ -261,6 +235,16 @@ const PostDetails = ({ post, error }) => {
                                                         ],
                                                         size: 48,             // the size of each button (INTEGER)
                                                         spacing: 8,           // the spacing between buttons (INTEGER)
+                                                        static: false,        // hide react buttons and display static emoji (true, false)
+                                                        url: `https://programmerslife.site/post/${post.slug}`, // (defaults to current url)
+
+                                                        // OPTIONAL PARAMETERS
+                                                        hideWhenOffline: true,   // hide the react buttons when the browser goes offline (true, false)
+                                                        onReactionButtonClick: function(e) {
+                                                            console.log(e);
+                                                        }, // fires when a user clicks one of the reaction buttons
+                                                        preFetch: true,        // pre-fetch reaction images (true, false)
+                                                        showReactionTotal: true // show the total number of reactions (true, false)
                                                     }}
                                                 />
                                             </div>

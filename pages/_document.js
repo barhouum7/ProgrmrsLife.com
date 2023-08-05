@@ -13,7 +13,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="icon" href="/imgs/favicon.svg" />
           {/* Sharethis integration code */}
-          <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=inline-reaction-buttons' async='async'></script>
+          <script type='text/javascript' strategy="afterInteractive" src='https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=inline-reaction-buttons' async='async'></script>
         </Head>
         <body>
           <Main />

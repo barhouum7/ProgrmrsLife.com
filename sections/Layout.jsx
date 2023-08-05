@@ -8,13 +8,37 @@ import Script from "next/script";
 const Layout = ({ children }) => {
 
   useEffect(() => {
-    const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
-    if (stickyShareButton) {
-        stickyShareButton.forEach((button) => {
-            button.style.height = '46px';
-        });
-    }
+    // Initialize ShareThis buttons on component mount
+    if (window?.__sharethis__) {
+        window.__sharethis__.init({
+        inlineReactionButtons: {
+            alignment: 'center',  // alignment of buttons (left, center, right)
+            enabled: true,        // show/hide buttons (true, false)
+            language: 'en',       // which language to use (see LANGUAGES)
+            min_count: 0,         // hide react counts less than min_count (INTEGER)
+            padding: 12,          // padding within buttons (INTEGER)
+            reactions: [          // which reactions to include (see REACTIONS)
+            'slight_smile',
+            'heart_eyes',
+            'laughing',
+            'astonished',
+            'sob',
+            'rage'
+            ],
+            size: 48,             // the size of each button (INTEGER)
+            spacing: 8,           // the spacing between buttons (INTEGER)
+            static: false,        // hide react buttons and display static emoji (true, false)
 
+            // OPTIONAL PARAMETERS
+            hideWhenOffline: true,   // hide the react buttons when the browser goes offline (true, false)
+            onReactionButtonClick: function(e) {
+                console.log(e);
+            }, // fires when a user clicks one of the reaction buttons
+            preFetch: true,        // pre-fetch reaction images (true, false)
+            showReactionTotal: true // show the total number of reactions (true, false)
+        }
+    });
+    }
 }, []);
 
   // if (typeof window !== "undefined") {
