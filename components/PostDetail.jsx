@@ -848,6 +848,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                                                 <button
                                                                     onClick={() => {
                                                                         setIsSubscribed(true);
+                                                                        setShowGetLinkButton(true);
                                                                     }}
                                                                     className="relative w-40 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
                                                                     >
