@@ -177,6 +177,9 @@ export const getComments = async (slug) => {
                 email
                 createdAt
                 comment
+                comments {
+                    raw
+                }
             }
         }
     `
