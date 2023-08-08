@@ -87,50 +87,51 @@ const Comments = ({ slug }) => {
                             <span className='text-gray-500 dark:text-gray-400'>{moment(comment.createdAt).fromNow()}</span>
                         </div>
                         <p className='whitespace-pre-line text-gray-600 dark:text-gray-400 w-full'>{parser(comment.comment)}</p>
-                        <RichText
-                        content={comment.comments !== null && comment.comments.raw.children}
-                        renderers={{
-                            // eslint-disable-next-line react/display-name
-                            p: ({ children }) => <p className='whitespace-pre-line text-gray-600 dark:text-gray-400 w-full'>{children}</p>,
-                            a: ({ children, openInNewTab, href, rel, ...rest }) => {
-                                if (href.match(/^https?:\/\/|^\/\//i)) {
-                                return (
-                                        <a
-                                        className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500'
-                                        href={href}
-                                        target={openInNewTab ? '_blank' : '_self'}
-                                        rel={rel || 'noopener noreferrer'}
-                                        {...rest}
-                                        >
-                                            {children}
-    
-                                        </a>
-                                );
-                                }
-    
-                                return (
-                                        <Link href={href}>
-                                            <a {...rest}>{children}</a>
-                                        </Link>
-                                );
-                            },
-                            h1: ({ children }) => <h1 className="text-3xl font-semibold">{children}</h1>,
-                            h2: ({ children }) => <h2 className="text-1xl font-semibold">{children}</h2>,
-                            h3: ({ children }) => <h3 className="text-xl font-semibold">{children}</h3>,
-                            h4: ({ children }) => <h4 className="text-xl font-semibold my-4">{children}</h4>,
-                            h5: ({ children }) => <h5 className="text-gray-700 dark:text-gray-300 font-semibold">{children}</h5>,
-                            h6: ({ children }) => <h6 className="text-gray-700 dark:text-gray-300 font-semibold">{children}</h6>,
-                            bold: ({ children }) => <span className="font-semibold text-sm text-gray-900 dark:text-gray-400">{children}</span>,
-                            italic: ({ children }) => <em className="post-detail-em relative text-gray-900 dark:text-white mr-0">{children}</em>,
-                            code: ({ children }) => <code className="bg-gray-200 dark:bg-gray-600 px-2 py-0 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</code>,
-                            blockquote: ({ children }) => <blockquote className="border-l-4 border-gray-200 dark:border-gray-600 pl-4 my-4">{children}</blockquote>,
-                            ul: ({ children }) => <ul className="list-disc list-inside">{children}</ul>,
-                            ol: ({ children }) => <ol className="list-decimal list-inside">{children}</ol>,
-                            li: ({ children }) => <li className="text-gray-900 dark:text-gray-100">{children}</li>,
-                            img: ({ src }) => <img className="w-full h-full cursor-pointer shadow-lg rounded-lg hover:shadow-2xl my-4" src={src} />,
+                        {comment.comments !== null && comment.comments.raw.children && (
+                            <RichText
+                            content={comment.comments.raw.children}
+                            renderers={{
+                                p: ({ children }) => <p className='whitespace-pre-line text-gray-600 dark:text-gray-400 w-full'>{children}</p>,
+                                a: ({ children, openInNewTab, href, rel, ...rest }) => {
+                                    if (href.match(/^https?:\/\/|^\/\//i)) {
+                                    return (
+                                            <a
+                                            className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500'
+                                            href={href}
+                                            target={openInNewTab ? '_blank' : '_self'}
+                                            rel={rel || 'noopener noreferrer'}
+                                            {...rest}
+                                            >
+                                                {children}
+        
+                                            </a>
+                                    );
+                                    }
+        
+                                    return (
+                                            <Link href={href}>
+                                                <a {...rest}>{children}</a>
+                                            </Link>
+                                    );
+                                },
+                                h1: ({ children }) => <h1 className="text-3xl font-semibold">{children}</h1>,
+                                h2: ({ children }) => <h2 className="text-1xl font-semibold">{children}</h2>,
+                                h3: ({ children }) => <h3 className="text-xl font-semibold">{children}</h3>,
+                                h4: ({ children }) => <h4 className="text-xl font-semibold my-4">{children}</h4>,
+                                h5: ({ children }) => <h5 className="text-gray-700 dark:text-gray-300 font-semibold">{children}</h5>,
+                                h6: ({ children }) => <h6 className="text-gray-700 dark:text-gray-300 font-semibold">{children}</h6>,
+                                bold: ({ children }) => <span className="font-semibold text-sm text-gray-900 dark:text-gray-400">{children}</span>,
+                                italic: ({ children }) => <em className="post-detail-em relative text-gray-900 dark:text-white mr-0">{children}</em>,
+                                code: ({ children }) => <code className="bg-gray-200 dark:bg-gray-600 px-2 py-0 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</code>,
+                                blockquote: ({ children }) => <blockquote className="border-l-4 border-gray-200 dark:border-gray-600 pl-4 my-4">{children}</blockquote>,
+                                ul: ({ children }) => <ul className="list-disc list-inside">{children}</ul>,
+                                ol: ({ children }) => <ol className="list-decimal list-inside">{children}</ol>,
+                                li: ({ children }) => <li className="text-gray-900 dark:text-gray-100">{children}</li>,
+                                img: ({ src }) => <img className="w-full h-full cursor-pointer shadow-lg rounded-lg hover:shadow-2xl my-4" src={src} />,
 
-                        }}
-                        />
+                            }}
+                            />
+                        )}
                     </div>
                 ))}
             </div>

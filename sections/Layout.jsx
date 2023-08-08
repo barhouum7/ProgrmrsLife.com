@@ -160,7 +160,7 @@ const Layout = ({ children }) => {
           async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
         />
       </Head>
-          <Script async src="http://resources.infolinks.com/js/infolinks_main.js" />
+          <Script async src="https://resources.infolinks.com/js/infolinks_main.js" />
       {/* <!-- Google tag (gtag.js) --> */}
       <Script 
           async 
