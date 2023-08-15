@@ -21,6 +21,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
     const [showWaitingText, setShowWaitingText] = useState(false);
     const [showGetLinkButton, setShowGetLinkButton] = useState(false);
+    const [showGetToLinkButton, setShowGetToLinkButton] = useState(false);
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [countdown, setCountdown] = useState(30);
 
@@ -835,7 +836,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                         <>
                                             {
                                                 !showGetLinkButton && (
-                                                    <div className='flex justify-center align-middle -mt-4 mb-4'>
+                                                    <div id='follow-steps' className='flex justify-center align-middle -mt-4 mb-4'>
                                                         <Tooltip
                                                             content="Subscribe our YouTube"
                                                             placement="top"
@@ -1006,6 +1007,40 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                                                 </svg>
                                                                 </Tooltip>
                                                             </button>
+                                                    </div>
+                                                </>
+                                            )
+                                        }
+                                    </>
+                                )
+                            } else if (className === 'go-to-link') {
+                                return (
+                                    <>
+                                        {
+                                            !showGetToLinkButton && (
+                                                <>
+                                                    <div className="go-to-link">
+                                                        <div className="flex justify-center items-center">
+                                                            <Tooltip
+                                                                content="Go to Link 👇"
+                                                                placement="top"
+                                                                style='dark'
+                                                            >
+                                                                <button
+                                                                onClick={() => {
+                                                                    setShowGetToLinkButton(true);
+                                                                    const goToLinkElement = document.getElementById("follow-steps");
+                                                                    if (goToLinkElement) {
+                                                                        goToLinkElement.scrollIntoView();
+                                                                    }
+                                                                }}
+                                                                className="relative w-full z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
+                                                                >
+                                                                    Go to Link 👇
+                                                                    <div className='w-10 h-10 rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
+                                                                </button>
+                                                            </Tooltip>
+                                                        </div>
                                                     </div>
                                                 </>
                                             )
