@@ -16,6 +16,15 @@ const AWeberScript = () => {
             });
     }, []);
 
+    // Change background of User Way Accessibility Icon
+    useEffect(() => {
+        setTimeout(() => {
+            const userwayAccessibilityIcon = document.getElementById('userwayAccessibilityIcon');
+            // console.log('userwayAccessibilityIcon: ', userwayAccessibilityIcon);
+            userwayAccessibilityIcon.style = 'background: linear-gradient(to right, rgb(0, 65, 230), rgb(25, 51, 221), rgb(50, 37, 212), rgb(74, 23, 203), rgb(99, 9, 194)) !important;';
+        }, 9000);
+    }, []);
+
   return null; // This component doesn't render anything on the page
 };
 
