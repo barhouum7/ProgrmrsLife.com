@@ -77,7 +77,7 @@ const Layout = ({ children }) => {
       `}
       </script>
         <noscript>Please ensure Javascript is enabled for purposes of <a href="https://userway.org">website accessibility</a></noscript>
-        <title>ProgrammersLife™</title>
+        <title>ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News</title>
         <link rel="icon" href="/imgs/favicon.svg" />
         <meta name="description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
         <meta name="keywords" content="programming, web development, tech, latest technologies, frameworks, libraries, latest news, tech world" />

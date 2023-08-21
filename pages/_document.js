@@ -11,6 +11,13 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <title>ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News</title>
+          <meta name="description" content="ProgrammersLife™ is a blog that provides you with the latest tech news, web development tips & tricks and more." />
+          <meta name="keywords" content="web development, web development tips, web development tricks, web development news, tech news, tech tips, tech tricks, tech news, tech blog, web development blog" />
+          <meta name="author" content="ProgrammersLife™" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta name="robots" content="index, follow" />
+          <meta charSet="UTF-8" />
           <link rel="icon" href="/imgs/favicon.svg" />
           {/* Sharethis integration code */}
           <script type='text/javascript' strategy="afterInteractive" src='https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=inline-reaction-buttons' async='async'></script>
