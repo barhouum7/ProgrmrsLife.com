@@ -7,7 +7,7 @@ import {InlineReactionButtons} from 'sharethis-reactjs';
 
 import { getPosts, getPostDetails } from "../../services"
 
-import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader, AWeberScript, AdsenseScript } from "../../components"
+import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader, AdsenseScript } from "../../components"
 import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
@@ -203,7 +203,7 @@ const PostDetails = ({ post, error }) => {
                                     data-ad-format="auto"
                                     data-full-width-responsive="true"></ins>
                             <AdsenseScript />
-                            <AWeberScript />
+                            {/* <AWeberScript /> */}
                             <Toaster position="top-center" reverseOrder={false} />
                             <div className="dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">

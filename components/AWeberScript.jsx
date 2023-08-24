@@ -6,7 +6,7 @@ const AWeberScript = () => {
     // Initialize Aweber Script for push notifications
     useEffect(() => {
         var AWeber = typeof window.AWeber !== "undefined" ? window.AWeber : []
-        console.log(AWeber);
+        // console.log(AWeber);
             AWeber.push(function() {
                 AWeber.WebPush.init(
                     'BPWeSrUv87tnPkdoNOpUlMTllSqJ-fyJCJlYT2eeU8M6fBSFwO4FfQWcU83SEte8wowpIdhAH2P19HJDkUuAmAc',
