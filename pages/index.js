@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import { FaEllipsisH } from 'react-icons/fa';
-import { PostCard, Categories, PostWidget, FeaturedPosts, Loader, AdsenseScript } from '../components'
+import { PostCard, Categories, PostWidget, FeaturedPosts, Loader, AdsenseScript} from '../components'
 import { getPosts } from '../services/index'
 
 export default function Home ({ posts, error }) {

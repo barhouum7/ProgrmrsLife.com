@@ -73,13 +73,6 @@ class MyDocument extends Document {
           {/* Adsense Code */}
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
           crossorigin="anonymous" strategy="afterInteractive"></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-              (adsbygoogle = window.adsbygoogle || []).push({});
-              `,
-            }}
-          ></script>
 
           {/* <!-- Google tag (gtag.js) --> */}
           <script 

@@ -173,26 +173,36 @@ const PostDetails = ({ post, error }) => {
                                 <meta name="twitter:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://programmerslife.site/post/${post.slug}`} />
                                 <meta name="twitter:label8" content="Share on LinkedIn" />
                                 <meta name="twitter:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://programmerslife.site/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="facebook:card" content="summary_large_image" />
+                                <meta name="facebook:title" content={post.title} />
+                                <meta name="facebook:description" content={post.excerpt} />
+                                <meta name="facebook:image" content={post.featuredImage.url} />
+                                <meta name="facebook:creator" content="https://link.programmerslife.site" />
+                                <meta name="facebook:site" content="https://programmerslife.site" />
+                                <meta name="facebook:url" content={`https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="facebook:label1" content="Written by" />
+                                <meta name="facebook:data1" content={post.author.name} />
+                                <meta name="facebook:label2" content="Filed under" />
+                                <meta name="facebook:data2" content={post.categories.map((category) => category.name).join(', ')} />
+                                <meta name="facebook:label3" content="Estimated reading time" />
+                                <meta name="facebook:data3" content={`${getMinutesRead(post.content.text)} min read`} />
+                                <meta name="facebook:label4" content="Published on" />
+                                <meta name="facebook:data4" content={post.createdAt} />
+                                <meta name="facebook:label5" content="Last updated on" />
+                                <meta name="facebook:data5" content={post.updatedAt} />
+                                <meta name="facebook:label6" content="Share on Twitter" />
+                                <meta name="facebook:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="facebook:label7" content="Share on Facebook" />
+                                <meta name="facebook:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="facebook:label8" content="Share on LinkedIn" />
+                                <meta name="facebook:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://programmerslife.site/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="og:site_name" property="og:site_name" content="Programmers Life - A blog about programming, technology and life." />
+                                <meta name="og:type" property="og:type" content="article" />
+                                <meta name="og:locale" property="og:locale" content="en_US" />                                
                                 
                                 <link rel="canonical" href={`https://programmerslife.site/post/${post.slug}`} />
-                                {/* <link rel="alternate" type="application/rss+xml" title="Programmers Life" href="https://programmerslife.site/rss.xml" />
-                                <link rel="alternate" type="application/atom+xml" title="Programmers Life" href="https://programmerslife.site/atom.xml" />
-                                <link rel="alternate" type="application/json" title="Programmers Life" href="https://programmerslife.site/feed.json" />
-                                <link rel="alternate" type="application/json" title="Programmers Life" href="https://programmerslife.site/feed.json" /> */}
+                                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://programmerslife.site/rss.xml" />
                             </Head>
-                            {/* <!-- Google tag (gtag.js) --> */}
-                            <Script 
-                                async 
-                                src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
-                            />
-                            <Script>
-                                {`
-                                    window.dataLayer = window.dataLayer || [];
-                                    function gtag(){dataLayer.push(arguments);}
-                                    gtag('js', new Date());
-                                    gtag('config', 'G-PEF01PTY1T');
-                                `}
-                            </Script>
 
 
                             {/* <!-- Recommended-ad-unit --> */}
