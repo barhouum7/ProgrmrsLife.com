@@ -70,10 +70,6 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
 
-          {/* Adsense Code */}
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-          crossorigin="anonymous" strategy="afterInteractive"></script>
-
           {/* <!-- Google tag (gtag.js) --> */}
           <script 
               async 
