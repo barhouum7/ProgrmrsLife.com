@@ -86,7 +86,7 @@ const Layout = ({ children }) => {
         
         <meta property="og:title" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta property="og:description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
-        <meta property="og:image" content="/imgs/logo.svg" />
+        <meta property="og:image" content="/imgs/logo0.png" />
         <meta property="og:url" content="https://programmerslife.site/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
@@ -118,7 +118,7 @@ const Layout = ({ children }) => {
         <meta name="twitter:creator" content="@programmerslife" />
         <meta name="twitter:title" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
-        <meta name="twitter:image" content="/imgs/logo.svg" />
+        <meta name="twitter:image" content="/imgs/logo0.png" />
         <meta name="twitter:image:alt" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:domain" content="https://programmerslife.site/" />
         <meta name="twitter:app:country" content="US" />
@@ -140,7 +140,7 @@ const Layout = ({ children }) => {
         <meta name="facebook:creator" content="@programmerslife" />
         <meta name="facebook:title" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="facebook:description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
-        <meta name="facebook:image" content="/imgs/logo.svg" />
+        <meta name="facebook:image" content="/imgs/logo0.png" />
         <meta name="facebook:image:alt" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="facebook:domain" content="https://programmerslife.site/" />
         <meta name="facebook:app:country" content="US" />
@@ -149,7 +149,7 @@ const Layout = ({ children }) => {
         <meta name="apple-mobile-web-app-title" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="application-name" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-TileImage" content="/imgs/logo.svg" />
+        <meta name="msapplication-TileImage" content="/imgs/logo0.png" />
 
         <meta name="robots" content="index, follow" />
         <meta name="googlebot" content="index, follow" />

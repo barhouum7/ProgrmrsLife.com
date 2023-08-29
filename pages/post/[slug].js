@@ -196,7 +196,7 @@ const PostDetails = ({ post, error }) => {
                                 <meta name="facebook:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://programmerslife.site/post/${post.slug}`} />
                                 <meta name="facebook:label8" content="Share on LinkedIn" />
                                 <meta name="facebook:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://programmerslife.site/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://programmerslife.site/post/${post.slug}`} />
-                                <meta name="og:site_name" property="og:site_name" content="Programmers Life - A blog about programming, technology and life." />
+                                <meta name="og:site_name" property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
                                 <meta name="og:type" property="og:type" content="article" />
                                 <meta name="og:locale" property="og:locale" content="en_US" />                                
                                 

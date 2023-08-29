@@ -116,7 +116,7 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
               } />
               <meta property="og:type" content="website" />
               <meta property="og:url" content="https://programmerslife.site" />
-              <meta property="og:site_name" content="Programmers Life" />
+              <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
               <link rel="icon" href="/imgs/favicon.svg" />
               <link rel="canonical" href="https://programmerslife.site" />
               <link rel="alternate" href="https://programmerslife.site" hrefLang="en" />
