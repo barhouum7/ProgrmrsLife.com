@@ -46,30 +46,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
 
     const onCloseButtonClick = () => {
         setShowPopupPage(false);
-    };
-
-
-    // Content customizations ...
-    useEffect(() => {
-        // A helper function takes a class name as an argument and returns the corresponding element using querySelector
-        const getElement = (className) => document.querySelector(`div.${className}`);
-        // This helper function checks if an element exists and assigns the provided ID to it
-        const addIdToElement = (element, id) => {
-        if (element) {
-        element.id = id;
-        }
-    };
-    
-        const subtitleClasses = ['subtitle-intro', 'subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7', 'subtitle-8', 'subtitle-9', 'subtitle-10', 'subtitle-11',
-        'subtitle-12', 'subtitle-13', 'subtitle-14', 'subtitle-15', 'subtitle-16', 'subtitle-17', 'subtitle-18', 'subtitle-19', 'subtitle-20', 'subtitle-21', 'subtitle-22', 'subtitle-23', 'subtitle-24',
-        'subtitle-25','how-to', 'free-autogpt-repo'];
-        subtitleClasses.forEach((subtitleClass, index) => { // Loop through the array of subtitle class names
-            const subtitle = getElement(subtitleClass); // Select the specific <div> element with class name 'subtitle-*'
-            addIdToElement(subtitle, `subtitle-${index + 1}`); // Add the ID 'subtitle-*' to the selected <div> element
-        });
-
-    }, []);
-    
+    };    
     
     // Table of Contents customizations ...
     const handleToggleElementClick = () => {
@@ -827,6 +804,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                             // const childArray = React.Children.toArray(children);
                             // const isWaitingBlock = childArray.map(child => child.props.parent.className === 'waiting-block')
                             // console.log(className);
+                            const subtitleClasses = ['subtitle-1', 'subtitle-2', 'subtitle-3', 'subtitle-4', 'subtitle-5', 'subtitle-6', 'subtitle-7', 'subtitle-8', 'subtitle-9', 'subtitle-10', 'subtitle-11', 'subtitle-12', 'subtitle-13', 'subtitle-14', 'subtitle-15', 'subtitle-16', 'subtitle-17', 'subtitle-18', 'subtitle-19', 'subtitle-20', 'subtitle-21', 'subtitle-22', 'subtitle-23', 'subtitle-24', 'subtitle-25', 'how-to', 'free-autogpt-repo'];
+                            const isSubtitle = subtitleClasses.includes(className);
+
                             const isWaitingBlock = className === 'waiting-block';
                             // console.log(isWaitingBlock);
                             const isCaptionText = className === 'caption-text';
@@ -1046,6 +1026,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                             )
                                         }
                                     </>
+                                )
+                            } else if (isSubtitle) {
+                                return (
+                                    <div className={className} id={className}>{children}</div>
                                 )
                             }
                             else {
