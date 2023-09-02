@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useMyContext } from '../../contexts/MyContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Script from 'next/script';
-import toast, { Toaster } from 'react-hot-toast';
+// import toast from 'react-hot-toast';
+import { ToastContainer, toast } from 'react-toastify';
 import {InlineReactionButtons} from 'sharethis-reactjs';
 
 import { getPosts, getPostDetails } from "../../services"
@@ -60,11 +62,6 @@ const PostDetails = ({ post, error }) => {
             toast.error('⚠ Please allow popups for this website to share this article.🔐☝', {
                 duration: 30000,
                 position: 'top-left',
-                // Styling
-                style: {
-                background: '#212A38',
-                color: '#fff',
-                },
             })
         }, 1000);
     }
@@ -79,30 +76,7 @@ const PostDetails = ({ post, error }) => {
             toast.success('Link copied to clipboard!', {
                 duration: 8000,
                 position: 'top-center',
-                // Styling
-                style: {
-                borderRadius: '10px',
-                background: '#212A38',
-                color: '#fff',
-                },
             })
-            
-
-            // toast.promise(
-            //     Promise.resolve(),
-            //     {
-            //         loading: 'Copying link...',
-            //         success: <b>Link copied to clipboard!</b>,
-            //         error: <b>Failed to copy link.</b>,
-            //         style: {
-            //             borderRadius: '10px',
-            //             background: '#333',
-            //             color: '#fff',
-            //           },
-            //     }
-            //     );
-
-            // console.log('Link copied to clipboard!');
                 
             setIsCopied(true);
             })
@@ -114,11 +88,6 @@ const PostDetails = ({ post, error }) => {
                 toast.error('Failed to copy link, please copy the link from your browser.', {
                     duration: 20000,
                     position: 'top-center',
-                    // Styling
-                    style: {
-                    background: '#212A38',
-                    color: '#fff',
-                    },
                 })
                 // console.error('Failed to copy link:', error.message);
             });
@@ -129,6 +98,44 @@ const PostDetails = ({ post, error }) => {
         const minutes = Math.round(words / wordsPerMinute);
         return minutes;
     }
+
+
+    const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
+    const [showToast, setShowToast] = useState(false); // New state to control toast display
+
+    // If welcome message shown once in this Home page, don't show it again in post details page
+    const { isWelcomed, setIsWelcomed } = useMyContext();
+
+    useEffect(() => {
+        const isReturningUser = localStorage.getItem('returningUser') === 'true';
+
+        if (isReturningUser) {
+            setShowToast(true);
+        } else {
+            setShowWelcomeMessage(true);
+        }
+    }, []);
+
+        useEffect(() => {
+            if (!isWelcomed && showWelcomeMessage) {
+                toast('👋Welcome to Programmers Life!', {
+                    autoClose: 8000,
+                    position: 'top-center',
+                    className: 'dark:text-white dark:bg-gray-900',
+                });
+                setIsWelcomed(true);
+            }
+
+            if (!isWelcomed && showToast && !showWelcomeMessage) {
+                toast('👋Welcome back! Thanks for visiting again!🤩', {
+                    autoClose: 8000,
+                    position: 'top-center',
+                    className: 'dark:text-white dark:bg-gray-900',
+                });
+                setIsWelcomed(true);
+            }
+
+        }, [showWelcomeMessage, showToast]);
 
     return (
         <>
@@ -203,6 +210,8 @@ const PostDetails = ({ post, error }) => {
                                 <link rel="canonical" href={`https://programmerslife.site/post/${post.slug}`} />
                                 <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://programmerslife.site/rss.xml" />
                             </Head>
+                            
+                            <ToastContainer />
 
 
                             {/* <!-- Recommended-ad-unit --> */}
@@ -214,12 +223,11 @@ const PostDetails = ({ post, error }) => {
                                     data-full-width-responsive="true"></ins>
                             <AdsenseScript />
                             {/* <AWeberScript /> */}
-                            <Toaster position="top-center" reverseOrder={false} />
                             <div className="dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                                     <div className='lg:col-span-8 col-span-1'>
                                         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
-                                            <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} />
+                                            <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} showToast={showToast} showWelcomeMessage={showWelcomeMessage} />
                                             {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
                                                 {/* <p className='text-center'>
                                                 <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-white dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent dark:hover:text-white">Let us know your reaction</span>

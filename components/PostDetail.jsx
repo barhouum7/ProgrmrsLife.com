@@ -15,8 +15,19 @@ import dynamic from 'next/dynamic';
 import { Tooltip } from "flowbite-react";
 import toast, { Toaster } from 'react-hot-toast';
 
+const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, showToast, showWelcomeMessage }) => {
+//     const [showMessage, setShowMessage] = useState(false);
 
-const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage }) => {
+//   useEffect(() => {
+//     const isReturningUser = localStorage.getItem('returningUser') === 'true';
+
+//     if (isReturningUser) {
+//       setShowMessage(true);
+//     } else {
+//       localStorage.setItem('returningUser', 'true');
+//     }
+//   }, []);
+    
     const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
     const [showWaitingText, setShowWaitingText] = useState(false);
@@ -46,7 +57,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
 
     const onCloseButtonClick = () => {
         setShowPopupPage(false);
-    };    
+    };
     
     // Table of Contents customizations ...
     const handleToggleElementClick = () => {
@@ -594,7 +605,6 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
 
     return (
             <div>
-                <Toaster position="top-center" reverseOrder={false} />
                 <Helmet>
                     <title>{post.title} | ProgrammersLife™</title>
                     <meta name="description" content={post.excerpt} />
@@ -813,10 +823,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                         
                             if (isWaitingBlock) {
                                     return (
-                                        <>
+                                        <div id='follow-steps'>
                                             {
-                                                !showGetLinkButton && (
-                                                    <div id='follow-steps' className='flex justify-center align-middle -mt-4 mb-4'>
+                                                !showGetLinkButton && !showToast && showWelcomeMessage && (
+                                                    <div className='flex justify-center align-middle -mt-4 mb-4'>
                                                         <Tooltip
                                                             content="Subscribe our YouTube"
                                                             placement="top"
@@ -860,8 +870,35 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                                         >
                                                             <button
                                                             onClick={() => {
-                                                                if (isSubscribed) {
-                                                                    toast.success('Thank you for subscribing our YouTube channel!', {
+                                                                if (localStorage.getItem('returningUser') !== 'true') {
+                                                                    if (isSubscribed) {
+                                                                        toast.success('Thank you for subscribing our YouTube channel!', {
+                                                                            position: "top-center",
+                                                                            duration: 10000,
+                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                        });
+                                                                        setShowGetLinkButton(true);
+                                                                        setShowWaitingText(true);
+                                                                        startCountdown();
+                                                                        localStorage.setItem('returningUser', 'true');
+                                                                    } else {
+                                                                        toast("🤩Woohoo! You are a new user here!", {
+                                                                            position: "top-center",
+                                                                            duration: 6000,
+                                                                            // Styling
+                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                        });
+                                                                        setTimeout(() => {
+                                                                            toast.error("Not yet subscribed?🥺 Please subscribe our YouTube channel first!", {
+                                                                                position: "top-center",
+                                                                                duration: 6000,
+                                                                                // Styling
+                                                                                style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                            });
+                                                                        }, 3000);
+                                                                    }
+                                                                } else {
+                                                                    toast.success('You are already an old user and made your decision about subscribing!', {
                                                                         position: "top-center",
                                                                         duration: 10000,
                                                                         style: {backgroundColor: '#111827', color: '#F3F4F6'}
@@ -869,14 +906,6 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                                                     setShowGetLinkButton(true);
                                                                     setShowWaitingText(true);
                                                                     startCountdown();
-                                                                } else {
-                                                                    // typeof window !== 'undefined' && window.alert("Please subscribe our YouTube channel first!");
-                                                                    toast.error("Please subscribe our YouTube channel first!", {
-                                                                        position: "top-center",
-                                                                        duration: 6000,
-                                                                        // Styling
-                                                                        style: {backgroundColor: '#111827', color: '#F3F4F6'}
-                                                                    });
                                                                 }
                                                             }}
                                                             className="relative w-40 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
@@ -905,7 +934,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage })
                                                     <div className="waiting-block">{children}</div>
                                                 )
                                             }
-                                        </>
+                                        </div>
                                     )
                             } else if (isCaptionText) {
                                 return (

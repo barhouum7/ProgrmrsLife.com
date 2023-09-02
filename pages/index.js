@@ -1,10 +1,50 @@
 import {useState, useEffect} from "react";
+import { useMyContext } from "../contexts/MyContext";
 import { FaEllipsisH } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
 import { PostCard, Categories, PostWidget, FeaturedPosts, Loader, AdsenseScript} from '../components'
 import { getPosts } from '../services/index'
 
 export default function Home ({ posts, error }) {
+    // Check if returning visitor or not handle...
+    const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
+    const [showToast, setShowToast] = useState(false); // New state to control toast display
+    
+    const { isWelcomed , setIsWelcomed } = useMyContext();
 
+    useEffect(() => {
+        const isReturningUser = localStorage.getItem('returningUser') === 'true';
+
+        if (isReturningUser) {
+            setShowToast(true);
+        } else {
+            setShowWelcomeMessage(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!isWelcomed && showWelcomeMessage) {
+            toast('👋Welcome to Programmers Life!', {
+                autoClose: 8000,
+                position: 'top-center',
+                className: 'dark:text-white dark:bg-gray-900',
+            });
+            setIsWelcomed(true);
+        }
+
+        if (!isWelcomed && showToast && !showWelcomeMessage) {
+            toast('👋Welcome back! Thanks for visiting again!🤩', {
+                autoClose: 8000,
+                position: 'top-center',
+                className: 'dark:text-white dark:bg-gray-900',
+            });
+            setIsWelcomed(true);
+        }
+
+    }, [showWelcomeMessage, showToast]);
+
+
+  // Fetch posts from API and store in state using React Hooks (useState)
   const [isLoading, setIsLoading] = useState(true);
   const [blogPosts, setBlogPosts] = useState([]);
   useEffect(() => {
@@ -99,6 +139,7 @@ if (totalPages > MAX_VISIBLE_PAGES) {
   return (
     <>
       <div>
+        <ToastContainer />
         {/* Render loading state or post cards based on isLoading */}
         {isLoading ? (
           // <div>Loading...</div> // Replace with a spinner component or a loading message
