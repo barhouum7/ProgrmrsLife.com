@@ -1,3 +1,4 @@
+import { MyProvider } from "../contexts/MyContext";
 import { Layout } from "../sections";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "next-themes";
@@ -13,6 +14,7 @@ import '../styles/loader.css'
 import '../styles/animation.css'
 
 import 'tailwindcss/tailwind.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function MyApp({ Component, pageProps }) {
@@ -65,10 +67,12 @@ const actions = [
               enableHistory: true,
             }}
           >
-            <Layout>
-              <CommandBar {...pageProps} />
-              <Component {...pageProps} />
-            </Layout>
+            <MyProvider>
+              <Layout>
+                <CommandBar {...pageProps} />
+                <Component {...pageProps} />
+              </Layout>
+            </MyProvider>
             <Toaster
               // toastOptions={{
               //   position: "bottom-right",
