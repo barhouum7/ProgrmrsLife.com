@@ -109,7 +109,7 @@ class MyDocument extends Document {
           ></script> */}
 
           {/* InfoLinks Scripts */}
-          <script async src="https://resources.infolinks.com/js/infolinks_main.js"></script>
+          {/* <script async src="https://resources.infolinks.com/js/infolinks_main.js"></script>
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
@@ -117,7 +117,7 @@ class MyDocument extends Document {
                   (function(){var infolinks_pid = 3398255; var infolinks_wsid = 0;})();
               `,
             }}
-          ></script>
+          ></script> */}
         </body>
       </Html>
     );
