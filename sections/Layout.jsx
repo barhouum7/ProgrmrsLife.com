@@ -77,19 +77,20 @@ const Layout = ({ children }) => {
       `}
       </script>
         <noscript>Please ensure Javascript is enabled for purposes of <a href="https://userway.org">website accessibility</a></noscript>
-        <title>ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News</title>
+        <title>ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News</title>
         <link rel="icon" href="/imgs/favicon.svg" />
-        <meta name="description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
+        <meta name="description" content="ProgrammersLife is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
         <meta name="keywords" content="programming, web development, tech, latest technologies, frameworks, libraries, latest news, tech world" />
-        <meta name="author" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="author" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline';" />
         
-        <meta property="og:title" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
-        <meta property="og:description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
+        <meta property="og:title" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta property="og:description" content="ProgrammersLife is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
         <meta property="og:image" content="/imgs/logo0.png" />
         <meta property="og:url" content="https://programmerslife.site/" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta property="og:site_name" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:locale:alternate" content="es_ES" />
         <meta property="og:locale:alternate" content="fr_FR" />
@@ -116,38 +117,38 @@ const Layout = ({ children }) => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@programmerslife" />
         <meta name="twitter:creator" content="@programmerslife" />
-        <meta name="twitter:title" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
-        <meta name="twitter:description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
+        <meta name="twitter:title" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="twitter:description" content="ProgrammersLife is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
         <meta name="twitter:image" content="/imgs/logo0.png" />
-        <meta name="twitter:image:alt" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="twitter:image:alt" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:domain" content="https://programmerslife.site/" />
         <meta name="twitter:app:country" content="US" />
-        <meta name="twitter:app:name:iphone" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="twitter:app:name:iphone" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:app:id:iphone" content="id1520000000" />
         <meta name="twitter:app:url:iphone" content="https://programmerslife.site/" />
-        <meta name="twitter:app:name:ipad" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="twitter:app:name:ipad" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:app:id:ipad" content="id1520000000" />
         <meta name="twitter:app:url:ipad" content="https://programmerslife.site/" />
-        <meta name="twitter:app:name:googleplay" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="twitter:app:name:googleplay" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:app:id:googleplay" content="com.programmerslife" />
         <meta name="twitter:app:url:googleplay" content="https://programmerslife.site/" />
         <meta name="twitter:app:country" content="US" />
-        <meta name="twitter:app:name:iphone" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="twitter:app:name:iphone" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:app:id:iphone" content="id1520000000" />
 
         <meta name="facebook:card" content="summary" />
         <meta name="facebook:site" content="@programmerslife" />
         <meta name="facebook:creator" content="@programmerslife" />
-        <meta name="facebook:title" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
-        <meta name="facebook:description" content="ProgrammersLife™ is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
+        <meta name="facebook:title" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="facebook:description" content="ProgrammersLife is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
         <meta name="facebook:image" content="/imgs/logo0.png" />
-        <meta name="facebook:image:alt" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="facebook:image:alt" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="facebook:domain" content="https://programmerslife.site/" />
         <meta name="facebook:app:country" content="US" />
-        <meta name="facebook:app:name:iphone" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="facebook:app:name:iphone" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
 
-        <meta name="apple-mobile-web-app-title" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
-        <meta name="application-name" content="ProgrammersLife™ - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="apple-mobile-web-app-title" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <meta name="application-name" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/imgs/logo0.png" />
 
