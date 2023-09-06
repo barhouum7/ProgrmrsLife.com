@@ -83,7 +83,6 @@ const Layout = ({ children }) => {
         <meta name="keywords" content="programming, web development, tech, latest technologies, frameworks, libraries, latest news, tech world" />
         <meta name="author" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline';" />
         
         <meta property="og:title" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta property="og:description" content="ProgrammersLife is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
