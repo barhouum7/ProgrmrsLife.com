@@ -14,48 +14,6 @@ import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
     const router = useRouter();
-    const [postSlug, setPostSlug] = useState('');
-
-    // ShareThis buttons
-    useEffect(() => {
-        // Reinitialize ShareThis buttons when the post slug changes
-        if (window?.__sharethis__ && postSlug !== undefined && postSlug !== null && postSlug !== '') {
-            window.__sharethis__.load('sticky-share-buttons');
-            const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
-            if (stickyShareButtons) {
-                stickyShareButtons.classList.remove('st-hidden');
-            }
-        
-            const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
-            if (stickyShareButton) {
-                stickyShareButton.forEach((button) => {
-                    button.style.height = '46px';
-                });
-            }
-        }
-    }, [postSlug]);
-
-    useEffect(() => {
-        // Update the post slug whenever the router's route changes (including query changes)
-        setPostSlug(router.query.slug || '');
-    }, [router.asPath]);
-
-
-    useEffect(() => {
-        if (window?.__sharethis__) {
-            const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
-            if (stickyShareButtons) {
-                stickyShareButtons.classList.remove('st-hidden');
-            }
-        
-            const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
-            if (stickyShareButton) {
-                stickyShareButton.forEach((button) => {
-                    button.style.height = '46px';
-                });
-            }
-        }
-    }, []);
 
     const [isCopied, setIsCopied] = useState(false);
 
@@ -147,6 +105,47 @@ const PostDetails = ({ post, error }) => {
 
         }, [showWelcomeMessage, showToast]);
 
+
+
+        const [postSlug, setPostSlug] = useState('');
+
+        // ShareThis buttons
+        useEffect(() => {
+            // Reinitialize ShareThis buttons when the post slug changes
+            if (window?.__sharethis__ && postSlug !== undefined && postSlug !== null && postSlug !== '') {
+                const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
+                if (stickyShareButtons) {
+                    stickyShareButtons.classList.remove('st-hidden');
+                }
+            
+                const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+                if (stickyShareButton) {
+                    stickyShareButton.forEach((button) => {
+                        button.style.height = '46px';
+                    });
+                }
+            }
+        }, [postSlug]);
+    
+        useEffect(() => {
+            // Update the post slug whenever the router's route changes (including query changes)
+            setPostSlug(router.query.slug || '');
+        }, [router.asPath]);
+    
+        useEffect(() => {
+            // Remove ShareThis buttons once the component mounts
+            if (window?.__sharethis__) {
+                window.__sharethis__.close();
+            }
+        }, []);
+
+        const [placeAdUnit, setPlaceAdUnit] = useState(false);
+        useEffect(() => {
+            setPlaceAdUnit(true);
+        }, []);
+
+
+
     return (
         <>
             {
@@ -224,13 +223,17 @@ const PostDetails = ({ post, error }) => {
                             <ToastContainer />
 
 
-                            {/* <!-- Recommended-ad-unit --> */}
-                            <ins className="adsbygoogle"
+                            {
+                                placeAdUnit && (
+                                    // {/* <!-- Recommended-ad-unit --> */}
+                                    <ins className="adsbygoogle"
                                     style={{ display: 'block' }}
                                     data-ad-client="ca-pub-1339539882255727"
                                     data-ad-slot="9618957531"
                                     data-ad-format="auto"
                                     data-full-width-responsive="true"></ins>
+                                )
+                            }
                             <AdsenseScript />
                             {/* <AWeberScript /> */}
                             <div className="dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">

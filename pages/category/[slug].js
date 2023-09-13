@@ -85,6 +85,11 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
     }
   }
 
+  const [placeAdUnit, setPlaceAdUnit] = useState(false);
+  useEffect(() => {
+      setPlaceAdUnit(true);
+  }, []);
+
   return (
     <>
       {
@@ -123,27 +128,17 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
               <link rel="alternate" href="https://programmerslife.site" hrefLang="x-default" />
               <link rel="alternate" href="https://programmerslife.site" hrefLang="en-US" />
             </Head>
-            {/* <!-- Google tag (gtag.js) --> */}
-            <Script 
-                async 
-                src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
-            />
-            <Script>
-                {`
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-PEF01PTY1T');
-                `}
-            </Script>
-
-            {/* <!-- Recommended-ad-unit --> */}
-            <ins className="adsbygoogle"
-                    style={{ display: 'block' }}
-                    data-ad-client="ca-pub-1339539882255727"
-                    data-ad-slot="9618957531"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
+            {
+              placeAdUnit && (
+                // {/* <!-- Recommended-ad-unit --> */}
+                <ins className="adsbygoogle"
+                style={{ display: 'block' }}
+                data-ad-client="ca-pub-1339539882255727"
+                data-ad-slot="9618957531"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+              )
+            }
             <AdsenseScript />
             {/* <AWeberScript /> */}
             <div className="bg-white dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">

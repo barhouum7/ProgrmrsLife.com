@@ -135,6 +135,12 @@ if (totalPages > MAX_VISIBLE_PAGES) {
 }
 
 
+  const [placeAdUnit, setPlaceAdUnit] = useState(false);
+  useEffect(() => {
+      setPlaceAdUnit(true);
+  }, []);
+
+
 
   return (
     <>
@@ -151,13 +157,18 @@ if (totalPages > MAX_VISIBLE_PAGES) {
           </div>
         ) : (
             <div>
-              {/* <!-- Recommended-ad-unit --> */}
-              <ins className="adsbygoogle"
+
+              {
+                placeAdUnit && (
+                  // {/* <!-- Recommended-ad-unit --> */}
+                  <ins className="adsbygoogle"
                     style={{ display: 'block' }}
                     data-ad-client="ca-pub-1339539882255727"
                     data-ad-slot="9618957531"
                     data-ad-format="auto"
                     data-full-width-responsive="true"></ins>
+                )
+              }
               <AdsenseScript />
               {/* <AWeberScript /> */}
               <FeaturedPosts />

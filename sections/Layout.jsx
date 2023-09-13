@@ -50,6 +50,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Head>
+        {/* UserWay Script */}
       <script>
       {`
           (function(d){
@@ -191,12 +192,12 @@ const Layout = ({ children }) => {
         <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
 
         {/* // Code from AdSense */}
-        <Script 
+        <script 
           id="adsbygoogle-init"
           strategy="afterInteractive"
           crossOrigin="anonymous"
           async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-        />
+        ></script>
       </Head>
         <Header />
         <main className="container relative rounded-t mx-auto transition ease-in-out duration-500">
