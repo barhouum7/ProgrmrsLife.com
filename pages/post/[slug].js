@@ -18,28 +18,19 @@ const PostDetails = ({ post, error }) => {
 
     useEffect(() => {
         // Reinitialize ShareThis buttons when the post slug changes
-        if (window?.__sharethis__ && postSlug !== '') {
-            window.__sharethis__.initialize();
-        }
+        if (window?.__sharethis__ && postSlug !== undefined && postSlug !== null && postSlug !== '') {
+            const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
+            if (stickyShareButtons) {
+                stickyShareButtons.classList.remove('st-hidden');
+            }
         
-
-        const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
-        if (stickyShareButtons) {
-            stickyShareButtons.classList.remove('st-hidden');
+            const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+            if (stickyShareButton) {
+                stickyShareButton.forEach((button) => {
+                    button.style.height = '46px';
+                });
+            }
         }
-    
-        const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
-        if (stickyShareButton) {
-            stickyShareButton.forEach((button) => {
-                button.style.height = '46px';
-            });
-        }
-
-        // const inlineReactionButtons = document.querySelector('.st-inline-reaction-buttons');
-        // if (inlineReactionButtons) {
-        //     inlineReactionButtons.classList.remove('st-hidden');
-        // }
-
     }, [postSlug]);
 
     useEffect(() => {

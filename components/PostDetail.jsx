@@ -33,6 +33,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             setCountdown(30);
             setShowGoToLinkButton(false);
         }
+
     }, [post.slug]);
 
     const startCountdown = () => {
