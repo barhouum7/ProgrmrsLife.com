@@ -16,9 +16,11 @@ const PostDetails = ({ post, error }) => {
     const router = useRouter();
     const [postSlug, setPostSlug] = useState('');
 
+    // ShareThis buttons
     useEffect(() => {
         // Reinitialize ShareThis buttons when the post slug changes
         if (window?.__sharethis__ && postSlug !== undefined && postSlug !== null && postSlug !== '') {
+            window.__sharethis__.load('sticky-share-buttons');
             const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
             if (stickyShareButtons) {
                 stickyShareButtons.classList.remove('st-hidden');
@@ -37,6 +39,23 @@ const PostDetails = ({ post, error }) => {
         // Update the post slug whenever the router's route changes (including query changes)
         setPostSlug(router.query.slug || '');
     }, [router.asPath]);
+
+
+    useEffect(() => {
+        if (window?.__sharethis__) {
+            const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
+            if (stickyShareButtons) {
+                stickyShareButtons.classList.remove('st-hidden');
+            }
+        
+            const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+            if (stickyShareButton) {
+                stickyShareButton.forEach((button) => {
+                    button.style.height = '46px';
+                });
+            }
+        }
+    }, []);
 
     const [isCopied, setIsCopied] = useState(false);
 
