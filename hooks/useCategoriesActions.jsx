@@ -88,27 +88,27 @@ export default function useCategoriesActions() {
                     parent: "categories",
                 },
                 {
-                    id: "news",
-                    name: "News",
-                    shortcut: ["n"],
-                    keywords: ["news, news page"],
+                    id: "news-and-events",
+                    name: "News & Events",
+                    shortcut: ["n", "e"],
+                    keywords: ["news, events, news and events, news & events, news and events page, news & events page, news page, events page"],
                     section: "",
                     perform: () => {
-                        window.location.href = "/category/news"
+                        window.location.href = "/category/news-and-events"
                     },
-                    subtitle: "Go to the news category page",
+                    subtitle: "Go to the news and events category page",
                     parent: "categories",
                 },
                 {
-                    id: "events",
-                    name: "Events",
-                    shortcut: ["e"],
-                    keywords: ["events, events page"],
+                    id: "web3",
+                    name: "Blockchain technology",
+                    shortcut: ["w", "3"],
+                    keywords: ["web3, web3 page, blockchain, blockchain page, blockchain technology, blockchain technology page, blockchain tech, blockchain tech page, blockchain technology, blockchain technology page, blockchain technology, blockchain technology page, blockchain tech, blockchain tech page, blockchain technology, blockchain technology page, blockchain technology, blockchain technology page, blockchain tech, blockchain tech page, blockchain technology, blockchain technology page, blockchain technology, blockchain technology page, blockchain tech, blockchain tech page, blockchain technology, blockchain technology page, blockchain technology, blockchain technology page, blockchain tech, blockchain tech page, blockchain technology, blockchain technology page, blockchain technology, blockchain technology page, blockchain tech, blockchain tech page, blockchain technology, blockchain technology page, blockchain technology, blockchain technology page, blockchain tech, blockchain tech page"],
                     section: "",
                     perform: () => {
-                        window.location.href = "/category/events"
+                        window.location.href = "/category/web3"
                     },
-                    subtitle: "Go to the events category page",
+                    subtitle: "Go to the blockchain technology category page",
                     parent: "categories",
                 },
             createAction({
