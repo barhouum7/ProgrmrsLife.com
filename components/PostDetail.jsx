@@ -16,25 +16,24 @@ import { Tooltip } from "flowbite-react";
 import toast, { Toaster } from 'react-hot-toast';
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, showToast, showWelcomeMessage }) => {
-//     const [showMessage, setShowMessage] = useState(false);
-
-//   useEffect(() => {
-//     const isReturningUser = localStorage.getItem('returningUser') === 'true';
-
-//     if (isReturningUser) {
-//       setShowMessage(true);
-//     } else {
-//       localStorage.setItem('returningUser', 'true');
-//     }
-//   }, []);
-    
     const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
     const [showWaitingText, setShowWaitingText] = useState(false);
     const [showGetLinkButton, setShowGetLinkButton] = useState(false);
-    const [showGetToLinkButton, setShowGetToLinkButton] = useState(false);
+    const [showGoToLinkButton, setShowGoToLinkButton] = useState(false);
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [countdown, setCountdown] = useState(30);
+
+    useEffect(() => {
+        const isReturningUser = localStorage.getItem('returningUser') === 'true';
+
+        if (isReturningUser && post.slug !== undefined && post.slug !== null) {
+            setShowWaitingBlock(false);
+            setShowWaitingText(false);
+            setCountdown(30);
+            setShowGoToLinkButton(false);
+        }
+    }, [post.slug]);
 
     const startCountdown = () => {
         const countdownTimeout = setInterval(() => {
@@ -872,14 +871,21 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                             onClick={() => {
                                                                 if (localStorage.getItem('returningUser') !== 'true') {
                                                                     if (isSubscribed) {
-                                                                        toast.success('Thank you for subscribing our YouTube channel!', {
-                                                                            position: "top-center",
-                                                                            duration: 10000,
-                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
-                                                                        });
                                                                         setShowGetLinkButton(true);
                                                                         setShowWaitingText(true);
                                                                         startCountdown();
+                                                                        toast.loading('Please wait while we are checking...', {
+                                                                            position: "top-center",
+                                                                            duration: 30000,
+                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                        })
+                                                                        setTimeout(() => {
+                                                                            toast.success('Thank you for subscribing our YouTube channel!', {
+                                                                                position: "top-center",
+                                                                                duration: 10000,
+                                                                                style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                            });
+                                                                        }, 20000);
                                                                         localStorage.setItem('returningUser', 'true');
                                                                     } else {
                                                                         toast("🤩Woohoo! You are a new user here!", {
@@ -906,6 +912,13 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     setShowGetLinkButton(true);
                                                                     setShowWaitingText(true);
                                                                     startCountdown();
+                                                                    setTimeout(() => {
+                                                                        toast.loading('Please wait...', {
+                                                                            position: "top-center",
+                                                                            duration: 30000,
+                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                        })
+                                                                    }, 2000);
                                                                 }
                                                             }}
                                                             className="relative w-40 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
@@ -926,7 +939,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
                                             {
                                                 showWaitingText && !showWaitingBlock && (
-                                                    <p className="waiting-block__p mb-8 text-gray-900 dark:text-white">Please wait <strong>{countdown}s</strong> to get the link</p>
+                                                        <p className="waiting-block__p mb-8 text-gray-900 dark:text-white">Please wait <strong>{countdown}s</strong> to get the link</p>
                                                 )
                                             }
                                             {
@@ -1026,7 +1039,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                 return (
                                     <>
                                         {
-                                            !showGetToLinkButton && (
+                                            !showGoToLinkButton && (
                                                 <>
                                                     <div className="go-to-link">
                                                         <div className="flex justify-center items-center">
@@ -1037,7 +1050,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                             >
                                                                 <button
                                                                 onClick={() => {
-                                                                    setShowGetToLinkButton(true);
+                                                                    setShowGoToLinkButton(true);
                                                                     const goToLinkElement = document.getElementById("follow-steps");
                                                                     if (goToLinkElement) {
                                                                         goToLinkElement.scrollIntoView();
