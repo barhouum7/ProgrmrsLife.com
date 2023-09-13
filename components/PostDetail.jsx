@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaComment } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.css';
-import { Helmet } from 'react-helmet-async';
+// import { Helmet } from 'react-helmet-async';
+import Head from 'next/head';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
 
@@ -605,12 +606,62 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
     return (
             <div>
-                <Helmet>
-                    <title>{post.title} | ProgrammersLife™</title>
+                <Head>
+                    <title>{`${post.title} | Programmers Life`}</title>
                     <meta name="description" content={post.excerpt} />
+                    <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
+                    <meta property="og:title" content={post.title} />
+                    <meta property="og:description" content={post.excerpt} />
+                    <meta property="og:image" content={post.featuredImage.url} />
+                    <meta property="og:url" content={`https://programmerslife.site/post/${post.slug}`} />
+                    <meta property="og:type" content="article" />
+                    <meta property="og:site_name" content="ProgrammersLife" />
+                    <meta property="article:published_time" content={post.createdAt} />
+                    <meta property="article:modified_time" content={post.updatedAt} />
+                    <meta property="article:author" content={post.author.name} />
+                    <meta property="article:section" content={post.categories.map((category) => category.name).join(', ')} />
+                    <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
+                    <meta property="fb:app_id" content="291228676572686" />
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:description" content={post.excerpt} />
+                    <meta name="twitter:title" content={post.title} />
+                    <meta name="twitter:image" content={post.featuredImage.url} />
+                    <meta name="twitter:site" content="@mindh4q3rr" />
+                    <meta name="twitter:creator" content="@mindh4q3rr" />
+                    <meta name="twitter:domain" content="programmerslife.site" />
+                    <meta name="twitter:label1" content="Written by" />
+                    <meta name="twitter:data1" content={post.author.name} />
+                    <meta name="twitter:label2" content="Filed under" />
+                    <meta name="twitter:data2" content={post.categories.map((category) => category.name).join(', ')} />
+                    <meta name="twitter:label3" content="Minutes read" />
+                    <meta name="twitter:data3" content={getMinutesRead(post.content.text)} />
+                    <meta name="twitter:label4" content="Published on" />
+                    <meta name="twitter:data4" content={moment(post.createdAt).format('MMMM Do YYYY')} />
+                    <meta name="twitter:label5" content="Last updated" />
+                    <meta name="twitter:data5" content={moment(post.updatedAt).format('MMMM Do YYYY')} />
                     
-                    <link rel="canonical" href={`https://programmerslife.site/posts/${post.slug}`} />
-                </Helmet>
+                    <meta name="twitter:label6" content="Estimated reading time" />
+                    <meta name="twitter:data6" content={`${getMinutesRead(post.content.text)} minutes`} />
+                    <meta name="twitter:label7" content="Share on" />
+                    <meta name="twitter:data7" content="Facebook, Twitter, LinkedIn" />
+                    <meta name="twitter:label8" content="Link" />
+                    <meta name="twitter:data8" content={`https://programmerslife.site/post/${post.slug}`} />
+                    <meta name="twitter:label9" content="Leave a comment" />
+                    <meta name="twitter:data9" content="We're excited to hear from you!😍" />
+                    <meta name="twitter:label10" content="Listen to this article" />
+                    <meta name="twitter:data10" content="Listen" />
+                    <meta name="twitter:label11" content="Pause the speech" />
+                    <meta name="twitter:data11" content="Pause" />
+                    <meta name="twitter:label12" content="Stop the speech" />
+                    <meta name="twitter:data12" content="Stop" />
+                    <meta name="twitter:label13" content="Backward the speech" />
+                    <meta name="twitter:data13" content="-10s" />
+                    <meta name="twitter:label14" content="Forward the speech" />
+                    <meta name="twitter:data14" content="+10s" />
+
+                    <link rel="icon" href="/imgs/favicon.svg" />
+                    <link rel="canonical" href={`https://programmerslife.site/post/${post.slug}`} />
+                </Head>
                 <div className="relative overflow-hidden shadow-xl mb-6 cursor-pointer transition duration-700 ease-in-out transform hover:opacity-80">
                     <img 
                         src={post.featuredImage.url}
