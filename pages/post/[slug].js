@@ -105,49 +105,6 @@ const PostDetails = ({ post, error }) => {
 
         }, [showWelcomeMessage, showToast]);
 
-
-
-        const [postSlug, setPostSlug] = useState('');
-
-        // ShareThis buttons
-        useEffect(() => {
-            // Reinitialize ShareThis buttons when the post slug changes
-            if (window?.__sharethis__ && postSlug !== undefined && postSlug !== null && postSlug !== '') {
-                const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
-                if (stickyShareButtons) {
-                    stickyShareButtons.classList.remove('st-hidden');
-                    stickyShareButtons.classList.remove('st-show-total');
-                    stickyShareButtons.classList.add('st-show-total');
-                }
-            
-                const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
-                if (stickyShareButton) {
-                    stickyShareButton.forEach((button) => {
-                        button.style.height = '46px';
-                    });
-                }
-            }
-        }, [postSlug]);
-    
-        useEffect(() => {
-            // Update the post slug whenever the router's route changes (including query changes)
-            setPostSlug(router.query.slug || '');
-        }, [router.asPath]);
-    
-        useEffect(() => {
-                const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
-                if (stickyShareButtons) {
-                    stickyShareButtons.classList.remove('st-hidden');
-                }
-            
-                const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
-                if (stickyShareButton) {
-                    stickyShareButton.forEach((button) => {
-                        button.style.height = '46px';
-                    });
-                }
-        }, []);
-
         const [placeAdUnit, setPlaceAdUnit] = useState(false);
         useEffect(() => {
             setPlaceAdUnit(true);
