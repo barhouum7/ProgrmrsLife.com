@@ -321,14 +321,19 @@ return (
             {/* Submit Button */}
             <div className="mt-8">
             <Tooltip
-                content="Send your comment to the author."
+                content={`
+                    ${isSendingComment ? 'Please wait while we send your comment...' : isSendingComment || showSuccessMessage ? 'Comment Sent Successfully!' : 'Send your comment to the author of this post.'}
+                `}
                 style="dark"
             >
                 <button
                 disabled={isSendingComment || showSuccessMessage}
                 onClick={handleCommentSubmission}
                 type="submit"
-                className="inline-flex self-center text-md font-semibold text-gray-900 hover:text-white dark:text-gray-100 hover:bg-pink-600 dark:hover:bg-pink-600 focus:outline-none dark:active:bg-blue-600 active:bg-blue-600 rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-pink-500 to-transparent"
+                // className="cursor-not-allowed inline-flex self-center text-md font-semibold text-white dark:text-gray-100 bg-pink-600 dark:bg-pink-600 rounded-lg text-sm px-5 py-2.5 text-center my-4 hover:bg-opacity-80"
+                className={`
+                    ${isSendingComment || showSuccessMessage ? 'cursor-not-allowed inline-flex self-center text-md font-semibold text-white dark:text-gray-100 bg-pink-600 dark:bg-pink-600 rounded-lg text-sm px-5 py-2.5 text-center my-4 hover:bg-opacity-80' : 'inline-flex self-center text-md font-semibold text-gray-900 hover:text-white dark:text-gray-100 hover:bg-pink-600 dark:hover:bg-pink-600 focus:outline-none dark:active:bg-blue-600 active:bg-blue-600 rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-pink-500 to-transparent'}
+                `}
                 >
                 {
                     isSendingComment ? (
