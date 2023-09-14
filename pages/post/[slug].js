@@ -105,6 +105,39 @@ const PostDetails = ({ post, error }) => {
 
         }, [showWelcomeMessage, showToast]);
 
+        const [postSlug, setPostSlug] = useState('');
+        // ShareThis buttons
+        useEffect(() => {
+            // Check if sharethis script is exist within the Head element, if so remove it and add it again
+            const sharethisScript = document.querySelector('script[src="https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons"]');
+            if (sharethisScript) {
+                sharethisScript.remove();
+            }
+
+            // Add sharethis script to the Head element
+            const script = document.createElement('script');
+            script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
+            script.async = true;
+            document.head.appendChild(script);
+            {/* Sharethis integration code */}
+        //   <script type='text/javascript' strategy="afterInteractive" src='https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=inline-reaction-buttons' async='async'></script>
+        }, [postSlug]);
+
+        useEffect(() => {
+            // Update the post slug whenever the router's route changes (including query changes)
+            setPostSlug(router.query.slug || '');
+        }, [router.asPath]);
+    
+        
+        useEffect(() => {
+                const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+                if (stickyShareButton) {
+                    stickyShareButton.forEach((button) => {
+                        button.style.height = '46px';
+                    });
+                }
+        }, []);
+
         const [placeAdUnit, setPlaceAdUnit] = useState(false);
         useEffect(() => {
             setPlaceAdUnit(true);
