@@ -111,6 +111,12 @@ const PostDetails = ({ post, error }) => {
 
         // ShareThis buttons
         useEffect(() => {
+            // Remove ShareThis buttons once the component mounts
+            if (window?.__sharethis__) {
+                window.__sharethis__.remove();
+            }
+
+            window.__sharethis__.initialize();
             // Reinitialize ShareThis buttons when the post slug changes
             if (window?.__sharethis__ && postSlug !== undefined && postSlug !== null && postSlug !== '') {
                 const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
@@ -133,9 +139,18 @@ const PostDetails = ({ post, error }) => {
         }, [router.asPath]);
     
         useEffect(() => {
-            // Remove ShareThis buttons once the component mounts
             if (window?.__sharethis__) {
-                window.__sharethis__.close();
+                const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
+                if (stickyShareButtons) {
+                    stickyShareButtons.classList.remove('st-hidden');
+                }
+            
+                const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+                if (stickyShareButton) {
+                    stickyShareButton.forEach((button) => {
+                        button.style.height = '46px';
+                    });
+                }
             }
         }, []);
 
