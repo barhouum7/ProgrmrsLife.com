@@ -8,16 +8,6 @@ import Script from "next/script";
 const Layout = ({ children }) => {
 
   useEffect(() => {
-    // Initialize ShareThis buttons on component mount
-    // Add sharethis script to the Head element
-    const script = document.createElement('script');
-    script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
-    script.async = true;
-    script.setAttribute('strategy', 'afterInteractive');
-    document.head.appendChild(script);
-  }, []);
-
-  useEffect(() => {
     setTimeout(() => {
         const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
         if (stickyShareButton) {
@@ -25,7 +15,7 @@ const Layout = ({ children }) => {
                 button.style.height = '46px';
             });
         }
-    }, 10000);
+    }, 5000);
   }, []);
 
   // if (typeof window !== "undefined") {

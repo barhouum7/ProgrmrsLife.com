@@ -12,6 +12,8 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="icon" href="/imgs/favicon.svg" />
+          {/* Sharethis integration code */}
+          <script type='text/javascript' strategy="afterInteractive" src='https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons' async='async'></script>
           {/* Google Adsense Allow Ads message tag */}
           <script async src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" nonce="AcS-s_S5_la-tqzvZpCe7g"></script>
           <script

@@ -108,27 +108,9 @@ const PostDetails = ({ post, error }) => {
         const [postSlug, setPostSlug] = useState('');
         // ShareThis buttons
         useEffect(() => {
-            // Check if sharethis script is exist within the Head element, if so remove it and add it again
-            const sharethisScript = document.head.querySelector('script[src="https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons"]');
-            if (sharethisScript) {
-                // Remove the sharethis script element within the Head element
-                setTimeout(() => {
-                    sharethisScript.remove();
-                    // Add sharethis script to the Head element
-                    const script = document.createElement('script');
-                    script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
-                    script.async = true;
-                    script.setAttribute('strategy', 'afterInteractive');
-                    document.head.appendChild(script);
-                }, 10000);
-            } else {
-                    // Add sharethis script to the Head element
-                    const script = document.createElement('script');
-                    script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
-                    script.async = true;
-                    script.setAttribute('strategy', 'afterInteractive');
-                    document.head.appendChild(script);
-            }
+                if (window.__sharethis__ && postSlug) {
+                    window.__sharethis__.load('sticky-share-buttons');
+                }
         }, [postSlug]);
 
         useEffect(() => {
@@ -138,15 +120,6 @@ const PostDetails = ({ post, error }) => {
     
         
         useEffect(() => {
-                const sharethisScript = document.head.querySelector('script[src="https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons"]');
-                if (sharethisScript === null) {
-                    // Add sharethis script to the Head element
-                    const script = document.createElement('script');
-                    script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
-                    script.async = true;
-                    script.setAttribute('strategy', 'afterInteractive');
-                    document.head.appendChild(script);
-                }
                 // Add height to sticky share buttons
                 setTimeout(() => {
                     const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
@@ -155,7 +128,7 @@ const PostDetails = ({ post, error }) => {
                             button.style.height = '46px';
                         });
                     }
-                }, 10000);
+                }, 5000);
         }, []);
 
         const [placeAdUnit, setPlaceAdUnit] = useState(false);
