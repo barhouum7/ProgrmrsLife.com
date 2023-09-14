@@ -48,16 +48,17 @@ const CommentsForm = ({ slug, postTitle }) => {
         
         submitComment(commentObj)
             .then((res) => {
-                setIsSendingComment(true)
-                toast.info('Sending your comment...', {
+                // Show loading toast while sending comment
+                toast('✈ Sending your comment...', {
                     position: "top-center",
                     autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
-                    progress: undefined,
-                });
+                    // show progress bar
+                    hideProgressBar: false,
+                    className: 'dark:text-white dark:bg-gray-900',
+                })
+                setIsSendingComment(true)
                 setTimeout(() => {
                     setIsSendingComment(false)
                     setShowSuccessMessage(true)
@@ -330,7 +331,16 @@ return (
                 className="inline-flex self-center text-md font-semibold text-gray-900 hover:text-white dark:text-gray-100 hover:bg-pink-600 dark:hover:bg-pink-600 focus:outline-none dark:active:bg-blue-600 active:bg-blue-600 rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-pink-500 to-transparent"
                 >
                 {
-                    isSendingComment ? 'Sending...' : 'Send Comment'
+                    isSendingComment ? (
+                        // Render a Loader icon + sending...
+                        <p className='flex'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="animate-[spin_1s_ease-in-out_infinite] w-5 h-5 mr-2 text-white bg-gradient-to-r from-pink-400 hover:from-pink-500 to-transparent shadow-inner rounded-full border-gray-200 border-t-2 border-solid">
+                                <circle fill="transparent" cx="12" cy="12" r="11"/>
+                                {/* <path fill="#FFF" d="M17.83 7.8L10.587 15.043l-3.23-3.23a.984.984 0 0 0-1.392 0 .984.984 0 0 0 0 1.392l3.59 3.59a.984.984 0 0 0 1.392 0l7.667-7.667a.984.984 0 0 0 0-1.392.984.984 0 0 0-1.392 0z"/> */}
+                            </svg>
+                            Sending...
+                        </p>
+                    ) : 'Send Comment'
                 }
                 </button>
             </Tooltip>

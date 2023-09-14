@@ -21,6 +21,7 @@ const handler = (req, res) => {
     cors(req, res, async () => {
         try {
             const { name, email, postTitle, slug } = req.body;
+            const firstName = name.split(" ")[0];
             const shortedPostTitle = postTitle.substring(0, 20);
             // Get the recipient email address from request body
             const toEmail = email;
@@ -28,14 +29,14 @@ const handler = (req, res) => {
             const mailOptions = {
             from: process.env.EMAIL_ADDRESS,
             to: toEmail,
-            subject: `Your Comment on (${shortedPostTitle}...) Has Been Published!👏🥳`,
+            subject: `👏🥳 ${firstName}, We Received Your Comment on (${shortedPostTitle}...), It'll be Published Very Soon!`,
             html: `
             <!doctypehtml>
             <html lang=en>
             <meta content="text/html; charset=UTF-8" http-equiv=Content-Type>
             <meta content="IE=edge" http-equiv=X-UA-Compatible>
             <meta content="width=device-width,initial-scale=1,minimum-scale=1" name=viewport>
-            <title>Your Comment on (${shortedPostTitle}...) Has Been Published!👏🥳</title>
+            <title>👏🥳 ${firstName}, We Received Your Comment on (${shortedPostTitle}...), It'll be Published Very Soon!</title>
 
             <body>
                 <div style="background-color:rgb(227, 222, 222);padding:25px;border-radius:30%;margin:20px;">
@@ -216,7 +217,7 @@ const handler = (req, res) => {
                                                                                                     style="color:rgb(36,32,32);font-size:16px;font-weight:normal;line-height:1.5em;text-align:left">
                                                                                                     <span
                                                                                                         style="color:#546a78;font-family:Tahoma,Geneva,sans-serif">Hi<i>
-                                                                                                            ${name},
+                                                                                                            ${firstName},
                                                                                                             👋</i></span>
                                                                                                 </div>
                                                                                                 <div
