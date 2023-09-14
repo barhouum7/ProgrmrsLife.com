@@ -111,17 +111,13 @@ const PostDetails = ({ post, error }) => {
 
         // ShareThis buttons
         useEffect(() => {
-            // Remove ShareThis buttons once the component mounts
-            if (window?.__sharethis__) {
-                window.__sharethis__.remove();
-            }
-
-            window.__sharethis__.initialize();
             // Reinitialize ShareThis buttons when the post slug changes
             if (window?.__sharethis__ && postSlug !== undefined && postSlug !== null && postSlug !== '') {
                 const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
                 if (stickyShareButtons) {
                     stickyShareButtons.classList.remove('st-hidden');
+                    stickyShareButtons.classList.remove('st-show-total');
+                    stickyShareButtons.classList.add('st-show-total');
                 }
             
                 const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
@@ -139,7 +135,6 @@ const PostDetails = ({ post, error }) => {
         }, [router.asPath]);
     
         useEffect(() => {
-            if (window?.__sharethis__) {
                 const stickyShareButtons = document.querySelector('.st-sticky-share-buttons');
                 if (stickyShareButtons) {
                     stickyShareButtons.classList.remove('st-hidden');
@@ -151,7 +146,6 @@ const PostDetails = ({ post, error }) => {
                         button.style.height = '46px';
                     });
                 }
-            }
         }, []);
 
         const [placeAdUnit, setPlaceAdUnit] = useState(false);
