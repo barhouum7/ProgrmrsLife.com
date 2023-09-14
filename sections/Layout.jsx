@@ -8,14 +8,12 @@ import Script from "next/script";
 const Layout = ({ children }) => {
 
   useEffect(() => {
-    setTimeout(() => {
         const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
         if (stickyShareButton) {
             stickyShareButton.forEach((button) => {
                 button.style.height = '46px';
             });
         }
-    }, 5000);
   }, []);
 
   // if (typeof window !== "undefined") {

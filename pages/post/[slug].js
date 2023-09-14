@@ -108,8 +108,14 @@ const PostDetails = ({ post, error }) => {
         const [postSlug, setPostSlug] = useState('');
         // ShareThis buttons
         useEffect(() => {
-                if (window.__sharethis__ && postSlug) {
-                    window.__sharethis__.load('sticky-share-buttons');
+                if (window.__sharethis__ && postSlug !== '') {
+                    // Add height to sticky share buttons
+                    const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+                    if (stickyShareButton) {
+                        stickyShareButton.forEach((button) => {
+                            button.style.height = '46px';
+                        });
+                    }
                 }
         }, [postSlug]);
 
@@ -120,15 +126,13 @@ const PostDetails = ({ post, error }) => {
     
         
         useEffect(() => {
-                // Add height to sticky share buttons
-                setTimeout(() => {
-                    const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
-                    if (stickyShareButton) {
-                        stickyShareButton.forEach((button) => {
-                            button.style.height = '46px';
-                        });
-                    }
-                }, 5000);
+            // Add height to sticky share buttons
+            const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+            if (stickyShareButton) {
+                stickyShareButton.forEach((button) => {
+                    button.style.height = '46px';
+                });
+            }
         }, []);
 
         const [placeAdUnit, setPlaceAdUnit] = useState(false);
