@@ -109,18 +109,26 @@ const PostDetails = ({ post, error }) => {
         // ShareThis buttons
         useEffect(() => {
             // Check if sharethis script is exist within the Head element, if so remove it and add it again
-            const sharethisScript = document.querySelector('script[src="https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons"]');
+            const sharethisScript = document.head.querySelector('script[src="https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons"]');
             if (sharethisScript) {
-                sharethisScript.remove();
+                // Remove the sharethis script element within the Head element
+                setTimeout(() => {
+                    sharethisScript.remove();
+                    // Add sharethis script to the Head element
+                    const script = document.createElement('script');
+                    script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
+                    script.async = true;
+                    script.setAttribute('strategy', 'afterInteractive');
+                    document.head.appendChild(script);
+                }, 10000);
+            } else {
+                    // Add sharethis script to the Head element
+                    const script = document.createElement('script');
+                    script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
+                    script.async = true;
+                    script.setAttribute('strategy', 'afterInteractive');
+                    document.head.appendChild(script);
             }
-
-            // Add sharethis script to the Head element
-            const script = document.createElement('script');
-            script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
-            script.async = true;
-            document.head.appendChild(script);
-            {/* Sharethis integration code */}
-        //   <script type='text/javascript' strategy="afterInteractive" src='https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=inline-reaction-buttons' async='async'></script>
         }, [postSlug]);
 
         useEffect(() => {
@@ -130,12 +138,24 @@ const PostDetails = ({ post, error }) => {
     
         
         useEffect(() => {
-                const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
-                if (stickyShareButton) {
-                    stickyShareButton.forEach((button) => {
-                        button.style.height = '46px';
-                    });
+                const sharethisScript = document.head.querySelector('script[src="https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons"]');
+                if (sharethisScript === null) {
+                    // Add sharethis script to the Head element
+                    const script = document.createElement('script');
+                    script.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=64cb74163aa29300123c3d5b&product=sticky-share-buttons';
+                    script.async = true;
+                    script.setAttribute('strategy', 'afterInteractive');
+                    document.head.appendChild(script);
                 }
+                // Add height to sticky share buttons
+                setTimeout(() => {
+                    const stickyShareButton = document.querySelectorAll('.st-sticky-share-buttons .st-btn');
+                    if (stickyShareButton) {
+                        stickyShareButton.forEach((button) => {
+                            button.style.height = '46px';
+                        });
+                    }
+                }, 10000);
         }, []);
 
         const [placeAdUnit, setPlaceAdUnit] = useState(false);
