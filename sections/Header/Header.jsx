@@ -232,7 +232,7 @@ const Header = ({showBanner}) => {
           <Flowbite>
             <Navbar
             fluid={true} 
-            className={`w-full h-16 z-30 fixed ${
+            className={`w-full h-16 fixed ${
               showBanner ? 'top-10 mt-2 sm:mt-4' : 'top-0 mt-0 transition-all duration-500'
             } left-0 flex-grow sm:px-6 rounded-b shadow-lg
               dark:bg-opacity-90 dark:bg-gray-800 bg-opacity-90
