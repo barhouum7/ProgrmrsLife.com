@@ -206,29 +206,18 @@ const Layout = ({ children }) => {
       
       {
         showBanner && (
+          <div className="relative">
+            <div
+              id="flash-div"
+              className="absolute z-20 right-0 inset-0 bg-black bg-opacity-20 shadow-2xl -top-20 rounded-full banner-flash-animation"
+            ></div>
               <div 
               style={bannerStyle}
-              className={`bg-yellow-500 text-white text-xs sm:text-sm fixed top-0 left-0 right-0 z-40 ${
+              className={`bg-yellow-500 text-white text-xs sm:text-sm fixed top-0 left-0 right-0 z-10 ${
                 closeBanner ? 'p-0 transition-all duration-500' : 'p-3'
               }`}
               >
-                <style>
-                  {`
-                    @keyframes flash {
-                      100% {
-                        left: 100%;
-                      }
-                      0% {
-                        left: -100%;
-                      }
-                    }
-
-                    .flash-animation {
-                      animation: flash 3s linear infinite;
-                    }
-                  `}
-                </style>
-                <div className="relative flex container mx-auto justify-center text-center">
+                    <div className="flex container mx-auto justify-center text-center z-50">
                     <p>
                     Our website has moved to{' '}
                     <a href="https://progrmrslife.com" className="underline">
@@ -242,15 +231,9 @@ const Layout = ({ children }) => {
                     >
                     Close
                     </button>
-                    <div style={{
-                    width: '80%',
-                    height: '240%',
-                    marginTop: '-8%',
-                    transform: 'skewX(-20deg)',
-                  }}
-                  className="absolute left-0 z-50 inset-0 bg-black bg-opacity-20 rounded-full shadow-2xl flash-animation"></div>
                 </div>
               </div>
+          </div>
         )
       }
         <Header showBanner={showBanner} />

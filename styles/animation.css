@@ -115,3 +115,28 @@
     80% { -webkit-transform: scaleX(0) translateX(0%); opacity: 1; }
     100% { -webkit-transform: scaleX(15) translateX(100%); opacity: 0; }
     }
+
+
+
+
+    /* Notification Banner Flash Animation */
+
+    #flash-div {
+        /* width: '100%'; */
+        /* height: '240%';
+        margin-top: '-8%'; */
+        transform: 'skewX(-20deg)';
+    }
+
+    @keyframes flash {
+        50% {
+            left: 100%;
+        }
+        0% {
+            left: -100%;
+        }
+        }
+
+        .banner-flash-animation {
+        animation: flash 3s linear infinite;
+    }
