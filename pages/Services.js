@@ -12,7 +12,7 @@ const Card = ({ title, description, imgSrc }) => {
 
     return (
         <div
-            className="relative group h-64 rounded-lg overflow-hidden shadow-lg hover:z-50 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 cursor-pointer mb-4"
+            className="relative group h-64 rounded-lg overflow-hidden shadow-lg transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 cursor-pointer mb-4"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -81,7 +81,7 @@ function Services() {
         title: 'AskiboAI',
         description: "An AI-powered chatbot app built using OpenAI's GPT-3 API. Have a conversation with your AI friend and see where it takes you!💬",
         imgSrc: '/imgs/AskiboAi.gif',
-        link: 'https://ask-chatgpt.programmerslife.site',
+        link: 'https://ask-chatgpt.progrmrslife.com',
     },
     ];
     

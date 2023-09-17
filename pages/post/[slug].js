@@ -36,7 +36,7 @@ const PostDetails = ({ post, error }) => {
 
 
     const copyToClipboard = () => {
-        const link = `https://programmerslife.site/post/${post.slug}`;
+        const link = `https://progrmrslife.com/post/${post.slug}`;
         navigator.clipboard.writeText(link)
             .then(() => {
             // show a success message or perform any other action on successful copy
@@ -161,14 +161,14 @@ const PostDetails = ({ post, error }) => {
                                 <meta name="og:title" property="og:title" content={post.title} />
                                 <meta name="og:description" property="og:description" content={post.excerpt} />
                                 <meta name="og:image" property="og:image" content={post.featuredImage.url} />
-                                <meta name="og:url" property="og:url" content={`https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="og:url" property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="twitter:card" content="summary_large_image" />
                                 <meta name="twitter:title" content={post.title} />
                                 <meta name="twitter:description" content={post.excerpt} />
                                 <meta name="twitter:image" content={post.featuredImage.url} />
-                                <meta name="twitter:creator" content="https://link.programmerslife.site" />
-                                <meta name="twitter:site" content="https://link.programmerslife.site" />
-                                <meta name="twitter:url" content={`https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="twitter:creator" content="https://links.progrmrslife.com" />
+                                <meta name="twitter:site" content="https://links.progrmrslife.com" />
+                                <meta name="twitter:url" content={`https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="twitter:label1" content="Written by" />
                                 <meta name="twitter:data1" content={post.author.name} />
                                 <meta name="twitter:label2" content="Filed under" />
@@ -180,18 +180,18 @@ const PostDetails = ({ post, error }) => {
                                 <meta name="twitter:label5" content="Last updated on" />
                                 <meta name="twitter:data5" content={post.updatedAt} />
                                 <meta name="twitter:label6" content="Share on Twitter" />
-                                <meta name="twitter:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="twitter:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="twitter:label7" content="Share on Facebook" />
-                                <meta name="twitter:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="twitter:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="twitter:label8" content="Share on LinkedIn" />
-                                <meta name="twitter:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://programmerslife.site/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="twitter:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="facebook:card" content="summary_large_image" />
                                 <meta name="facebook:title" content={post.title} />
                                 <meta name="facebook:description" content={post.excerpt} />
                                 <meta name="facebook:image" content={post.featuredImage.url} />
-                                <meta name="facebook:creator" content="https://link.programmerslife.site" />
-                                <meta name="facebook:site" content="https://programmerslife.site" />
-                                <meta name="facebook:url" content={`https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="facebook:creator" content="https://links.progrmrslife.com" />
+                                <meta name="facebook:site" content="https://progrmrslife.com" />
+                                <meta name="facebook:url" content={`https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="facebook:label1" content="Written by" />
                                 <meta name="facebook:data1" content={post.author.name} />
                                 <meta name="facebook:label2" content="Filed under" />
@@ -203,17 +203,17 @@ const PostDetails = ({ post, error }) => {
                                 <meta name="facebook:label5" content="Last updated on" />
                                 <meta name="facebook:data5" content={post.updatedAt} />
                                 <meta name="facebook:label6" content="Share on Twitter" />
-                                <meta name="facebook:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="facebook:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="facebook:label7" content="Share on Facebook" />
-                                <meta name="facebook:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="facebook:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="facebook:label8" content="Share on LinkedIn" />
-                                <meta name="facebook:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://programmerslife.site/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://programmerslife.site/post/${post.slug}`} />
+                                <meta name="facebook:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="og:site_name" property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
                                 <meta name="og:type" property="og:type" content="article" />
                                 <meta name="og:locale" property="og:locale" content="en_US" />                                
                                 
-                                <link rel="canonical" href={`https://programmerslife.site/post/${post.slug}`} />
-                                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://programmerslife.site/rss.xml" />
+                                <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
+                                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
                             </Head>
                             
                             <ToastContainer />
@@ -263,7 +263,7 @@ const PostDetails = ({ post, error }) => {
                                                         size: 48,             // the size of each button (INTEGER)
                                                         spacing: 8,           // the spacing between buttons (INTEGER)
                                                         static: false,        // hide react buttons and display static emoji (true, false)
-                                                        url: `https://programmerslife.site/post/${post.slug}`, // (defaults to current url)
+                                                        url: `https://progrmrslife.com/post/${post.slug}`, // (defaults to current url)
 
                                                         // OPTIONAL PARAMETERS
                                                         hideWhenOffline: true,   // hide the react buttons when the browser goes offline (true, false)

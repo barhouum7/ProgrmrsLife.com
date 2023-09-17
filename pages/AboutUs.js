@@ -15,7 +15,7 @@ const AboutUs = () => {
         <p className="text-lg mb-8">Programmers Life was founded in 2021 by Ibo, a software developer who recognized a need for a platform that could help connect programmers and provide valuable resources and information. Over the past few years, our community has grown to include over 2,000 members across our social media channels, and we continue to work hard to provide the best content possible to our readers.</p>
         <h2 className="text-2xl font-bold mb-8">Our Team</h2>
         <div className="grid grid-cols-1 md:grid-cols-1 gap-8 mb-8">
-          <div className="bg-white p-8 rounded-lg shadow-md dark:bg-gray-800 shadow-xl p-8 sm:p-8 pb-12 m-0 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+          <div className="bg-white rounded-lg dark:bg-gray-800 shadow-xl p-8 sm:p-8 pb-12 m-0 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
             <ul className="mb-8 relative">
               <li className="mb-4">
                 <div className='flex mb-4'>

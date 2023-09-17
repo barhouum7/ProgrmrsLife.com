@@ -368,7 +368,7 @@ const terms_and_conditions = () => {
         <div data-custom-class="body_text">In order to resolve a complaint regarding the Services or to receive further information regarding use of the Services, please contact us at:</div>
         <div>&nbsp;</div>
         <div data-custom-class="body_text">📧 contact@programmerslife.site</div>
-        <div data-custom-class="body_text">Visit: <a href='http://www.programmerslife.site/ContactUs' data-custom-class='link'>http://www.programmerslife.site/ContactUs</a></div>
+        <div data-custom-class="body_text">Visit: <a href='https://www.progrmrslife.com/ContactUs' data-custom-class='link'>https://www.progrmrslife.com/ContactUs</a></div>
         <div data-custom-class="body_text">&nbsp;</div>
         <div data-custom-class="body_text">&nbsp;</div>
         </div>

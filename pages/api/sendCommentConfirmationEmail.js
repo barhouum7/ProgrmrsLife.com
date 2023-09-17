@@ -69,7 +69,7 @@ const handler = (req, res) => {
                                                                                             <tr>
                                                                                                 <td align="center"
                                                                                                     style="padding:0px 0px 12px;font-family:Helvetica,Arial,serif">
-                                                                                                    <a href="https://www.programmerslife.site/"
+                                                                                                    <a href="https://www.progrmrslife.com/"
                                                                                                         target="_blank">
                                                                                                         <img src="https://hostedimages-cdn.aweber-static.com/MjEwNDg2Ng==/original/06e6016e0f2e4e1db9196dbfa07454f2.png"
                                                                                                             style="display:block;width:100px;height:100px;border-width:0px;border-style:none;line-height:100%;max-width:560px;outline-width:medium;outline-style:none;text-decoration:none"
@@ -175,7 +175,7 @@ const handler = (req, res) => {
                                                                                                 <tr>
                                                                                                     <td align="center"
                                                                                                         style="padding:0px;font-family:Helvetica,Arial,serif">
-                                                                                                        <a href="https://programmerslife.site/"
+                                                                                                        <a href="https://progrmrslife.com/"
                                                                                                             target="_blank">
                                                                                                             <img src="https://hostedimages-cdn.aweber-static.com/MjEwNDg2Ng==/optimized/a7409a6802234e109d87fb072b8f8ea9.png"
                                                                                                                 style="display:block;width:471px;height:315px;border-width:0px;border-style:none;line-height:100%;max-width:100%;outline-width:medium;outline-style:none;text-decoration:none;padding:0px"
@@ -235,7 +235,7 @@ const handler = (req, res) => {
                                                                                                         very soon in our
                                                                                                     </span>
                                                                                                     <a rel="noopener noreferrer"
-                                                                                                        href="https://www.programmerslife.site/post/${slug}#allComments"
+                                                                                                        href="https://www.progrmrslife.com/post/${slug}#allComments"
                                                                                                         style="color:rgb(64,143,231);font-weight:bold"
                                                                                                         target="_blank" n
                                                                                                         style="color:#698596;font-family:Tahoma,Geneva,sans-serif"><strong>comments
@@ -268,7 +268,7 @@ const handler = (req, res) => {
                                                                                                         blog using our
                                                                                                     </span><a
                                                                                                         rel="noopener noreferrer"
-                                                                                                        href="https://www.programmerslife.site/ContactUs"
+                                                                                                        href="https://www.progrmrslife.com/ContactUs"
                                                                                                         style="color:rgb(64,143,231);font-weight:bold"
                                                                                                         target="_blank" n
                                                                                                         style="color:#698596;font-family:Tahoma,Geneva,sans-serif"><strong>contact
@@ -476,7 +476,7 @@ const handler = (req, res) => {
                                                                                                 <tr>
                                                                                                     <td align="center"
                                                                                                         style="padding:0px;font-family:Helvetica,Arial,serif">
-                                                                                                        <a href="https://www.programmerslife.site/post/remote-job-websites"
+                                                                                                        <a href="https://www.progrmrslife.com/post/remote-job-websites"
                                                                                                             target="_blank">
                                                                                                             <img src="https://media.graphassets.com/LWta5xL7TxeJVuIpwofA"
                                                                                                                 style="display:block;width:175px;height:96px;border-width:0px;border-style:none;line-height:100%;max-width:100%;outline-width:medium;outline-style:none;text-decoration:none"
@@ -566,7 +566,7 @@ const handler = (req, res) => {
                                                                                             <p
                                                                                                 style="text-align:left;color:rgb(36,32,32);font-size:16px;font-weight:normal;line-height:1.5em">
                                                                                                 <a rel="noopener noreferrer"
-                                                                                                    href="https://www.programmerslife.site/post/remote-job-websites"
+                                                                                                    href="https://www.progrmrslife.com/post/remote-job-websites"
                                                                                                     style="color:rgb(64,143,231);font-weight:bold"
                                                                                                     target="_blank"
                                                                                                     style="color:#6b71e0;font-size:14px">Continue
@@ -630,7 +630,7 @@ const handler = (req, res) => {
                                                                                             <tr>
                                                                                                 <td align="center"
                                                                                                     style="padding:0px;font-family:Helvetica,Arial,serif">
-                                                                                                    <a href="https://www.programmerslife.site/post/linkedin-learning-free-trials"
+                                                                                                    <a href="https://www.progrmrslife.com/post/linkedin-learning-free-trials"
                                                                                                         target="_blank">
                                                                                                         <img src="https://media.graphassets.com/tYqoqrdkQoCBVn04GW4U"
                                                                                                             style="display:block;width:175px;height:98px;border-width:0px;border-style:none;line-height:100%;max-width:560px;outline-width:medium;outline-style:none;text-decoration:none"
@@ -700,7 +700,7 @@ const handler = (req, res) => {
                                                                                         <p
                                                                                             style="text-align:left;color:rgb(36,32,32);font-size:16px;font-weight:normal;line-height:1.6em">
                                                                                             <a rel="noopener noreferrer"
-                                                                                                href="https://www.programmerslife.site/post/linkedin-learning-free-trials"
+                                                                                                href="https://www.progrmrslife.com/post/linkedin-learning-free-trials"
                                                                                                 style="color:rgb(64,143,231);font-weight:bold"
                                                                                                 target="_blank" n
                                                                                                 style="color:#6b71e0;font-size:14px">Continue
@@ -756,7 +756,7 @@ const handler = (req, res) => {
                                                                                             <tr>
                                                                                                 <td align="center"
                                                                                                     style="padding:0px;font-family:Helvetica,Arial,serif">
-                                                                                                    <a href="https://www.programmerslife.site/post/chatgpt-plus-for-free"
+                                                                                                    <a href="https://www.progrmrslife.com/post/chatgpt-plus-for-free"
                                                                                                         target="_blank">
                                                                                                         <img src="https://media.graphassets.com/bb57BP3TlGhPNGLtWSqv"
                                                                                                             style="display:block;width:175px;height:96px;border-width:0px;border-style:none;line-height:100%;max-width:560px;outline-width:medium;outline-style:none;text-decoration:none"
@@ -824,7 +824,7 @@ const handler = (req, res) => {
                                                                                         <p
                                                                                             style="text-align:left;color:rgb(36,32,32);font-size:16px;font-weight:normal;line-height:1.6em">
                                                                                             <a rel="noopener noreferrer"
-                                                                                                href="https://www.programmerslife.site/post/chatgpt-plus-for-free"
+                                                                                                href="https://www.progrmrslife.com/post/chatgpt-plus-for-free"
                                                                                                 style="color:rgb(64,143,231);font-weight:bold"
                                                                                                 target="_blank">
                                                                                                 <span
@@ -920,7 +920,7 @@ const handler = (req, res) => {
                                     M: +21652777039<br>
                                     E: contact@programmerslife.site<br>
                                     A: 47 Saada ST, Nabeul<br>
-                                    🌐 www.programmerslife.site<br><br>47 Saada ST, Nabeul<br>
+                                    🌐 www.progrmrslife.com<br><br>47 Saada ST, Nabeul<br>
                                     Tunis Tunis 8080<br>
                                     TUNISIA</span><br><br>
                             </div>

@@ -90,7 +90,7 @@ const Layout = ({ children }) => {
         <meta property="og:title" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta property="og:description" content="ProgrammersLife is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
         <meta property="og:image" content="/imgs/logo0.png" />
-        <meta property="og:url" content="https://programmerslife.site/" />
+        <meta property="og:url" content="https://progrmrslife.com/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta property="og:locale" content="en_US" />
@@ -123,17 +123,17 @@ const Layout = ({ children }) => {
         <meta name="twitter:description" content="ProgrammersLife is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
         <meta name="twitter:image" content="/imgs/logo0.png" />
         <meta name="twitter:image:alt" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
-        <meta name="twitter:domain" content="https://programmerslife.site/" />
+        <meta name="twitter:domain" content="https://progrmrslife.com/" />
         <meta name="twitter:app:country" content="US" />
         <meta name="twitter:app:name:iphone" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:app:id:iphone" content="id1520000000" />
-        <meta name="twitter:app:url:iphone" content="https://programmerslife.site/" />
+        <meta name="twitter:app:url:iphone" content="https://progrmrslife.com/" />
         <meta name="twitter:app:name:ipad" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:app:id:ipad" content="id1520000000" />
-        <meta name="twitter:app:url:ipad" content="https://programmerslife.site/" />
+        <meta name="twitter:app:url:ipad" content="https://progrmrslife.com/" />
         <meta name="twitter:app:name:googleplay" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:app:id:googleplay" content="com.programmerslife" />
-        <meta name="twitter:app:url:googleplay" content="https://programmerslife.site/" />
+        <meta name="twitter:app:url:googleplay" content="https://progrmrslife.com/" />
         <meta name="twitter:app:country" content="US" />
         <meta name="twitter:app:name:iphone" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
         <meta name="twitter:app:id:iphone" content="id1520000000" />
@@ -145,7 +145,7 @@ const Layout = ({ children }) => {
         <meta name="facebook:description" content="ProgrammersLife is a blog about programming, web development, and tech in general. We write about the latest technologies, frameworks, and libraries. We also write about the latest news in the tech world." />
         <meta name="facebook:image" content="/imgs/logo0.png" />
         <meta name="facebook:image:alt" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
-        <meta name="facebook:domain" content="https://programmerslife.site/" />
+        <meta name="facebook:domain" content="https://progrmrslife.com/" />
         <meta name="facebook:app:country" content="US" />
         <meta name="facebook:app:name:iphone" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
 

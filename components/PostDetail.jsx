@@ -213,16 +213,16 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         };
     
         const handleLinkedInClick  = () => {
-            const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+            const articleUrl = encodeURIComponent(`https://progrmrslife.com/post/${post.slug}`);
             const articleTitle = encodeURIComponent(post.title);
-            const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
+            const redirectUri = encodeURIComponent(`https://progrmrslife.com/m/share/success?postId=${post.slug}`);
             const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?mini=true&url=${articleUrl}&title=${articleTitle}&redirect_uri=${redirectUri}`;
 
             // window.open(redirectUri, '_blank');
             // window.open(linkedInUrl, '_blank');
 
             const linkedInWindow = window.open(linkedInUrl, 'linkedin-share-dialog', 'width=626,height=436');
-            const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            const successWindow = window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
 
             if ((!linkedInWindow || !successWindow) || (linkedInWindow.closed || successWindow.closed) || (typeof linkedInWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
                 // Display a message to the user asking them to enable popups for your website
@@ -239,21 +239,21 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             }
             if (!(typeof linkedInWindow.closed === 'undefined' || linkedInWindow.closed)) {
                 window.setTimeout(function() {
-                    window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+                    window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
                 }, 20000);
             }
 
         };
 
         const handleFacebookClick = () => {
-            const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+            const articleUrl = encodeURIComponent(`https://progrmrslife.com/post/${post.slug}`);
             const facebookAppId = '5864440530335233';
-            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=${facebookAppId}&display=popup&href=${articleUrl}&redirect_uri=https%3A%2F%2Fprogrammerslife.site%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`;
+            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=${facebookAppId}&display=popup&href=${articleUrl}&redirect_uri=https%3A%2F%2Fprogrmrslife.com%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`;
 
             // window.open(facebookUrl, '_blank');
             
             const facebookWindow = window.open(facebookUrl, 'facebook-share-dialog', 'width=626,height=436');
-            const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            const successWindow = window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
             
             if ((!facebookWindow || !successWindow) || (facebookWindow.closed || successWindow.closed) || (typeof facebookWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
                 // Display a message to the user asking them to enable popups for your website
@@ -270,20 +270,20 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             }
             // if (!(typeof facebookWindow.closed === 'undefined' || facebookWindow.closed)) {
             //     window.setTimeout(function() {
-            //         window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            //         window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
             //     }, 20000);
             // }
         };
 
         // const handleTwitterClick = () => {
-        //     const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+        //     const articleUrl = encodeURIComponent(`https://progrmrslife.com/post/${post.slug}`);
         //     const articleTitle = encodeURIComponent(post.title);
-        //     // const redirectUri = encodeURIComponent(`https://programmerslife.site/m/share/success?postId=${post.slug}`);
+        //     // const redirectUri = encodeURIComponent(`https://progrmrslife.com/m/share/success?postId=${post.slug}`);
         //     const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr`;
 
             
         //     const twitterWindow = window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
-        //     const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+        //     const successWindow = window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
 
         //     if ((!twitterWindow || !successWindow) || (twitterWindow.closed || successWindow.closed) || (typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
         //         // Display a message to the user asking them to enable popups for your website
@@ -300,7 +300,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         //     }
         //     if (!(typeof twitterWindow.closed === 'undefined' || twitterWindow.closed)) {
         //         window.setTimeout(function() {
-        //             window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+        //             window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
         //         }, 20000);
         //     }
 
@@ -308,7 +308,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
         const openTwitterShareWindow = (twitterUrl) => {
             const twitterWindow = window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
-            const successWindow = window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            const successWindow = window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
             
             if (!twitterWindow || !successWindow || twitterWindow.closed || successWindow.closed) {
                 onEnablePopupMessage();
@@ -319,13 +319,13 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             
             if (!twitterWindow?.closed) {
                 window.setTimeout(() => {
-                    window.open(`https://programmerslife.site/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+                    window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
                 }, 20000);
             }
         };
             
         const handleTwitterClick = () => {
-            const articleUrl = encodeURIComponent(`https://programmerslife.site/post/${post.slug}`);
+            const articleUrl = encodeURIComponent(`https://progrmrslife.com/post/${post.slug}`);
             const articleTitle = encodeURIComponent(post.title);
             const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr`;
             
@@ -613,7 +613,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     <meta property="og:title" content={post.title} />
                     <meta property="og:description" content={post.excerpt} />
                     <meta property="og:image" content={post.featuredImage.url} />
-                    <meta property="og:url" content={`https://programmerslife.site/post/${post.slug}`} />
+                    <meta property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
                     <meta property="og:type" content="article" />
                     <meta property="og:site_name" content="ProgrammersLife" />
                     <meta property="article:published_time" content={post.createdAt} />
@@ -628,7 +628,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     <meta name="twitter:image" content={post.featuredImage.url} />
                     <meta name="twitter:site" content="@mindh4q3rr" />
                     <meta name="twitter:creator" content="@mindh4q3rr" />
-                    <meta name="twitter:domain" content="programmerslife.site" />
+                    <meta name="twitter:domain" content="progrmrslife.com" />
                     <meta name="twitter:label1" content="Written by" />
                     <meta name="twitter:data1" content={post.author.name} />
                     <meta name="twitter:label2" content="Filed under" />
@@ -645,7 +645,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     <meta name="twitter:label7" content="Share on" />
                     <meta name="twitter:data7" content="Facebook, Twitter, LinkedIn" />
                     <meta name="twitter:label8" content="Link" />
-                    <meta name="twitter:data8" content={`https://programmerslife.site/post/${post.slug}`} />
+                    <meta name="twitter:data8" content={`https://progrmrslife.com/post/${post.slug}`} />
                     <meta name="twitter:label9" content="Leave a comment" />
                     <meta name="twitter:data9" content="We're excited to hear from you!😍" />
                     <meta name="twitter:label10" content="Listen to this article" />
@@ -660,7 +660,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     <meta name="twitter:data14" content="+10s" />
 
                     <link rel="icon" href="/imgs/favicon.svg" />
-                    <link rel="canonical" href={`https://programmerslife.site/post/${post.slug}`} />
+                    <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
                 </Head>
                 <div className="relative overflow-hidden shadow-xl mb-6 cursor-pointer transition duration-700 ease-in-out transform hover:opacity-80">
                     <img 
