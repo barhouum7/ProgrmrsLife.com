@@ -14,7 +14,7 @@ import useThemeActions from '../../hooks/useThemeActions';
 import Link from "next/link";
 import { getCategories } from '../../services'
 
-const Header = () => {
+const Header = ({showBanner}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isItemHovered, setIsItemHovered] = useState("");
   const [ isToggleSwitched, setIsToggleSwitched] = useState(false);
@@ -232,7 +232,9 @@ const Header = () => {
           <Flowbite>
             <Navbar
             fluid={true} 
-            className={`w-full h-16 z-10 fixed top-0 left-0 flex-grow sm:px-6 rounded-b shadow-lg
+            className={`w-full h-16 z-30 fixed ${
+              showBanner ? 'top-10 mt-2 sm:mt-4' : 'top-0 mt-0 transition-all duration-500'
+            } left-0 flex-grow sm:px-6 rounded-b shadow-lg
               dark:bg-opacity-90 dark:bg-gray-800 bg-opacity-90
             `}
             style={{

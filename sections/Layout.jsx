@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "./Header/Header";
 import Footer from "./FooterSection";
 import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton } from "../components";
@@ -22,6 +22,33 @@ const Layout = ({ children }) => {
   //     e.clipboardData.setData("text/plain", "Copying is not allowed.");
   //   });
   // }
+
+
+  // Announcement Banner
+  const [showBanner, setShowBanner] = useState(true);
+  const [closeBanner, setCloseBanner] = useState(false);
+  const [showFlash, setShowFlash] = useState(false);
+
+    const handleCloseBanner = () => {
+      setCloseBanner(true);
+      setTimeout(() => {
+        setShowBanner(false);
+      }, 500);
+    };
+
+    const bannerStyle = {
+      background: showBanner
+      ? 'linear-gradient(to left, #FFC900, #FF6C00)' // Darker yellow gradient
+      : 'none', // No background
+      transition: 'all 0.5s', // Smooth transition
+    };
+  
+    // useEffect(() => {
+    //   // Add animation class after component mounts
+    //   const bannerElement = document.getElementById('notification-banner');
+    //   bannerElement.classList.add('flash-animation');
+    // }, []);
+    
   return (
     <div>
       <Head>
@@ -174,7 +201,67 @@ const Layout = ({ children }) => {
           async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
         ></script>
       </Head>
-        <Header />
+      
+      {/* Announcement Banner */}
+      
+      {
+        showBanner && (
+              <div 
+              style={bannerStyle}
+              className={`bg-yellow-500 text-white text-xs sm:text-sm fixed top-0 left-0 right-0 z-40 ${
+                closeBanner ? 'p-0 transition-all duration-500' : 'p-3'
+              }`}
+              >
+                <style>
+                  {`
+                    @keyframes flash {
+                      100% {
+                        left: 100%;
+                      }
+                      0% {
+                        left: -100%;
+                      }
+                    }
+
+                    .flash-animation {
+                      animation: flash 3s linear infinite;
+                    }
+                  `}
+                </style>
+                <div className="relative flex container mx-auto justify-center text-center">
+                    <p>
+                    Our website has moved to{' '}
+                    <a href="https://progrmrslife.com" className="underline">
+                        progrmrslife.com
+                    </a>
+                    . Please update your bookmarks.
+                    </p>
+                    <button
+                    className="ml-2 px-3 py-1 bg-yellow-700 hover:bg-yellow-600 rounded-md"
+                    onClick={handleCloseBanner}
+                    >
+                    Close
+                    </button>
+                    <div style={{
+                    width: '80%',
+                    height: '240%',
+                    marginTop: '-8%',
+                    transform: 'skewX(-20deg)',
+                  }}
+                  className="absolute left-0 z-50 inset-0 bg-black bg-opacity-20 rounded-full shadow-2xl flash-animation"></div>
+                </div>
+                {/* <div
+                  id="notification-banner"
+                  className="absolute top-0 right-0 bottom-0 left-100 bg-slate-400 z-50"
+                  style={{
+                    width: '100%',
+                    transform: 'skewX(-20deg)',
+                  }}
+                ></div> */}
+              </div>
+        )
+      }
+        <Header showBanner={showBanner} />
         <main className="container relative rounded-t mx-auto transition ease-in-out duration-500">
             {children}
         </main>
