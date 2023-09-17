@@ -206,10 +206,10 @@ const Layout = ({ children }) => {
       
       {
         showBanner && (
-          <div className="relative">
+          <div className="relative top-0 left-10 right-10">
             <div
               id="flash-div"
-              className="absolute z-20 right-0 inset-0 bg-black bg-opacity-20 shadow-2xl -top-20 rounded-full banner-flash-animation"
+              className="absolute z-20 left-10 right-10 inset-0 bg-black bg-opacity-20 shadow-2xl -top-20 rounded-full banner-flash-animation"
             ></div>
               <div 
               style={bannerStyle}
