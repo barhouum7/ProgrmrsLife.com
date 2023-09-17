@@ -237,7 +237,7 @@ const Layout = ({ children }) => {
                     . Please update your bookmarks.
                     </p>
                     <button
-                    className="ml-2 px-3 py-1 bg-yellow-700 hover:bg-yellow-600 rounded-md"
+                    className="ml-2 px-3 py-1 rounded-md bg-yellow-600 hover:bg-opacity-80 transition-colors duration-300"
                     onClick={handleCloseBanner}
                     >
                     Close
@@ -250,14 +250,6 @@ const Layout = ({ children }) => {
                   }}
                   className="absolute left-0 z-50 inset-0 bg-black bg-opacity-20 rounded-full shadow-2xl flash-animation"></div>
                 </div>
-                {/* <div
-                  id="notification-banner"
-                  className="absolute top-0 right-0 bottom-0 left-100 bg-slate-400 z-50"
-                  style={{
-                    width: '100%',
-                    transform: 'skewX(-20deg)',
-                  }}
-                ></div> */}
               </div>
         )
       }
