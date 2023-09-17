@@ -197,7 +197,11 @@ export default function CommandBar({posts}) {
     return (
       <KBarPortal> 
       {/* Renders the content outside the root node */}
-      <KBarPositioner>
+      <KBarPositioner
+        style={{
+          zIndex: 10,
+        }}
+      >
         {/* Position the KBar, Centers the content by default */}
         <KBarAnimator
           // style={animatorStyle}

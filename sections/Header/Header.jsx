@@ -225,7 +225,11 @@ const Header = ({showBanner}) => {
 };
 
   return (
-      <header className="relative h-32">
+      <header className="relative h-32"
+      style={{
+        zIndex: "10",
+      }}
+      >
         {/* <Navbar fluid className="w-full backdrop-filter backdrop-blur-lg fixed top-0 h-16 z-30  duration-500"> */}
         {/* <nav className={`w-full h-16 z-10 fixed top-0 left-0 backdrop-filter backdrop-blur-lg dark:bg-gray-800 flex-grow sm:px-6 rounded-b shadow-lg dark:border-gray-700 transition ease-in-out transition-all duration-500
               bg-transparent ${isScrolled ? "bg-transparent" : "bg-white"}`}> */}
