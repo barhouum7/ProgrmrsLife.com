@@ -27,7 +27,6 @@ const Layout = ({ children }) => {
   // Announcement Banner
   const [showBanner, setShowBanner] = useState(true);
   const [closeBanner, setCloseBanner] = useState(false);
-  const [showFlash, setShowFlash] = useState(false);
 
     const handleCloseBanner = () => {
       setCloseBanner(true);
@@ -42,12 +41,6 @@ const Layout = ({ children }) => {
       : 'none', // No background
       transition: 'all 0.5s', // Smooth transition
     };
-  
-    // useEffect(() => {
-    //   // Add animation class after component mounts
-    //   const bannerElement = document.getElementById('notification-banner');
-    //   bannerElement.classList.add('flash-animation');
-    // }, []);
     
   return (
     <div>
@@ -194,12 +187,12 @@ const Layout = ({ children }) => {
         <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
 
         {/* // Code from AdSense */}
-        <script 
+        {/* <script 
           id="adsbygoogle-init"
           strategy="afterInteractive"
           crossOrigin="anonymous"
           async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-        ></script>
+        ></script> */}
       </Head>
       
       {/* Announcement Banner */}
