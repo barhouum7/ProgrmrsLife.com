@@ -13,7 +13,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="icon" href="/imgs/favicon.svg" />
           {/* Sharethis integration code */}
-          <script type='text/javascript' strategy="afterInteractive" src='https://platform-api.sharethis.com/js/sharethis.js#property=650f7a73637e200019cd34fe&product=sop' async='async'></script>
+          <Script type='text/javascript' strategy="afterInteractive" src='https://platform-api.sharethis.com/js/sharethis.js#property=650f7a73637e200019cd34fe&product=sop' async='async' />
           {/* Google Adsense Allow Ads message tag */}
           {/* <script async src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" nonce="AcS-s_S5_la-tqzvZpCe7g"></script>
           <script
