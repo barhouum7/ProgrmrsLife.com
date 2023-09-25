@@ -46,12 +46,12 @@ const Layout = ({ children }) => {
     <div>
       <Head>
         {/* UserWay Script */}
-      <Script>
+      <script>
       {`
           (function(d){
             var s = d.createElement('script');
             /* uncomment the following line to override default position*/
-            s.setAttribute('data-position', 2);
+            s.setAttribute('data-position', 3);
             /* uncomment the following line to override default size (values: small, large)*/
             /* s.setAttribute('data-size', 'small');*/
             /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
@@ -71,7 +71,7 @@ const Layout = ({ children }) => {
             (d.body || d.head).appendChild(s);
           })(document)
       `}
-      </Script>
+      </script>
         <noscript>Please ensure Javascript is enabled for purposes of <a href="https://userway.org">website accessibility</a></noscript>
         <title>ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News</title>
         <link rel="icon" href="/imgs/favicon.svg" />
@@ -240,15 +240,15 @@ const Layout = ({ children }) => {
         
         <ScrollToTopButton />
         <ChatWithAIButton />
-        <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
+        {/* <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
           <ConsentPreferenceLink />
-        </div>
-        <Script
+        </div> */}
+        {/* <Script
           src="https://app.termly.io/embed.min.js"
           data-auto-block="off"
           data-website-uuid="6be0f015-e759-4ffd-8346-ebb290ddbdf9"
           async
-        />
+        /> */}
     </div>
   );
 };
