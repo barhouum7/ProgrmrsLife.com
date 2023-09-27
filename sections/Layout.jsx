@@ -41,6 +41,14 @@ const Layout = ({ children }) => {
       : 'none', // No background
       transition: 'all 0.5s', // Smooth transition
     };
+
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if (!isMounted) return null
     
   return (
     <div>
@@ -240,15 +248,15 @@ const Layout = ({ children }) => {
         
         <ScrollToTopButton />
         <ChatWithAIButton />
-        {/* <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
+        <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
           <ConsentPreferenceLink />
-        </div> */}
-        {/* <Script
+        </div>
+        <Script
           src="https://app.termly.io/embed.min.js"
           data-auto-block="off"
           data-website-uuid="6be0f015-e759-4ffd-8346-ebb290ddbdf9"
           async
-        /> */}
+        />
     </div>
   );
 };

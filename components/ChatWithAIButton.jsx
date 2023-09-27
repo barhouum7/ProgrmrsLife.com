@@ -242,7 +242,7 @@ const ChatWithAIButton = () => {
 
   return (
     <>
-      <div className="fixed bottom-16 right-3 w-12 h-12 rounded-full border-none bg-gray-800 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out">
+      <div className="fixed bottom-16 right-6 w-10 h-10 rounded-full border-none bg-gray-800 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out">
       <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
         <Tooltip
               content="Chat with AI"

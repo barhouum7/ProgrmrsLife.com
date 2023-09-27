@@ -1,25 +1,15 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { AiFillSetting } from 'react-icons/ai';
 import { Tooltip } from "flowbite-react";
 
 const ConsentPreferenceLink = () => {
-    // function reloadPage() {
-    //     window.location.reload();
-    //     }
+    const [isMounted, setIsMounted] = useState(false)
 
-    //     useEffect(() => {
-    //     const modal = window.termlyConsentModal;
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
-    //     if (modal) {
-    //         modal.addEventListener('hide', reloadPage);
-    //     }
-
-    //     return () => {
-    //         if (modal) {
-    //         modal.removeEventListener('hide', reloadPage);
-    //         }
-    //     };
-    //     }, []);
+    if (!isMounted) return null
 
 return (
     <>
