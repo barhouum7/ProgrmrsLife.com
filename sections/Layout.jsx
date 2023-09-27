@@ -41,32 +41,10 @@ const Layout = ({ children }) => {
       : 'none', // No background
       transition: 'all 0.5s', // Smooth transition
     };
-
-    const [isMounted, setIsMounted] = useState(false)
-
-    useEffect(() => {
-        setIsMounted(true)
-    }, [])
-
-    if (!isMounted) return null
     
   return (
     <div>
       <Head>
-        {/* <!-- Google Tag Manager --> */}
-        <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','GTM-WFFN5QDF');
-                console.log('GTM Loaded');
-              `,
-            }}
-          ></script>
-        {/* <!-- End Google Tag Manager --> */}
         {/* UserWay Script */}
       <script>
       {`
@@ -215,29 +193,7 @@ const Layout = ({ children }) => {
           crossOrigin="anonymous"
           async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
         ></script> */}
-      </Head>
-      {/* <!-- Google Tag Manager (noscript) --> */}
-      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFFN5QDF"
-          height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe></noscript>
-          {/* <!-- End Google Tag Manager (noscript) --> */}
-          {/* <!-- Google tag (gtag.js) --> */}
-          <script 
-              async 
-              src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
-          ></script>
-          <script
-          type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-PEF01PTY1T');
-              `,
-            }}
-          ></script>
-          {/* <!-- End Google tag (gtag.js) --> */}
-      
+      </Head>      
       {/* Announcement Banner */}
       
       {
