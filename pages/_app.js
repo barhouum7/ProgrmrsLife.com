@@ -12,6 +12,7 @@ import '../styles/scrollbar.css'
 import '../styles/moonSunBg.css'
 import '../styles/loader.css'
 import '../styles/animation.css'
+import '../styles/FlyingHearts.css';
 
 import 'tailwindcss/tailwind.css'
 import 'react-toastify/dist/ReactToastify.css';
