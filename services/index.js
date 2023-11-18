@@ -1,15 +1,6 @@
 import { request, gql } from 'graphql-request';
 import handleErrors from './handleErrors';
 
-// import * as dotenv from 'dotenv';
-
-/* Here in order to load that Variable inside dotenv file
-    we just do a simple check If we are 
-    running in the production environment or Not... */
-    // if (process.env.NODE_ENV !== 'production') {
-        // dotenv.config();
-    // }
-
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT
 
 
@@ -172,7 +163,15 @@ export const submitComment = async (obj) => {
 export const getComments = async (slug) => {
     const query = gql`
         query GetComments ($slug: String!) {
-            comments(where: { post: { slug: $slug } }) {
+            comments(
+                where: {
+                    post: { 
+                        slug: $slug 
+                    },
+                },
+                orderBy: createdAt_DESC,
+                first: 100
+                ) {
                 name
                 email
                 createdAt
