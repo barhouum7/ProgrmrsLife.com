@@ -11,8 +11,8 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-      user: process.env.SENDER_EMAIL_ADDRESS,
-      pass: process.env.SENDER_EMAIL_PASS,
+      user: process.env.AUTH_EMAIL_ADDRESS,
+      pass: process.env.AUTH_EMAIL_PASS,
     },
   });
 
@@ -27,7 +27,7 @@ const handler = (req, res) => {
             const toEmail = email;
 
             const mailOptions = {
-            from: process.env.EMAIL_ADDRESS,
+            from: process.env.SENDER_EMAIL_ADDRESS,
             to: toEmail,
             subject: `👏🥳 ${firstName}, We Received Your Comment on (${shortedPostTitle}...), It'll be Published Very Soon!`,
             html: `
