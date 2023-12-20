@@ -11,6 +11,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <meta name="google-adsense-account" content="ca-pub-1339539882255727" />
           <link rel="icon" href="/imgs/favicon.svg" />
             {/* <!-- Google Tag Manager --> */}
             <script
