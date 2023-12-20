@@ -19,6 +19,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { AdsenseScript } from "../components"
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, showToast, showWelcomeMessage }) => {
+
     const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
     const [showWaitingText, setShowWaitingText] = useState(false);
@@ -605,6 +606,14 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     //     return modifiedText;
     // }
     // };
+
+
+
+    const [placeAdUnit, setPlaceAdUnit] = useState(false);
+    useEffect(() => {
+        setPlaceAdUnit(true);
+    }, []);
+
 
     return (
             <div>
