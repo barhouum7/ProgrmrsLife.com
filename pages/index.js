@@ -242,6 +242,19 @@ if (totalPages > MAX_VISIBLE_PAGES) {
   
                   <div className="lg:col-span-4 col-span-1 mr-4">
                     <div className="lg:sticky relative top-0">
+                      <div className="mb-8">
+                          {
+                              placeAdUnit && (
+                                  // <!-- Vertical_Recommended_AdUnit -->
+                                  <ins className="adsbygoogle"
+                                  style={{ display: 'block' }}
+                                  data-ad-client="ca-pub-1339539882255727"
+                                  data-ad-slot="9697463409"
+                                  data-ad-format="auto"
+                                  data-full-width-responsive="true"></ins>
+                              )
+                          }
+                      </div>
                       <PostWidget />
                       <Categories />
                     </div>

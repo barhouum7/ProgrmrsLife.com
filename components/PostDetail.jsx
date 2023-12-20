@@ -16,6 +16,8 @@ import dynamic from 'next/dynamic';
 import { Tooltip } from "flowbite-react";
 import toast, { Toaster } from 'react-hot-toast';
 
+import { AdsenseScript } from "../components"
+
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, showToast, showWelcomeMessage }) => {
     const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
@@ -662,6 +664,20 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     <link rel="icon" href="/imgs/favicon.svg" />
                     <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
                 </Head>
+                <AdsenseScript />
+                <div className="mb-8">
+                    {
+                        placeAdUnit && (
+                            // {/* <!-- Recommended-ad-unit --> */}
+                            <ins className="adsbygoogle"
+                            style={{ display: 'block' }}
+                            data-ad-client="ca-pub-1339539882255727"
+                            data-ad-slot="9618957531"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        )
+                    }
+                </div>
                 <div className="relative overflow-hidden shadow-xl mb-6 cursor-pointer transition duration-700 ease-in-out transform hover:opacity-80">
                     <img 
                         src={post.featuredImage.url}
@@ -1181,6 +1197,19 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     />
                     
                     </div>
+                </div>
+                <div className="mb-8">
+                    {
+                        placeAdUnit && (
+                            // {/* <!-- Recommended-ad-unit --> */}
+                            <ins className="adsbygoogle"
+                            style={{ display: 'block' }}
+                            data-ad-client="ca-pub-1339539882255727"
+                            data-ad-slot="9618957531"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        )
+                    }
                 </div>
             </div>
     )

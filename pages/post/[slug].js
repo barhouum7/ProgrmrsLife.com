@@ -218,22 +218,8 @@ const PostDetails = ({ post, error }) => {
                             
                             <ToastContainer />
 
-                            <AdsenseScript />
                             {/* <AWeberScript /> */}
                             <div className="dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
-                                <div className="mb-8">
-                                    {
-                                        placeAdUnit && (
-                                            // {/* <!-- Recommended-ad-unit --> */}
-                                            <ins className="adsbygoogle"
-                                            style={{ display: 'block' }}
-                                            data-ad-client="ca-pub-1339539882255727"
-                                            data-ad-slot="9618957531"
-                                            data-ad-format="auto"
-                                            data-full-width-responsive="true"></ins>
-                                        )
-                                    }
-                                </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                                     <div className='lg:col-span-8 col-span-1'>
                                         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
@@ -278,9 +264,35 @@ const PostDetails = ({ post, error }) => {
                                             </div>
                                             {/* <!-- ShareThis END --> */}
                                         </div>
+                                        <div className="mb-8">
+                                            {
+                                                placeAdUnit && (
+                                                    // {/* <!-- Recommended-ad-unit --> */}
+                                                    <ins className="adsbygoogle"
+                                                    style={{ display: 'block' }}
+                                                    data-ad-client="ca-pub-1339539882255727"
+                                                    data-ad-slot="9618957531"
+                                                    data-ad-format="auto"
+                                                    data-full-width-responsive="true"></ins>
+                                                )
+                                            }
+                                        </div>
                                         
                                         <div id='authorBio'>
                                             <Author author={post.author} />
+                                        </div>
+                                        <div className="mb-8">
+                                            {
+                                                placeAdUnit && (
+                                                    // {/* <!-- Recommended-ad-unit --> */}
+                                                    <ins className="adsbygoogle"
+                                                    style={{ display: 'block' }}
+                                                    data-ad-client="ca-pub-1339539882255727"
+                                                    data-ad-slot="9618957531"
+                                                    data-ad-format="auto"
+                                                    data-full-width-responsive="true"></ins>
+                                                )
+                                            }
                                         </div>
                                         <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
                                         <div id='commentForm'>
@@ -293,6 +305,19 @@ const PostDetails = ({ post, error }) => {
 
                                     <div className="lg:col-span-4 col-span-1">
                                         <div className="lg:sticky relative top-0">
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        // {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    )
+                                                }
+                                            </div>
                                             <PostWidget slug={post.slug} categories={post.categories.map((category) => category.slug)} />
                                             <Categories />
                                         </div>
