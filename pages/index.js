@@ -159,17 +159,17 @@ if (totalPages > MAX_VISIBLE_PAGES) {
             <div>
 
               {
-                // placeAdUnit && (
-                //   // {/* <!-- Recommended-ad-unit --> */}
-                //   <ins className="adsbygoogle"
-                //     style={{ display: 'block' }}
-                //     data-ad-client="ca-pub-1339539882255727"
-                //     data-ad-slot="9618957531"
-                //     data-ad-format="auto"
-                //     data-full-width-responsive="true"></ins>
-                // )
+                placeAdUnit && (
+                  // {/* <!-- Recommended-ad-unit --> */}
+                  <ins className="adsbygoogle"
+                    style={{ display: 'block' }}
+                    data-ad-client="ca-pub-1339539882255727"
+                    data-ad-slot="9618957531"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                )
               }
-              {/* <AdsenseScript /> */}
+              <AdsenseScript />
               {/* <AWeberScript /> */}
               <FeaturedPosts />
               <div className='dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-4 transition ease-in-out duration-500'>

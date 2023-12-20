@@ -12,8 +12,13 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="google-adsense-account" content="ca-pub-1339539882255727" />
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-            crossorigin="anonymous"></script>
+          {/* // Code from AdSense */}
+          <script 
+            id="adsbygoogle-init"
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+            async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+          ></script>
           <link rel="icon" href="/imgs/favicon.svg" />
             {/* <!-- Google Tag Manager --> */}
             <script
@@ -30,7 +35,7 @@ class MyDocument extends Document {
               ></script>
             {/* <!-- End Google Tag Manager --> */}
           {/* Sharethis integration code */}
-          <script type="text/javascript" strategy="afterInteractive" src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" async="async"></script>
+          <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" async="async"></script>
           {/* Google Adsense Allow Ads message tag */}
           {/* <script async src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" nonce="AcS-s_S5_la-tqzvZpCe7g"></script>
           <script

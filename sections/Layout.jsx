@@ -291,16 +291,14 @@ const Layout = ({ children }) => {
         <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
         <meta name="google-adsense-account" content="ca-pub-1339539882255727" />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-          crossorigin="anonymous"></script>
 
         {/* // Code from AdSense */}
-        {/* <script 
+        <script 
           id="adsbygoogle-init"
           strategy="afterInteractive"
           crossOrigin="anonymous"
           async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-        ></script> */}
+        ></script>
       </Head>
       
       {/* Announcement Banner */}
