@@ -158,26 +158,44 @@ if (totalPages > MAX_VISIBLE_PAGES) {
         ) : (
             <div>
 
-              {
-                placeAdUnit && (
-                  // {/* <!-- Recommended-ad-unit --> */}
-                  <ins className="adsbygoogle"
-                    style={{ display: 'block' }}
-                    data-ad-client="ca-pub-1339539882255727"
-                    data-ad-slot="9618957531"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                )
-              }
+              <div className="mb-8">
+                {
+                  placeAdUnit && (
+                    // {/* <!-- Recommended-ad-unit --> */}
+                    <ins className="adsbygoogle"
+                      style={{ display: 'block' }}
+                      data-ad-client="ca-pub-1339539882255727"
+                      data-ad-slot="9618957531"
+                      data-ad-format="auto"
+                      data-full-width-responsive="true"></ins>
+                  )
+                }
+              </div>
               <AdsenseScript />
               {/* <AWeberScript /> */}
               <FeaturedPosts />
+
               <div className='dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-4 transition ease-in-out duration-500'>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div className='lg:col-span-8 col-span-1'>
                       {
                         currentPosts.map((post, index) => (
-                          <PostCard key={index} post={post.node} />
+                          <div key={index}>
+                            <PostCard post={post.node} />
+                            <div className="my-8">
+                                {
+                                    placeAdUnit && (
+                                        // {/* <!-- Recommended-ad-unit --> */}
+                                        <ins className="adsbygoogle"
+                                        style={{ display: 'block' }}
+                                        data-ad-client="ca-pub-1339539882255727"
+                                        data-ad-slot="9618957531"
+                                        data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins>
+                                    )
+                                }
+                            </div>
+                          </div>
                         ))
                       }
                       {
