@@ -4,6 +4,7 @@ import Footer from "./FooterSection";
 import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton } from "../components";
 import Head from "next/head";
 import Script from "next/script";
+import { initializeAdBlockRecovery } from "../adBlockRecovery";
 
 
 // // Make HeartAnimation effect
@@ -147,6 +148,15 @@ const Layout = ({ children }) => {
       transition: 'all 0.5s', // Smooth transition
     };
     
+
+    // Error protection message
+    // If your user's ad blocker stops our ad blocking recovery message from displaying, we can show an error message asking users to allow ads
+
+    useEffect(() => {
+      // Initialize adBlock recovery when the component mounts
+      initializeAdBlockRecovery();
+    }, []);
+
   return (
     <div>
       <Head>
@@ -299,6 +309,15 @@ const Layout = ({ children }) => {
           crossOrigin="anonymous"
           async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
         ></script>
+
+        {/* // Code from AdSense to detect Ad blockers */}
+        <script async src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" 
+        nonce="ML-8Zn0qG97P5bAGURNW3Q"></script>
+        <script nonce="ML-8Zn0qG97P5bAGURNW3Q">
+          (function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}
+          })();
+        </script>
+        
       </Head>
       
       {/* Announcement Banner */}
