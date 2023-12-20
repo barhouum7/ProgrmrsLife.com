@@ -12,6 +12,8 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="google-adsense-account" content="ca-pub-1339539882255727" />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+            crossorigin="anonymous"></script>
           <link rel="icon" href="/imgs/favicon.svg" />
             {/* <!-- Google Tag Manager --> */}
             <script
