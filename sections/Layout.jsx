@@ -157,6 +157,19 @@ const Layout = ({ children }) => {
       initializeAdBlockRecovery();
     }, []);
 
+
+    // Initialize all the ad units on the page
+    useEffect(() => {
+        // console.log('AdsenseScript');
+        var ads = document.getElementsByClassName("adsbygoogle").length;
+            for (var i = 0; i < ads; i++) {
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) { }
+            }
+        // console.log('adsbygoogle: ', document.getElementsByClassName("adsbygoogle"));
+    }, []);
+
   return (
     <div>
       <Head>

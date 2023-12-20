@@ -218,6 +218,20 @@ const PostDetails = ({ post, error }) => {
                             
                             <ToastContainer />
 
+                            <div className="mb-8">
+                                {
+                                    placeAdUnit && (
+                                        // {/* <!-- Recommended-ad-unit --> */}
+                                        <ins className="adsbygoogle"
+                                        style={{ display: 'block' }}
+                                        data-ad-client="ca-pub-1339539882255727"
+                                        data-ad-slot="9618957531"
+                                        data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins>
+                                    )
+                                }
+                            </div>
+                            <AdsenseScript />
                             {/* <AWeberScript /> */}
                             <div className="dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -308,11 +322,11 @@ const PostDetails = ({ post, error }) => {
                                             <div className="mb-8">
                                                 {
                                                     placeAdUnit && (
-                                                        // {/* <!-- Recommended-ad-unit --> */}
+                                                        // <!-- Vertical_Recommended_AdUnit -->
                                                         <ins className="adsbygoogle"
                                                         style={{ display: 'block' }}
                                                         data-ad-client="ca-pub-1339539882255727"
-                                                        data-ad-slot="9618957531"
+                                                        data-ad-slot="9697463409"
                                                         data-ad-format="auto"
                                                         data-full-width-responsive="true"></ins>
                                                     )

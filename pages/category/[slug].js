@@ -128,18 +128,20 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
               <link rel="alternate" href="https://progrmrslife.com" hrefLang="x-default" />
               <link rel="alternate" href="https://progrmrslife.com" hrefLang="en-US" />
             </Head>
-            {
-              // placeAdUnit && (
-              //   // {/* <!-- Recommended-ad-unit --> */}
-              //   <ins className="adsbygoogle"
-              //   style={{ display: 'block' }}
-              //   data-ad-client="ca-pub-1339539882255727"
-              //   data-ad-slot="9618957531"
-              //   data-ad-format="auto"
-              //   data-full-width-responsive="true"></ins>
-              // )
-            }
-            {/* <AdsenseScript /> */}
+            <div className="mb-8">
+                {
+                    placeAdUnit && (
+                        // {/* <!-- Recommended-ad-unit --> */}
+                        <ins className="adsbygoogle"
+                        style={{ display: 'block' }}
+                        data-ad-client="ca-pub-1339539882255727"
+                        data-ad-slot="9618957531"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    )
+                }
+            </div>
+            <AdsenseScript />
             {/* <AWeberScript /> */}
             <div className="bg-white dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -150,7 +152,22 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                 </div>
                 <div className="col-span-1 lg:col-span-8">
                   {currentPosts.map((post, index) => (
-                    <PostCard key={post.node.title} post={post.node} />
+                    <div key={index}>
+                      <PostCard post={post.node} />
+                      <div className="mb-8">
+                          {
+                              placeAdUnit && (
+                                  // {/* <!-- Recommended-ad-unit --> */}
+                                  <ins className="adsbygoogle"
+                                  style={{ display: 'block' }}
+                                  data-ad-client="ca-pub-1339539882255727"
+                                  data-ad-slot="9618957531"
+                                  data-ad-format="auto"
+                                  data-full-width-responsive="true"></ins>
+                              )
+                          }
+                      </div>
+                    </div>
                   ))}
                   
                   {/*  <!-- Pagination --> */}
@@ -205,6 +222,19 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                 </div>
                 <div className="col-span-1 lg:col-span-4">
                   <div className="relative lg:sticky top-8">
+                    <div className="mb-8">
+                        {
+                            placeAdUnit && (
+                                // <!-- Vertical_Recommended_AdUnit -->
+                                <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-1339539882255727"
+                                data-ad-slot="9697463409"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            )
+                        }
+                    </div>
                     <Categories />
                   </div>
                 </div>
