@@ -13,8 +13,11 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
   const [categoryPosts, setCategoryPosts] = useState([]);
   useEffect(() => {
     setIsLoading(true);
-    setCategoryPosts(catPosts);
-    setIsLoading(false);
+    if (catPosts) {
+      setCategoryPosts(catPosts);
+      setIsLoading(false);
+    }
+
   }, [catPosts]);
 
   const router = useRouter();

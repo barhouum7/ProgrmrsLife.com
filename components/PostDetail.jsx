@@ -618,8 +618,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     return (
             <div>
                 <Head>
-                    <title>{`${post.title} ${
-                        new Date().getFullYear()
+                    <title>{`${post.title} — ${
+                        // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
+                        new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
                     } | Programmers Life`}</title>
                     <meta name="description" content={post.excerpt} />
                     <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
@@ -757,7 +758,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                         }
                     </div>
                     <h1 className='mb-8 mt-4 text-3xl font-semibold'>
-                        {post.title} | {new Date().getFullYear()}
+                        {post.title} — {
+                            // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
+                            new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
+                        }
                     </h1>
                     {/* {console.log(post.content.json.children)} */}
                     {/* {post.content.json.children[0].children[0].text} */}

@@ -49,19 +49,27 @@ export default function Home ({ posts, error }) {
   const [blogPosts, setBlogPosts] = useState([]);
   useEffect(() => {
     setIsLoading(true);
-    // Fetch posts from API
-    getPosts()
-      .then((data) => {
-        // Update posts data and set loading state to false
-        setBlogPosts(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        // Handle error and set loading state to false
-        console.error(error);
-        setIsLoading(false);
-      });
-  }, []);
+    if (posts.length) {
+      setBlogPosts(posts);
+      setIsLoading(false);
+    }
+  }, [posts]);
+  
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   // Fetch posts from API
+  //   getPosts()
+  //     .then((data) => {
+  //       // Update posts data and set loading state to false
+  //       setBlogPosts(data);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       // Handle error and set loading state to false
+  //       console.error(error);
+  //       setIsLoading(false);
+  //     });
+  // }, []);
   
 
   const [shuffledPosts, setShuffledPosts] = useState([]);

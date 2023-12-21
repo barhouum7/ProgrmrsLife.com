@@ -17,6 +17,7 @@ const PostDetails = ({ post, error }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [postDetails, setPostDetails] = useState([]);
     useEffect(() => {
+        setIsLoading(true);
         if (post) {
             setPostDetails(post);
             setIsLoading(false);
@@ -166,8 +167,9 @@ const PostDetails = ({ post, error }) => {
                     ) : (
                         <>
                             <Head>
-                                <title>{`${post.title} ${
-                                    new Date().getFullYear()
+                                <title>{`${post.title} — ${
+                                        // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
+                                        new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
                                 } | Programmers Life`}</title>
                                 <meta name="description" content={post.excerpt} />
                                 <link rel="icon" href="/imgs/favicon.svg" />

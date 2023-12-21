@@ -29,9 +29,9 @@ const PostCard = ({post}) => {
             </div>
             <h1 className="transition duration-700 text-center cursor-pointer dark:text-gray-400 dark:hover:text-pink-300 text-violet-700 hover:text-pink-300 text-3xl font-semibold mb-8">
                 <Link href={`/post/${post.slug}`}>
-                    {post.title} | {
-                        // Current Year
-                        new Date().getFullYear()
+                    {post.title} — {
+                        // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
+                        new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
                     }
                 </Link>
             </h1>
