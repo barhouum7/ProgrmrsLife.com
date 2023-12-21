@@ -168,6 +168,7 @@ const Layout = ({ children }) => {
                 } catch (e) { }
             }
         // console.log('adsbygoogle: ', document.getElementsByClassName("adsbygoogle"));
+        signalGooglefcPresent();
     }, []);
 
   return (

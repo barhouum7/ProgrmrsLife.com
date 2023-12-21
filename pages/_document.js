@@ -35,18 +35,18 @@ class MyDocument extends Document {
               ></script>
             {/* <!-- End Google Tag Manager --> */}
           {/* Sharethis integration code */}
-          <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" async="async"></script>
+          <script src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" async="async"></script>
+          
           {/* Google Adsense Allow Ads message tag */}
-          {/* <script async src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" nonce="AcS-s_S5_la-tqzvZpCe7g"></script>
+          <script async src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" nonce="ML-8Zn0qG97P5bAGURNW3Q"></script>
           <script
-            type="text/javascript"
-            nonce="AcS-s_S5_la-tqzvZpCe7g"
+            nonce="ML-8Zn0qG97P5bAGURNW3Q"
             dangerouslySetInnerHTML={{
               __html: `
               (function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();
               `,
             }}
-          ></script> */}
+          ></script>
           {/* Allow Ads Error protection message */}
         </Head>
         <body>
