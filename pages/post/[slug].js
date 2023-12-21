@@ -325,11 +325,50 @@ const PostDetails = ({ post, error }) => {
                                             }
                                         </div>
                                         <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
+                                        <div className="mb-8">
+                                            {
+                                                placeAdUnit && (
+                                                    // {/* <!-- Recommended-ad-unit --> */}
+                                                    <ins className="adsbygoogle"
+                                                    style={{ display: 'block' }}
+                                                    data-ad-client="ca-pub-1339539882255727"
+                                                    data-ad-slot="9618957531"
+                                                    data-ad-format="auto"
+                                                    data-full-width-responsive="true"></ins>
+                                                )
+                                            }
+                                        </div>
                                         <div id='commentForm'>
                                             <CommentsForm slug={post.slug} postTitle={post.title} />
                                         </div>
+                                        <div className="mb-8">
+                                            {
+                                                placeAdUnit && (
+                                                    // {/* <!-- Recommended-ad-unit --> */}
+                                                    <ins className="adsbygoogle"
+                                                    style={{ display: 'block' }}
+                                                    data-ad-client="ca-pub-1339539882255727"
+                                                    data-ad-slot="9618957531"
+                                                    data-ad-format="auto"
+                                                    data-full-width-responsive="true"></ins>
+                                                )
+                                            }
+                                        </div>
                                         <div id='allComments'>
                                             <Comments slug={post.slug} />
+                                        </div>
+                                        <div className="mb-8">
+                                            {
+                                                placeAdUnit && (
+                                                    // {/* <!-- Recommended-ad-unit --> */}
+                                                    <ins className="adsbygoogle"
+                                                    style={{ display: 'block' }}
+                                                    data-ad-client="ca-pub-1339539882255727"
+                                                    data-ad-slot="9618957531"
+                                                    data-ad-format="auto"
+                                                    data-full-width-responsive="true"></ins>
+                                                )
+                                            }
                                         </div>
                                     </div>
 
@@ -350,6 +389,19 @@ const PostDetails = ({ post, error }) => {
                                             </div>
                                             <PostWidget slug={post.slug} categories={post.categories.map((category) => category.slug)} />
                                             <Categories />
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        // <!-- Vertical_Recommended_AdUnit -->
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9697463409"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    )
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
