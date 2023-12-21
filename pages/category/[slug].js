@@ -8,6 +8,15 @@ import { getCategories, getCategoryPost, getCategory, getPosts } from '../../ser
 import { PostCard, Categories, Loader, AdsenseScript } from '../../components';
 
 const CategoryPost = ({ catPosts, categoryName, error }) => {
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [categoryPosts, setCategoryPosts] = useState([]);
+  useEffect(() => {
+    setIsLoading(true);
+    setCategoryPosts(catPosts);
+    setIsLoading(false);
+  }, [catPosts]);
+
   const router = useRouter();
 
   if (router.isFallback) {
@@ -93,6 +102,9 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
   return (
     <>
       {
+        isLoading ? (
+          <Loader />
+        ) :
         error ? (
           <div className="text-center justify-center">
               <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>

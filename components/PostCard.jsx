@@ -29,7 +29,10 @@ const PostCard = ({post}) => {
             </div>
             <h1 className="transition duration-700 text-center cursor-pointer dark:text-gray-400 dark:hover:text-pink-300 text-violet-700 hover:text-pink-300 text-3xl font-semibold mb-8">
                 <Link href={`/post/${post.slug}`}>
-                    {post.title}
+                    {post.title} | {
+                        // Current Year
+                        new Date().getFullYear()
+                    }
                 </Link>
             </h1>
             <div className="block lg:flex text-center items-center justify-center mb-8 w-full">

@@ -13,6 +13,16 @@ import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loa
 import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [postDetails, setPostDetails] = useState([]);
+    useEffect(() => {
+        if (post) {
+            setPostDetails(post);
+            setIsLoading(false);
+        }
+    }, [post]);
+
     const router = useRouter();
 
     const [isCopied, setIsCopied] = useState(false);
@@ -145,6 +155,9 @@ const PostDetails = ({ post, error }) => {
     return (
         <>
             {
+                isLoading ? (
+                    <Loader />
+                ) :
                 error ? (
                         <div className="text-center justify-center">
                             <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
@@ -153,7 +166,9 @@ const PostDetails = ({ post, error }) => {
                     ) : (
                         <>
                             <Head>
-                                <title>{`${post.title} | Programmers Life`}</title>
+                                <title>{`${post.title} ${
+                                    new Date().getFullYear()
+                                } | Programmers Life`}</title>
                                 <meta name="description" content={post.excerpt} />
                                 <link rel="icon" href="/imgs/favicon.svg" />
                                 <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />

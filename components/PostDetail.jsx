@@ -618,7 +618,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     return (
             <div>
                 <Head>
-                    <title>{`${post.title} | Programmers Life`}</title>
+                    <title>{`${post.title} ${
+                        new Date().getFullYear()
+                    } | Programmers Life`}</title>
                     <meta name="description" content={post.excerpt} />
                     <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
                     <meta property="og:title" content={post.title} />
@@ -755,7 +757,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                         }
                     </div>
                     <h1 className='mb-8 mt-4 text-3xl font-semibold'>
-                        {post.title}
+                        {post.title} | {new Date().getFullYear()}
                     </h1>
                     {/* {console.log(post.content.json.children)} */}
                     {/* {post.content.json.children[0].children[0].text} */}
