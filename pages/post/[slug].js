@@ -17,7 +17,6 @@ const PostDetails = ({ post, error }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [postDetails, setPostDetails] = useState([]);
     useEffect(() => {
-        setIsLoading(true);
         if (post) {
             setPostDetails(post);
             setIsLoading(false);
