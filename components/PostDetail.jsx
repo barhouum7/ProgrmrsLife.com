@@ -93,9 +93,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             const divTagChildren = divTag.children[0];
 
             if (isViewAll) {
-                divTagChildren.innerHTML = '<span>View All</span>';
+                divTagChildren.innerHTML = '<button>View All</button>';
             } else if (isViewLess) {
-                divTagChildren.innerHTML = '<span>View Less</span>';
+                divTagChildren.innerHTML = '<button>View Less</button>';
             }
         });
 
@@ -1041,11 +1041,11 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     <div className="table-of-contents relative rounded-md p-4 my-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-400 shadow-inner transition duration-500 ease-in-out">
                                         {/* // Add an absolutely positioned element to the table of contents */}
                                         {/* // that will be used to toggle the table of contents */}
-                                        <div onClick={handleToggleElementClick}
+                                        <button onClick={handleToggleElementClick}
                                         className="toggle-element absolute top-5 right-5 cursor-pointer font-bold text-indigo-600 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full px-1 shadow-xl dark:shadow-xl hover:shadow-inner hover:shadow-indigo-200 dark:hover:shadow-gray-700 shadow-indigo-600 dark:shadow-indigo-600"
                                         >
                                             <i className="fas fa-chevron-up"></i>
-                                        </div>
+                                        </button>
 
                                         {children}
                                     </div>

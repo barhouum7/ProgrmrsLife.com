@@ -8,103 +8,114 @@ import { initializeAdBlockRecovery } from "../adBlockRecovery";
 
 
 // // Make HeartAnimation effect
-function makeHeartAnimation () {
+function makeHeartAnimation() {
   var brd = document.createElement("DIV");
-		document.body.insertBefore(brd, document.body.firstChild);
+  document.body.insertBefore(brd, document.body.firstChild);
 
-		const duration = 3000;
-		const speed = 0.5;
-		const cursorXOffset = 0;
-		const cursorYOffset = -5;
+  const duration = 3000;
+  const speed = 0.5;
+  const cursorXOffset = 0;
+  const cursorYOffset = -5;
 
-		var hearts = [];
-		
-		function generateHeart(x, y, xBound, xStart, scale)
-		{
-			var heart = document.createElement("DIV");
-			heart.setAttribute('class', 'heart');
-			brd.appendChild(heart);
-			heart.time = duration;
-			heart.x = x;
-			heart.y = y;
-			heart.bound = xBound;
-			heart.direction = xStart;
-			heart.style.left = heart.x + "px";
-			heart.style.top = heart.y + "px";
-			heart.scale = scale;
-			heart.style.transform = "scale(" + scale + "," + scale + ")";
-			if(hearts == null)
-				hearts = [];
-			hearts.push(heart);
-			return heart;
-		}
+  var hearts = [];
 
-		var down = false;
-		var event = null;
+  function generateHeart(x, y, xBound, xStart, scale) {
+    var heart = document.createElement("DIV");
+    heart.setAttribute('class', 'heart');
+    brd.appendChild(heart);
+    heart.time = duration;
+    heart.x = x;
+    heart.y = y;
+    heart.bound = xBound;
+    heart.direction = xStart;
+    heart.style.left = heart.x + "px";
+    heart.style.top = heart.y + "px";
+    heart.scale = scale;
+    heart.style.transform = "scale(" + scale + "," + scale + ")";
+    if (hearts == null)
+      hearts = [];
+    hearts.push(heart);
+    return heart;
+  }
 
-		document.onmousedown = function(e) {
-			down = true;
-			event = e;
-		}
+  var isMouseMoving = false;
+  var isAnimationPaused = false; // New flag to control animation pause
+  var before = Date.now();
+  var id = setInterval(frame, 5);
+  var gr = setInterval(check, 100);
 
-		document.onmouseup = function(e) {
-			down = false;
-		}
+  document.onmousemove = function (e) {
+    isMouseMoving = true;
+    event = e; // Set the global event object
+  }
 
-		document.onmousemove = function(e) {
-			event = e;
-		}
+  document.onmouseout = function (e) {
+    isMouseMoving = false;
+  }
 
-		document.ontouchstart = function(e) {
-			down = true;
-			event = e.touches[0];
-		}
+  // Pause animation when mouse is over a link or button
+  document.querySelectorAll('a, button').forEach(function (element) {
+    element.addEventListener('mouseenter', function () {
+      isAnimationPaused = true;
+    });
 
-		document.ontouchend = function(e) {
-			down = false;
-		}
+    element.addEventListener('mouseleave', function () {
+      isAnimationPaused = false;
+    });
+  });
 
-		document.ontouchmove = function(e) {
-			event = e.touches[0];
-		}
+  function frame() {
+    // Pause animation if isAnimationPaused is true
+    if (isAnimationPaused) {
+      return;
+    }
 
-		var before = Date.now();
-		var id = setInterval(frame, 5);
-		var gr = setInterval(check, 100);
+    var current = Date.now();
+    var deltaTime = current - before;
+    before = current;
+    for (var i in hearts) {
+      var heart = hearts[i];
+      heart.time -= deltaTime;
+      if (heart.time > 0) {
+        heart.y -= speed;
+        heart.style.top = heart.y + "px";
+        heart.style.left = heart.x + heart.direction * heart.bound * Math.sin(heart.y * heart.scale / 30) / heart.y * 200 + "px";
+      } else {
+        heart.parentNode.removeChild(heart);
+        hearts.splice(i, 1);
+      }
+    }
+  }
 
-		function frame()
-		{
-			var current = Date.now();
-			var deltaTime = current - before;
-			before = current;
-			for(var i in hearts)
-			{
-				var heart = hearts[i];
-				heart.time -= deltaTime;
-				if(heart.time > 0)
-				{
-					heart.y -= speed;
-					heart.style.top = heart.y + "px";
-					heart.style.left = heart.x + heart.direction * heart.bound * Math.sin(heart.y * heart.scale / 30) / heart.y * 200 + "px";
-				}
-				else
-				{
-					heart.parentNode.removeChild(heart);
-					hearts.splice(i, 1);
-				}
-			}
-		}
+  function check() {
+    // Pause animation if isAnimationPaused is true or mouse is over a link or button
+    if (isAnimationPaused || isMouseOverLinkOrButton(event)) {
+      return;
+    }
 
-		function check()
-		{
-			if(down)
-			{
-				var start = 1 - Math.round(Math.random()) * 2;
-				var scale = Math.random() * Math.random() * 0.8 + 0.2;
-				var bound = 30 + Math.random() * 20;
-				generateHeart(event.pageX - brd.offsetLeft + cursorXOffset, event.pageY - brd.offsetTop + cursorYOffset, bound, start, scale);
-			}
-		}
+    if (isMouseMoving && event) {
+      var start = 1 - Math.round(Math.random()) * 2;
+      var scale = Math.random() * Math.random() * 0.8 + 0.2;
+      var bound = 30 + Math.random() * 20;
+      generateHeart(event.pageX - brd.offsetLeft + cursorXOffset, event.pageY - brd.offsetTop + cursorYOffset, bound, start, scale);
+    }
+  }
+
+  // Helper function to check if the mouse is over a link or button
+  function isMouseOverLinkOrButton(event) {
+    if (event && event.clientX && event.clientY) {
+      var element = document.elementFromPoint(event.clientX, event.clientY);
+
+      // Traverse up the DOM tree until finding a button or link element
+      while (element) {
+        if (element.tagName === 'A' || element.tagName === 'BUTTON') {
+          return true;
+        }
+        element = element.parentElement;
+      }
+    }
+    return false;
+  }
 }
 
 const Layout = ({ children }) => {
@@ -322,14 +333,6 @@ const Layout = ({ children }) => {
           crossOrigin="anonymous"
           async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
         ></script>
-
-        {/* // Code from AdSense to detect Ad blockers */}
-        <script async src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" 
-        nonce="ML-8Zn0qG97P5bAGURNW3Q"></script>
-        <script nonce="ML-8Zn0qG97P5bAGURNW3Q">
-          (function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}
-          })();
-        </script>
         
       </Head>
       

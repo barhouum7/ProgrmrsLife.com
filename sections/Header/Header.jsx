@@ -184,7 +184,7 @@ const Header = ({showBanner}) => {
     
     if(currentTheme === "dark") {
       return (
-        // <div className="sunny-background">
+        <button>
           <HiSun id='sun-icon' className={`rounded-lg p-2 mt-1 w-9 h-9 text-yellow-400 animate-spin hover:animate-none
           `}
           role="button" 
@@ -198,13 +198,13 @@ const Header = ({showBanner}) => {
           onMouseLeave={() => setIsHovered(false)}
           onChange={() => setIsToggleSwitched(!isToggleSwitched)}
           />
-        // </div>
+        </button>
       )
     }
 
     else {
       return (
-        <div className="starry-background">
+        <button className="starry-background -mb-4">
           <HiMoon id='moon-icon'
           className={`rounded-lg p-2 mt-1 w-9 h-9 text-gray-900 animate-spin hover:animate-none
           `}
@@ -219,7 +219,7 @@ const Header = ({showBanner}) => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           />
-        </div>
+        </button>
       )
     }
 };
