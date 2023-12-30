@@ -1056,14 +1056,14 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         <div id='popup-page-link' className="popup-page">
                                             <blockquote className='mb-8 italic text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-gray-200 dark:shadow-gray-700 shadow-inner'>
                                                 Log in using these &nbsp;
-                                                <span onClick={() => {
+                                                <button onClick={() => {
                                                     setShowPopupPage(true)
                                                     const popupPageElement = document.querySelector('.popup-page');
                                                     if (popupPageElement) {
                                                         popupPageElement.scrollIntoView();
                                                     }
                                                 }}
-                                                className="text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500 hover:underline dark:hover:underline" title="LinkedIn Learning Free trial Accounts">Free trials here ⬇</span>
+                                                className="text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500 hover:underline dark:hover:underline" title="LinkedIn Learning Free trial Accounts">Free trials here ⬇</button>
                                             </blockquote>
                                         </div>
                                         {
