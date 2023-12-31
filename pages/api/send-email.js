@@ -19,13 +19,13 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
+      user: process.env.AUTH_EMAIL_ADDRESS,
+      pass: process.env.AUTH_EMAIL_PASS,
     },
   });
 
 // Get the recipient email address from an environment variable
-const toEmail = process.env.EMAIL_ADDRESS;
+const toEmail = process.env.SENDER_EMAIL_ADDRESS;
 
 const handler = (req, res) => {
   // Run the cors middleware

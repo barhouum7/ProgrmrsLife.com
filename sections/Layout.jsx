@@ -88,11 +88,11 @@ function makeHeartAnimation() {
   }
 
   function check() {
-    // Pause animation if isAnimationPaused is true or mouse is over a link or button
-    if (isAnimationPaused || isMouseOverLinkOrButton(event)) {
+    // Pause animation if isAnimationPaused is true or mouse is over an interactive element
+    if (isAnimationPaused || isMouseOverInteractiveElement(event)) {
       return;
     }
-
+  
     if (isMouseMoving && event) {
       var start = 1 - Math.round(Math.random()) * 2;
       var scale = Math.random() * Math.random() * 0.8 + 0.2;
@@ -100,15 +100,16 @@ function makeHeartAnimation() {
       generateHeart(event.pageX - brd.offsetLeft + cursorXOffset, event.pageY - brd.offsetTop + cursorYOffset, bound, start, scale);
     }
   }
+  
 
-  // Helper function to check if the mouse is over a link or button
-  function isMouseOverLinkOrButton(event) {
+  // Helper function to check if the mouse is over a link, button, input, or textarea elements
+  function isMouseOverInteractiveElement(event) {
     if (event && event.clientX && event.clientY) {
       var element = document.elementFromPoint(event.clientX, event.clientY);
-
-      // Traverse up the DOM tree until finding a button or link element
+  
+      // Traverse up the DOM tree until finding an interactive element (a, button, input, or textarea)
       while (element) {
-        if (element.tagName === 'A' || element.tagName === 'BUTTON') {
+        if (element.tagName === 'A' || element.tagName === 'BUTTON' || element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
           return true;
         }
         element = element.parentElement;
@@ -116,6 +117,7 @@ function makeHeartAnimation() {
     }
     return false;
   }
+  
 }
 
 const Layout = ({ children }) => {
@@ -354,19 +356,16 @@ const Layout = ({ children }) => {
               }`}
               >
                     <div className="flex container mx-auto justify-center text-center z-50">
-                    <p>
-                    Our website has moved to{' '}
-                    <a href="https://progrmrslife.com" className="underline">
-                        progrmrslife.com
-                    </a>
-                    . Please update your bookmarks.
-                    </p>
-                    <button
-                    className="ml-2 px-3 py-1 rounded-md bg-yellow-600 hover:bg-opacity-80 transition-colors duration-300"
-                    onClick={handleCloseBanner}
-                    >
-                    Close
-                    </button>
+                      <p className="flex items-center">
+                      <span className="mr-2">🔥</span>
+                      <span className="font-bold">We are now providing sponsoring services for your business. <a href="/ContactUs" className="underline">Contact us</a> for more information.</span>
+                      </p>
+                      <button
+                      className="ml-2 px-3 py-1 rounded-md bg-yellow-600 hover:bg-opacity-80 transition-colors duration-300"
+                      onClick={handleCloseBanner}
+                      >
+                      Close
+                      </button>
                 </div>
               </div>
           </div>
