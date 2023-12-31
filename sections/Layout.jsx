@@ -191,8 +191,8 @@ const Layout = ({ children }) => {
       {`
           (function(d){
             var s = d.createElement('script');
-            /* uncomment the following line to override default position*/
-            s.setAttribute('data-position', 3);
+            /* uncomment the following line to override default position */
+            s.setAttribute('data-position', 5);
             /* uncomment the following line to override default size (values: small, large)*/
             /* s.setAttribute('data-size', 'small');*/
             /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/

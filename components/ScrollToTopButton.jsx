@@ -35,7 +35,7 @@ const ScrollToTopButton = () => {
   return (
     <>
       {showScroll && (
-          <button className="fixed bottom-40 right-6 w-10 h-10 rounded-full border-none bg-gray-800 hover:bg-gray-900 cursor-pointer z-20 transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out" onClick={scrollToTop}>
+          <button className="fixed bottom-24 right-6 w-10 h-10 rounded-full border-none bg-gray-800 hover:bg-gray-900 cursor-pointer z-20 transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out" onClick={scrollToTop}>
             {/* <FiChevronUp className="text-white text-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" /> */}
             {/* <BsChevronUp className="text-white text-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" /> */}
             {/* <FaChevronUp className="text-white text-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" /> */}
