@@ -13,7 +13,7 @@ class MyDocument extends Document {
         <Head>
           {/* // Code from AdSense (Ad Blocking Recovery Code) */}
           <Script async src="https://fundingchoicesmessages.google.com/i/pub-5021308603136043?ers=1" nonce="xfSPYvIvCASQi3buWSF2eg"></Script>
-          <Script nonce="xfSPYvIvCASQi3buWSF2eg">{`${(function() {function signalGooglefcPresent() {if (typeof window !== undefined && !window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})()}`}</Script>
+          <Script nonce="xfSPYvIvCASQi3buWSF2eg">{`(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})()`}</Script>
 
           {/* // Code from AdSense (Ad Blocking Recovery Code - Error Protection Message) */}
           <Script>
