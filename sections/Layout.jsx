@@ -266,7 +266,7 @@ const Layout = ({ children }) => {
         <meta name="twitter:app:id:ipad" content="id1520000000" />
         <meta name="twitter:app:url:ipad" content="https://progrmrslife.com/" />
         <meta name="twitter:app:name:googleplay" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
-        <meta name="twitter:app:id:googleplay" content="com.programmerslife" />
+        <meta name="twitter:app:id:googleplay" content="com.progrmrslife" />
         <meta name="twitter:app:url:googleplay" content="https://progrmrslife.com/" />
         <meta name="twitter:app:country" content="US" />
         <meta name="twitter:app:name:iphone" content="ProgrammersLife - Your Guide to Web Development, Tips & Tricks and Tech News" />
@@ -326,14 +326,16 @@ const Layout = ({ children }) => {
         <meta name="googlebot-translation-variant-variant" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
         <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
-        <meta name="google-adsense-account" content="ca-pub-1339539882255727" />
+        {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
+        <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
 
         {/* // Code from AdSense */}
         <script 
           id="adsbygoogle-init"
           strategy="afterInteractive"
           crossOrigin="anonymous"
-          async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+          async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
+          // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
         ></script>
         
       </Head>

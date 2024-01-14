@@ -680,13 +680,23 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 <div className="mb-8">
                     {
                         placeAdUnit && (
-                            // {/* <!-- Recommended-ad-unit --> */}
-                            <ins className="adsbygoogle"
-                            style={{ display: 'block' }}
-                            data-ad-client="ca-pub-1339539882255727"
-                            data-ad-slot="9618957531"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins>
+                            <>
+                                {/* <!-- Recommended-ad-unit --> */}
+                                {/* <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-1339539882255727"
+                                data-ad-slot="9618957531"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins> */}
+
+                                {/* <!-- Recommended-ad-unit --> */}
+                                <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-5021308603136043"
+                                data-ad-slot="3167248456"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            </>
                         )
                     }
                 </div>
@@ -902,10 +912,47 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             const isWaitingBlock = className === 'waiting-block';
                             // console.log(isWaitingBlock);
                             const isCaptionText = className === 'caption-text';
+
+                            // if isSubtitle === subtitle-2, then return children with an ad-unit
+                            if (isSubtitle === 'subtitle-2') {
+                                return (
+                                    <>
+                                        {children}
+                                        <div className="mb-8">
+                                            {
+                                                placeAdUnit && (
+                                                    <>
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block', textAlign: 'center' }}
+                                                        data-ad-layout="in-article"
+                                                        data-ad-format="fluid"
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="6952766017"></ins>
+                                                    </>
+                                                )
+                                            }
+                                        </div>
+                                    </>
+                                )
+                            }
                         
                             if (isWaitingBlock) {
                                     return (
                                         <div id='follow-steps'>
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        <>
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block', textAlign: 'center' }}
+                                                            data-ad-layout="in-article"
+                                                            data-ad-format="fluid"
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="6952766017"></ins>
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
                                             {
                                                 !showGetLinkButton && !showToast && showWelcomeMessage && (
                                                     <div className='flex justify-center align-middle -mt-4 mb-4'>
@@ -1016,6 +1063,29 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                 </div>
                                                             </button>
                                                         </Tooltip>
+                                                        <div className="mb-8">
+                                                            {
+                                                                placeAdUnit && (
+                                                                    <>
+                                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                                        {/* <ins className="adsbygoogle"
+                                                                        style={{ display: 'block' }}
+                                                                        data-ad-client="ca-pub-1339539882255727"
+                                                                        data-ad-slot="9618957531"
+                                                                        data-ad-format="auto"
+                                                                        data-full-width-responsive="true"></ins> */}
+
+                                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                                        <ins className="adsbygoogle"
+                                                                        style={{ display: 'block' }}
+                                                                        data-ad-client="ca-pub-5021308603136043"
+                                                                        data-ad-slot="3167248456"
+                                                                        data-ad-format="auto"
+                                                                        data-full-width-responsive="true"></ins>
+                                                                    </>
+                                                                )
+                                                            }
+                                                        </div>
                                                     </div>
                                                 )
                                             }
@@ -1030,6 +1100,29 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                     <div className="waiting-block">{children}</div>
                                                 )
                                             }
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        <>
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9618957531"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
                                         </div>
                                     )
                             } else if (isCaptionText) {
@@ -1066,6 +1159,29 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                 className="text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500 hover:underline dark:hover:underline" title="LinkedIn Learning Free trial Accounts">Free trials here ⬇</button>
                                             </blockquote>
                                         </div>
+                                        <div className="mb-8">
+                                            {
+                                                placeAdUnit && (
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
+                                                )
+                                            }
+                                        </div>
                                         {
                                             showPopupPage && (
                                                 <>
@@ -1078,6 +1194,29 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                         <img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" className="w-40" />
                                                                     </a>
                                                                 </div>
+                                                            </div>
+                                                            <div className="mb-8">
+                                                                {
+                                                                    placeAdUnit && (
+                                                                        <>
+                                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                                            {/* <ins className="adsbygoogle"
+                                                                            style={{ display: 'block' }}
+                                                                            data-ad-client="ca-pub-1339539882255727"
+                                                                            data-ad-slot="9618957531"
+                                                                            data-ad-format="auto"
+                                                                            data-full-width-responsive="true"></ins> */}
+
+                                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                                            <ins className="adsbygoogle"
+                                                                            style={{ display: 'block' }}
+                                                                            data-ad-client="ca-pub-5021308603136043"
+                                                                            data-ad-slot="3167248456"
+                                                                            data-ad-format="auto"
+                                                                            data-full-width-responsive="true"></ins>
+                                                                        </>
+                                                                    )
+                                                                }
                                                             </div>
                                                             <div className="popup-page__content__body text-gray-900 dark:text-white px-8 sm:p-4 sm:max-w-lg max-w-sm">
                                                                 {children}
@@ -1145,6 +1284,29 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     <div className='w-10 h-10 rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
                                                                 </button>
                                                             </Tooltip>
+                                                            <div className="mb-8">
+                                                                {
+                                                                    placeAdUnit && (
+                                                                        <>
+                                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                                            {/* <ins className="adsbygoogle"
+                                                                            style={{ display: 'block' }}
+                                                                            data-ad-client="ca-pub-1339539882255727"
+                                                                            data-ad-slot="9618957531"
+                                                                            data-ad-format="auto"
+                                                                            data-full-width-responsive="true"></ins> */}
+
+                                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                                            <ins className="adsbygoogle"
+                                                                            style={{ display: 'block' }}
+                                                                            data-ad-client="ca-pub-5021308603136043"
+                                                                            data-ad-slot="3167248456"
+                                                                            data-ad-format="auto"
+                                                                            data-full-width-responsive="true"></ins>
+                                                                        </>
+                                                                    )
+                                                                }
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </>
@@ -1216,13 +1378,23 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 <div className="mb-8">
                     {
                         placeAdUnit && (
-                            // {/* <!-- Recommended-ad-unit --> */}
-                            <ins className="adsbygoogle"
-                            style={{ display: 'block' }}
-                            data-ad-client="ca-pub-1339539882255727"
-                            data-ad-slot="9618957531"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins>
+                            <>
+                                {/* <!-- Recommended-ad-unit --> */}
+                                {/* <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-1339539882255727"
+                                data-ad-slot="9618957531"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins> */}
+
+                                {/* <!-- Recommended-ad-unit --> */}
+                                <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-5021308603136043"
+                                data-ad-slot="3167248456"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            </>
                         )
                     }
                 </div>

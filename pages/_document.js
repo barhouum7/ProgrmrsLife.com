@@ -11,13 +11,15 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          <meta name="google-adsense-account" content="ca-pub-1339539882255727" />
+          {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
+          <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
           {/* // Code from AdSense */}
           <script 
             id="adsbygoogle-init"
             strategy="afterInteractive"
             crossOrigin="anonymous"
-            async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+            async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
+            // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
           />
           <link rel="icon" href="/imgs/favicon.svg" />
             {/* <!-- Google Tag Manager --> */}

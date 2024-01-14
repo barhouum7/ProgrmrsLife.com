@@ -185,6 +185,138 @@ const PostDetails = ({ post, error }) => {
                                 <meta name="twitter:creator" content="https://links.progrmrslife.com" />
                                 <meta name="twitter:site" content="https://links.progrmrslife.com" />
                                 <meta name="twitter:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="twitter:domain" content="progrmrslife.com" />
+                                <meta name="twitter:app:name:iphone" content="ProgrammersLife" />
+                                <meta name="twitter:app:name:ipad" content="ProgrammersLife" />
+                                <meta name="twitter:app:name:googleplay" content="ProgrammersLife" />
+                                <meta name="twitter:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="twitter:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="twitter:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="twitter:app:id:iphone" content="id1527907634" />
+                                <meta name="twitter:app:id:ipad" content="id1527907634" />
+                                <meta name="twitter:app:id:googleplay" content="com.progrmrslife" />
+                                <meta name="twitter:app:country" content="US" />
+                                
+                                <meta name="facebook:card" content="summary_large_image" />
+                                <meta name="facebook:title" content={post.title} />
+                                <meta name="facebook:description" content={post.excerpt} />
+                                <meta name="facebook:image" content={post.featuredImage.url} />
+                                <meta name="facebook:creator" content="https://links.progrmrslife.com" />
+                                <meta name="facebook:site" content="https://links.progrmrslife.com" />
+                                <meta name="facebook:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="facebook:domain" content="progrmrslife.com" />
+                                <meta name="facebook:app:name:iphone" content="ProgrammersLife" />
+                                <meta name="facebook:app:name:ipad" content="ProgrammersLife" />
+                                <meta name="facebook:app:name:googleplay" content="ProgrammersLife" />
+                                <meta name="facebook:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="facebook:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="facebook:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="facebook:app:id:iphone" content="id1527907634" />
+                                <meta name="facebook:app:id:ipad" content="id1527907634" />
+                                <meta name="facebook:app:id:googleplay" content="com.progrmrslife" />
+                                <meta name="facebook:app:country" content="US" />
+
+                                <meta name="telegram:card" content="summary_large_image" />
+                                <meta name="telegram:title" content={post.title} />
+                                <meta name="telegram:description" content={post.excerpt} />
+                                <meta name="telegram:image" content={post.featuredImage.url} />
+                                <meta name="telegram:creator" content="https://links.progrmrslife.com" />
+                                <meta name="telegram:site" content="https://links.progrmrslife.com" />
+                                <meta name="telegram:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="telegram:domain" content="progrmrslife.com" />
+                                <meta name="telegram:app:name:iphone" content="ProgrammersLife" />
+                                <meta name="telegram:app:name:ipad" content="ProgrammersLife" />
+                                <meta name="telegram:app:name:googleplay" content="ProgrammersLife" />
+                                <meta name="telegram:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="telegram:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="telegram:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="telegram:app:id:iphone" content="id1527907634" />
+                                <meta name="telegram:app:id:ipad" content="id1527907634" />
+                                <meta name="telegram:app:id:googleplay" content="com.progrmrslife" />
+                                <meta name="telegram:app:country" content="US" />
+
+                                <meta name="google:card" content="summary_large_image" />
+                                <meta name="google:title" content={post.title} />
+                                <meta name="google:description" content={post.excerpt} />
+                                <meta name="google:image" content={post.featuredImage.url} />
+                                <meta name="google:creator" content="https://links.progrmrslife.com" />
+                                <meta name="google:site" content="https://links.progrmrslife.com" />
+                                <meta name="google:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="google:domain" content="progrmrslife.com" />
+                                <meta name="google:app:name:iphone" content="ProgrammersLife" />
+                                <meta name="google:app:name:ipad" content="ProgrammersLife" />
+                                <meta name="google:app:name:googleplay" content="ProgrammersLife" />
+                                <meta name="google:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="google:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="google:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="google:app:id:iphone" content="id1527907634" />
+                                <meta name="google:app:id:ipad" content="id1527907634" />
+                                <meta name="google:app:id:googleplay" content="com.progrmrslife" />
+                                <meta name="google:app:country" content="US" />
+
+                                <meta name="apple-mobile-web-app-title" content="ProgrammersLife" />
+                                <meta name="application-name" content="ProgrammersLife" />
+                                <meta name="msapplication-TileColor" content="#ffffff" />
+                                <meta name="msapplication-TileImage" content="/imgs/favicon.svg" />
+                                
+                                <meta name="robots" content="index, follow" />
+                                <meta name="googlebot" content="index, follow" />
+                                <meta name="googlebot-news" content="index, follow" />
+                                <meta name="googlebot-news-source" content="Programmers Life" />
+                                <meta name="googlebot-news-url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="googlebot-news-title" content={post.title} />
+                                <meta name="googlebot-news-keywords" content={post.categories.map((category) => category.name).join(', ')} />
+                                <meta name="googlebot-news-description" content={post.excerpt} />
+                                <meta name="googlebot-news-language" content="en" />
+                                <meta name="googlebot-news-publication-date" content={post.createdAt} />
+                                <meta name="googlebot-news-standout" content="Programmers Life" />
+                                <meta name="googlebot-news-standout-type" content="Programmers Life" />
+                                <meta name="googlebot-news-standout-id" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="googlebot-news-standout-ur" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="googlebot-news-standout-title" content={post.title} />
+                                <meta name="googlebot-news-standout-keywords" content={post.categories.map((category) => category.name).join(', ')} />
+                                <meta name="googlebot-news-standout-description" content={post.excerpt} />
+                                <meta name="googlebot-news-standout-language" content="en" />
+                                <meta name="googlebot-news-standout-publication-date" content={post.createdAt} />
+                                
+                                <meta name="bingbot" content="index, follow" />
+                                <meta name="yandex" content="index, follow" />
+                                <meta name="msnbot" content="index, follow" />
+                                <meta name="slurp" content="index, follow" />
+                                <meta name="duckduckbot" content="index, follow" />
+                                <meta name="teoma" content="index, follow" />
+                                <meta name="exabot" content="index, follow" />
+                                <meta name="facebot" content="index, follow" />
+                                <meta name="ia_archiver" content="index, follow" />
+                                <meta name="mj12bot" content="index, follow" />
+                                <meta name="pinterest" content="index, follow" />
+                                <meta name="twitterbot" content="index, follow" />
+                                <meta name="googlebot-news" content="index, follow" />
+                                <meta name="googlebot-image" content="index, follow" />
+                                <meta name="googlebot-video" content="index, follow" />
+                                <meta name="googlebot-mobile" content="index, follow" />
+                                <meta name="googlebot-ads" content="index, follow" />
+                                <meta name="googlebot-amp" content="index, follow" />
+                                <meta name="googlebot-favicons" content="index, follow" />
+                                <meta name="googlebot-webmasters" content="index, follow" />
+                                <meta name="googlebot-structured-data" content="index, follow" />
+                                <meta name="googlebot-nosnippet" content="index, follow" />
+                                <meta name="googlebot-noscript" content="index, follow" />
+                                <meta name="googlebot-crawl-delay" content="index, follow" />
+                                <meta name="googlebot-translation" content="index, follow" />
+                                <meta name="googlebot-translation-robots" content="index, follow" />
+                                <meta name="googlebot-translation-language" content="index, follow" />
+                                <meta name="googlebot-translation-country" content="index, follow" />
+                                <meta name="googlebot-translation-region" content="index, follow" />
+                                <meta name="googlebot-translation-variant" content="index, follow" />
+                                <meta name="googlebot-translation-variant-country" content="index, follow" />
+                                <meta name="googlebot-translation-variant-region" content="index, follow" />
+                                <meta name="googlebot-translation-variant-language" content="index, follow" />
+                                <meta name="googlebot-translation-variant-variant" content="index, follow" />
+                                <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
+                                <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
+
+
                                 <meta name="twitter:label1" content="Written by" />
                                 <meta name="twitter:data1" content={post.author.name} />
                                 <meta name="twitter:label2" content="Filed under" />
@@ -237,13 +369,23 @@ const PostDetails = ({ post, error }) => {
                             <div className="mb-8">
                                 {
                                     placeAdUnit && (
-                                        // {/* <!-- Recommended-ad-unit --> */}
-                                        <ins className="adsbygoogle"
-                                        style={{ display: 'block' }}
-                                        data-ad-client="ca-pub-1339539882255727"
-                                        data-ad-slot="9618957531"
-                                        data-ad-format="auto"
-                                        data-full-width-responsive="true"></ins>
+                                        <>
+                                            {/* <!-- Recommended-ad-unit --> */}
+                                            {/* <ins className="adsbygoogle"
+                                            style={{ display: 'block' }}
+                                            data-ad-client="ca-pub-1339539882255727"
+                                            data-ad-slot="9618957531"
+                                            data-ad-format="auto"
+                                            data-full-width-responsive="true"></ins> */}
+
+                                            {/* <!-- Recommended-ad-unit --> */}
+                                            <ins className="adsbygoogle"
+                                            style={{ display: 'block' }}
+                                            data-ad-client="ca-pub-5021308603136043"
+                                            data-ad-slot="3167248456"
+                                            data-ad-format="auto"
+                                            data-full-width-responsive="true"></ins>
+                                        </>
                                     )
                                 }
                             </div>
@@ -297,13 +439,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    // {/* <!-- Recommended-ad-unit --> */}
-                                                    <ins className="adsbygoogle"
-                                                    style={{ display: 'block' }}
-                                                    data-ad-client="ca-pub-1339539882255727"
-                                                    data-ad-slot="9618957531"
-                                                    data-ad-format="auto"
-                                                    data-full-width-responsive="true"></ins>
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -314,13 +466,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    // {/* <!-- Recommended-ad-unit --> */}
-                                                    <ins className="adsbygoogle"
-                                                    style={{ display: 'block' }}
-                                                    data-ad-client="ca-pub-1339539882255727"
-                                                    data-ad-slot="9618957531"
-                                                    data-ad-format="auto"
-                                                    data-full-width-responsive="true"></ins>
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -328,13 +490,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    // {/* <!-- Recommended-ad-unit --> */}
-                                                    <ins className="adsbygoogle"
-                                                    style={{ display: 'block' }}
-                                                    data-ad-client="ca-pub-1339539882255727"
-                                                    data-ad-slot="9618957531"
-                                                    data-ad-format="auto"
-                                                    data-full-width-responsive="true"></ins>
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -344,13 +516,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    // {/* <!-- Recommended-ad-unit --> */}
-                                                    <ins className="adsbygoogle"
-                                                    style={{ display: 'block' }}
-                                                    data-ad-client="ca-pub-1339539882255727"
-                                                    data-ad-slot="9618957531"
-                                                    data-ad-format="auto"
-                                                    data-full-width-responsive="true"></ins>
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -360,13 +542,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    // {/* <!-- Recommended-ad-unit --> */}
-                                                    <ins className="adsbygoogle"
-                                                    style={{ display: 'block' }}
-                                                    data-ad-client="ca-pub-1339539882255727"
-                                                    data-ad-slot="9618957531"
-                                                    data-ad-format="auto"
-                                                    data-full-width-responsive="true"></ins>
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -377,13 +569,23 @@ const PostDetails = ({ post, error }) => {
                                             <div className="mb-8">
                                                 {
                                                     placeAdUnit && (
-                                                        // <!-- Vertical_Recommended_AdUnit -->
-                                                        <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-1339539882255727"
-                                                        data-ad-slot="9697463409"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins>
+                                                        <>
+                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9697463409"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
                                                     )
                                                 }
                                             </div>
@@ -392,13 +594,23 @@ const PostDetails = ({ post, error }) => {
                                             <div className="mb-8">
                                                 {
                                                     placeAdUnit && (
-                                                        // <!-- Vertical_Recommended_AdUnit -->
-                                                        <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-1339539882255727"
-                                                        data-ad-slot="9697463409"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins>
+                                                        <>
+                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9697463409"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
                                                     )
                                                 }
                                             </div>
