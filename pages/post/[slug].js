@@ -332,7 +332,7 @@ const PostDetails = ({ post, error }) => {
                                 <meta name="twitter:label7" content="Share on Facebook" />
                                 <meta name="twitter:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="twitter:label8" content="Share on LinkedIn" />
-                                <meta name="twitter:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="twitter:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.excerpt}&source=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="facebook:card" content="summary_large_image" />
                                 <meta name="facebook:title" content={post.title} />
                                 <meta name="facebook:description" content={post.excerpt} />
@@ -355,10 +355,10 @@ const PostDetails = ({ post, error }) => {
                                 <meta name="facebook:label7" content="Share on Facebook" />
                                 <meta name="facebook:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="facebook:label8" content="Share on LinkedIn" />
-                                <meta name="facebook:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.description}&source=https://progrmrslife.com/post/${post.slug}`} />
+                                <meta name="facebook:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.excerpt}&source=https://progrmrslife.com/post/${post.slug}`} />
                                 <meta name="og:site_name" property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
                                 <meta name="og:type" property="og:type" content="article" />
-                                <meta name="og:locale" property="og:locale" content="en_US" />                                
+                                <meta name="og:locale" property="og:locale" content="en_US" />
                                 
                                 <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
                                 <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
