@@ -179,12 +179,12 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                       data-full-width-responsive="true"></ins> */}
 
                       {/* <!-- Recommended-ad-unit --> */}
-                      <ins className="adsbygoogle"
+                      {/* <ins className="adsbygoogle"
                       style={{ display: 'block' }}
                       data-ad-client="ca-pub-5021308603136043"
                       data-ad-slot="3167248456"
                       data-ad-format="auto"
-                      data-full-width-responsive="true"></ins>
+                      data-full-width-responsive="true"></ins> */}
                   </>
                   )
                 }
@@ -213,12 +213,12 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                                           data-full-width-responsive="true"></ins> */}
           
                                           {/* <!-- Recommended-ad-unit --> */}
-                                          <ins className="adsbygoogle"
+                                          {/* <ins className="adsbygoogle"
                                           style={{ display: 'block' }}
                                           data-ad-client="ca-pub-5021308603136043"
                                           data-ad-slot="3167248456"
                                           data-ad-format="auto"
-                                          data-full-width-responsive="true"></ins>
+                                          data-full-width-responsive="true"></ins> */}
                                       </>
                                     )
                                 }
@@ -283,12 +283,12 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                                     data-full-width-responsive="true"></ins> */}
 
                                     {/* <!-- Recommended-ad-unit --> */}
-                                    <ins className="adsbygoogle"
+                                    {/* <ins className="adsbygoogle"
                                     style={{ display: 'block' }}
                                     data-ad-client="ca-pub-5021308603136043"
                                     data-ad-slot="3167248456"
                                     data-ad-format="auto"
-                                    data-full-width-responsive="true"></ins>
+                                    data-full-width-responsive="true"></ins> */}
                                 </>
                               )
                           }
@@ -308,12 +308,12 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                                     data-full-width-responsive="true"></ins> */}
 
                                     {/* <!-- Recommended-ad-unit --> */}
-                                    <ins className="adsbygoogle"
+                                    {/* <ins className="adsbygoogle"
                                     style={{ display: 'block' }}
                                     data-ad-client="ca-pub-5021308603136043"
                                     data-ad-slot="3167248456"
                                     data-ad-format="auto"
-                                    data-full-width-responsive="true"></ins>
+                                    data-full-width-responsive="true"></ins> */}
                                 </>
                               )
                           }
