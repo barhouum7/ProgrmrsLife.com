@@ -8,11 +8,49 @@ import md5 from 'md5'
 import { getComments } from '../services'
 
 const Comments = ({ slug }) => {
+    const [page, setPage] = useState(1); // Initial page number
+    const [loading, setLoading] = useState(false); // Flag to indicate if new comments are being loaded
+    const [hasMore, setHasMore] = useState(true); // Flag to indicate if there are more comments available
+
     const [comments, setComments] = useState([])
+
     useEffect(() => {
-        getComments(slug)
-            .then((result) => setComments(result))
-    }, [])
+        setLoading(true);
+
+        getComments(slug, page)
+            .then((result) => {
+                setComments((prevComments) => [...prevComments, ...result]);
+                if (result.length < 10) {
+                    setHasMore(false);
+                }
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
+            })
+            .catch((error) => {
+                console.error("Error fetching comments:", error);
+                setLoading(false);
+            });
+    }, [slug, page]);
+
+
+    const handleScroll = () => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY;
+
+        if (windowHeight + scrollTop >= documentHeight - 1000 && !loading) {
+            setPage((prevPage) => prevPage + 1);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [loading]);
 
 
     const getGravatarURL = ( email ) => {
@@ -134,6 +172,54 @@ const Comments = ({ slug }) => {
                         )}
                     </div>
                 ))}
+
+                <div className='flex justify-center px-12 py-8 w-full'>
+                {loading && 
+                hasMore ?
+                (
+                    <div className='flex w-full'>
+                        <span className='text-2xl sm:text-3xl font-extrabold'>
+                            Loading more comments
+                        </span>
+                        <svg width="35" height="6" className="w-14 h-10 ml-4" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                            <circle cx="15" cy="15" r="15" className='bg-gray-400' fill='currentColor'>
+                                <animate attributeName="r" from="15" to="15"
+                                        begin="0s" dur="0.8s"
+                                        values="15;9;15" calcMode="linear"
+                                        repeatCount="indefinite" />
+                                <animate attributeName="fill-opacity" from="1" to="1"
+                                        begin="0s" dur="0.8s"
+                                        values="1;.5;1" calcMode="linear"
+                                        repeatCount="indefinite" />
+                            </circle>
+                            <circle cx="60" cy="15" r="9" fillOpacity="0.3" className='bg-gray-400' fill='currentColor'>
+                                <animate attributeName="r" from="9" to="9"
+                                        begin="0s" dur="0.8s"
+                                        values="9;15;9" calcMode="linear"
+                                        repeatCount="indefinite" />
+                                <animate attributeName="fill-opacity" from="0.5" to="0.5"
+                                        begin="0s" dur="0.8s"
+                                        values=".5;1;.5" calcMode="linear"
+                                        repeatCount="indefinite" />
+                            </circle>
+                            <circle cx="105" cy="15" r="15" className='bg-gray-400' fill='currentColor'>
+                                <animate attributeName="r" from="15" to="15"
+                                        begin="0s" dur="0.8s"
+                                        values="15;9;15" calcMode="linear"
+                                        repeatCount="indefinite" />
+                                <animate attributeName="fill-opacity" from="1" to="1"
+                                        begin="0s" dur="0.8s"
+                                        values="1;.5;1" calcMode="linear"
+                                        repeatCount="indefinite" />
+                            </circle>
+                        </svg>
+                    </div>
+                ) : (
+                    <span className='text-2xl sm:text-3xl font-extrabold'>
+                        No more comments
+                    </span>
+                )}
+                </div>
             </div>
             )}
         </div>

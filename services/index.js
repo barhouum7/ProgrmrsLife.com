@@ -160,9 +160,11 @@ export const submitComment = async (obj) => {
 
 
 
-export const getComments = async (slug) => {
+export const getComments = async (slug, page = 1, pageSize = 10) => {
+    const skip = (page - 1) * pageSize;
+
     const query = gql`
-        query GetComments ($slug: String!) {
+        query GetComments ($slug: String!, $skip: Int!, $pageSize: Int!) {
             comments(
                 where: {
                     post: { 
@@ -170,8 +172,9 @@ export const getComments = async (slug) => {
                     },
                 },
                 orderBy: createdAt_DESC,
-                first: 100
-                ) {
+                first: $pageSize,
+                skip: $skip
+            ) {
                 name
                 email
                 createdAt
@@ -181,10 +184,11 @@ export const getComments = async (slug) => {
                 }
             }
         }
-    `
-    const result = await handleErrors(graphqlAPI, query, { slug })
+    `;
+
+    const result = await handleErrors(graphqlAPI, query, { slug, skip, pageSize });
     return result.comments;
-}
+};
 
 
     export const getFeaturedPosts = async () => {
