@@ -19,7 +19,9 @@ const PostDetails = ({ post, error }) => {
     useEffect(() => {
         if (post) {
             setPostDetails(post);
-            setIsLoading(false);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 5000);
         }
     }, [post]);
 
@@ -28,9 +30,21 @@ const PostDetails = ({ post, error }) => {
     const [isCopied, setIsCopied] = useState(false);
 
 
-    if (router.isFallback) {
-        return <Loader />
+    if (router.isFallback) { // While the page is generating, the user will see a loading state until getStaticProps() finishes and the page is served.
+        return <Loader loading={isLoading} />;
     }
+
+    // If the slug changes, refresh the page
+    useEffect(() => {
+        setIsLoading(true);
+        // router.replace(router.asPath); // (router.asPath) is the current route including the query string
+        router.push(router.asPath); // (router.asPath) is the current route including the query string
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+        // router.push(router.asPath, undefined, { scroll: false }); // (router.asPath) is the current route including the query string, scroll: false will not scroll to the top of the page, and will keep the current scroll position. undefined is the as property, which is used to set the URL displayed in the browser on the client side. If undefined, it will default to the href property. If you want to show a different URL to the user than the actual URL, you can use the as property to do so.
+        // router.reload(); // Reload the current page
+    }, [router.query.slug]); // If the slug changes, refresh the page. (router.query.slug) is the current slug
 
     const enablePopupMessage = () => {
         // console.log('Please allow popups for this website to share this article.');
@@ -156,7 +170,7 @@ const PostDetails = ({ post, error }) => {
         <>
             {
                 isLoading ? (
-                    <Loader />
+                    <Loader loading={isLoading} />
                 ) :
                 error ? (
                         <div className="text-center justify-center">

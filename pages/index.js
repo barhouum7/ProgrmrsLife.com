@@ -48,12 +48,35 @@ export default function Home ({ posts, error }) {
   const [isLoading, setIsLoading] = useState(true);
   const [blogPosts, setBlogPosts] = useState([]);
   useEffect(() => {
-    setIsLoading(true);
-    if (posts.length) {
-      setBlogPosts(posts);
+    // If the document is still loading, set isLoading to true
+    if (document.readyState === "loading") {
+      setIsLoading(true);
+    }
+
+    // If the document has finished loading, set isLoading to false
+    if (document.readyState === "complete") {
       setIsLoading(false);
     }
-  }, [posts]);
+    
+    // If posts are not available, set isLoading to true
+    if (!posts) {
+      setIsLoading(true);
+    }
+
+    // If posts are available, set isLoading to false
+    if (posts) {
+      setBlogPosts(posts);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
+    }
+
+    // If there is an error fetching posts, set isLoading to false
+    if (error) {
+      setIsLoading(false);
+    }
+  }
+  , [posts]);
   
   // useEffect(() => {
   //   setIsLoading(true);
@@ -157,7 +180,9 @@ if (totalPages > MAX_VISIBLE_PAGES) {
         {/* Render loading state or post cards based on isLoading */}
         {isLoading ? (
           // <div>Loading...</div> // Replace with a spinner component or a loading message
-          <Loader />
+          <Loader 
+            loading={isLoading}
+          />
         ) : error ? (
           <div className="text-center justify-center">
             <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>

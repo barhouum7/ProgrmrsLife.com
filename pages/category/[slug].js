@@ -15,7 +15,9 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
     setIsLoading(true);
     if (catPosts) {
       setCategoryPosts(catPosts);
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
     }
 
   }, [catPosts]);
@@ -23,10 +25,23 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <Loader />;
+    return <Loader loading={isLoading} />;
   }
 
-  
+  // If the slug changes, refresh the page
+  useEffect(() => {
+    setIsLoading(true);
+    // router.replace(router.asPath); // (router.asPath) is the current route including the query string
+    router.push(router.asPath); // (router.asPath) is the current route including the query string
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    // router.reload(); // Reload the current page
+    // router.reload(window.location.pathname); // Reload the current page
+  }, [router.query.slug]); // If the slug changes, refresh the page. (router.query.slug) is the current slug
+
+
+  // Shuffle the posts array to display them in a random order
   const [shuffledCatPosts, setShuffledCatPosts] = useState([]);
 
   useEffect(() => {
@@ -106,7 +121,7 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
     <>
       {
         isLoading ? (
-          <Loader />
+          <Loader loading={isLoading} />
         ) :
         error ? (
           <div className="text-center justify-center">

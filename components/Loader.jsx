@@ -1,9 +1,17 @@
-import React from "react";
+import GridLoader from "react-spinners/GridLoader";
 
-const Loader = () => {
+const Loader = ({
+  loading
+}) => {
   return (
     <div className="loader-container">
-      <div className="loader"></div>
+      <GridLoader
+        color={"white"}
+        loading={loading}
+        size={30}
+        aria-label="Loading spinner"
+        data-testid="loader"
+      />
     </div>
   );
 };
