@@ -13,10 +13,46 @@ import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loa
 import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
+    const router = useRouter();
+
+    const [shouldReload, setShouldReload] = useState(false);
+
+    useEffect(() => {
+        const handleRouteChange = () => {
+        // Check if the page is being navigated to for the first time
+        if (!shouldReload) {
+            // Set the state to trigger a reload
+            setShouldReload(true);
+        }
+        };
+
+        // Subscribe to router events for route changes
+        router.events.on('routeChangeStart', handleRouteChange);
+
+        // Clean up subscription on unmount
+        return () => {
+        router.events.off('routeChangeStart', handleRouteChange);
+        };
+    }, [shouldReload, router.events]);
+
+    const [currentSlug, setCurrentSlug] = useState('');
+
+    useEffect(() => {
+        // Get the current slug from the router
+        const { slug } = router.query;
+        if (slug !== currentSlug) {
+            // If the slug has changed, update the currentSlug state
+            setCurrentSlug(slug);
+            if (shouldReload) {
+                router.reload();
+            }
+        }
+    }, [router.query.slug, currentSlug, shouldReload]);
 
     const [isLoading, setIsLoading] = useState(true);
     const [postDetails, setPostDetails] = useState([]);
     useEffect(() => {
+        // router.prefetch('/post/[slug]'); // This will actually load the post page in the background, so it will be instantly available when the user navigates to it.
         if (post) {
             setPostDetails(post);
             setTimeout(() => {
@@ -25,7 +61,6 @@ const PostDetails = ({ post, error }) => {
         }
     }, [post]);
 
-    const router = useRouter();
 
     const [isCopied, setIsCopied] = useState(false);
 
@@ -33,18 +68,6 @@ const PostDetails = ({ post, error }) => {
     if (router.isFallback) { // While the page is generating, the user will see a loading state until getStaticProps() finishes and the page is served.
         return <Loader loading={isLoading} />;
     }
-
-    // If the slug changes, refresh the page
-    useEffect(() => {
-        setIsLoading(true);
-        // router.replace(router.asPath); // (router.asPath) is the current route including the query string
-        router.push(router.asPath); // (router.asPath) is the current route including the query string
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-        // router.push(router.asPath, undefined, { scroll: false }); // (router.asPath) is the current route including the query string, scroll: false will not scroll to the top of the page, and will keep the current scroll position. undefined is the as property, which is used to set the URL displayed in the browser on the client side. If undefined, it will default to the href property. If you want to show a different URL to the user than the actual URL, you can use the as property to do so.
-        // router.reload(); // Reload the current page
-    }, [router.query.slug]); // If the slug changes, refresh the page. (router.query.slug) is the current slug
 
     const enablePopupMessage = () => {
         // console.log('Please allow popups for this website to share this article.');

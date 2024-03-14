@@ -9,6 +9,42 @@ import { PostCard, Categories, Loader, AdsenseScript } from '../../components';
 
 const CategoryPost = ({ catPosts, categoryName, error }) => {
 
+  const router = useRouter();
+
+    const [shouldReload, setShouldReload] = useState(false);
+
+    useEffect(() => {
+        const handleRouteChange = () => {
+        // Check if the page is being navigated to for the first time
+        if (!shouldReload) {
+            // Set the state to trigger a reload
+            setShouldReload(true);
+        }
+        };
+
+        // Subscribe to router events for route changes
+        router.events.on('routeChangeStart', handleRouteChange);
+
+        // Clean up subscription on unmount
+        return () => {
+        router.events.off('routeChangeStart', handleRouteChange);
+        };
+    }, [shouldReload, router.events]);
+
+    const [currentSlug, setCurrentSlug] = useState('');
+
+    useEffect(() => {
+        // Get the current slug from the router
+        const { slug } = router.query;
+        if (slug !== currentSlug) {
+            // If the slug has changed, update the currentSlug state
+            setCurrentSlug(slug);
+            if (shouldReload) {
+                router.reload();
+            }
+        }
+    }, [router.query.slug, currentSlug, shouldReload]);
+
   const [isLoading, setIsLoading] = useState(true);
   const [categoryPosts, setCategoryPosts] = useState([]);
   useEffect(() => {
@@ -21,25 +57,11 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
     }
 
   }, [catPosts]);
-
-  const router = useRouter();
+  
 
   if (router.isFallback) {
     return <Loader loading={isLoading} />;
   }
-
-  // If the slug changes, refresh the page
-  useEffect(() => {
-    setIsLoading(true);
-    // router.replace(router.asPath); // (router.asPath) is the current route including the query string
-    router.push(router.asPath); // (router.asPath) is the current route including the query string
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    // router.reload(); // Reload the current page
-    // router.reload(window.location.pathname); // Reload the current page
-  }, [router.query.slug]); // If the slug changes, refresh the page. (router.query.slug) is the current slug
-
 
   // Shuffle the posts array to display them in a random order
   const [shuffledCatPosts, setShuffledCatPosts] = useState([]);
