@@ -626,6 +626,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     function verifyAdLink(enteredLink) {
         // Get all <ins> elements
         const adsArray = document.getElementsByTagName('ins');
+        console.log('verifyAdLink(): adsArray:', adsArray);
         
         // Initialize an empty array to store links
         const linksArray = [];
@@ -634,11 +635,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         for (let i = 0; i < adsArray.length; i++) {
             const adElement = adsArray[i];
             
-            // Check if the <ins> element contains a child iframe
-            const iframeChild = adElement.querySelector('iframe');
-            if (iframeChild) {
-                // Extract the src attribute from the iframe
-                const adSrc = iframeChild.getAttribute('src');
+            // Check if the <ins> element contains a child anchor element inside iframe element
+            const anchorIframeChild = adElement.querySelector('iframe > a');
+            
+            if (anchorIframeChild) {
+                // Extract the href attribute from the anchor element
+                const adSrc = anchorIframeChild.getAttribute('href');
                 if (adSrc) {
                     // Push the extracted link into the linksArray
                     linksArray.push(adSrc);
@@ -647,7 +649,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         }
         
         // Log the extracted links
-        console.log('Links Array:', linksArray);
+        console.log('verifyAdLink(): linksArray:', linksArray);
         
         // Check if the entered link matches any of the extracted links
         const validAdLink = linksArray.includes(enteredLink); // Returns true or false, depending on whether the entered link is found in the linksArray
