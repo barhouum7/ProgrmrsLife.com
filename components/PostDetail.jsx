@@ -623,37 +623,38 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         setShowPopup(false);
     };
 
-    const verifyAdLink = (enteredLink) => {
-        // Get all elements with the class name "adsbygoogle"
-        const adsElements = document.getElementsByClassName('adsbygoogle');
+    function verifyAdLink(enteredLink) {
+        // Get all <ins> elements
+        const adsArray = document.getElementsByTagName('ins');
         
-        // Convert the HTMLCollection to an array for easier traversal
-        const adsArray = Array.from(adsElements);
-        console.log("verifyAdLink(): adsArray: ", adsArray);
+        // Initialize an empty array to store links
+        const linksArray = [];
         
-        // Iterate through each "ins" element
-        for (const adElement of adsArray) {
-            // Get all links within the current "ins" element
-            const links = adElement.getElementsByTagName('a');
-            console.log("verifyAdLink(): links: ", links);
-        
-            // Convert the HTMLCollection to an array for easier traversal
-            const linksArray = Array.from(links);
-            console.log("verifyAdLink(): linksArray: ", linksArray);
-        
-            // Iterate through each link
-            for (const link of linksArray) {
-            // Compare the enteredLink with the href of the current link
-            if (link.href === enteredLink) {
-                // If a match is found, return true
-                return true;
-            }
+        // Loop through each <ins> element
+        for (let i = 0; i < adsArray.length; i++) {
+            const adElement = adsArray[i];
+            
+            // Check if the <ins> element contains a child iframe
+            const iframeChild = adElement.querySelector('iframe');
+            if (iframeChild) {
+                // Extract the src attribute from the iframe
+                const adSrc = iframeChild.getAttribute('src');
+                if (adSrc) {
+                    // Push the extracted link into the linksArray
+                    linksArray.push(adSrc);
+                }
             }
         }
         
-        // If no match is found, return false
-        return false;
-    };
+        // Log the extracted links
+        console.log('Links Array:', linksArray);
+        
+        // Check if the entered link matches any of the extracted links
+        const validAdLink = linksArray.includes(enteredLink); // Returns true or false, depending on whether the entered link is found in the linksArray
+        console.log('Is Valid Ad Link:', validAdLink);
+
+        return validAdLink;
+    }
 
     const handleAdLinkEntered = (link) => {
         console.log("handleAdLinkEntered(): Link: ", link);
