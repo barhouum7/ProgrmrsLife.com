@@ -629,14 +629,17 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         
         // Convert the HTMLCollection to an array for easier traversal
         const adsArray = Array.from(adsElements);
+        console.log("verifyAdLink(): adsArray: ", adsArray);
         
         // Iterate through each "ins" element
         for (const adElement of adsArray) {
             // Get all links within the current "ins" element
             const links = adElement.getElementsByTagName('a');
+            console.log("verifyAdLink(): links: ", links);
         
             // Convert the HTMLCollection to an array for easier traversal
             const linksArray = Array.from(links);
+            console.log("verifyAdLink(): linksArray: ", linksArray);
         
             // Iterate through each link
             for (const link of linksArray) {
@@ -653,11 +656,11 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     };
 
     const handleAdLinkEntered = (link) => {
-        // console.log("handleAdLinkEntered(): Link: ", link);
+        console.log("handleAdLinkEntered(): Link: ", link);
         // Check if the entered link matches the format of a Google Ad link
         // const validAdLink = link.includes('google.com');
         const validAdLink = verifyAdLink(link);
-        // console.log("handleAdLinkEntered(): validAdLink: ", validAdLink);
+        console.log("handleAdLinkEntered(): validAdLink: ", validAdLink);
         setIsValidAdLink(validAdLink);
         
         if (validAdLink) {
