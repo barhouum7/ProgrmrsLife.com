@@ -655,8 +655,8 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     const handleAdLinkEntered = (link) => {
         // console.log("handleAdLinkEntered(): Link: ", link);
         // Check if the entered link matches the format of a Google Ad link
-        const validAdLink = link.includes('google.com');
-        // const validAdLink = verifyAdLink(link);
+        // const validAdLink = link.includes('google.com');
+        const validAdLink = verifyAdLink(link);
         // console.log("handleAdLinkEntered(): validAdLink: ", validAdLink);
         setIsValidAdLink(validAdLink);
         
