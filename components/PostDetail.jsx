@@ -635,15 +635,24 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         for (let i = 0; i < adsArray.length; i++) {
             const adElement = adsArray[i];
             
-            // Check if the <ins> element contains a child anchor element inside iframe element
-            const anchorIframeChild = adElement.querySelector('iframe > a');
-            
-            if (anchorIframeChild) {
-                // Extract the href attribute from the anchor element
-                const adSrc = anchorIframeChild.getAttribute('href');
-                if (adSrc) {
-                    // Push the extracted link into the linksArray
-                    linksArray.push(adSrc);
+            // Check if the <ins> element contains a child iframe
+            const iframeChild = adElement.querySelector('iframe');
+            if (iframeChild) {
+                // Extract the contentDocument from the iframe
+                const iframeDocument = iframeChild.contentDocument || iframeChild.contentWindow.document;
+                
+                // Get all <a> tags inside the iframe document
+                const anchorTags = iframeDocument.getElementsByTagName('a');
+                
+                // Loop through each <a> tag
+                for (let j = 0; j < anchorTags.length; j++) {
+                    const anchorElement = anchorTags[j];
+                    // Extract the href attribute from the <a> tag
+                    const href = anchorElement.getAttribute('href');
+                    if (href) {
+                        // Push the extracted link into the linksArray
+                        linksArray.push(href);
+                    }
                 }
             }
         }
