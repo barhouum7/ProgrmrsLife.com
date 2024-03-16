@@ -680,69 +680,69 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     //     return validAdLink;
     // }
 
-    const handleAdLinkEntered = (link) => {
-        // console.log("handleAdLinkEntered(): Link: ", link);
-        // Check if the entered link matches the format of a Google Ad link
-        const adLinkPattern1 = /https:\/\/www\.googleadservices\.com\/pagead\/aclk.*sa=L&ai=.+/i;
-        const adLinkPattern2 = /\?gclid=/i;
-        const validAdLink = adLinkPattern1.test(link) || adLinkPattern2.test(link); // Returns true or false, depending on whether the entered link matches the pattern1 or the pattern2
-        // sa=L is a required parameter in the Google Ad link. 
-        // sa: Source Ad is required for the ad to be valid and trackable. L: Link.
-        // nis: Number of ad impressions served. 4: 4 impressions served.
-        // ai: Ad ID. The ai parameter is the ad ID. It is a unique identifier for the ad.
-        // const validAdLink = verifyAdLink(link);
-        // console.log("handleAdLinkEntered(): validAdLink: ", validAdLink);
-        setIsValidAdLink(validAdLink);
+    // const handleAdLinkEntered = (link) => {
+    //     // console.log("handleAdLinkEntered(): Link: ", link);
+    //     // Check if the entered link matches the format of a Google Ad link
+    //     const adLinkPattern1 = /https:\/\/www\.googleadservices\.com\/pagead\/aclk.*sa=L&ai=.+/i;
+    //     const adLinkPattern2 = /\?gclid=/i;
+    //     const validAdLink = adLinkPattern1.test(link) || adLinkPattern2.test(link); // Returns true or false, depending on whether the entered link matches the pattern1 or the pattern2
+    //     // sa=L is a required parameter in the Google Ad link. 
+    //     // sa: Source Ad is required for the ad to be valid and trackable. L: Link.
+    //     // nis: Number of ad impressions served. 4: 4 impressions served.
+    //     // ai: Ad ID. The ai parameter is the ad ID. It is a unique identifier for the ad.
+    //     // const validAdLink = verifyAdLink(link);
+    //     // console.log("handleAdLinkEntered(): validAdLink: ", validAdLink);
+    //     setIsValidAdLink(validAdLink);
         
-        if (validAdLink) {
-            setShowPopup(false); // Close the popup
-            // Display a success message
-            toast.success('Great! Your ad link has been successfully added.', {
-                position: "top-center",
-                duration: 6000,
-                style: {backgroundColor: '#111827', color: '#F3F4F6'}
-            });
-        } else {
-            // Display an error message or handle invalid link
-            toast.error('Invalid Ad Link! Please enter a valid Google Ad link.', {
-                position: "top-right",
-                duration: 6000,
-                style: {backgroundColor: '#111827', color: '#F3F4F6'}
-            });
-        }
-    };
+    //     if (validAdLink) {
+    //         setShowPopup(false); // Close the popup
+    //         // Display a success message
+    //         toast.success('Great! Your ad link has been successfully added.', {
+    //             position: "top-center",
+    //             duration: 6000,
+    //             style: {backgroundColor: '#111827', color: '#F3F4F6'}
+    //         });
+    //     } else {
+    //         // Display an error message or handle invalid link
+    //         toast.error('Invalid Ad Link! Please enter a valid Google Ad link.', {
+    //             position: "top-right",
+    //             duration: 6000,
+    //             style: {backgroundColor: '#111827', color: '#F3F4F6'}
+    //         });
+    //     }
+    // };
 
-    useEffect(() => {
-        // Add event listener to handle ESC key press to close the modal
-        const handleKeyPress = (event) => {
-            if (event.key === 'Escape') {
-                setShowPopup(false);
-            }
-        };
+    // useEffect(() => {
+    //     // Add event listener to handle ESC key press to close the modal
+    //     const handleKeyPress = (event) => {
+    //         if (event.key === 'Escape') {
+    //             setShowPopup(false);
+    //         }
+    //     };
 
-        const handleOutsideClick = (event) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
-                setShowPopup(false);
-            }
-        };
+    //     const handleOutsideClick = (event) => {
+    //         if (modalRef.current && !modalRef.current.contains(event.target)) {
+    //             setShowPopup(false);
+    //         }
+    //     };
 
-        if (showPopup) {
-            // document.body.style.overflow = 'hidden'; // Prevent scrolling
-            document.addEventListener('keydown', handleKeyPress);
-            document.addEventListener('mousedown', handleOutsideClick);
-        } else {
-            // document.body.style.overflow = ''; // Re-enable scrolling
-            document.removeEventListener('keydown', handleKeyPress);
-            document.removeEventListener('mousedown', handleOutsideClick);
-        }
+    //     if (showPopup) {
+    //         // document.body.style.overflow = 'hidden'; // Prevent scrolling
+    //         document.addEventListener('keydown', handleKeyPress);
+    //         document.addEventListener('mousedown', handleOutsideClick);
+    //     } else {
+    //         // document.body.style.overflow = ''; // Re-enable scrolling
+    //         document.removeEventListener('keydown', handleKeyPress);
+    //         document.removeEventListener('mousedown', handleOutsideClick);
+    //     }
 
-        // Cleanup function
-        return () => {
-            // document.body.style.overflow = ''; // Re-enable scrolling on component unmount
-            document.removeEventListener('keydown', handleKeyPress);
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, [showPopup]);
+    //     // Cleanup function
+    //     return () => {
+    //         // document.body.style.overflow = ''; // Re-enable scrolling on component unmount
+    //         document.removeEventListener('keydown', handleKeyPress);
+    //         document.removeEventListener('mousedown', handleOutsideClick);
+    //     };
+    // }, [showPopup]);
 
 
     return (
@@ -1300,60 +1300,60 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                         >
                                                             <button
                                                             onClick={() => {
-                                                                setShowPopup(true);
-                                                                if (isValidAdLink) {
-                                                                    setShowPopup(false);
-                                                                    if (localStorage.getItem('returningUser') !== 'true') {
-                                                                        if (isSubscribed) {
-                                                                            setShowGetLinkButton(true);
-                                                                            setShowWaitingText(true);
-                                                                            startCountdown();
-                                                                            toast.loading('Please wait while we are checking...', {
+                                                                // setShowPopup(true);
+                                                                // if (isValidAdLink) {
+                                                                //     setShowPopup(false);
+                                                                // }
+                                                                if (localStorage.getItem('returningUser') !== 'true') {
+                                                                    if (isSubscribed) {
+                                                                        setShowGetLinkButton(true);
+                                                                        setShowWaitingText(true);
+                                                                        startCountdown();
+                                                                        toast.loading('Please wait while we are checking...', {
+                                                                            position: "top-center",
+                                                                            duration: 30000,
+                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                        })
+                                                                        setTimeout(() => {
+                                                                            toast.success('Thank you for subscribing our YouTube channel!', {
                                                                                 position: "top-center",
-                                                                                duration: 30000,
+                                                                                duration: 10000,
                                                                                 style: {backgroundColor: '#111827', color: '#F3F4F6'}
-                                                                            })
-                                                                            setTimeout(() => {
-                                                                                toast.success('Thank you for subscribing our YouTube channel!', {
-                                                                                    position: "top-center",
-                                                                                    duration: 10000,
-                                                                                    style: {backgroundColor: '#111827', color: '#F3F4F6'}
-                                                                                });
-                                                                            }, 20000);
-                                                                            localStorage.setItem('returningUser', 'true');
-                                                                        } else {
-                                                                            toast("🤩Woohoo! You are a new user here!", {
+                                                                            });
+                                                                        }, 20000);
+                                                                        localStorage.setItem('returningUser', 'true');
+                                                                    } else {
+                                                                        toast("🤩Woohoo! You are a new user here!", {
+                                                                            position: "top-center",
+                                                                            duration: 6000,
+                                                                            // Styling
+                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                        });
+                                                                        setTimeout(() => {
+                                                                            toast.error("Not yet subscribed?🥺 Please subscribe our YouTube channel first!", {
                                                                                 position: "top-center",
                                                                                 duration: 6000,
                                                                                 // Styling
                                                                                 style: {backgroundColor: '#111827', color: '#F3F4F6'}
                                                                             });
-                                                                            setTimeout(() => {
-                                                                                toast.error("Not yet subscribed?🥺 Please subscribe our YouTube channel first!", {
-                                                                                    position: "top-center",
-                                                                                    duration: 6000,
-                                                                                    // Styling
-                                                                                    style: {backgroundColor: '#111827', color: '#F3F4F6'}
-                                                                                });
-                                                                            }, 3000);
-                                                                        }
-                                                                    } else {
-                                                                        toast.success('You are already an old user and made your decision about subscribing!', {
-                                                                            position: "top-center",
-                                                                            duration: 10000,
-                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
-                                                                        });
-                                                                        setShowGetLinkButton(true);
-                                                                        setShowWaitingText(true);
-                                                                        startCountdown();
-                                                                        setTimeout(() => {
-                                                                            toast.loading('Please wait...', {
-                                                                                position: "top-center",
-                                                                                duration: 30000,
-                                                                                style: {backgroundColor: '#111827', color: '#F3F4F6'}
-                                                                            })
-                                                                        }, 2000);
+                                                                        }, 3000);
                                                                     }
+                                                                } else {
+                                                                    toast.success('You are already an old user and made your decision about subscribing!', {
+                                                                        position: "top-center",
+                                                                        duration: 10000,
+                                                                        style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                    });
+                                                                    setShowGetLinkButton(true);
+                                                                    setShowWaitingText(true);
+                                                                    startCountdown();
+                                                                    setTimeout(() => {
+                                                                        toast.loading('Please wait...', {
+                                                                            position: "top-center",
+                                                                            duration: 30000,
+                                                                            style: {backgroundColor: '#111827', color: '#F3F4F6'}
+                                                                        })
+                                                                    }, 2000);
                                                                 }
                                                             }}
                                                             className="relative w-40 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
@@ -1369,7 +1369,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                             </button>
                                                         </Tooltip>
 
-                                                        {showPopup && (
+                                                        {/* {showPopup && (
                                                             <>
                                                                 <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50
                                                                     dark:bg-white dark:bg-opacity-50 dark:text-black dark:dark-mode-text'></div>
@@ -1381,7 +1381,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     <AdPopup onClose={handlePopupClose} onAdLinkEntered={handleAdLinkEntered} />
                                                                 </div>
                                                             </>
-                                                        )}
+                                                        )} */}
 
                                                     </div>
                                                 )
