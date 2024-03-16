@@ -683,8 +683,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     const handleAdLinkEntered = (link) => {
         // console.log("handleAdLinkEntered(): Link: ", link);
         // Check if the entered link matches the format of a Google Ad link
-        const adLinkPattern = /https:\/\/www\.googleadservices\.com\/pagead\/aclk.*sa=L&ai=.+/i;
-        const validAdLink = adLinkPattern.test(link); // Returns true or false, depending on whether the entered link matches the pattern
+        const adLinkPattern1 = /https:\/\/www\.googleadservices\.com\/pagead\/aclk.*sa=L&ai=.+/i;
+        const adLinkPattern2 = /\?gclid=/i;
+        const validAdLink = adLinkPattern1.test(link) || adLinkPattern2.test(link); // Returns true or false, depending on whether the entered link matches the pattern1 or the pattern2
         // sa=L is a required parameter in the Google Ad link. 
         // sa: Source Ad is required for the ad to be valid and trackable. L: Link.
         // nis: Number of ad impressions served. 4: 4 impressions served.
