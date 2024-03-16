@@ -638,11 +638,24 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             // Check if the <ins> element contains a child iframe
             const iframeChild = adElement.querySelector('iframe');
             if (iframeChild) {
-                // Extract the contentDocument from the iframe
-                const iframeDocument = iframeChild.contentDocument || iframeChild.contentWindow.document;
+                try {
+                    // Extract the contentDocument from the iframe
+                    const iframeDocument = iframeChild.contentDocument || iframeChild.contentWindow.document;
+                    console.log('verifyAdLink(): iframeDocument:', iframeDocument);
+                    // Proceed with extracting links
+                } catch (error) {
+                    console.log('Error accessing iframe content:', error);
+                    continue; // Skip this iframe and move to the next one
+                }
                 
                 // Get all <a> tags inside the iframe document
                 const anchorTags = iframeDocument.getElementsByTagName('a');
+                console.log('verifyAdLink(): anchorTags:', anchorTags);
+                
+                if (anchorTags.length === 0) {
+                    console.log('No <a> tags found within the iframe.');
+                    continue; // Skip this iframe and move to the next one
+                }
                 
                 // Loop through each <a> tag
                 for (let j = 0; j < anchorTags.length; j++) {
