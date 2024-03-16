@@ -49,7 +49,7 @@ const AdPopup = ({ onClose, onAdLinkEntered }) => {
                         <path d="M11 7H13V13H11V7Z" fill="currentColor"/>
                         <path d="M11 15H13V17H11V15Z" fill="currentColor"/>
                     </svg>
-                    
+
                     Enter the link of any Advertisement you see here.
                 </p>
                 <form onSubmit={handleSubmit}>
@@ -58,7 +58,7 @@ const AdPopup = ({ onClose, onAdLinkEntered }) => {
                     className='w-full p-2 my-2 border border-gray-300 rounded
                     dark:bg-gray-800 dark:border-gray-700 dark:text-white
                     '
-                    placeholder="https://www.googleadservices.com/pagead/..."
+                    placeholder="https://www.googleadservices.com/pagead/aclk?..."
                     value={adLink}
                     onChange={handleAdLinkChange}
                     />

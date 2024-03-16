@@ -623,69 +623,74 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         setShowPopup(false);
     };
 
-    function verifyAdLink(enteredLink) {
-        // Get all <ins> elements
-        const adsArray = document.getElementsByTagName('ins');
-        console.log('verifyAdLink(): adsArray:', adsArray);
+    // function verifyAdLink(enteredLink) {
+    //     // Get all <ins> elements
+    //     const adsArray = document.getElementsByTagName('ins');
+    //     console.log('verifyAdLink(): adsArray:', adsArray);
         
-        // Initialize an empty array to store links
-        const linksArray = [];
+    //     // Initialize an empty array to store links
+    //     const linksArray = [];
         
-        // Loop through each <ins> element
-        for (let i = 0; i < adsArray.length; i++) {
-            const adElement = adsArray[i];
+    //     // Loop through each <ins> element
+    //     for (let i = 0; i < adsArray.length; i++) {
+    //         const adElement = adsArray[i];
             
-            // Check if the <ins> element contains a child iframe
-            const iframeChild = adElement.querySelector('iframe');
-            if (iframeChild) {
-                try {
-                    // Extract the contentDocument from the iframe
-                    const iframeDocument = iframeChild.contentDocument || iframeChild.contentWindow.document;
-                    console.log('verifyAdLink(): iframeDocument:', iframeDocument);
-                    // Proceed with extracting links
-                } catch (error) {
-                    console.log('Error accessing iframe content:', error);
-                    continue; // Skip this iframe and move to the next one
-                }
+    //         // Check if the <ins> element contains a child iframe
+    //         const iframeChild = adElement.querySelector('iframe');
+    //         if (iframeChild) {
+    //             try {
+    //                 // Extract the contentDocument from the iframe
+    //                 const iframeDocument = iframeChild.contentDocument || iframeChild.contentWindow.document;
+    //                 console.log('verifyAdLink(): iframeDocument:', iframeDocument);
+    //                 // Proceed with extracting links
+    //             } catch (error) {
+    //                 console.log('Error accessing iframe content:', error);
+    //                 continue; // Skip this iframe and move to the next one
+    //             }
                 
-                // Get all <a> tags inside the iframe document
-                const anchorTags = iframeDocument.getElementsByTagName('a');
-                console.log('verifyAdLink(): anchorTags:', anchorTags);
+    //             // Get all <a> tags inside the iframe document
+    //             const anchorTags = iframeDocument.getElementsByTagName('a');
+    //             console.log('verifyAdLink(): anchorTags:', anchorTags);
                 
-                if (anchorTags.length === 0) {
-                    console.log('No <a> tags found within the iframe.');
-                    continue; // Skip this iframe and move to the next one
-                }
+    //             if (anchorTags.length === 0) {
+    //                 console.log('No <a> tags found within the iframe.');
+    //                 continue; // Skip this iframe and move to the next one
+    //             }
                 
-                // Loop through each <a> tag
-                for (let j = 0; j < anchorTags.length; j++) {
-                    const anchorElement = anchorTags[j];
-                    // Extract the href attribute from the <a> tag
-                    const href = anchorElement.getAttribute('href');
-                    if (href) {
-                        // Push the extracted link into the linksArray
-                        linksArray.push(href);
-                    }
-                }
-            }
-        }
+    //             // Loop through each <a> tag
+    //             for (let j = 0; j < anchorTags.length; j++) {
+    //                 const anchorElement = anchorTags[j];
+    //                 // Extract the href attribute from the <a> tag
+    //                 const href = anchorElement.getAttribute('href');
+    //                 if (href) {
+    //                     // Push the extracted link into the linksArray
+    //                     linksArray.push(href);
+    //                 }
+    //             }
+    //         }
+    //     }
         
-        // Log the extracted links
-        console.log('verifyAdLink(): linksArray:', linksArray);
+    //     // Log the extracted links
+    //     console.log('verifyAdLink(): linksArray:', linksArray);
         
-        // Check if the entered link matches any of the extracted links
-        const validAdLink = linksArray.includes(enteredLink); // Returns true or false, depending on whether the entered link is found in the linksArray
-        console.log('Is Valid Ad Link:', validAdLink);
+    //     // Check if the entered link matches any of the extracted links
+    //     const validAdLink = linksArray.includes(enteredLink); // Returns true or false, depending on whether the entered link is found in the linksArray
+    //     console.log('Is Valid Ad Link:', validAdLink);
 
-        return validAdLink;
-    }
+    //     return validAdLink;
+    // }
 
     const handleAdLinkEntered = (link) => {
-        console.log("handleAdLinkEntered(): Link: ", link);
+        // console.log("handleAdLinkEntered(): Link: ", link);
         // Check if the entered link matches the format of a Google Ad link
-        // const validAdLink = link.includes('google.com');
-        const validAdLink = verifyAdLink(link);
-        console.log("handleAdLinkEntered(): validAdLink: ", validAdLink);
+        const adLinkPattern = /https:\/\/www\.googleadservices\.com\/pagead\/aclk.*sa=L&ai=.+/i;
+        const validAdLink = adLinkPattern.test(link); // Returns true or false, depending on whether the entered link matches the pattern
+        // sa=L is a required parameter in the Google Ad link. 
+        // sa: Source Ad is required for the ad to be valid and trackable. L: Link.
+        // nis: Number of ad impressions served. 4: 4 impressions served.
+        // ai: Ad ID. The ai parameter is the ad ID. It is a unique identifier for the ad.
+        // const validAdLink = verifyAdLink(link);
+        // console.log("handleAdLinkEntered(): validAdLink: ", validAdLink);
         setIsValidAdLink(validAdLink);
         
         if (validAdLink) {
