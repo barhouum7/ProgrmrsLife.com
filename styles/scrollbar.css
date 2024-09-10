@@ -11,6 +11,7 @@ html {
 
 ::-webkit-scrollbar {
     width: 10px; /* width of the scrollbar */
+height: 10px;
   }
   
   ::-webkit-scrollbar-track {
@@ -19,7 +20,8 @@ html {
   
   ::-webkit-scrollbar-thumb {
     /* color of the scroll thumb */
-    background: linear-gradient(190deg, #00b4db 10%, #a20dc7 100%);
+    /* background: linear-gradient(190deg, #00b4db 10%, #a20dc7 100%); */
+    background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
     border-radius: 3px; /* roundness of the scroll thumb */
   }
   
