@@ -205,7 +205,7 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
             </div>
             <AdsenseScript />
             {/* <AWeberScript /> */}
-            <div className="bg-white dark:bg-gray-800 rounded-t-lg shadow-xl lg:p-4 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+            <div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div className="col-span-1 lg:col-span-12 text-center">
                   <h1 className="lg:text-4xl text-2xl text-pink-500 dark:text-indigo-400 leading-8 font-extrabold tracking-wide uppercase my-4">
