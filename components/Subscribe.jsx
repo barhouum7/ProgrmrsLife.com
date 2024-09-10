@@ -28,7 +28,7 @@ const Subscribe = () => {
     };
 
 return (
-    <section className='p-4 sm:p-6 dark:bg-gray-900 flex-grow container mx-auto px-10 m-0 sm:px-6 transition ease-in-out duration-500'>
+    <section className='p-4 sm:p-6 dark:bg-gray-900 mx-4 px-10 m-0 sm:px-6'>
         <div className="max-w-7xl py-10 px-6 sm:px-6 lg:px-8 mx-auto lg:max-w-screen-xl block sm:flex text-center items-center justify-center">
             <div className="mx-auto sm:max-w-screen-sm text-center">
                 <div className='transition duration-700 ease-in-out'>

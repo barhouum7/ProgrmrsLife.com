@@ -17,7 +17,7 @@ const PostCard = ({post}) => {
     // console.log(post.excerpt)
 
   return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl hover:shadow-indigo-500/40 p-0 mr-4 lg:p-8 pb-12 mb-8 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl hover:shadow-indigo-500/40 p-0 mr-4 lg:p-8 pb-12 mb-8 hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10">
             <div className="relative overflow-hidden shadow-xl pb-80 mb-6">
                 <Link href={`/post/${post.slug}`}>
                     <img 

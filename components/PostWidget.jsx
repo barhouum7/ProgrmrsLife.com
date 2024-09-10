@@ -21,7 +21,7 @@ const PostWidget = ({ categories, slug }) => {
     // console.log(relatedPosts)
 
     return (
-        <div className='bg-white dark:bg-gray-800 rounded-lg shadow-xl hover:shadow-indigo-500/40 p-8 mb-8 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10'>
+        <div className='bg-white dark:bg-gray-800 rounded-lg shadow-xl hover:shadow-indigo-500/40 p-8 mb-8 hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10'>
             <h3 className='text-xl font-semibold border-b pb-4 mb-8'>
                 {slug ? 'Related Posts' : 'Recent Posts'}
             </h3>

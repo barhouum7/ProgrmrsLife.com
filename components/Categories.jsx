@@ -11,7 +11,7 @@ const Categories = () => {
             .catch((err) => console.log(err))
     }, [])
   return (
-    <div className='bg-white dark:bg-gray-800 rounded-t-lg rounded-b shadow-xl hover:shadow-indigo-500/40 p-8 mb-8 mt-5 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10'>
+    <div className='bg-white dark:bg-gray-800 rounded-t-lg rounded-b shadow-xl hover:shadow-indigo-500/40 p-8 mb-8 mt-5 hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10'>
         <h3 className='text-xl font-semibold border-b pb-4 mb-8'>
             Categories
         </h3>
