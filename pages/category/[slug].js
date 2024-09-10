@@ -3,6 +3,7 @@ import { FaEllipsisH } from 'react-icons/fa';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 
 import { getCategories, getCategoryPost, getCategory, getPosts } from '../../services';
 import { PostCard, Categories, Loader, AdsenseScript } from '../../components';
@@ -139,8 +140,22 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
       setPlaceAdUnit(true);
   }, []);
 
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 }
+  };
+
   return (
-    <>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      variants={{
+        initial: { opacity: 0 },
+        animate: { opacity: 1 }
+      }}
+      transition={{ duration: 0.5 }}
+    >
       {
         isLoading ? (
           <Loader loading={isLoading} />
@@ -205,16 +220,16 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
             </div>
             <AdsenseScript />
             {/* <AWeberScript /> */}
-            <div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl">
+            <motion.div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl" variants={fadeInUp}>
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <div className="col-span-1 lg:col-span-12 text-center">
+                <motion.div className="col-span-1 lg:col-span-12 text-center" variants={fadeInUp}>
                   <h1 className="lg:text-4xl text-2xl text-pink-500 dark:text-indigo-400 leading-8 font-extrabold tracking-wide uppercase my-4">
                     {categoryName}
                   </h1>
-                </div>
-                <div className="col-span-1 lg:col-span-8">
+                </motion.div>
+                <motion.div className="col-span-1 lg:col-span-8" variants={fadeInUp}>
                   {currentPosts.map((post, index) => (
-                    <div key={index}>
+                    <motion.div key={index} variants={fadeInUp}>
                       <PostCard post={post.node} />
                       <div className="mb-8">
                           {
@@ -239,7 +254,7 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                               )
                           }
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                   
                   {/*  <!-- Pagination --> */}
@@ -291,8 +306,8 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                       typeof window !== 'undefined' && window.location.reload()
                     ) : null
                   }
-                </div>
-                <div className="col-span-1 lg:col-span-4">
+                </motion.div>
+                <motion.div className="col-span-1 lg:col-span-4" variants={fadeInUp}>
                   <div className="relative lg:sticky top-8">
                     <div className="mb-8">
                         {
@@ -319,13 +334,13 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                     </div>
                     <Categories />
                   </div>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </>
         )
       }
-    </>
+    </motion.div>
   );
 };
 export default CategoryPost;

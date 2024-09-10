@@ -6,6 +6,7 @@ import Script from 'next/script';
 // import toast from 'react-hot-toast';
 import { ToastContainer, toast } from 'react-toastify';
 import {InlineReactionButtons} from 'sharethis-reactjs';
+import { motion } from 'framer-motion';
 
 import { getPosts, getPostDetails } from "../../services"
 
@@ -187,10 +188,22 @@ const PostDetails = ({ post, error }) => {
             setPlaceAdUnit(true);
         }, []);
 
-
+        const fadeInUp = {
+            initial: { opacity: 0, y: 60 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.6 }
+        };
 
     return (
-        <>
+        <motion.div
+            initial="initial"
+            animate="animate"
+            variants={{
+                initial: { opacity: 0 },
+                animate: { opacity: 1 }
+            }}
+            transition={{ duration: 0.5 }}
+        >
             {
                 isLoading ? (
                     <Loader loading={isLoading} />
@@ -428,9 +441,9 @@ const PostDetails = ({ post, error }) => {
                             </div>
                             <AdsenseScript />
                             {/* <AWeberScript /> */}
-                            <div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl">
+                            <motion.div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl" variants={fadeInUp}>
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div className='lg:col-span-8 col-span-1'>
+                                    <motion.div className='lg:col-span-8 col-span-1' variants={fadeInUp}>
                                         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 hover:shadow-indigo-500/40 hover:shadow-2xl">
                                             <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} showToast={showToast} showWelcomeMessage={showWelcomeMessage} />
                                             {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
@@ -599,9 +612,9 @@ const PostDetails = ({ post, error }) => {
                                                 )
                                             }
                                         </div>
-                                    </div>
+                                    </motion.div>
 
-                                    <div className="lg:col-span-4 col-span-1">
+                                    <motion.div className="lg:col-span-4 col-span-1" variants={fadeInUp}>
                                         <div className="lg:sticky relative top-0">
                                             <div className="mb-8">
                                                 {
@@ -652,13 +665,13 @@ const PostDetails = ({ post, error }) => {
                                                 }
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </>
                     )
                 }
-        </>
+        </motion.div>
     )
 }
 
@@ -673,7 +686,17 @@ export async function getStaticProps({ params }) {
             props: {
                 post: data,
                 posts,
-            }
+            },
+            // Next.js will attempt to re-generate the page:
+            // - When a request is made to the page
+            // - At most once every 2 days (172800 seconds)
+            revalidate: 172800, // 2 days
+            // This is useful for pages that are not frequently updated
+            // So if the page is not updated in 2 days, it will be re-generated
+            // So what this does is it fetches the posts from the API and stores them in the props
+            // For a blog, this is useful because the blog posts are not updated frequently
+            // So if the blog posts are not updated in 2 days, the blog posts will be fetched again from the API and stored in the cache
+            // And then Next.js will serve the page from the cache if the same page is requested again within 2 days
         };
     } catch (error) {
         return {

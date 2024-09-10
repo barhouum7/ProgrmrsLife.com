@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { FaPlay, FaComment } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.css';
 // import { Helmet } from 'react-helmet-async';
@@ -19,6 +20,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import { AdPopup, AdsenseScript } from "../components"
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, showToast, showWelcomeMessage }) => {
+
+    const fadeInUp = {
+        initial: { opacity: 0, y: 60 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.6 }
+    };
 
     const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
@@ -746,7 +753,15 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
 
     return (
-            <div>
+            <motion.div
+                initial="initial"
+                animate="animate"
+                variants={{
+                initial: { opacity: 0 },
+                animate: { opacity: 1 }
+                }}
+                transition={{ duration: 0.5 }}
+            >
                 <Head>
                     <title>{`${post.title} — ${
                         // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
@@ -978,7 +993,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
                 </Head>
                 <AdsenseScript />
-                <div className="mb-8">
+                <motion.div className="mb-8" variants={fadeInUp}>
                     {
                         placeAdUnit && (
                             <>
@@ -1000,15 +1015,15 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             </>
                         )
                     }
-                </div>
-                <div className="relative overflow-hidden shadow-xl mb-6 cursor-pointer transition duration-700 ease-in-out transform hover:opacity-80">
+                </motion.div>
+                <motion.div className="relative overflow-hidden shadow-xl mb-6 cursor-pointer transition duration-700 ease-in-out transform hover:opacity-80" variants={fadeInUp}>
                     <img 
                         src={post.featuredImage.url}
                         alt={post.title}
                         className="object-top w-full h-full rounded-t-lg hover:shadow-inner"
                     />
-                </div>
-                <div className="px-4 lg:px-0">
+                </motion.div>
+                <motion.div className="px-4 lg:px-0" variants={fadeInUp}>
                     <div className="lg:flex block items-center justify-center mb-4 w-full">
                         <a href={`/post/${post.slug}#authorBio`}>
                             <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-2">
@@ -1651,8 +1666,8 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     />
                     
                     </div>
-                </div>
-                <div className="my-8">
+                </motion.div>
+                <motion.div className="my-8" variants={fadeInUp}>
                     {
                         placeAdUnit && (
                             <>
@@ -1674,8 +1689,8 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             </>
                         )
                     }
-                </div>
-            </div>
+                </motion.div>
+        </motion.div>
     )
 }
 
