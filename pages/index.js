@@ -151,14 +151,14 @@ for (let pageNumber = startPage; pageNumber <= endPage; pageNumber++) {
 if (totalPages > MAX_VISIBLE_PAGES) {
   if (startPage > 1) {
     pageButtons.unshift(
-      <span className="inline-flex items-center px-2 py-2 text-sm text-white dark:text-white" key="ellipsis-start">
+      <span className="inline-flex items-center px-2 py-2 text-sm text-gray-500 dark:text-white" key="ellipsis-start">
         <FaEllipsisH size={16} />
       </span>
     );
   }
   if (endPage < totalPages) {
     pageButtons.push(
-      <span className="inline-flex items-center px-2 py-2 text-sm text-white dark:text-white" key="ellipsis-end">
+      <span className="inline-flex items-center px-2 py-2 text-sm text-gray-500 dark:text-white" key="ellipsis-end">
         <FaEllipsisH size={16} />
       </span>
     );
@@ -216,9 +216,35 @@ if (totalPages > MAX_VISIBLE_PAGES) {
               </div>
               <AdsenseScript />
               {/* <AWeberScript /> */}
-              <FeaturedPosts />
+              <div className="p-4">
+                <FeaturedPosts />
+              </div>
+              
+              <div className="my-8">
+                {
+                  placeAdUnit && (
+                    <>
+                      {/* <!-- Recommended-ad-unit --> */}
+                      {/* <ins className="adsbygoogle"
+                      style={{ display: 'block' }}
+                      data-ad-client="ca-pub-1339539882255727"
+                      data-ad-slot="9618957531"
+                      data-ad-format="auto"
+                      data-full-width-responsive="true"></ins> */}
 
-              <div className='dark:bg-gray-800 container relative flex-grow rounded-t mx-auto p-4 transition ease-in-out duration-500'>
+                      {/* <!-- Recommended-ad-unit --> */}
+                      <ins className="adsbygoogle"
+                      style={{ display: 'block' }}
+                      data-ad-client="ca-pub-5021308603136043"
+                      data-ad-slot="3167248456"
+                      data-ad-format="auto"
+                      data-full-width-responsive="true"></ins>
+                  </>
+                  )
+                }
+              </div>
+
+              <div className='relative rounded-t p-4'>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div className='lg:col-span-8 col-span-1'>
                       {
@@ -255,8 +281,8 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                       totalPages > 1 && (
                         <div className="flex flex-col items-center">
                             {/*  <!-- Help text --> */}
-                            <span className="text-sm text-gray-200 dark:text-gray-400">
-                                Showing <span className="font-extrabold text-white dark:text-white">1</span> to <span className="font-extrabold text-white dark:text-white">{currentPosts.length}</span> of <span className="font-extrabold text-white dark:text-white">{posts.length}</span> Entries
+                            <span className="text-sm text-gray-900 dark:text-gray-400">
+                                Showing <span className="font-extrabold text-gray-900 dark:text-white">1</span> to <span className="font-extrabold text-gray-900 dark:text-white">{currentPosts.length}</span> of <span className="font-extrabold text-gray-900 dark:text-white">{posts.length}</span> Entries
                             </span>
                           <div className="inline-flex justify-center items-center space-x-4 mt-4 xs:mt-0">
                             {/*  <!-- Pagination --> */}
@@ -319,8 +345,31 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                           }
                       </div>
                       <PostWidget />
+                      <div className="my-8">
+                        {
+                          placeAdUnit && (
+                            <>
+                              {/* <!-- Recommended-ad-unit --> */}
+                              {/* <ins className="adsbygoogle"
+                              style={{ display: 'block' }}
+                              data-ad-client="ca-pub-1339539882255727"
+                              data-ad-slot="9618957531"
+                              data-ad-format="auto"
+                              data-full-width-responsive="true"></ins> */}
+
+                              {/* <!-- Recommended-ad-unit --> */}
+                              <ins className="adsbygoogle"
+                              style={{ display: 'block' }}
+                              data-ad-client="ca-pub-5021308603136043"
+                              data-ad-slot="3167248456"
+                              data-ad-format="auto"
+                              data-full-width-responsive="true"></ins>
+                          </>
+                          )
+                        }
+                      </div>
                       <Categories />
-                      <div className="mb-8">
+                      <div className="my-8">
                           {
                               placeAdUnit && (
                                   <>
