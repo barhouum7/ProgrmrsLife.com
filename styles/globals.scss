@@ -4,42 +4,74 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900 dark:bg-black dark:text-gray-100;
+    @apply bg-gray-50 text-gray-900;
     @apply min-h-screen;
   }
 
-  ::selection {
-    @apply text-white bg-indigo-500;
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
   }
 
+  ::selection {
+    @apply text-white bg-indigo-600;
+  }
 
-  .btn{
-    @apply inline-block px-5 py-3 rounded-lg hover:bg-indigo-600 transition duration-300 shadow-lg bg-indigo-500 text-white capitalize tracking-wider font-semibold text-sm sm:text-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 whitespace-nowrap
+  .btn {
+    @apply inline-block px-5 py-3 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-lg bg-indigo-600 text-white capitalize tracking-wider font-semibold text-sm sm:text-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 whitespace-nowrap;
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
 
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  &:before{
-    content:'';
-    content: "";
+  &:before {
+    content: '';
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to right bottom, #2d1f30, #415396, #8f00ba, #10719a, #3299b3);
-    // background: #D3D3D3;
-    // background-image: url("../public/bg.jpg");
     position: fixed;
     left: 0;
     top: 0;
     z-index: -1;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
+
+    // Option 1: Subtle gradient
+    // background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    
+        // background-color: #f0f4f8;
+        // background-image: 
+        //   linear-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+        //   linear-gradient(90deg, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+        // background-size: 20px 20px;
+    
+    // Option 2: Nature-inspired gradient
+    background: linear-gradient(to right, #2c3e50, #3498db);
+
+    background-image: 
+      linear-gradient(to right, #2c3e50, #3498db),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-position: center;
+    background-size: auto, 60px 60px;
+    background-repeat: no-repeat, repeat;
+
+    background-position: center;
+    opacity: 1;
+  }
+}
+
+// Dark mode specific styles
+.dark {
+  html,
+  body {
+    &:before {
+      background-color: #0a192f;
+      background-image: 
+        linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2364ffda' fill-opacity='0.15'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-size: 100px 100px;
+    }
   }
 }
 
