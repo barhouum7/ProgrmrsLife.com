@@ -1074,6 +1074,31 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
                         }
                     </h1>
+
+                    <div className="my-8">
+                        {
+                            placeAdUnit && (
+                                <>
+                                    {/* <!-- Recommended-ad-unit --> */}
+                                    {/* <ins className="adsbygoogle"
+                                    style={{ display: 'block' }}
+                                    data-ad-client="ca-pub-1339539882255727"
+                                    data-ad-slot="9618957531"
+                                    data-ad-format="auto"
+                                    data-full-width-responsive="true"></ins> */}
+
+                                    {/* <!-- Recommended-ad-unit --> */}
+                                    <ins className="adsbygoogle"
+                                    style={{ display: 'block' }}
+                                    data-ad-client="ca-pub-5021308603136043"
+                                    data-ad-slot="3167248456"
+                                    data-ad-format="auto"
+                                    data-full-width-responsive="true"></ins>
+                                </>
+                            )
+                        }
+                    </div>
+
                     {/* {console.log(post.content.json.children)} */}
                     {/* {post.content.json.children[0].children[0].text} */}
                     
