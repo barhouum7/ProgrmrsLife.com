@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link'
 import { grpahCMSImageLoader } from '../util';
 
-const PostCard = ({post}) => {
+const PostCard = React.memo(({ post }) => {
 
     function getMinutesRead(text) {
         const words = text.split(' ').length;
@@ -20,10 +20,12 @@ const PostCard = ({post}) => {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl hover:shadow-indigo-500/40 p-0 mr-4 lg:p-8 pb-12 mb-8 hover:-translate-y-1 hover:scale-100 hover:shadow-2xl hover:z-10">
             <div className="relative overflow-hidden shadow-xl pb-80 mb-6">
                 <Link href={`/post/${post.slug}`}>
-                    <img 
+                    <Image 
                         src={post.featuredImage.url}
                         alt={post.title}
-                        className="absolute shadow-lg rounded-t-lg lg:rounded-lg w-full h-80 object-top object-cover cursor-pointer hover:opacity-80 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 hover:rounded-lg hover:rounded-b-none hover:rounded-r-none hover:rounded-l-none hover:rounded-t-none hover:rounded-tl-none hover:rounded-tr-none hover:rounded-bl-none hover:rounded-br-none"
+                        layout="fill"
+                        objectFit="cover"
+                        className="absolute shadow-lg rounded-t-lg lg:rounded-lg cursor-pointer hover:opacity-80 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50"
                     />
                 </Link>
             </div>
@@ -82,6 +84,6 @@ const PostCard = ({post}) => {
             </div>
         </div>
   )
-}
+})
 
 export default PostCard
