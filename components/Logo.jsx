@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Logo = () => {
     return (
-        <div className='flex justify-between items-center relative hover:animate-none animate-[spin_3s_ease-in-out_infinite]'>
+    <div className='flex justify-between items-center relative animate-none hover:animate-[spin_3s_ease-in-out_infinite]'>
         <Image
             alt="Programmers Life logo"
             src="/imgs/logo.svg"
