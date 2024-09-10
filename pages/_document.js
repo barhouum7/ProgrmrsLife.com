@@ -14,8 +14,8 @@ class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#000000" />
           <meta name="description" content="Explore insightful articles on technology, programming, and web development on our blog. Stay updated with the latest trends and tips in the tech world." />
-          <link rel="apple-touch-icon" href="/icon-192x192.png" />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="apple-touch-icon" href="/imgs/favicon.svg" />
+          <link rel="icon" href="/imgs/favicon.svg" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           {/* // Code from AdSense (Ad Blocking Recovery Code) */}
           <Script async src="https://fundingchoicesmessages.google.com/i/pub-5021308603136043?ers=1" nonce="xfSPYvIvCASQi3buWSF2eg"></Script>
