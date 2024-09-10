@@ -1,8 +1,19 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+
+  images: {
+    remotePatterns: [
+        { hostname: "media.graphassets.com"},
+    ],
+  },
   experimental: {
     workerThreads: false,
     cpus: 1
   },
 }
+
+module.exports = nextConfig
