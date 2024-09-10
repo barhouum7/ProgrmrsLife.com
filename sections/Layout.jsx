@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "./Header/Header";
 import Footer from "./FooterSection";
-import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton } from "../components";
+import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton, AdSupportModal } from "../components";
 import Head from "next/head";
 import Script from "next/script";
 import { initializeAdBlockRecovery } from "../adBlockRecovery";
@@ -167,9 +167,10 @@ const Layout = ({ children }) => {
 
     const bannerStyle = {
       background: showBanner
-      ? 'linear-gradient(to left, #FFC900, #FF6C00)' // Darker yellow gradient
-      : 'none', // No background
-      transition: 'all 0.5s', // Smooth transition
+          ? 'linear-gradient(to right, #4a00e0, #8e2de2)' // Vibrant purple gradient
+          : 'none', // No background when banner is hidden
+      boxShadow: showBanner ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none', // Subtle shadow when banner is shown
+      transition: 'all 0.5s ease-in-out', // Smooth transition with easing
     };
     
 
@@ -295,24 +296,24 @@ const Layout = ({ children }) => {
           <div className="relative top-0 z-20">
             <div
               id="flash-div"
-              className={`absolute z-20 inset-0 bg-black bg-opacity-20 shadow-2xl -top-20 rounded-full banner-flash-animation
+              className={`absolute z-20 inset-0 bg-indigo-900 bg-opacity-30 shadow-2xl -top-20 rounded-full banner-flash-animation
                 ${closeBanner ? 'hidden' : 'block'}
               `}
             ></div>
               <div 
               style={bannerStyle}
-              className={`bg-yellow-500 text-white text-xs sm:text-sm fixed top-0 left-0 right-0 z-10 ${
+              className={`bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs sm:text-sm fixed top-0 left-0 right-0 z-10 ${
                 closeBanner ? 'p-0 transition-all duration-500' : 'p-3'
               }`}
               >
                     <div className="flex container mx-auto justify-center text-center z-50">
                       <p className="flex items-center">
-                      <span className="mr-2">🔥</span>
-                      <span className="font-bold">We are now providing sponsoring services for your business. <a href="/ContactUs" className="underline">Contact us</a> for more information.</span>
+                      <span className="mr-2">🚀</span>
+                      <span className="font-bold">Exciting news! We now offer sponsorship services for businesses. <a href="/ContactUs" className="underline hover:text-black transition-colors duration-300">Get in touch</a> to learn more and boost your brand visibility.</span>
                       </p>
                       <button
-                      className="ml-2 px-3 py-1 rounded-md bg-yellow-600 hover:bg-opacity-80 transition-colors duration-300"
-                      onClick={handleCloseBanner}
+                        className="ml-2 px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300"
+                        onClick={handleCloseBanner}
                       >
                       Close
                       </button>
@@ -322,8 +323,9 @@ const Layout = ({ children }) => {
         )
       }
         <Header showBanner={showBanner} />
-        <main className="container relative rounded-t mx-auto transition ease-in-out duration-500">
+        <main className={`relative rounded-t mx-4 dark:bg-gray-900 shadow-md bg-indigo-100`}>
             {children}
+            <AdSupportModal />
         </main>
         <Subscribe />
         <Footer />
