@@ -225,7 +225,9 @@ const Header = ({showBanner}) => {
 };
 
   return (
-      <header className="relative h-32"
+      <header className={`relative 
+        ${!showBanner ? 'h-20' : 'h-32'}
+      `}
       style={{
         zIndex: "10",
       }}
