@@ -1,0 +1,30 @@
+{
+  "name": "Programmers Life Blog",
+  "short_name": "ProgrammersLife",
+  "description": "Explore the world of programming with insightful articles, tutorials, and tips for developers of all levels.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#60A5FA",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "scope": "/",
+  "orientation": "any",
+  "categories": ["education", "technology", "programming"],
+  "lang": "en-US"
+}

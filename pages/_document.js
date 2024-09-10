@@ -11,6 +11,12 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#000000" />
+          <meta name="description" content="Explore insightful articles on technology, programming, and web development on our blog. Stay updated with the latest trends and tips in the tech world." />
+          <link rel="apple-touch-icon" href="/icon-192x192.png" />
+          <link rel="icon" href="/favicon.ico" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           {/* // Code from AdSense (Ad Blocking Recovery Code) */}
           <Script async src="https://fundingchoicesmessages.google.com/i/pub-5021308603136043?ers=1" nonce="xfSPYvIvCASQi3buWSF2eg"></Script>
           <Script nonce="xfSPYvIvCASQi3buWSF2eg">{`(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})()`}</Script>
@@ -56,7 +62,7 @@ class MyDocument extends Document {
           {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
           <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
           {/* // Code from AdSense */}
-          <script 
+          <Script 
             id="adsbygoogle-init"
             strategy="afterInteractive"
             crossOrigin="anonymous"
@@ -66,7 +72,8 @@ class MyDocument extends Document {
           />
           <link rel="icon" href="/imgs/favicon.svg" />
             {/* <!-- Google Tag Manager --> */}
-            <script
+              <Script
+                strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
                   __html: `
                     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -79,11 +86,21 @@ class MyDocument extends Document {
               />
             {/* <!-- End Google Tag Manager --> */}
           {/* Sharethis integration code */}
-          <script src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" async="async" />
+          <Script 
+            src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" 
+            async="async" 
+            strategy="lazyOnload"
+          />
           
           {/* Google Adsense Allow Ads message tag */}
-          <script async src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" nonce="ML-8Zn0qG97P5bAGURNW3Q" />
-          <script
+          <Script 
+            async 
+            src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" 
+            strategy="lazyOnload"
+            nonce="ML-8Zn0qG97P5bAGURNW3Q" 
+          />
+          <Script
+            strategy="lazyOnload"
             nonce="ML-8Zn0qG97P5bAGURNW3Q"
             dangerouslySetInnerHTML={{
               __html: `
@@ -99,12 +116,13 @@ class MyDocument extends Document {
               height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe></noscript>
               {/* <!-- End Google Tag Manager (noscript) --> */}
               {/* <!-- Google tag (gtag.js) --> */}
-              <script 
+              <Script 
                   async 
                   src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
-              ></script>
-              <script
-              type="text/javascript"
+                  strategy="lazyOnload"
+              />
+              <Script
+                strategy="lazyOnload"
                 dangerouslySetInnerHTML={{
                   __html: `
                     window.dataLayer = window.dataLayer || [];
@@ -113,7 +131,7 @@ class MyDocument extends Document {
                     gtag('config', 'G-PEF01PTY1T');
                   `,
                 }}
-              ></script>
+              />
               {/* <!-- End Google tag (gtag.js) --> */}
           <Main />
           <NextScript />
