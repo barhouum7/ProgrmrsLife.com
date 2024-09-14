@@ -39,3 +39,5 @@ next-env.d.ts
 # Auto Generated PWA files
 **/public/sw.js
 **/public/workbox-*.js
+**/public/fallback-*.js
+**/public/fallback-*.js.map
