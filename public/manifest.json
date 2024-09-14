@@ -1,6 +1,6 @@
 {
   "name": "Programmers Life Blog",
-  "short_name": "ProgrammersLife",
+  "short_name": "ProgrmrsLife",
   "description": "Explore the world of programming with insightful articles, tutorials, and tips for developers of all levels.",
   "start_url": "/",
   "display": "standalone",

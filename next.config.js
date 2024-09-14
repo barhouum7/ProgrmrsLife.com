@@ -1,16 +1,17 @@
 const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
+  dest: 'public', // destination directory for the PWA files
+  disable: process.env.NODE_ENV === 'development', // disable PWA in development mode
+  register: true, // register the PWA service worker
+  skipWaiting: true, // skip waiting for service worker activation
   runtimeCaching: [
     {
-      urlPattern: /^https?.*/,
-      handler: 'NetworkFirst',
+      urlPattern: /^https?.*/, // cache all network requests
+      handler: 'NetworkFirst', // use the network first strategy
       options: {
         cacheName: 'offlineCache',
         expiration: {
-          maxEntries: 200
+          maxEntries: 200, // maximum number of entries in the cache
+          maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
         }
       }
     }
@@ -20,6 +21,10 @@ const withPWA = require('next-pwa')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,            // Enable SWC minification for improved performance
+  compiler: {
+      removeConsole: process.env.NODE_ENV !== "development"     // Remove console.log in production
+  },
   typescript: {
     ignoreBuildErrors: false,
   },
@@ -30,6 +35,7 @@ const nextConfig = {
     ],
   },
   experimental: {
+    serviceWorker: true,
     workerThreads: false,
     cpus: 1
   },
