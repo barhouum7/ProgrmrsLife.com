@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Image from 'next/image';
 import Head from 'next/head'
 import Link from 'next/link';
@@ -20,9 +21,8 @@ const ServiceCard = ({ title, description, icon: Icon, imgSrc, link }) => {
         <Image
           src={imgSrc}
           alt={title}
-          layout="fill"
-          objectFit="cover"
-          className="transition-all duration-300 ease-in-out"
+          fill
+          className="object-cover transition-all duration-300 ease-in-out"
           style={{ filter: isHovered ? 'brightness(70%)' : 'brightness(100%)' }}
         />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -152,6 +152,14 @@ function Services() {
     </>
   )
 }
+
+ServiceCard.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    icon: PropTypes.func.isRequired,
+    imgSrc: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+};
 
 export default Services;
 
