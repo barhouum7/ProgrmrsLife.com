@@ -1,10 +1,11 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { useMyContext } from "../contexts/MyContext";
 import { FaEllipsisH } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import { PostCard, Categories, PostWidget, FeaturedPosts, Loader, AdsenseScript} from '../components'
 import { getPosts } from '../services/index'
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 export default function Home ({ posts, error }) {
     // Check if returning visitor or not handle...
@@ -42,7 +43,7 @@ export default function Home ({ posts, error }) {
             setIsWelcomed(true);
         }
 
-    }, [showWelcomeMessage, showToast]);
+      }, [showWelcomeMessage, showToast, isWelcomed, setIsWelcomed]);
 
 
   // Fetch posts from API and store in state using React Hooks (useState)
@@ -417,13 +418,18 @@ if (totalPages > MAX_VISIBLE_PAGES) {
   );
 }
 
+Home.propTypes = {
+  posts: PropTypes.array,
+  error: PropTypes.bool
+};
+
 // Fetch data at build time
 export async function getStaticProps() {
   try {
     const posts = await getPosts();
     return {
       props: { posts },
-      // Next.js will attempt to re-generate the page:
+  // Next.js will attempt to re-generate the page:
       // - When a request is made to the page
       // - At most once every 2 days (172800 seconds)
       revalidate: 172800, // 2 days

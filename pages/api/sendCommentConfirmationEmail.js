@@ -268,7 +268,7 @@ const handler = (req, res) => {
                                                                                                         blog using our
                                                                                                     </span><a
                                                                                                         rel="noopener noreferrer"
-                                                                                                        href="https://www.progrmrslife.com/ContactUs"
+                                                                                                        href="https://www.progrmrslife.com/contact-us"
                                                                                                         style="color:rgb(64,143,231);font-weight:bold"
                                                                                                         target="_blank" n
                                                                                                         style="color:#698596;font-family:Tahoma,Geneva,sans-serif"><strong>contact

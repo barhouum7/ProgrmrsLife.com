@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMyContext } from '../../contexts/MyContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Script from 'next/script';
 // import toast from 'react-hot-toast';
 import { ToastContainer, toast } from 'react-toastify';
 import {InlineReactionButtons} from 'sharethis-reactjs';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 import { getPosts, getPostDetails } from "../../services"
 
@@ -65,10 +65,6 @@ const PostDetails = ({ post, error }) => {
 
     const [isCopied, setIsCopied] = useState(false);
 
-
-    if (router.isFallback) { // While the page is generating, the user will see a loading state until getStaticProps() finishes and the page is served.
-        return <Loader loading={isLoading} />;
-    }
 
     const enablePopupMessage = () => {
         // console.log('Please allow popups for this website to share this article.');
@@ -193,6 +189,10 @@ const PostDetails = ({ post, error }) => {
             animate: { opacity: 1, y: 0 },
             transition: { duration: 0.6 }
         };
+
+        if (router.isFallback) { // While the page is generating, the user will see a loading state until getStaticProps() finishes and the page is served.
+            return <Loader loading={isLoading} />;
+        }
 
     return (
         <motion.div
@@ -674,6 +674,12 @@ const PostDetails = ({ post, error }) => {
         </motion.div>
     )
 }
+
+PostDetails.propTypes = {
+    post: PropTypes.object,
+    posts: PropTypes.array,
+    error: PropTypes.bool
+};
 
 export default PostDetails
 

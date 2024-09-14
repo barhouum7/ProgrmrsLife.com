@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
+import PropTypes from 'prop-types';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { fonts, defaultFont } from '../config/fonts';
@@ -61,7 +62,7 @@ const actions = [
     keywords: ["about"],
     section: "Navigation",
     perform: () => {
-      window.location.href = "/AboutUs"
+      window.location.href = "/about-us"
     },
     subtitle: "Go to the about page",
     icon: <AboutIcon />,
@@ -132,6 +133,11 @@ const actions = [
     </ErrorBoundary>
   )
 }
+
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  pageProps: PropTypes.object.isRequired,
+};
 
 export default MyApp
 

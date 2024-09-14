@@ -1,3 +1,4 @@
+import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import Script from 'next/script';
 
@@ -11,12 +12,12 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          <link rel="manifest" href="/manifest.json" />
-          <meta name="theme-color" content="#000000" />
-          <meta name="description" content="Explore insightful articles on technology, programming, and web development on our blog. Stay updated with the latest trends and tips in the tech world." />
-          <link rel="apple-touch-icon" href="/imgs/favicon.svg" />
           <link rel="icon" href="/imgs/favicon.svg" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="apple-touch-icon" href="/imgs/favicon.svg" />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+          <meta name="theme-color" content="#60A5FA" />
+
           {/* // Code from AdSense (Ad Blocking Recovery Code) */}
           <Script async src="https://fundingchoicesmessages.google.com/i/pub-5021308603136043?ers=1" nonce="xfSPYvIvCASQi3buWSF2eg"></Script>
           <Script nonce="xfSPYvIvCASQi3buWSF2eg">{`(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})()`}</Script>

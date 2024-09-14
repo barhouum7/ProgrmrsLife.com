@@ -1,9 +1,9 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { FaEllipsisH } from 'react-icons/fa';
 import Head from 'next/head';
-import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 import { getCategories, getCategoryPost, getCategory, getPosts } from '../../services';
 import { PostCard, Categories, Loader, AdsenseScript } from '../../components';
@@ -59,10 +59,6 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
 
   }, [catPosts]);
   
-
-  if (router.isFallback) {
-    return <Loader loading={isLoading} />;
-  }
 
   // Shuffle the posts array to display them in a random order
   const [shuffledCatPosts, setShuffledCatPosts] = useState([]);
@@ -146,6 +142,10 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
     transition: { duration: 0.6 }
   };
 
+  if (router.isFallback) {
+    return <Loader loading={isLoading} />;
+  }
+
   return (
     <motion.div
       initial="initial"
@@ -180,7 +180,7 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
               <meta name="google" content="nositelinkssearchbox" />
               <meta name="google" content="notranslate" />
               <meta name="google" content="notranslate" />
-              <meta http-equiv="Content-Language" content="en" />
+              <meta httpEquiv="Content-Language" content="en" />
               <meta name="language" content="English" />
               <meta property="og:title" content={`${categoryName} | Programmers Life`} />
               <meta property="og:description" content={
@@ -343,6 +343,13 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
     </motion.div>
   );
 };
+
+CategoryPost.propTypes = {
+  catPosts: PropTypes.array,
+  categoryName: PropTypes.string,
+  error: PropTypes.bool
+};
+
 export default CategoryPost;
 
 // Fetch data at build time
@@ -359,7 +366,16 @@ export async function getStaticProps({ params }) {
         categoryName,
         posts, // Passing this prop to be able to load posts from the Kbar Quick Search
       },
-      revalidate: 1,
+      // Next.js will attempt to re-generate the page:
+      // - When a request is made to the page
+      // - At most once every 2 days (172800 seconds)
+      revalidate: 172800, // 2 days
+      // This is useful for pages that are not frequently updated
+      // So if the page is not updated in 2 days, it will be re-generated
+      // So what this does is it fetches the posts from the API and stores them in the props
+      // For a blog, this is useful because the blog posts are not updated frequently
+      // So if the blog posts are not updated in 2 days, the blog posts will be fetched again from the API and stored in the cache
+      // And then Next.js will serve the page from the cache if the same page is requested again within 2 days
     };
   } catch (error) {
     return {
