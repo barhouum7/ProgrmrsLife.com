@@ -18,13 +18,25 @@ class MyDocument extends Document {
           <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
           <meta name="theme-color" content="#60A5FA" />
 
+          {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
+          <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
+          
+          <link rel="icon" href="/imgs/favicon.svg" />
+          
+        </Head>
+        <body>
+
           {/* // Code from AdSense (Ad Blocking Recovery Code) */}
           <Script async src="https://fundingchoicesmessages.google.com/i/pub-5021308603136043?ers=1" nonce="xfSPYvIvCASQi3buWSF2eg"></Script>
-          <Script nonce="xfSPYvIvCASQi3buWSF2eg">{`(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})()`}</Script>
+          <Script id="adsbygoogle-recovery" nonce="xfSPYvIvCASQi3buWSF2eg">{`(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})()`}</Script>
 
           {/* // Code from AdSense (Ad Blocking Recovery Code - Error Protection Message) */}
-          <Script>
-            {`
+          <Script 
+            id="adsbygoogle-recovery"
+            strategy="afterInteractive"
+            nonce="xfSPYvIvCASQi3buWSF2eg"
+            dangerouslySetInnerHTML={{
+              __html: `
               (function(){'use strict';function aa(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}}var ba="function"==typeof Object.defineProperties?Object.defineProperty:function(a,b,c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};
               function ea(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var c=a[b];if(c&&c.Math==Math)return c}throw Error("Cannot find global object");}var fa=ea(this);function ha(a,b){if(b)a:{var c=fa;a=a.split(".");for(var d=0;d<a.length-1;d++){var e=a[d];if(!(e in c))break a;c=c[e]}a=a[a.length-1];d=c[a];b=b(d);b!=d&&null!=b&&ba(c,a,{configurable:!0,writable:!0,value:b})}}
               var ia="function"==typeof Object.create?Object.create:function(a){function b(){}b.prototype=a;return new b},l;if("function"==typeof Object.setPrototypeOf)l=Object.setPrototypeOf;else{var m;a:{var ja={a:!0},ka={};try{ka.__proto__=ja;m=ka.a;break a}catch(a){}m=!1}l=m?function(a,b){a.__proto__=b;if(a.__proto__!==b)throw new TypeError(a+" is not extensible");return a}:null}var la=l;
@@ -57,11 +69,10 @@ class MyDocument extends Document {
               function pb(a){qb(a);Za(a.o,a.u,3,!1,function(){a:{var b=a.j;var c=p.btoa(b);if(c=p[c]){try{var d=Sa(p.atob(c))}catch(e){b=!1;break a}b=b===Na(d,1)}else b=!1}b?Z(a,S(a.g,14)):(Z(a,S(a.g,8)),eb(a.l))},function(){jb(function(){Z(a,S(a.g,7));eb(a.l)},function(){return Z(a,S(a.g,6))},S(a.g,9),Oa(a.g,10),Oa(a.g,11))})}function Z(a,b){a.i||(a.i=!0,a=new a.m.XMLHttpRequest,a.open("GET",b,!0),a.send())}function qb(a){var b=p.btoa(a.j);a.m[b]&&Z(a,S(a.g,5))};(function(a,b){p[a]=function(){var c=ma.apply(0,arguments);p[a]=function(){};b.apply(null,c)}})("__h82AlnkH6D91__",function(a){"function"===typeof window.atob&&(new ob(window,mb(window.atob(a)))).start()});}).call(this);
 
               window.__h82AlnkH6D91__("WyJwdWItNTAyMTMwODYwMzEzNjA0MyIsW251bGwsbnVsbCxudWxsLCJodHRwczovL2Z1bmRpbmdjaG9pY2VzbWVzc2FnZXMuZ29vZ2xlLmNvbS9iL3B1Yi01MDIxMzA4NjAzMTM2MDQzIl0sbnVsbCxudWxsLCJodHRwczovL2Z1bmRpbmdjaG9pY2VzbWVzc2FnZXMuZ29vZ2xlLmNvbS9lbC9BR1NLV3hXU2VWZW9KNnRoNWk4Vk9VcEd0ZDhUOXZSaldnTDh0UmJ5QWZCZmtxV09yMlU3YUhkV3ROcTZYMVRnYTFNTUhXeVFZZGlaSER1eUJ1UjZNaUpER1RBYllnXHUwMDNkXHUwMDNkP3RlXHUwMDNkVE9LRU5fRVhQT1NFRCIsImh0dHBzOi8vZnVuZGluZ2Nob2ljZXNtZXNzYWdlcy5nb29nbGUuY29tL2VsL0FHU0tXeFdwQVdKTEtsWXJ1aHlINmNWQzlnTFhENi1IdHc5NjFPemRwcHl0Mmp3WHVVNjZGV01Xc3cwc0NtMnp2QkRsQVRVcndETXN5bW5PbUJjb2o3NWIxRmhMNkFcdTAwM2RcdTAwM2Q/YWJcdTAwM2QxXHUwMDI2c2JmXHUwMDNkMSIsImh0dHBzOi8vZnVuZGluZ2Nob2ljZXNtZXNzYWdlcy5nb29nbGUuY29tL2VsL0FHU0tXeFVWdjVkWGVCaE5aWEx6bjZoUnJOVEV2N3dCdGZOa0xKQjFSeDVTaXhiS1gwenhtNGE0YWplYV9mQ2ZUUExWZWFlaGgtcmlDWGdYcEVkaXBNVG40c1ZkOEFcdTAwM2RcdTAwM2Q/YWJcdTAwM2QyXHUwMDI2c2JmXHUwMDNkMSIsImh0dHBzOi8vZnVuZGluZ2Nob2ljZXNtZXNzYWdlcy5nb29nbGUuY29tL2VsL0FHU0tXeFZTbGdrRzhhUGdLRFI2cW9DUnVzYXIxRF81bUFTdUlldV9ZSFRkVXN0Y0J2QURoVUhfckRWcW15Y20xR3Z0cnpLUXZFcF9iQWhBNkUxTkdWanN0bTVpb1FcdTAwM2RcdTAwM2Q/c2JmXHUwMDNkMiIsImRpdi1ncHQtYWQiLDIwLDEwMCwiY0hWaUxUVXdNakV6TURnMk1ETXhNell3TkRNXHUwMDNkIixbbnVsbCxudWxsLG51bGwsImh0dHBzOi8vd3d3LmdzdGF0aWMuY29tLzBlbW4vZi9wL3B1Yi01MDIxMzA4NjAzMTM2MDQzLmpzP3VzcXBcdTAwM2RDQkEiXSwiaHR0cHM6Ly9mdW5kaW5nY2hvaWNlc21lc3NhZ2VzLmdvb2dsZS5jb20vZWwvQUdTS1d4VjhkVlZrLUNpTlhuQnczcHd0OXczTkJXRkMtUm1nYzZ6SXFPb3pYdVZjM3Z3REd0VVhqeklLUkRsSlVyZGZiaVlFc0w5allSbUFkRFYwbXgtYThPZEV3QVx1MDAzZFx1MDAzZCJd");
-            `}
-          </Script>
+            `}}
+          />
 
-          {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
-          <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
+
           {/* // Code from AdSense */}
           <Script 
             id="adsbygoogle-init"
@@ -71,21 +82,22 @@ class MyDocument extends Document {
             // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
             loading="lazy"
           />
-          <link rel="icon" href="/imgs/favicon.svg" />
-            {/* <!-- Google Tag Manager --> */}
-              <Script
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                    })(window,document,'script','dataLayer','GTM-WFFN5QDF');
-                  `,
-                }}
-              />
-            {/* <!-- End Google Tag Manager --> */}
+
+          {/* <!-- Google Tag Manager --> */}
+          <Script
+            id="google-tag-manager"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-WFFN5QDF');
+              `,
+            }}
+          />
+          {/* <!-- End Google Tag Manager --> */}
           {/* Sharethis integration code */}
           <Script 
             src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" 
@@ -99,8 +111,9 @@ class MyDocument extends Document {
             src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" 
             strategy="lazyOnload"
             nonce="ML-8Zn0qG97P5bAGURNW3Q" 
-          />
+      />
           <Script
+            id="google-fc-present"
             strategy="lazyOnload"
             nonce="ML-8Zn0qG97P5bAGURNW3Q"
             dangerouslySetInnerHTML={{
@@ -110,8 +123,7 @@ class MyDocument extends Document {
             }}
           />
           {/* Allow Ads Error protection message */}
-        </Head>
-        <body>
+
           {/* <!-- Google Tag Manager (noscript) --> */}
           <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFFN5QDF"
               height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe></noscript>
@@ -123,6 +135,7 @@ class MyDocument extends Document {
                   strategy="lazyOnload"
               />
               <Script
+                id="google-analytics"
                 strategy="lazyOnload"
                 dangerouslySetInnerHTML={{
                   __html: `
