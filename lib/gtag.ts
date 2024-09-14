@@ -19,14 +19,13 @@ export const pageview = (url: string): void => {
 };
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
-interface EventProps {
+
+export const event = ({ action, category, label, value }: {
   action: string;
   category: string;
   label: string;
-  value?: number;
-}
-
-export const event = ({ action, category, label, value }: EventProps): void => {
+  value: number;
+}): void => {
   window.gtag('event', action, {
     event_category: category,
     event_label: label,
