@@ -259,7 +259,7 @@ const PostDetails = ({ post, error }) => {
                                 <meta property="article:section" content={post.categories[0].name} />
                                 <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
 
-                                <link rel="icon" href="/icons/icon-128x128.png" />
+                                <link rel="icon" href="/imgs/favicon.svg" />
                                 <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
                                 <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
                             </Head>

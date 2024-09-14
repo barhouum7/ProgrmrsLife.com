@@ -12,7 +12,7 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          <link rel="icon" href="/imgs/favicon.png" />
+          <link rel="icon" href="/imgs/favicon.svg" />
           <link rel="apple-touch-icon" href="/icons/icon-128x128.png" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
