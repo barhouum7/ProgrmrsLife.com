@@ -1,9 +1,12 @@
 {
+  "name": "progrmrslife",
+  "version": "2.0.10",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postbuild": "node -r dotenv/config scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
@@ -21,6 +24,7 @@
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.3.8",
     "framer-motion": "^11.5.4",
+    "globby": "^14.0.2",
     "graphql": "^16.6.0",
     "graphql-request": "^5.1.0",
     "highlight.js": "^11.7.0",
@@ -32,6 +36,8 @@
     "next-themes": "^0.2.1",
     "ninja-keys": "^1.2.2",
     "nodemailer": "^6.9.1",
+    "prettier": "^3.3.3",
+    "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-avatar": "^5.0.3",
     "react-dom": "18.2.0",
@@ -55,7 +61,9 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "autoprefixer": "^10.4.12",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.11",
     "md5": "^2.3.0",
     "postcss": "^8.4.18",
     "rimraf": "^5.0.0",
