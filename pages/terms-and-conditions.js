@@ -26,7 +26,7 @@ const terms_and_conditions = () => {
         <meta property="og:locale" content="Terms and Conditions" />
         <meta property="og:locale:alternate" content="Terms and Conditions" />
         <meta property="og:updated_time" content="Terms and Conditions" />
-        <link rel="icon" href="/imgs/favicon.svg" />
+        <link rel="icon" href="/icons/icon-128x128.png" />
         <meta name="viewport" content="width=device-width,minimum-scale=1, initial-scale=1" />
 
         <style>{`

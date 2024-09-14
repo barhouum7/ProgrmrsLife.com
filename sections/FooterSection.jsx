@@ -5,6 +5,7 @@ import React from 'react'
 // import Logo from "../components/Logo";
 import { Tooltip } from "flowbite-react"
 import Link from 'next/link'
+import Image from 'next/image'
 
 const BsFacebook = () => {
   return (
@@ -105,15 +106,16 @@ const FooterSection = () => {
     <footer className="p-4 sm:p-6 dark:bg-gray-900 rounded-b mx-4 px-10 mb-1 sm:px-6">
         <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-                <a href="https://progrmrslife.com/" target="_blank" rel="noopener noreferrer" className="flex items-center">
+            <a href="https://progrmrslife.com/" target="_blank" rel="noopener noreferrer" className="flex items-center">
                     <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center mr-8">
-                    <img
-                      alt="Programmers Life logo"
-                      src="/imgs/logo.svg"
-                      width={50}
-                      height={50}
-                      className='rounded-full cursor-pointer mr-1 inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10'
-                    />
+                      <div className='relative w-12 h-12'>
+                        <Image
+                          alt="Programmers Life logo"
+                          src="/imgs/logo.svg"
+                          fill
+                          className='rounded-full cursor-pointer mr-1 inset-0 object-cover transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10'
+                        />
+                      </div>
                       <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
                         Programmers Life
                       </span>
@@ -154,6 +156,9 @@ const FooterSection = () => {
                         </li>
                         <li className="mb-4 cursor-pointer hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
                             <a href="https://progrmrslife.com/" target="_top" rel="noopener noreferrer" className="relative menu-item">Blog <span className="border-b-effect-footer"></span></a>
+                        </li>
+                        <li className="mb-4 cursor-pointer hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <a href="https://progrmrslife.com/sitemap.xml" target="_blank" rel="noopener noreferrer" className="relative menu-item">Sitemap <span className="border-b-effect-footer"></span></a>
                         </li>
                     </ul>
                 </div>

@@ -22,7 +22,13 @@ const Comments = ({ slug }) => {
 
         getComments(slug, page)
             .then((result) => {
-                setComments((prevComments) => [...prevComments, ...result]);
+                setComments((prevComments) => {
+                    // Filter out duplicates based on createdAt
+                    const newComments = result.filter(newComment => 
+                        !prevComments.some(prevComment => prevComment.createdAt === newComment.createdAt)
+                    );
+                    return [...prevComments, ...newComments];
+                });
                 if (result.length < 10) {
                     setHasMore(false);
                 }
@@ -37,7 +43,7 @@ const Comments = ({ slug }) => {
     }, [slug, page]);
 
 
-const handleScroll = useCallback(() => {
+    const handleScroll = useCallback(() => {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
         const scrollTop = window.scrollY;

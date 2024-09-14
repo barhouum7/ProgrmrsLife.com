@@ -221,195 +221,45 @@ const PostDetails = ({ post, error }) => {
                                         new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
                                 } | Programmers Life`}</title>
                                 <meta name="description" content={post.excerpt} />
-                                <link rel="icon" href="/imgs/favicon.svg" />
                                 <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
                                 <meta name="author" content={post.author.name} />
-                                <meta name="og:title" property="og:title" content={post.title} />
-                                <meta name="og:description" property="og:description" content={post.excerpt} />
-                                <meta name="og:image" property="og:image" content={post.featuredImage.url} />
-                                <meta name="og:url" property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                
+                                {/* Open Graph */}
+                                <meta property="og:title" content={post.title} />
+                                <meta property="og:description" content={post.excerpt} />
+                                <meta property="og:image" content={post.featuredImage.url} />
+                                <meta property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                                <meta property="og:type" content="article" />
+                                <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
+
+                                {/* Twitter */}
                                 <meta name="twitter:card" content="summary_large_image" />
                                 <meta name="twitter:title" content={post.title} />
                                 <meta name="twitter:description" content={post.excerpt} />
                                 <meta name="twitter:image" content={post.featuredImage.url} />
                                 <meta name="twitter:creator" content="https://links.progrmrslife.com" />
                                 <meta name="twitter:site" content="https://links.progrmrslife.com" />
-                                <meta name="twitter:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="twitter:domain" content="progrmrslife.com" />
-                                <meta name="twitter:app:name:iphone" content="ProgrammersLife" />
-                                <meta name="twitter:app:name:ipad" content="ProgrammersLife" />
-                                <meta name="twitter:app:name:googleplay" content="ProgrammersLife" />
-                                <meta name="twitter:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="twitter:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="twitter:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="twitter:app:id:iphone" content="id1527907634" />
-                                <meta name="twitter:app:id:ipad" content="id1527907634" />
-                                <meta name="twitter:app:id:googleplay" content="com.progrmrslife" />
-                                <meta name="twitter:app:country" content="US" />
-                                
-                                <meta name="facebook:card" content="summary_large_image" />
-                                <meta name="facebook:title" content={post.title} />
-                                <meta name="facebook:description" content={post.excerpt} />
-                                <meta name="facebook:image" content={post.featuredImage.url} />
-                                <meta name="facebook:creator" content="https://links.progrmrslife.com" />
-                                <meta name="facebook:site" content="https://links.progrmrslife.com" />
-                                <meta name="facebook:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="facebook:domain" content="progrmrslife.com" />
-                                <meta name="facebook:app:name:iphone" content="ProgrammersLife" />
-                                <meta name="facebook:app:name:ipad" content="ProgrammersLife" />
-                                <meta name="facebook:app:name:googleplay" content="ProgrammersLife" />
-                                <meta name="facebook:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="facebook:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="facebook:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="facebook:app:id:iphone" content="id1527907634" />
-                                <meta name="facebook:app:id:ipad" content="id1527907634" />
-                                <meta name="facebook:app:id:googleplay" content="com.progrmrslife" />
-                                <meta name="facebook:app:country" content="US" />
 
-                                <meta name="telegram:card" content="summary_large_image" />
-                                <meta name="telegram:title" content={post.title} />
-                                <meta name="telegram:description" content={post.excerpt} />
-                                <meta name="telegram:image" content={post.featuredImage.url} />
-                                <meta name="telegram:creator" content="https://links.progrmrslife.com" />
-                                <meta name="telegram:site" content="https://links.progrmrslife.com" />
-                                <meta name="telegram:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="telegram:domain" content="progrmrslife.com" />
-                                <meta name="telegram:app:name:iphone" content="ProgrammersLife" />
-                                <meta name="telegram:app:name:ipad" content="ProgrammersLife" />
-                                <meta name="telegram:app:name:googleplay" content="ProgrammersLife" />
-                                <meta name="telegram:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="telegram:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="telegram:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="telegram:app:id:iphone" content="id1527907634" />
-                                <meta name="telegram:app:id:ipad" content="id1527907634" />
-                                <meta name="telegram:app:id:googleplay" content="com.progrmrslife" />
-                                <meta name="telegram:app:country" content="US" />
+                                {/* Other important meta tags */}
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                                <meta name="robots" content="index, follow" />
+                                <meta name="googlebot" content="index, follow" />
+                                <meta httpEquiv="Content-Language" content="en" />
 
-                                <meta name="google:card" content="summary_large_image" />
-                                <meta name="google:title" content={post.title} />
-                                <meta name="google:description" content={post.excerpt} />
-                                <meta name="google:image" content={post.featuredImage.url} />
-                                <meta name="google:creator" content="https://links.progrmrslife.com" />
-                                <meta name="google:site" content="https://links.progrmrslife.com" />
-                                <meta name="google:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="google:domain" content="progrmrslife.com" />
-                                <meta name="google:app:name:iphone" content="ProgrammersLife" />
-                                <meta name="google:app:name:ipad" content="ProgrammersLife" />
-                                <meta name="google:app:name:googleplay" content="ProgrammersLife" />
-                                <meta name="google:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="google:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="google:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="google:app:id:iphone" content="id1527907634" />
-                                <meta name="google:app:id:ipad" content="id1527907634" />
-                                <meta name="google:app:id:googleplay" content="com.progrmrslife" />
-                                <meta name="google:app:country" content="US" />
-
+                                {/* App-specific meta tags */}
                                 <meta name="apple-mobile-web-app-title" content="ProgrammersLife" />
                                 <meta name="application-name" content="ProgrammersLife" />
                                 <meta name="msapplication-TileColor" content="#ffffff" />
-                                <meta name="msapplication-TileImage" content="/imgs/favicon.svg" />
-                                
-                                <meta name="robots" content="index, follow" />
-                                <meta name="googlebot" content="index, follow" />
-                                <meta name="googlebot-news" content="index, follow" />
-                                <meta name="googlebot-news-source" content="Programmers Life" />
-                                <meta name="googlebot-news-url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="googlebot-news-title" content={post.title} />
-                                <meta name="googlebot-news-keywords" content={post.categories.map((category) => category.name).join(', ')} />
-                                <meta name="googlebot-news-description" content={post.excerpt} />
-                                <meta name="googlebot-news-language" content="en" />
-                                <meta name="googlebot-news-publication-date" content={post.createdAt} />
-                                <meta name="googlebot-news-standout" content="Programmers Life" />
-                                <meta name="googlebot-news-standout-type" content="Programmers Life" />
-                                <meta name="googlebot-news-standout-id" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="googlebot-news-standout-ur" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="googlebot-news-standout-title" content={post.title} />
-                                <meta name="googlebot-news-standout-keywords" content={post.categories.map((category) => category.name).join(', ')} />
-                                <meta name="googlebot-news-standout-description" content={post.excerpt} />
-                                <meta name="googlebot-news-standout-language" content="en" />
-                                <meta name="googlebot-news-standout-publication-date" content={post.createdAt} />
-                                
-                                <meta name="bingbot" content="index, follow" />
-                                <meta name="yandex" content="index, follow" />
-                                <meta name="msnbot" content="index, follow" />
-                                <meta name="slurp" content="index, follow" />
-                                <meta name="duckduckbot" content="index, follow" />
-                                <meta name="teoma" content="index, follow" />
-                                <meta name="exabot" content="index, follow" />
-                                <meta name="facebot" content="index, follow" />
-                                <meta name="ia_archiver" content="index, follow" />
-                                <meta name="mj12bot" content="index, follow" />
-                                <meta name="pinterest" content="index, follow" />
-                                <meta name="twitterbot" content="index, follow" />
-                                <meta name="googlebot-news" content="index, follow" />
-                                <meta name="googlebot-image" content="index, follow" />
-                                <meta name="googlebot-video" content="index, follow" />
-                                <meta name="googlebot-mobile" content="index, follow" />
-                                <meta name="googlebot-ads" content="index, follow" />
-                                <meta name="googlebot-amp" content="index, follow" />
-                                <meta name="googlebot-favicons" content="index, follow" />
-                                <meta name="googlebot-webmasters" content="index, follow" />
-                                <meta name="googlebot-structured-data" content="index, follow" />
-                                <meta name="googlebot-nosnippet" content="index, follow" />
-                                <meta name="googlebot-noscript" content="index, follow" />
-                                <meta name="googlebot-crawl-delay" content="index, follow" />
-                                <meta name="googlebot-translation" content="index, follow" />
-                                <meta name="googlebot-translation-robots" content="index, follow" />
-                                <meta name="googlebot-translation-language" content="index, follow" />
-                                <meta name="googlebot-translation-country" content="index, follow" />
-                                <meta name="googlebot-translation-region" content="index, follow" />
-                                <meta name="googlebot-translation-variant" content="index, follow" />
-                                <meta name="googlebot-translation-variant-country" content="index, follow" />
-                                <meta name="googlebot-translation-variant-region" content="index, follow" />
-                                <meta name="googlebot-translation-variant-language" content="index, follow" />
-                                <meta name="googlebot-translation-variant-variant" content="index, follow" />
-                                <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
-                                <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
+                                <meta name="msapplication-TileImage" content="/icons/icon-128x128.png" />
 
+                                {/* Article-specific meta tags */}
+                                <meta property="article:published_time" content={post.createdAt} />
+                                <meta property="article:modified_time" content={post.updatedAt} />
+                                <meta property="article:author" content={post.author.name} />
+                                <meta property="article:section" content={post.categories[0].name} />
+                                <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
 
-                                <meta name="twitter:label1" content="Written by" />
-                                <meta name="twitter:data1" content={post.author.name} />
-                                <meta name="twitter:label2" content="Filed under" />
-                                <meta name="twitter:data2" content={post.categories.map((category) => category.name).join(', ')} />
-                                <meta name="twitter:label3" content="Estimated reading time" />
-                                <meta name="twitter:data3" content={`${getMinutesRead(post.content.text)} min read`} />
-                                <meta name="twitter:label4" content="Published on" />
-                                <meta name="twitter:data4" content={post.createdAt} />
-                                <meta name="twitter:label5" content="Last updated on" />
-                                <meta name="twitter:data5" content={post.updatedAt} />
-                                <meta name="twitter:label6" content="Share on Twitter" />
-                                <meta name="twitter:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="twitter:label7" content="Share on Facebook" />
-                                <meta name="twitter:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="twitter:label8" content="Share on LinkedIn" />
-                                <meta name="twitter:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.excerpt}&source=https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="facebook:card" content="summary_large_image" />
-                                <meta name="facebook:title" content={post.title} />
-                                <meta name="facebook:description" content={post.excerpt} />
-                                <meta name="facebook:image" content={post.featuredImage.url} />
-                                <meta name="facebook:creator" content="https://links.progrmrslife.com" />
-                                <meta name="facebook:site" content="https://progrmrslife.com" />
-                                <meta name="facebook:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="facebook:label1" content="Written by" />
-                                <meta name="facebook:data1" content={post.author.name} />
-                                <meta name="facebook:label2" content="Filed under" />
-                                <meta name="facebook:data2" content={post.categories.map((category) => category.name).join(', ')} />
-                                <meta name="facebook:label3" content="Estimated reading time" />
-                                <meta name="facebook:data3" content={`${getMinutesRead(post.content.text)} min read`} />
-                                <meta name="facebook:label4" content="Published on" />
-                                <meta name="facebook:data4" content={post.createdAt} />
-                                <meta name="facebook:label5" content="Last updated on" />
-                                <meta name="facebook:data5" content={post.updatedAt} />
-                                <meta name="facebook:label6" content="Share on Twitter" />
-                                <meta name="facebook:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="facebook:label7" content="Share on Facebook" />
-                                <meta name="facebook:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="facebook:label8" content="Share on LinkedIn" />
-                                <meta name="facebook:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.excerpt}&source=https://progrmrslife.com/post/${post.slug}`} />
-                                <meta name="og:site_name" property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
-                                <meta name="og:type" property="og:type" content="article" />
-                                <meta name="og:locale" property="og:locale" content="en_US" />
-                                
+                                <link rel="icon" href="/icons/icon-128x128.png" />
                                 <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
                                 <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
                             </Head>

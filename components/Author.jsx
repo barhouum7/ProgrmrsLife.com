@@ -14,6 +14,7 @@ const Author = ({ author }) => {
                         alt={author.name}
                         fill
                         className="object-cover rounded-full transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10 cursor-pointer"
+                        loading='lazy'
                     />
                     <div className='absolute inset-0 rounded-full hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-transparent dark:hover:bg-purple-400 transition-all duration-300 cursor-pointer'></div>
                 </div>

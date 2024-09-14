@@ -94,4 +94,6 @@ PostCard.propTypes = {
   post: PropTypes.object.isRequired,
 };
 
+PostCard.displayName = 'PostCard';
+
 export default PostCard

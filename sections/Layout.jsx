@@ -204,8 +204,8 @@ const Layout = ({ children }) => {
     <div>
       <Head>
         <title>ProgrmrsLife - Web Dev, Tech Tips & News</title>
-        <link rel="icon" href="/imgs/favicon.svg" />
-        <link rel="apple-touch-icon" href="/imgs/favicon.svg" />
+        <link rel="icon" href="/icons/icon-128x128.png" />
+        <link rel="apple-touch-icon" href="/icons/icon-128x128.png" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="canonical" href={`https://www.progrmrslife.com${router.asPath}`} />
@@ -217,12 +217,12 @@ const Layout = ({ children }) => {
         <meta property="og:title" content="ProgrmrsLife - Your Hub for Programming Insights" />
         <meta property="og:description" content="Explore the latest in programming, tech, and web development with expert insights and tutorials." />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.progrmrslife.com/imgs/og-image.jpg" />
+        <meta property="og:image" content="https://www.progrmrslife.com/icons/icon-512x512.png" />
         <meta property="og:url" content={`https://www.progrmrslife.com${router.asPath}`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="ProgrmrsLife - Programming Insights & Tech Trends" />
         <meta name="twitter:description" content="Stay ahead in the tech world with our expert articles and tutorials on programming and web development." />
-        <meta name="twitter:image" content="https://www.progrmrslife.com/imgs/og-image.jpg" />
+        <meta name="twitter:image" content="https://www.progrmrslife.com/icons/icon-512x512.png" />
         
         {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
         <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
