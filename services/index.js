@@ -301,3 +301,19 @@ export const getCategoryPost = async (slug) => {
         
         return result.category.name;
     };
+
+export const getSearchResults = async (searchTerm) => {
+    const query = gql`
+        query GetSearchResults($searchTerm: String!) {
+            posts(where: {_search: $searchTerm}, first: 5) {
+                title
+                slug
+                excerpt
+            }
+        }
+    `;
+
+    const result = await handleErrors(graphqlAPI, query, { searchTerm });
+
+    return result.posts;
+};
