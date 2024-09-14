@@ -1,14 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react'
-import { Tooltip, Checkbox, Toast, Flowbite, Alert } from "flowbite-react";
+import { Tooltip, Checkbox, Toast, Alert } from "flowbite-react";
 import {HiMail, HiPencil, HiPencilAlt, HiUser} from "react-icons/hi";
 import { getPosts } from '../services/index'
+import Link from 'next/link'
 
 const ContactUs = () => {
 
     const [loading, setLoading] = useState(false)
 
     const [error, setError] = useState(false)
-    const [localStorage, setLocalStorage] = useState(null)
+    // const [localStorage, setLocalStorage] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [showErrorMessage, setShowErrorMessage] = useState(false)
     const [showUndoSave, setShowUndoSave] = useState(false)
@@ -107,11 +108,11 @@ const ContactUs = () => {
             <div className="text-center">
                 <h1 className="lg:text-4xl text-2xl text-pink-500 dark:text-indigo-400 leading-8 font-extrabold tracking-wide uppercase mb-8">Contact Us</h1>
                 <h3 className='lg:text-xl md:text-lg font-semibold border-b pb-4 mb-8'>
-                    Say hello, and Let's brainstorm together! 📝
+                    Say hello, and Let&apos;s brainstorm together! 📝
                 </h3>
             </div>
             <h4 className='text-sm dark:text-gray-400 pt-8 mb-4'>
-                ✨ We're excited to hear from you! Let's communicate and let us know your thoughts.
+                ✨ We&apos;re excited to hear from you! Let&apos;s communicate and let us know your thoughts.
             </h4>
             <div className="mt-10 sm:flex sm:justify-center">
                 <form onSubmit={handleSubmit} className="sm:max-w-4xl sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden bg-white dark:bg-gray-800 shadow-xl p-8 sm:p-8 pb-12 m-0 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
@@ -121,12 +122,12 @@ const ContactUs = () => {
                             <Tooltip
                             content={
                                 <div>
-                                    We'd love to know your Name!😍 <br />
+                                    We&apos;d love to know your Name!😍 <br />
                                     <p className='flex'>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
                                             <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
                                         </svg>                        
-                                        We'll never share your details.
+                                        We&apos;ll never share your details.
                                     </p>
                                 </div>
                             }
@@ -151,7 +152,7 @@ const ContactUs = () => {
                             id="name"
                             name="name"
                             placeholder='Enter your name here...'
-                            className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
+                            className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
                             required
                         />
                         </div>
@@ -166,8 +167,8 @@ const ContactUs = () => {
                                         </svg>
                                         Your email will not be published. 
                                     </p>
-                                        <br />We'll only use it to contact you, if we have any questions about your comment.
-                                        Read our&nbsp;<a href='/privacyPolicy' className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</a>.
+                                        <br />We&apos;ll only use it to contact you, if we have any questions about your comment.
+                                        Read our&nbsp;<Link href='/privacyPolicy' className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</Link>.
                                 </div>
                             }
                             style="dark"
@@ -190,7 +191,7 @@ const ContactUs = () => {
                                 id="email"
                                 name="email"
                                 placeholder="Enter your email here..."
-                                className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
+                                className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
                                 required
                             />
                         </div>
@@ -228,14 +229,14 @@ const ContactUs = () => {
                                 id="subject"
                                 name="subject"
                                 placeholder="Enter your subject here..."
-                                className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:shadow-[-60px_60px_600px_50px_rgba(0,10,9,0.3)] dark:focus:shadow-[-60px_6px_500px_80px_rgba(80,10,100,0.3)] dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
+                                className="pl-8 block w-full bg-gray-200 dark:bg-gray-800 dark:shadow-inner dark:text-gray-200 border border-gray-200 dark:border-none rounded-md py-2 px-4 mb-2 leading-tight outline-none focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-gray-500 dark:focus:border-gray-500 focus:shadow-outline transition ease-in-out duration-700 resize-none font-normal"
                                 required
                             />
                         </div>
                         {/* Message Input */}
                         <div className='relative'>
                             <Tooltip
-                            content="We'd love to hear from you!😍"
+                            content="We&apos;d love to hear from you!😍"
                             style="dark"
                             >
                                 <div className='flex'>
@@ -273,7 +274,7 @@ const ContactUs = () => {
                                         Choose if you want to save your information for future contact. <br />
                                     </p>
                                     
-                                        We'll never share your details.
+                                        We&apos;ll never share your details.
                                 </div>
                             }
                             style="dark"
@@ -305,7 +306,7 @@ const ContactUs = () => {
                                                     </svg>                        
                                                     This removes your name and email from your browser, <br />
                                                 </p>
-                                                    you'll have to enter them next time you contact us.
+                                                    you&apos;ll have to enter them next time you contact us.
                                             </div>
                                         }
                                         style="dark"
@@ -430,7 +431,7 @@ const ContactUs = () => {
                                         <span className="font-medium">
                                         Success alert!
                                         </span>
-                                        {' '}Thank you for your email! We'll get back to you as soon as possible.
+                                        {' '}Thank you for your email! We&apos;ll get back to you as soon as possible.
                                     </span>
                                     </Alert>
                                 </div>

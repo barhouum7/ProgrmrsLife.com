@@ -15,7 +15,7 @@ const AboutUs = () => {
 
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-          <p className="text-lg mb-4">At Programmers Life, we're dedicated to helping IT professionals and enthusiasts thrive in their careers by providing:</p>
+          <p className="text-lg mb-4">At Programmers Life, we&apos;re dedicated to helping IT professionals and enthusiasts thrive in their careers by providing:</p>
           <ul className="list-disc list-inside text-lg mb-4 ml-4">
             <li>Free, high-quality resources and tools</li>
             <li>Expert tips and industry insights</li>
@@ -25,7 +25,7 @@ const AboutUs = () => {
 
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-6">Our Journey</h2>
-          <p className="text-lg mb-4">Founded in 2021 by Ibo, Programmers Life has grown from a passion project into a thriving community of over 40,000+ members across our social media channels. We're committed to continually improving and expanding our offerings to meet the evolving needs of the tech community.</p>
+          <p className="text-lg mb-4">Founded in 2021 by Ibo, Programmers Life has grown from a passion project into a thriving community of over 40,000+ members across our social media channels. We&apos;re committed to continually improving and expanding our offerings to meet the evolving needs of the tech community.</p>
         </section>
 
         <section className="mb-12">
@@ -53,7 +53,7 @@ const AboutUs = () => {
                 <li>Adept communicator dedicated to sharing knowledge and fostering growth in the tech community</li>
               </ul>
               <p className="text-lg italic">
-                "I'm passionate about leveraging technology to solve real-world problems and helping fellow developers grow in their careers. At Programmers Life, we're building a community where knowledge sharing and continuous learning are at the forefront."
+                &quot;I&apos;m passionate about leveraging technology to solve real-world problems and helping fellow developers grow in their careers. At Programmers Life, we&apos;re building a community where knowledge sharing and continuous learning are at the forefront.&quot;
               </p>
             </div>
           </div>
@@ -73,7 +73,7 @@ const AboutUs = () => {
 
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
-          <p className="text-lg mb-4">Have questions or feedback? We'd love to hear from you!</p>
+          <p className="text-lg mb-4">Have questions or feedback? We&apos;d love to hear from you!</p>
           <p className="text-lg mb-4">Email us at: <a href="mailto:contact@progrmrslife.com" className="text-blue-500 hover:text-blue-700">contact@progrmrslife.com</a></p>
         </section>
 
