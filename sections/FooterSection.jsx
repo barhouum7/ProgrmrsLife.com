@@ -1,8 +1,10 @@
+import React from 'react'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faMapMarkerAlt, faPhone, faEnvelopeOpen, faTelegramPlane } from '@fortawesome/free-solid-svg-icons'
 // import { faFacebookF, faTwitter, faGooglePlusG } from '@fortawesome/free-brands-svg-icons'
 // import Logo from "../components/Logo";
 import { Tooltip } from "flowbite-react"
+import Link from 'next/link'
 
 const BsFacebook = () => {
   return (
@@ -126,16 +128,16 @@ const FooterSection = () => {
                     <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-white inline items-center h-9">About</h2>
                     <ul className="mt-4 text-gray-900 dark:text-gray-400">
                         <li className="mb-4 hover:text-pink-300 cursor-pointer align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
-                            <a href="/AboutUs" target="_top" rel="noopener noreferrer" className="relative menu-item">About Us <span className="border-b-effect-footer"></span></a>
+                            <Link href="/about-us" target="_top" rel="noopener noreferrer" className="relative menu-item">About Us <span className="border-b-effect-footer"></span></Link>
                         </li>
                         <li className="mb-4 hover:text-pink-300 cursor-pointer align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
-                            <a href="/ContactUs" target="_top" rel="noopener noreferrer" className="relative menu-item">Contact Us <span className="border-b-effect-footer"></span></a>
+                            <Link href="/contact-us" target="_top" rel="noopener noreferrer" className="relative menu-item">Contact Us <span className="border-b-effect-footer"></span></Link>
                         </li>
                         <li className="mb-4 hover:text-pink-300 cursor-pointer align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
-                            <a href="/privacyPolicy" target="_top" rel="noopener noreferrer" className="relative menu-item">Privacy Policy <span className="border-b-effect-footer"></span></a>
+                            <Link href="/privacyPolicy" target="_top" rel="noopener noreferrer" className="relative menu-item">Privacy Policy <span className="border-b-effect-footer"></span></Link>
                         </li>
                         <li className="mb-4 hover:text-pink-300 cursor-pointer align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
-                            <a href="/terms_and_conditions" target="_top" rel="noopener noreferrer" className="relative menu-item">Terms &amp; Conditions <span className="border-b-effect-footer"></span></a>
+                            <Link href="/terms-and-conditions" target="_top" rel="noopener noreferrer" className="relative menu-item">Terms &amp; Conditions <span className="border-b-effect-footer"></span></Link>
                         </li>
                     </ul>
                 </div>

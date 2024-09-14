@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react'
+import PropTypes from 'prop-types';
 
 import { useRouter } from "next/router";
 import Logo from "../../components/Logo";
@@ -289,13 +290,13 @@ const Header = ({showBanner}) => {
                       }}
                     />
                   </Navbar.Link>
-                  <Navbar.Link className='navbar-item' href="/AboutUs" active={router.pathname === "/AboutUs"}
+                  <Navbar.Link className='navbar-item' href="/about-us" active={router.pathname === "/about-us"}
                   onClick={handleClick}
                   onMouseLeave={() => setIsItemHovered("")}
                   onMouseEnter={() => setIsItemHovered("about")}
                   style={{
                     position: 'relative',
-                    color: isItemHovered === "about" ? "#8B5CF6" : router.pathname === "/AboutUs" ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
+                    color: isItemHovered === "about" ? "#8B5CF6" : router.pathname === "/about-us" ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
                   }}
                   >
                     About
@@ -365,13 +366,13 @@ const Header = ({showBanner}) => {
                         ))}
                     </Dropdown>
                   
-                  <Navbar.Link className='navbar-item' href="/ContactUs" active={router.pathname === "/ContactUs"}
+                  <Navbar.Link className='navbar-item' href="/contact-us" active={router.pathname === "/contact-us"}
                   onClick={handleClick}
                   onMouseLeave={() => setIsItemHovered("")}
                   onMouseEnter={() => setIsItemHovered("contact")}
                   style={{
                     position: 'relative',
-                    color: isItemHovered === "contact" ? "#8B5CF6" : router.pathname === "/ContactUs" ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
+                    color: isItemHovered === "contact" ? "#8B5CF6" : router.pathname === "/contact-us" ? isScrolled ? "#8B5CF6" : "#8B5CF6" : "inherit",
                   }}
                   >
                     Contact
@@ -436,6 +437,10 @@ const Header = ({showBanner}) => {
         {/* </nav> */}
       </header>
   );
+};
+
+Header.propTypes = {
+  showBanner: PropTypes.bool,
 };
 
 export default Header;
