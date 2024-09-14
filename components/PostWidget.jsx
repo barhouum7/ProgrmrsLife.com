@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types';
 import moment from 'moment'
 import Link from 'next/link'
 
 import { getRecentPosts, getSimilarPosts } from '../services'
+import Image from 'next/image'
+import { grpahCMSImageLoader } from '@/util';
 
 const PostWidget = ({ categories, slug }) => {
     const [relatedPosts, setRelatedPosts] = useState([])
@@ -27,13 +30,15 @@ const PostWidget = ({ categories, slug }) => {
             </h3>
             {relatedPosts.length > 0 && relatedPosts.map((post) => (
                 <div key={post.title} className='flex items-center w-full mb-4'>
-                    <div className="w-10 flex-none rounded-full">
-                        <img 
-                            alt={post.title}
-                            height={50}
-                            width={50}
+                    <div className="w-14 h-14 flex-none relative">
+                        <Image 
+                            loader={grpahCMSImageLoader}
                             src={post.featuredImage.url}
-                            className='align-middle h-10 rounded-full object-cover border-none shadow-lg cursor-pointer mr-0'
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className='align-middle rounded-full object-cover border-none shadow-lg cursor-pointer'
+                            alt={post.title}
+                            loading='lazy'
                         />
                     </div>
                     <div className="flex-grow flex-col ml-4">
@@ -58,5 +63,10 @@ const PostWidget = ({ categories, slug }) => {
         </div>
     )
 }
+
+PostWidget.propTypes = {
+    categories: PropTypes.array,
+    slug: PropTypes.string,
+};
 
 export default PostWidget

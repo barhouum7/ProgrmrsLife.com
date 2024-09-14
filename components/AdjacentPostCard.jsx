@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const AdjacentPostCard = ({ post, position }) => (
     <>
@@ -27,5 +28,17 @@ const AdjacentPostCard = ({ post, position }) => (
         )}
     </>
 );
+
+AdjacentPostCard.propTypes = {
+    post: PropTypes.shape({
+        featuredImage: PropTypes.shape({
+            url: PropTypes.string,
+        }),
+        createdAt: PropTypes.string,
+        title: PropTypes.string,
+        slug: PropTypes.string,
+    }).isRequired,
+    position: PropTypes.string.isRequired,
+};
 
 export default AdjacentPostCard;

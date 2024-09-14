@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { FaPlay, FaComment } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -17,7 +18,9 @@ import dynamic from 'next/dynamic';
 import { Tooltip } from "flowbite-react";
 import toast, { Toaster } from 'react-hot-toast';
 
-import { AdPopup, AdsenseScript } from "../components"
+import { AdPopup, AdsenseScript, Breadcrumbs } from "../components"
+import Image from 'next/image';
+import Script from 'next/script';
 
 const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, showToast, showWelcomeMessage }) => {
 
@@ -144,7 +147,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     const formattedText = post.content.text.replace(/\\n/g, '\n\n');
     // console.log(formattedText);
 
-    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    // const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -769,229 +772,56 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     } | Programmers Life`}</title>
                     <meta name="description" content={post.excerpt} />
                     <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
+                    <meta name="author" content={post.author.name} />
                     <meta property="og:title" content={post.title} />
                     <meta property="og:description" content={post.excerpt} />
                     <meta property="og:image" content={post.featuredImage.url} />
-                    <meta property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                    <meta property="og:url" content={`https://www.progrmrslife.com/post/${post.slug}`} />
                     <meta property="og:type" content="article" />
-                    <meta property="og:site_name" content="ProgrammersLife" />
-                    <meta property="article:published_time" content={post.createdAt} />
-                    <meta property="article:modified_time" content={post.updatedAt} />
-                    <meta property="article:author" content={post.author.name} />
-                    <meta property="article:section" content={post.categories.map((category) => category.name).join(', ')} />
-                    <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
-                    <meta property="fb:app_id" content="291228676572686" />
-
-                    <link rel="icon" href="/imgs/favicon.svg" />
-                    <meta name="author" content={post.author.name} />
-                    <meta name="og:title" property="og:title" content={post.title} />
-                    <meta name="og:description" property="og:description" content={post.excerpt} />
-                    <meta name="og:image" property="og:image" content={post.featuredImage.url} />
-                    <meta name="og:url" property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    
-                    <meta name="facebook:card" content="summary_large_image" />
-                    <meta name="facebook:title" content={post.title} />
-                    <meta name="facebook:description" content={post.excerpt} />
-                    <meta name="facebook:image" content={post.featuredImage.url} />
-                    <meta name="facebook:creator" content="https://links.progrmrslife.com" />
-                    <meta name="facebook:site" content="https://links.progrmrslife.com" />
-                    <meta name="facebook:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="facebook:domain" content="progrmrslife.com" />
-                    <meta name="facebook:app:name:iphone" content="ProgrammersLife" />
-                    <meta name="facebook:app:name:ipad" content="ProgrammersLife" />
-                    <meta name="facebook:app:name:googleplay" content="ProgrammersLife" />
-                    <meta name="facebook:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="facebook:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="facebook:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="facebook:app:id:iphone" content="id1527907634" />
-                    <meta name="facebook:app:id:ipad" content="id1527907634" />
-                    <meta name="facebook:app:id:googleplay" content="com.progrmrslife" />
-                    <meta name="facebook:app:country" content="US" />
-
-                    <meta name="telegram:card" content="summary_large_image" />
-                    <meta name="telegram:title" content={post.title} />
-                    <meta name="telegram:description" content={post.excerpt} />
-                    <meta name="telegram:image" content={post.featuredImage.url} />
-                    <meta name="telegram:creator" content="https://links.progrmrslife.com" />
-                    <meta name="telegram:site" content="https://links.progrmrslife.com" />
-                    <meta name="telegram:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="telegram:domain" content="progrmrslife.com" />
-                    <meta name="telegram:app:name:iphone" content="ProgrammersLife" />
-                    <meta name="telegram:app:name:ipad" content="ProgrammersLife" />
-                    <meta name="telegram:app:name:googleplay" content="ProgrammersLife" />
-                    <meta name="telegram:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="telegram:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="telegram:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="telegram:app:id:iphone" content="id1527907634" />
-                    <meta name="telegram:app:id:ipad" content="id1527907634" />
-                    <meta name="telegram:app:id:googleplay" content="com.progrmrslife" />
-                    <meta name="telegram:app:country" content="US" />
-
-                    <meta name="google:card" content="summary_large_image" />
-                    <meta name="google:title" content={post.title} />
-                    <meta name="google:description" content={post.excerpt} />
-                    <meta name="google:image" content={post.featuredImage.url} />
-                    <meta name="google:creator" content="https://links.progrmrslife.com" />
-                    <meta name="google:site" content="https://links.progrmrslife.com" />
-                    <meta name="google:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="google:domain" content="progrmrslife.com" />
-                    <meta name="google:app:name:iphone" content="ProgrammersLife" />
-                    <meta name="google:app:name:ipad" content="ProgrammersLife" />
-                    <meta name="google:app:name:googleplay" content="ProgrammersLife" />
-                    <meta name="google:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="google:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="google:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="google:app:id:iphone" content="id1527907634" />
-                    <meta name="google:app:id:ipad" content="id1527907634" />
-                    <meta name="google:app:id:googleplay" content="com.progrmrslife" />
-                    <meta name="google:app:country" content="US" />
-
-                    <meta name="apple-mobile-web-app-title" content="ProgrammersLife" />
-                    <meta name="application-name" content="ProgrammersLife" />
-                    <meta name="msapplication-TileColor" content="#ffffff" />
-                    <meta name="msapplication-TileImage" content="/imgs/favicon.svg" />
-                    
-                    <meta name="robots" content="index, follow" />
-                    <meta name="googlebot" content="index, follow" />
-                    <meta name="googlebot-news" content="index, follow" />
-                    <meta name="googlebot-news-source" content="Programmers Life" />
-                    <meta name="googlebot-news-url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="googlebot-news-title" content={post.title} />
-                    <meta name="googlebot-news-keywords" content={post.categories.map((category) => category.name).join(', ')} />
-                    <meta name="googlebot-news-description" content={post.excerpt} />
-                    <meta name="googlebot-news-language" content="en" />
-                    <meta name="googlebot-news-publication-date" content={post.createdAt} />
-                    <meta name="googlebot-news-standout" content="Programmers Life" />
-                    <meta name="googlebot-news-standout-type" content="Programmers Life" />
-                    <meta name="googlebot-news-standout-id" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="googlebot-news-standout-ur" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="googlebot-news-standout-title" content={post.title} />
-                    <meta name="googlebot-news-standout-keywords" content={post.categories.map((category) => category.name).join(', ')} />
-                    <meta name="googlebot-news-standout-description" content={post.excerpt} />
-                    <meta name="googlebot-news-standout-language" content="en" />
-                    <meta name="googlebot-news-standout-publication-date" content={post.createdAt} />
-                    
-                    <meta name="bingbot" content="index, follow" />
-                    <meta name="yandex" content="index, follow" />
-                    <meta name="msnbot" content="index, follow" />
-                    <meta name="slurp" content="index, follow" />
-                    <meta name="duckduckbot" content="index, follow" />
-                    <meta name="teoma" content="index, follow" />
-                    <meta name="exabot" content="index, follow" />
-                    <meta name="facebot" content="index, follow" />
-                    <meta name="ia_archiver" content="index, follow" />
-                    <meta name="mj12bot" content="index, follow" />
-                    <meta name="pinterest" content="index, follow" />
-                    <meta name="twitterbot" content="index, follow" />
-                    <meta name="googlebot-news" content="index, follow" />
-                    <meta name="googlebot-image" content="index, follow" />
-                    <meta name="googlebot-video" content="index, follow" />
-                    <meta name="googlebot-mobile" content="index, follow" />
-                    <meta name="googlebot-ads" content="index, follow" />
-                    <meta name="googlebot-amp" content="index, follow" />
-                    <meta name="googlebot-favicons" content="index, follow" />
-                    <meta name="googlebot-webmasters" content="index, follow" />
-                    <meta name="googlebot-structured-data" content="index, follow" />
-                    <meta name="googlebot-nosnippet" content="index, follow" />
-                    <meta name="googlebot-noscript" content="index, follow" />
-                    <meta name="googlebot-crawl-delay" content="index, follow" />
-                    <meta name="googlebot-translation" content="index, follow" />
-                    <meta name="googlebot-translation-robots" content="index, follow" />
-                    <meta name="googlebot-translation-language" content="index, follow" />
-                    <meta name="googlebot-translation-country" content="index, follow" />
-                    <meta name="googlebot-translation-region" content="index, follow" />
-                    <meta name="googlebot-translation-variant" content="index, follow" />
-                    <meta name="googlebot-translation-variant-country" content="index, follow" />
-                    <meta name="googlebot-translation-variant-region" content="index, follow" />
-                    <meta name="googlebot-translation-variant-language" content="index, follow" />
-                    <meta name="googlebot-translation-variant-variant" content="index, follow" />
-                    <meta name="googlebot-translation-variant-variant-country" content="index, follow" />
-                    <meta name="googlebot-translation-variant-variant-region" content="index, follow" />
-
-
-                    <meta name="twitter:label1" content="Written by" />
-                    <meta name="twitter:data1" content={post.author.name} />
-                    <meta name="twitter:label2" content="Filed under" />
-                    <meta name="twitter:data2" content={post.categories.map((category) => category.name).join(', ')} />
-                    <meta name="twitter:label3" content="Estimated reading time" />
-                    <meta name="twitter:data3" content={`${getMinutesRead(post.content.text)} min read`} />
-                    <meta name="twitter:label4" content="Published on" />
-                    <meta name="twitter:data4" content={moment(post.createdAt).format('MMMM Do YYYY')} />
-                    <meta name="twitter:label5" content="Last updated on" />
-                    <meta name="twitter:data5" content={moment(post.updatedAt).format('MMMM Do YYYY')} />
-                    <meta name="twitter:label6" content="Share on Twitter" />
-                    <meta name="twitter:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="twitter:label7" content="Share on Facebook" />
-                    <meta name="twitter:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="twitter:label8" content="Share on LinkedIn" />
-                    <meta name="twitter:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.excerpt}&source=https://progrmrslife.com/post/${post.slug}`} />
-                    
-                    <meta name="facebook:site" content="https://progrmrslife.com" />
-                    <meta name="facebook:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="facebook:label1" content="Written by" />
-                    <meta name="facebook:data1" content={post.author.name} />
-                    <meta name="facebook:label2" content="Filed under" />
-                    <meta name="facebook:data2" content={post.categories.map((category) => category.name).join(', ')} />
-                    <meta name="facebook:label3" content="Estimated reading time" />
-                    <meta name="facebook:data3" content={`${getMinutesRead(post.content.text)} min read`} />
-                    <meta name="facebook:label4" content="Published on" />
-                    <meta name="facebook:data4" content={post.createdAt} />
-                    <meta name="facebook:label5" content="Last updated on" />
-                    <meta name="facebook:data5" content={post.updatedAt} />
-                    <meta name="facebook:label6" content="Share on Twitter" />
-                    <meta name="facebook:data6" content={`https://twitter.com/intent/tweet?text=${post.title}&url=https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="facebook:label7" content="Share on Facebook" />
-                    <meta name="facebook:data7" content={`https://www.facebook.com/sharer/sharer.php?u=https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="facebook:label8" content="Share on LinkedIn" />
-                    <meta name="facebook:data8" content={`https://www.linkedin.com/shareArticle?mini=true&url=https://progrmrslife.com/post/${post.slug}&title=${post.title}&summary=${post.excerpt}&source=https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="og:site_name" property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
-                    <meta name="og:type" property="og:type" content="article" />
-                    <meta name="og:locale" property="og:locale" content="en_US" />
-
+                    <meta property="og:site_name" content="ProgrmrsLife" />
                     <meta name="twitter:card" content="summary_large_image" />
-                    <meta name="twitter:description" content={post.excerpt} />
                     <meta name="twitter:title" content={post.title} />
+                    <meta name="twitter:description" content={post.excerpt} />
                     <meta name="twitter:image" content={post.featuredImage.url} />
                     <meta name="twitter:site" content="@mindh4q3rr" />
                     <meta name="twitter:creator" content="@mindh4q3rr" />
-                    <meta name="twitter:domain" content="progrmrslife.com" />
-
-                    <meta name="twitter:creator" content="https://links.progrmrslife.com" />
-                    <meta name="twitter:site" content="https://links.progrmrslife.com" />
-                    <meta name="twitter:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="twitter:app:name:iphone" content="ProgrammersLife" />
-                    <meta name="twitter:app:name:ipad" content="ProgrammersLife" />
-                    <meta name="twitter:app:name:googleplay" content="ProgrammersLife" />
-                    <meta name="twitter:app:url:iphone" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="twitter:app:url:ipad" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="twitter:app:url:googleplay" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="twitter:app:id:iphone" content="id1527907634" />
-                    <meta name="twitter:app:id:ipad" content="id1527907634" />
-                    <meta name="twitter:app:id:googleplay" content="com.progrmrslife" />
-                    <meta name="twitter:app:country" content="US" />
-                    
-                    <meta name="twitter:label6" content="Estimated reading time" />
-                    <meta name="twitter:data6" content={`${getMinutesRead(post.content.text)} minutes`} />
-                    <meta name="twitter:label7" content="Share on" />
-                    <meta name="twitter:data7" content="Facebook, Twitter, LinkedIn" />
-                    <meta name="twitter:label8" content="Link" />
-                    <meta name="twitter:data8" content={`https://progrmrslife.com/post/${post.slug}`} />
-                    <meta name="twitter:label9" content="Leave a comment" />
-                    <meta name="twitter:data9" content="We're excited to hear from you!😍" />
-                    <meta name="twitter:label10" content="Listen to this article" />
-                    <meta name="twitter:data10" content="Listen" />
-                    <meta name="twitter:label11" content="Pause the speech" />
-                    <meta name="twitter:data11" content="Pause" />
-                    <meta name="twitter:label12" content="Stop the speech" />
-                    <meta name="twitter:data12" content="Stop" />
-                    <meta name="twitter:label13" content="Backward the speech" />
-                    <meta name="twitter:data13" content="-10s" />
-                    <meta name="twitter:label14" content="Forward the speech" />
-                    <meta name="twitter:data14" content="+10s" />
-
-                    <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
+                    <link rel="canonical" href={`https://www.progrmrslife.com/post/${post.slug}`} />
+                    <meta property="article:published_time" content={post.createdAt} />
+                    <meta property="article:modified_time" content={post.updatedAt} />
+                    <meta property="article:author" content={post.author.name} />
+                    <meta property="article:section" content={post.categories[0].name} />
+                    <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
+                    <meta name="robots" content="index, follow" />
+                    <meta name="googlebot" content="index, follow" />
                     <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
                 </Head>
+                <Script id="schema-script" type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Article",
+                        "headline": post.title,
+                        "image": post.featuredImage.url,
+                        "author": {
+                        "@type": "Person",
+                        "name": post.author.name
+                        },
+                        "publisher": {
+                        "@type": "Organization",
+                        "name": "ProgrmrsLife",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://www.progrmrslife.com/imgs/logo.png"
+                        }
+                        },
+                        "datePublished": post.createdAt,
+                        "dateModified": post.updatedAt,
+                        "description": post.excerpt,
+                        "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": `https://www.progrmrslife.com/post/${post.slug}`
+                        }
+                    })}
+                </Script>
                 <AdsenseScript />
                 <motion.div className="mb-8" variants={fadeInUp}>
                     {
@@ -1017,29 +847,35 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     }
                 </motion.div>
                 <motion.div className="relative overflow-hidden shadow-xl mb-6 cursor-pointer transition duration-700 ease-in-out transform hover:opacity-80" variants={fadeInUp}>
-                    <img 
-                        src={post.featuredImage.url}
-                        alt={post.title}
-                        className="object-top w-full h-full rounded-t-lg hover:shadow-inner"
-                    />
+                <Image
+                    src={post.featuredImage.url}
+                    alt={post.title}
+                    width={1200}
+                    height={630}
+                    layout="responsive"
+                    loading="lazy"
+                    className="object-cover w-full h-full rounded-t-lg hover:shadow-inner"
+                />
                 </motion.div>
                 <motion.div className="px-4 lg:px-0" variants={fadeInUp}>
+                    <Breadcrumbs categories={post.categories} title={post.title} />
+
                     <div className="lg:flex block items-center justify-center mb-4 w-full">
-                        <a href={`/post/${post.slug}#authorBio`}>
+                        <Link href={`/post/${post.slug}#authorBio`}>
                             <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-2">
-                                <div className='relative'>
-                                    <img
+                                <div className='relative w-[30px] h-[30px]'>
+                                    <Image
                                         alt={post.author.name}
-                                        height="30"
-                                        width="30"
+                                        fill
                                         src={post.author.photo.url}
-                                        className="rounded-full align-middle border-none shadow-lg cursor-pointer"
+                                        className="rounded-full align-middle border-none shadow-lg cursor-pointer object-cover"
+                                        loading="lazy"
                                     />
-                                    <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
+                                    <div className='absolute inset-0 rounded-full hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
                                 </div>
                                 <p className="inline align-middle text-gray-700 dark:text-gray-200 ml-2 text-lg cursor-pointer">{post.author.name}</p>
                             </div>
-                        </a>
+                        </Link>
                         <div className="flex items-center justify-center w-full lg:w-auto font-medium text-gray-700 dark:text-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline mr-2 text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -1136,7 +972,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                         a: ({ children, openInNewTab, href, rel, ...rest }) => {
                             if (href.match(/^https?:\/\/|^\/\//i)) {
                             return (
-                                    <a
+                                    <Link
                                     className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500'
                                     href={href}
                                     target={openInNewTab ? '_blank' : '_self'}
@@ -1145,7 +981,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     >
                                         {children}
 
-                                    </a>
+                                    </Link>
                             );
                             }
 
@@ -1166,74 +1002,50 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                         italic: ({ children }) => <em className="post-detail-em relative text-gray-900 dark:text-white mr-0">{children}</em>,
                         code: ({ children }) => <code className="bg-gray-200 dark:bg-gray-600 px-2 py-0 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</code>,
                         code_block:
-                            ({ children }) => 
-                        {
-                            const [preContent, setPreContent] = useState("");
+                            ({ children }) => {
+                            const CodeBlock = () => {
+                                const [preContent, setPreContent] = useState("");
 
-                            // useEffect(() => {
-                            //     const childArray = React.Children.toArray(children);
-                            //     console.log(childArray[0]);
-                            //     let content = "";
-                            //     for (let i = 0; i < childArray.length; i++) {
-                            //         const child = childArray[i].props.content[0].text;
-                            //         // console.log(child);
-                            //         if (typeof child === "string") {
-                            //         content += child;
-                            //         } else if (child.props && child.props.children) {
-                            //         const grandchildArray = React.Children.toArray(child.props.children);
-                            //         for (let j = 0; j < grandchildArray.length; j++) {
-                            //             const grandchild = grandchildArray[j];
-                            //             if (typeof grandchild === "string") {
-                            //             content += grandchild;
-                            //             }
-                            //         }
-                            //         }
-                            //     }
-                            //     setPreContent(content);
-                            //     }, [children]);
-
-                            useEffect(() => {
-                                const childArray = React.Children.toArray(children);
-                                    // console.log(childArray[0]);
-                                    
-                                let content = "";
-                                for (let i = 0; i < childArray.length; i++) {
-                                  const child = childArray[i];
-                                //   console.log(child.props.content[0].children[0].text);
-                                  if (child.props && child.props.content && Array.isArray(child.props.content)) {
-                                    const text = child.props.content.reduce((acc, cur) => acc + cur.text, "");
-                                    content += text;
-                                  } else if (typeof child === "string") {
-                                    content += child;
-                                  } else if (child.props && child.props.content.children) {
-                                    const grandchildArray = React.Children.toArray(child.props.content.children);
-                                    for (let j = 0; j < grandchildArray.length; j++) {
-                                      const grandchild = grandchildArray[j].props.content[0].children[0].text;
-                                      if (typeof grandchild === "string") {
-                                        content += grandchild;
+                                useEffect(() => {
+                                    const childArray = React.Children.toArray(children);
+                                        
+                                    let content = "";
+                                    for (let i = 0; i < childArray.length; i++) {
+                                      const child = childArray[i];
+                                      if (child.props && child.props.content && Array.isArray(child.props.content)) {
+                                        const text = child.props.content.reduce((acc, cur) => acc + cur.text, "");
+                                        content += text;
+                                      } else if (typeof child === "string") {
+                                        content += child;
+                                      } else if (child.props && child.props.content.children) {
+                                        const grandchildArray = React.Children.toArray(child.props.content.children);
+                                        for (let j = 0; j < grandchildArray.length; j++) {
+                                          const grandchild = grandchildArray[j].props.content[0].children[0].text;
+                                          if (typeof grandchild === "string") {
+                                            content += grandchild;
+                                          }
+                                        }
                                       }
                                     }
-                                  }
-                                }
-                                setPreContent(content);
-                              }, [children]);
+                                    setPreContent(content);
+                                  }, []);
 
-                            return (
-                                <div>
-                                    {/* <pre id="code-block" ref={preRef}>
-                                        {children}
-                                    </pre> */}
-                                    <Prism
-                                        language="javascript"
-                                        getPrismTheme={(_theme, colorScheme) =>
-                                        colorScheme === "dark" ? duotoneLight : duotoneDark
-                                        }
-                                        className="m-2 sm:max-w-lg max-w-xs overflow-x-auto"
-                                    >
-                                        {preContent}
-                                    </Prism>
-                                </div>
-                            );
+                                return (
+                                    <div>
+                                        <Prism
+                                            language="javascript"
+                                            getPrismTheme={(_theme, colorScheme) =>
+                                            colorScheme === "dark" ? duotoneLight : duotoneDark
+                                            }
+                                            className="m-2 sm:max-w-lg max-w-xs overflow-x-auto"
+                                        >
+                                            {preContent}
+                                        </Prism>
+                                    </div>
+                                );
+                            }
+
+                            return <CodeBlock />;
                         }
                         ,
                         blockquote: ({ children }) => {
@@ -1505,9 +1317,16 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                 <p>If you appreciate my work, maybe you could show your support by buying me a cup of coffee/tea ☕️🤗</p>
 
                                                                 <div className="flex justify-center items-center mt-4 mb-4">
-                                                                    <a href="https://www.buymeacoffee.com/ProgrammersLife" target="_blank" rel="noopener noreferrer" title="Buy me a coffee" className="flex justify-center items-center text-gray-900 dark:text-white hover:text-gray-900 dark:hover:text-white transition duration-500 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700">
-                                                                        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" className="w-40" />
-                                                                    </a>
+                                                                    <Link href="https://www.buymeacoffee.com/ProgrammersLife" target="_blank" rel="noopener noreferrer" title="Buy me a coffee" className="flex justify-center items-center text-gray-900 dark:text-white hover:text-gray-900 dark:hover:text-white transition duration-500 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700">
+                                                                        <Image
+                                                                            src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png"
+                                                                            alt="Buy Me A Coffee"
+                                                                            width={160}
+                                                                            height={40}
+                                                                            className="w-40"
+                                                                            loading="lazy"
+                                                                        />
+                                                                    </Link>
                                                                 </div>
                                                             </div>
                                                             <div className="popup-page__content__body text-gray-900 dark:text-white px-8 sm:p-4 sm:max-w-lg max-w-sm">
@@ -1620,7 +1439,20 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                         ol: ({ children }) => <ol className="list-decimal leading-10 bg-gray-200 dark:bg-gray-700 px-10 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
                         li: ({ children }) => <li className="text-gray-900 dark:text-gray-400">{children}</li>,
                         ul: ({ children }) => <ul className="list-disc px-10 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
-                        img: ({ src }) => <img className="w-full h-full cursor-pointer shadow-lg rounded-lg hover:shadow-2xl mb-4" src={src} />,
+                        img: ({ src }) => {
+                            const Image = dynamic(() => import('next/image'));
+                            return (
+                                <Image
+                                    className="w-full h-full cursor-pointer shadow-lg rounded-lg hover:shadow-2xl mb-4"
+                                    src={src}
+                                    alt="Post image"
+                                    layout="responsive"
+                                    width={700}
+                                    height={475}
+                                    loading="lazy"
+                                />
+                            );
+                        },
                         video: ({ src, children }) => {
                             // console.log(thumbnail);
                             // console.log(children);
@@ -1692,6 +1524,22 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 </motion.div>
         </motion.div>
     )
+}
+
+PostDetail.propTypes = {
+    post: PropTypes.object.isRequired,
+    onCopyToClipboard: PropTypes.func.isRequired,
+    isCopied: PropTypes.bool,
+    onEnablePopupMessage: PropTypes.func,
+    showToast: PropTypes.bool,
+    showWelcomeMessage: PropTypes.bool,
+    error: PropTypes.string,
+    isCaptionText: PropTypes.bool,
+    isSubtitle: PropTypes.bool,
+    placeAdUnit: PropTypes.bool,
+    showWaitingText: PropTypes.bool,
+    showWaitingBlock: PropTypes.bool,
+    showGetLinkButton: PropTypes.bool,
 }
 
 export default PostDetail

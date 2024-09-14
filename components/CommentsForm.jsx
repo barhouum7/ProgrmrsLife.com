@@ -1,9 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react'
+import PropTypes from 'prop-types';
 import { Tooltip, Checkbox, Toast, Flowbite, Alert } from "flowbite-react";
 import {HiMail, HiPencilAlt, HiUser} from "react-icons/hi";
 import { ToastContainer, toast } from 'react-toastify';
 
 import { submitComment } from '../services'
+import Link from 'next/link';
 
 const CommentsForm = ({ slug, postTitle }) => {
     const [error, setError] = useState(false)
@@ -110,7 +112,7 @@ return (
                 Leave a Comment
             </h3>
             <h4 className='text-sm dark:text-gray-400 pb-4 mb-8'>
-                ✨ We're excited to hear from you! Please leave a comment below and let us know what you think.
+                ✨ We&apos;re excited to hear from you! Please leave a comment below and let us know what you think.
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 {/* Name Input */}
@@ -118,12 +120,12 @@ return (
                     <Tooltip
                     content={
                         <div>
-                            We'd love to know your Name!😍 <br />
+                            We&apos;d love to know your Name!😍 <br />
                             <p className='flex'>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
                                     <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
                                 </svg>                        
-                                We'll never share your details.
+                                We&apos;ll never share your details.
                             </p>
                         </div>
                     }
@@ -162,8 +164,8 @@ return (
                                 </svg>
                                 Your email will not be published. 
                             </p>
-                                <br />We'll only use it to contact you, if we have any questions about your comment.
-                                Read our&nbsp;<a href="/privacyPolicy" target="_top" rel="noopener noreferrer" className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</a>.
+                                <br />We&apos;ll only use it to contact you, if we have any questions about your comment.
+                                Read our&nbsp;<Link href="/privacyPolicy" target="_top" rel="noopener noreferrer" className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</Link>.
                         </div>
                     }
                     style="dark"
@@ -196,7 +198,7 @@ return (
             <div className="grid grid-cols-1 gap-4 mb-4 w-full">
                 <div className='relative'>
                     <Tooltip
-                    content="We'd love to hear your feedback on this post!😍"
+                    content="We&apos;d love to hear your feedback on this post!😍"
                     style="dark"
                     >
                         <div className='flex'>
@@ -233,7 +235,7 @@ return (
                                 Choose if you want to save your information for future comments. <br />
                             </p>
                             
-                                We'll never share your details.
+                                We&apos;ll never share your details.
                         </div>
                     }
                     style="dark"
@@ -265,7 +267,7 @@ return (
                                             </svg>                        
                                             This removes your name and email from your browser, <br />
                                         </p>
-                                            you'll have to enter them next time you comment.
+                                            you&apos;ll have to enter them next time you comment.
                                     </div>
                                 }
                                 style="dark"
@@ -374,7 +376,7 @@ return (
                                 <span className="font-medium">
                                 Success alert!
                                 </span>
-                                {' '}Thank you for your comment! We'll review it and publish it as soon as possible.
+                                {' '}Thank you for your comment! We&apos;ll review it and publish it as soon as possible.
                             </span>
                             </Alert>
                         </div>
@@ -387,4 +389,9 @@ return (
     )
 }
 
-export default CommentsForm
+CommentsForm.propTypes = {
+    slug: PropTypes.string.isRequired,
+    postTitle: PropTypes.string.isRequired,
+};
+
+export default CommentsForm;

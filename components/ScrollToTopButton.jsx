@@ -56,18 +56,15 @@ const ScrollToTopButton = () => {
             </Tooltip>
           </button>
       )}
-      <style jsx>{`
-
+  <style>{`
       .progress {
         stroke-dasharray: 307.919, 307.919;
         stroke-dashoffset: 283.171;
-
         stroke: #c3dafe;
         stroke-width: 4;
         stroke-linecap: round;
-  
       }
-      `}</style>
+  `}</style>
     </>
   );
 };

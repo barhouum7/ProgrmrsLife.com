@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import Link from 'next/link';
+import Image from 'next/image';
+import { grpahCMSImageLoader } from '@/util';
 
 const FeaturedPostCard = ({ post }) => {
     return (
@@ -12,13 +15,17 @@ const FeaturedPostCard = ({ post }) => {
         <p className="text-white mb-4 text-shadow font-semibold text-xs">{moment(post.createdAt).format('MMM DD, YYYY')}</p>
         <p className="text-white mb-4 text-shadow font-semibold text-sm text-center">{post.title}</p>
         <div className="flex items-center absolute bottom-5 w-full justify-center">
-            <img
-            alt={post.author.name}
-            height="30px"
-            width="30px"
-            className="align-middle drop-shadow-lg rounded-full"
-            src={post.author.photo.url}
-            />
+            <div className="relative w-8 h-8">
+                <Image
+                    loader={grpahCMSImageLoader}
+                    alt={post.author.name}
+                    src={post.author.photo.url}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="rounded-full object-cover border-none shadow-lg cursor-pointer hover:opacity-80 transition duration-300 ease-in-out"
+                    loading='lazy'
+                />
+            </div>
             <p className="inline align-middle text-white text-shadow ml-2 text-xs">{post.author.name}</p>
         </div>
         </div>
@@ -26,5 +33,23 @@ const FeaturedPostCard = ({ post }) => {
     </div>
     )
 }
+
+FeaturedPostCard.propTypes = {
+    post: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        createdAt: PropTypes.string.isRequired,
+        author: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            photo: PropTypes.shape({
+                url: PropTypes.string.isRequired,
+            }).isRequired,
+        }).isRequired,
+        featuredImage: PropTypes.shape({
+            url: PropTypes.string.isRequired,
+        }).isRequired,
+        slug: PropTypes.string.isRequired,
+    }).isRequired,
+};
+
 
 export default FeaturedPostCard;

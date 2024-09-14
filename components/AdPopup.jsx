@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const AdPopup = ({ onClose, onAdLinkEntered }) => {
     const [adLink, setAdLink] = useState('');
@@ -144,6 +145,11 @@ const AdPopup = ({ onClose, onAdLinkEntered }) => {
                 </form>
         </>
     );
+};
+
+AdPopup.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    onAdLinkEntered: PropTypes.func.isRequired,
 };
 
 export default AdPopup;

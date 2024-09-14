@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import moment from 'moment'
 import parser from 'html-react-parser'
@@ -6,6 +8,7 @@ import Avatar from 'react-avatar';
 import md5 from 'md5'
 
 import { getComments } from '../services'
+import Image from 'next/image';
 
 const Comments = ({ slug }) => {
     const [page, setPage] = useState(1); // Initial page number
@@ -34,7 +37,7 @@ const Comments = ({ slug }) => {
     }, [slug, page]);
 
 
-    const handleScroll = () => {
+const handleScroll = useCallback(() => {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
         const scrollTop = window.scrollY;
@@ -42,7 +45,7 @@ const Comments = ({ slug }) => {
         if (windowHeight + scrollTop >= documentHeight - 1000 && !loading) {
             setPage((prevPage) => prevPage + 1);
         }
-    };
+    }, [loading]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -50,7 +53,7 @@ const Comments = ({ slug }) => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [loading]);
+    }, [handleScroll]);
 
 
     const getGravatarURL = ( email ) => {
@@ -133,7 +136,7 @@ const Comments = ({ slug }) => {
                                 a: ({ children, openInNewTab, href, rel, ...rest }) => {
                                     if (href.match(/^https?:\/\/|^\/\//i)) {
                                     return (
-                                            <a
+                                            <Link
                                             className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500'
                                             href={href}
                                             target={openInNewTab ? '_blank' : '_self'}
@@ -142,7 +145,7 @@ const Comments = ({ slug }) => {
                                             >
                                                 {children}
         
-                                            </a>
+                                            </Link>
                                     );
                                     }
         
@@ -165,7 +168,16 @@ const Comments = ({ slug }) => {
                                 ul: ({ children }) => <ul className="list-disc list-inside">{children}</ul>,
                                 ol: ({ children }) => <ol className="list-decimal list-inside">{children}</ol>,
                                 li: ({ children }) => <li className="text-gray-900 dark:text-gray-100">{children}</li>,
-                                img: ({ src }) => <img className="w-full h-full cursor-pointer shadow-lg rounded-lg hover:shadow-2xl my-4" src={src} />,
+                                img: ({ src, alt }) => (
+                                    <Image
+                                        className="w-full h-full cursor-pointer shadow-lg rounded-lg hover:shadow-2xl my-4"
+                                        src={src}
+                                        alt={alt || ''}
+                                        width={100}
+                                        height={100}
+                                        layout="responsive"
+                                    />
+                                ),
 
                             }}
                             />
@@ -225,5 +237,9 @@ const Comments = ({ slug }) => {
         </div>
     )
 }
+
+Comments.propTypes = {
+    slug: PropTypes.string.isRequired,
+};
 
 export default Comments

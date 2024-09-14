@@ -1,7 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useState} from 'react'
 import { Alert, Tooltip } from "flowbite-react";
 import {HiMail, HiUser} from "react-icons/hi";
 import { submitEmail } from '../services'
+import Link from 'next/link';
 
 
 const Subscribe = () => {
@@ -52,7 +53,7 @@ return (
                                     <span className="font-medium">
                                     Success alert!
                                     </span>
-                                    {' '}Thanks for subscribing! We'll be in touch soon.
+                                    {' '}Thanks for subscribing! We&apos;ll be in touch soon.
                                 </span>
                                 </Alert>
                             </div>
@@ -69,7 +70,7 @@ return (
                             </p>
                             <p className="mt-4 max-w-2xl lg:text-xl text-md text-white dark:text-gray-400 lg:mx-auto">
                                 Sign up for our newsletter to receive updates on new products,
-                                promotions, and events. Don't miss out.
+                                promotions, and events. Don&apos;t miss out.
                             </p>
                         </div>
                         <div className="grid grid-cols-1 gap-4 mt-12">
@@ -80,12 +81,12 @@ return (
                                         <Tooltip
                                         content={
                                             <div>
-                                                We'd love to know your Name!😍 <br />
+                                                We&apos;d love to know your Name!😍 <br />
                                                 <p className='flex'>
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
                                                         <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
                                                     </svg>                        
-                                                    We'll never share your details.
+                                                    We&apos;ll never share your details.
                                                 </p>
                                             </div>
                                         }
@@ -124,9 +125,9 @@ return (
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-1">
                                                         <path fill="lightgreen" d="M12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
                                                     </svg>
-                                                    Don't worry, we'll never share it.
+                                                    Don&apos;t worry, we&apos;ll never share it.
                                                 </p>
-                                                <br />Read our&nbsp;<a href='/privacyPolicy' className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</a>.
+                                                <br />Read our&nbsp;<Link href='/privacyPolicy' className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-700'>Privacy Policy</Link>.
                                             </div>
                                         }
                                         style="dark"

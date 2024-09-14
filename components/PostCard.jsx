@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import moment from 'moment'
 import Image from 'next/image';
 import Link from 'next/link'
@@ -23,9 +24,9 @@ const PostCard = React.memo(({ post }) => {
                     <Image 
                         src={post.featuredImage.url}
                         alt={post.title}
-                        layout="fill"
-                        objectFit="cover"
-                        className="absolute shadow-lg rounded-t-lg lg:rounded-lg cursor-pointer hover:opacity-80 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50"
+                        fill
+                        className="object-cover absolute shadow-lg rounded-t-lg lg:rounded-lg cursor-pointer hover:opacity-80 transition duration-700 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50"
+                        loading="lazy"
                     />
                 </Link>
             </div>
@@ -39,15 +40,18 @@ const PostCard = React.memo(({ post }) => {
             </h1>
             <div className="block lg:flex text-center items-center justify-center mb-8 w-full">
                 <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8">
-                    <Image
-                        unoptimized={true}
-                        loader={grpahCMSImageLoader}
-                        alt={post.author.name}
-                        height="30"
-                        width="30"
-                        src={post.author.photo.url}
-                        className="rounded-full align-middle border-none shadow-lg cursor-pointer"
-                    />
+                    <div className="relative w-8 h-8">
+                        <Image
+                            loader={grpahCMSImageLoader}
+                            alt={post.author.name}
+                            src={post.author.photo.url}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="rounded-full object-cover border-none shadow-lg cursor-pointer hover:opacity-80 transition duration-300 ease-in-out"
+                            // priority // This is used to load the image first before the rest of the page
+                            loading='lazy' // This is used to load the image lazy
+                        />
+                    </div>
                     <p className="inline align-middle text-gray-700 dark:text-gray-200 ml-2 text-lg">{post.author.name}</p>
                 </div>
                 <div className="flex items-center justify-center w-full lg:w-auto font-medium text-gray-700 dark:text-gray-200">
@@ -85,5 +89,9 @@ const PostCard = React.memo(({ post }) => {
         </div>
   )
 })
+
+PostCard.propTypes = {
+  post: PropTypes.object.isRequired,
+};
 
 export default PostCard

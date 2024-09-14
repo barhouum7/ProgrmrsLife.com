@@ -309,7 +309,7 @@ const ChatWithAIButton = () => {
               "
               onClick={onTNAiButtonClick}
               >
-                  Tunisian's Dialect ChatGPT-4 Assistant 🇹🇳
+                  Tunisian&apos;s Dialect ChatGPT-4 Assistant 🇹🇳
               </button>
               )}
               {showTNAi && (
