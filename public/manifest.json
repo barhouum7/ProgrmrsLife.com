@@ -16,5 +16,6 @@
   "scope": "/",
   "orientation": "any",
   "categories": ["education", "technology", "programming"],
-  "lang": "en-US"
+  "lang": "en-US",
+  "splash_pages": null
 }
