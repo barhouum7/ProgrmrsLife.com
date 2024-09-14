@@ -13,7 +13,7 @@ export default function useCategoriesActions() {
                 section: "Navigation",
                 keywords: ["contact, contact us, contact us page, contact page, email, email us, email us page, email page"],
                 perform: () => {
-                    window.location.href = "/ContactUs"
+                    window.location.href = "/contact-us"
                 },
                 subtitle: "Go to the contact page",
                 icon: <ContactIcon />,
