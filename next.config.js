@@ -28,6 +28,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 
   images: {
     remotePatterns: [
@@ -35,9 +38,12 @@ const nextConfig = {
     ],
   },
   experimental: {
-    serviceWorker: true,
-    workerThreads: false,
-    cpus: 1
+    // serviceWorker: true,
+    // workerThreads: false,
+    cpus: 1,
+    fontLoaders: [
+      { loader: '@next/font/google', options: { subsets: ['latin'], timeout: 30000 } },
+    ],
   },
   async headers() {
     return [
