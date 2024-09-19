@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const AdUnit = ({ client, slot, format = 'auto', responsive = true }) => {
+  const adRef = useRef(null);
+
+  useEffect(() => {
+    if (adRef.current && typeof window !== 'undefined') {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (err) {
+        console.error('Ad error:', err);
+      }
+    }
+  }, []);
+
   return (
-    <div className="mb-8">
+    <div className="ad-container my-8">
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
@@ -11,6 +23,7 @@ const AdUnit = ({ client, slot, format = 'auto', responsive = true }) => {
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive={responsive}
+        ref={adRef}
       />
     </div>
   );
