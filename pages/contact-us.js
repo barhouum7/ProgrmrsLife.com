@@ -43,7 +43,7 @@ const ContactUs = ({ posts, error }) => {
 
     const [loading, setLoading] = useState(false)
 
-    const [error, setError] = useState(false)
+    const [submitError, setSubmitError] = useState(false)
     // const [localStorage, setLocalStorage] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [showErrorMessage, setShowErrorMessage] = useState(false)
@@ -64,7 +64,7 @@ const ContactUs = ({ posts, error }) => {
 
     
     const handleSubmit = async (e) => {
-        setError(false);
+        setSubmitError(false);
         const { value: message } = messageEl.current;
         const { value: subject } = subjectEl.current;
         const { value: name } = nameEl.current;
@@ -72,7 +72,7 @@ const ContactUs = ({ posts, error }) => {
         const { checked: storeData } = storeDataEl.current;
     
         if (!message || !subject || !name || !email) {
-            setError(true);
+            setSubmitError(true);
             return;
         }
         
@@ -419,7 +419,7 @@ const ContactUs = ({ posts, error }) => {
                                     </Toast>
                                 }
                             </div>
-                            { error && 
+                            { submitError && 
                                 <div className='flex'>
                                     {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 mr-2 text-red-500">
                                         <path fill="currentColor" d="M12 2c-5.514 0-10 4.486-10 10s4.486 10 10 10 10-4.486 10-10-4.486-10-10-10zM12.5 16.5h-1c-.276 0-.5-.224-.5-.5v-4c0-.276.224-.5.5-.5h1c.276 0 .5.224.5.5v4c0 .276-.224.5-.5.5zM12.5 11h-1c-.276 0-.5-.224-.5-.5v-1c0-.276.224-.5.5-.5h1c.276 0 .5.224.5.5v1c0 .276-.224.5-.5.5z"/>
