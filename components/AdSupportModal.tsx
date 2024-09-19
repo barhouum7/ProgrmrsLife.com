@@ -7,9 +7,9 @@ const AdSupportModal: React.FC = () => {
     const checkAndShowModal = () => {
       const lastShownTime = localStorage.getItem('adSupportModalLastShown');
       const currentTime = new Date().getTime();
-      //   const showInterval = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+        const showInterval = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
     //   const showInterval = 60 * 1000; // 1 minute in milliseconds
-    const showInterval = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds
+    // const showInterval = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds
 
       if (!lastShownTime || currentTime - parseInt(lastShownTime) > showInterval) {
         const handleScroll = () => {
@@ -35,7 +35,7 @@ const AdSupportModal: React.FC = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto w-screen" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="adSupportModal" className="fixed inset-0 z-50 overflow-y-auto w-screen" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>

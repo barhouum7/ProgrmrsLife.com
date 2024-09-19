@@ -13,6 +13,7 @@ const Author = ({ author }) => {
                         src={author.photo.url}
                         alt={author.name}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // This is used to load the image in different sizes
                         className="object-cover rounded-full transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10 cursor-pointer"
                         loading='lazy'
                     />

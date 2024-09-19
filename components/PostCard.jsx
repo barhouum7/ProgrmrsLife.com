@@ -46,7 +46,7 @@ const PostCard = React.memo(({ post }) => {
                             alt={post.author.name}
                             src={post.author.photo.url}
                             fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // This is used to load the image in different sizes
                             className="rounded-full object-cover border-none shadow-lg cursor-pointer hover:opacity-80 transition duration-300 ease-in-out"
                             // priority // This is used to load the image first before the rest of the page
                             loading='lazy' // This is used to load the image lazy
