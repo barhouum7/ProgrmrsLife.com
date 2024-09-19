@@ -865,8 +865,8 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             <Breadcrumbs categories={post.categories} title={post.title} />
 
                             <div className="post-meta lg:flex block items-center justify-center mb-4 w-full">
-                                <address className="author flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-2">
-                                    <Link href={`/post/${post.slug}#authorBio`}>
+                                <Link href={`/post/${post.slug}#authorBio`}>
+                                    <address className="author flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-2">
                                         <div className='relative w-[30px] h-[30px]'>
                                             <Image
                                                 alt={post.author.name}
@@ -878,8 +878,8 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                             <div className='absolute inset-0 rounded-full hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
                                         </div>
                                         <p className="author-name inline align-middle text-gray-700 dark:text-gray-200 ml-2 text-lg cursor-pointer">{post.author.name}</p>
-                                    </Link>
-                                </address>
+                                    </address>
+                                </Link>
                                 <div className="flex items-center justify-center w-full lg:w-auto font-medium text-gray-700 dark:text-gray-200">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline mr-2 text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

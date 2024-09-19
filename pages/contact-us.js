@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import { AdUnit, Loader } from '../components'
 import PropTypes from 'prop-types';
 
-const ContactUs = ({ posts, error }) => {
+const ContactUs = ({ posts }) => {
     const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -34,12 +34,7 @@ const ContactUs = ({ posts, error }) => {
       }, 5000);
     }
 
-    // If there is an error fetching posts, set isLoading to false
-    if (error) {
-      setIsLoading(false);
-    }
-  }
-  , [posts, error]);
+  }, [posts]);
 
     const [loading, setLoading] = useState(false)
 
@@ -64,6 +59,8 @@ const ContactUs = ({ posts, error }) => {
 
     
     const handleSubmit = async (e) => {
+        e.preventDefault();
+        
         setSubmitError(false);
         const { value: message } = messageEl.current;
         const { value: subject } = subjectEl.current;
@@ -99,7 +96,6 @@ const ContactUs = ({ posts, error }) => {
         // }
         
         const emailObj = { name, email, subject, message }
-        e.preventDefault();
 
         try {
             setLoading(true)
@@ -159,12 +155,7 @@ const ContactUs = ({ posts, error }) => {
             <Loader 
                 loading={isLoading}
             />
-            ) : error ? (
-            <div className="text-center justify-center">
-                <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
-                <p className="mb-4 text-2xl tracking-tight font-bold text-white md:text-3xl dark:text-white">There was an error loading the posts. Please try again later.</p>
-            </div>
-            ) : (
+        ) : (
             <>
                 <div className="max-w-6xl mx-auto py-12 sm:px-6 lg:px-8">
                     <motion.div className="text-center" variants={fadeInUp}>
@@ -567,8 +558,7 @@ const ContactUs = ({ posts, error }) => {
 }
 
 ContactUs.propTypes = {
-    posts: PropTypes.array,
-    error: PropTypes.bool
+    posts: PropTypes.array
 };
 
 export default ContactUs
@@ -592,8 +582,5 @@ export async function getStaticProps() {
         };
     } catch (error) {
         console.error("Error fetching posts:", error);
-        return {
-        props: { posts: [], error: true },
-        };
     }
 }
