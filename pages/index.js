@@ -6,7 +6,6 @@ import { PostCard, Categories, PostWidget, FeaturedPosts, Loader, AdsenseScript}
 import { getPosts } from '../services/index'
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import { AdUnit } from '../components';
 
 export default function Home ({ posts, error }) {
     // Check if returning visitor or not handle...
@@ -207,12 +206,27 @@ if (totalPages > MAX_VISIBLE_PAGES) {
             <div>
 
               <div className="mb-8">
-                {placeAdUnit && (
-                  <AdUnit
-                    client="ca-pub-5021308603136043"
-                    slot="3167248456"
-                  />
-                )}
+                {
+                  placeAdUnit && (
+                    <>
+                      {/* <!-- Recommended-ad-unit --> */}
+                      {/* <ins className="adsbygoogle"
+                      style={{ display: 'block' }}
+                      data-ad-client="ca-pub-1339539882255727"
+                      data-ad-slot="9618957531"
+                      data-ad-format="auto"
+                      data-full-width-responsive="true"></ins> */}
+
+                      {/* <!-- Recommended-ad-unit --> */}
+                      <ins className="adsbygoogle"
+                      style={{ display: 'block' }}
+                      data-ad-client="ca-pub-5021308603136043"
+                      data-ad-slot="3167248456"
+                      data-ad-format="auto"
+                      data-full-width-responsive="true"></ins>
+                  </>
+                  )
+                }
               </div>
               <AdsenseScript />
               {/* <AWeberScript /> */}
@@ -221,12 +235,27 @@ if (totalPages > MAX_VISIBLE_PAGES) {
               </div>
               
               <div className="my-8">
-                {placeAdUnit && (
-                  <AdUnit
-                    client="ca-pub-5021308603136043"
-                    slot="3167248456"
-                  />
-                )}
+                {
+                  placeAdUnit && (
+                    <>
+                      {/* <!-- Recommended-ad-unit --> */}
+                      {/* <ins className="adsbygoogle"
+                      style={{ display: 'block' }}
+                      data-ad-client="ca-pub-1339539882255727"
+                      data-ad-slot="9618957531"
+                      data-ad-format="auto"
+                      data-full-width-responsive="true"></ins> */}
+
+                      {/* <!-- Recommended-ad-unit --> */}
+                      <ins className="adsbygoogle"
+                      style={{ display: 'block' }}
+                      data-ad-client="ca-pub-5021308603136043"
+                      data-ad-slot="3167248456"
+                      data-ad-format="auto"
+                      data-full-width-responsive="true"></ins>
+                  </>
+                  )
+                }
               </div>
 
               <motion.div className='relative rounded-t p-4' variants={fadeInUp}>
@@ -236,13 +265,26 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                         currentPosts.map((post, index) => (
                           <motion.div key={index} variants={fadeInUp}>
                             <PostCard post={post.node} />
-                            <div className="mb-8">
+                            <div className="my-8">
                                 {
                                     placeAdUnit && (
-                                        <AdUnit
-                                            client="ca-pub-5021308603136043"
-                                            slot="3167248456"
-                                        />
+                                        <>
+                                          {/* <!-- Recommended-ad-unit --> */}
+                                          {/* <ins className="adsbygoogle"
+                                          style={{ display: 'block' }}
+                                          data-ad-client="ca-pub-1339539882255727"
+                                          data-ad-slot="9618957531"
+                                          data-ad-format="auto"
+                                          data-full-width-responsive="true"></ins> */}
+          
+                                          {/* <!-- Recommended-ad-unit --> */}
+                                          <ins className="adsbygoogle"
+                                          style={{ display: 'block' }}
+                                          data-ad-client="ca-pub-5021308603136043"
+                                          data-ad-slot="3167248456"
+                                          data-ad-format="auto"
+                                          data-full-width-responsive="true"></ins>
+                                      </>
                                     )
                                 }
                             </div>
@@ -296,10 +338,23 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                       <div className="mb-8">
                           {
                               placeAdUnit && (
-                                  <AdUnit
-                                    client="ca-pub-5021308603136043"
-                                    slot="3167248456"
-                                  />
+                                  <>
+                                    {/* <!-- Recommended-ad-unit --> */}
+                                    {/* <ins className="adsbygoogle"
+                                    style={{ display: 'block' }}
+                                    data-ad-client="ca-pub-1339539882255727"
+                                    data-ad-slot="9618957531"
+                                    data-ad-format="auto"
+                                    data-full-width-responsive="true"></ins> */}
+
+                                    {/* <!-- Recommended-ad-unit --> */}
+                                    <ins className="adsbygoogle"
+                                    style={{ display: 'block' }}
+                                    data-ad-client="ca-pub-5021308603136043"
+                                    data-ad-slot="3167248456"
+                                    data-ad-format="auto"
+                                    data-full-width-responsive="true"></ins>
+                                </>
                               )
                           }
                       </div>
@@ -307,10 +362,23 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                       <div className="my-8">
                         {
                           placeAdUnit && (
-                            <AdUnit
-                              client="ca-pub-5021308603136043"
-                              slot="3167248456"
-                            />
+                            <>
+                              {/* <!-- Recommended-ad-unit --> */}
+                              {/* <ins className="adsbygoogle"
+                              style={{ display: 'block' }}
+                              data-ad-client="ca-pub-1339539882255727"
+                              data-ad-slot="9618957531"
+                              data-ad-format="auto"
+                              data-full-width-responsive="true"></ins> */}
+
+                              {/* <!-- Recommended-ad-unit --> */}
+                              <ins className="adsbygoogle"
+                              style={{ display: 'block' }}
+                              data-ad-client="ca-pub-5021308603136043"
+                              data-ad-slot="3167248456"
+                              data-ad-format="auto"
+                              data-full-width-responsive="true"></ins>
+                          </>
                           )
                         }
                       </div>
@@ -318,10 +386,23 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                       <div className="my-8">
                           {
                               placeAdUnit && (
-                                  <AdUnit
-                                    client="ca-pub-5021308603136043"
-                                    slot="3167248456"
-                                  />
+                                  <>
+                                    {/* <!-- Recommended-ad-unit --> */}
+                                    {/* <ins className="adsbygoogle"
+                                    style={{ display: 'block' }}
+                                    data-ad-client="ca-pub-1339539882255727"
+                                    data-ad-slot="9618957531"
+                                    data-ad-format="auto"
+                                    data-full-width-responsive="true"></ins> */}
+
+                                    {/* <!-- Recommended-ad-unit --> */}
+                                    <ins className="adsbygoogle"
+                                    style={{ display: 'block' }}
+                                    data-ad-client="ca-pub-5021308603136043"
+                                    data-ad-slot="3167248456"
+                                    data-ad-format="auto"
+                                    data-full-width-responsive="true"></ins>
+                                </>
                               )
                           }
                       </div>
