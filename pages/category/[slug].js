@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 import { getCategories, getCategoryPost, getCategory, getPosts } from '../../services';
-import { PostCard, Categories, Loader, AdsenseScript } from '../../components';
+import { PostCard, Categories, Loader, AdsenseScript, AdUnit } from '../../components';
 
 const CategoryPost = ({ catPosts, categoryName, error }) => {
 
@@ -198,23 +198,10 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
             <div className="mb-8">
                 {
                     placeAdUnit && (
-                        <>
-                          {/* <!-- Recommended-ad-unit --> */}
-                          {/* <ins className="adsbygoogle"
-                          style={{ display: 'block' }}
-                          data-ad-client="ca-pub-1339539882255727"
-                          data-ad-slot="9618957531"
-                          data-ad-format="auto"
-                          data-full-width-responsive="true"></ins> */}
-
-                          {/* <!-- Recommended-ad-unit --> */}
-                          <ins className="adsbygoogle"
-                          style={{ display: 'block' }}
-                          data-ad-client="ca-pub-5021308603136043"
-                          data-ad-slot="3167248456"
-                          data-ad-format="auto"
-                          data-full-width-responsive="true"></ins>
-                      </>
+                        <AdUnit
+                            client="ca-pub-5021308603136043"
+                            slot="3167248456"
+                        />
                     )
                 }
             </div>
@@ -228,33 +215,22 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                   </h1>
                 </motion.div>
                 <motion.div className="col-span-1 lg:col-span-8" variants={fadeInUp}>
+                  {placeAdUnit && (
+                    <AdUnit
+                      client="ca-pub-5021308603136043"
+                      slot="3167248456"
+                    />
+                  )}
                   {currentPosts.map((post, index) => (
-                    <motion.div key={index} variants={fadeInUp}>
+                    <React.Fragment key={post.node.slug}>
                       <PostCard post={post.node} />
-                      <div className="mb-8">
-                          {
-                              placeAdUnit && (
-                                  <>
-                                    {/* <!-- Recommended-ad-unit --> */}
-                                    {/* <ins className="adsbygoogle"
-                                    style={{ display: 'block' }}
-                                    data-ad-client="ca-pub-1339539882255727"
-                                    data-ad-slot="9618957531"
-                                    data-ad-format="auto"
-                                    data-full-width-responsive="true"></ins> */}
-
-                                    {/* <!-- Recommended-ad-unit --> */}
-                                    <ins className="adsbygoogle"
-                                    style={{ display: 'block' }}
-                                    data-ad-client="ca-pub-5021308603136043"
-                                    data-ad-slot="3167248456"
-                                    data-ad-format="auto"
-                                    data-full-width-responsive="true"></ins>
-                                </>
-                              )
-                          }
-                      </div>
-                    </motion.div>
+                      {(index + 1) % 3 === 0 && placeAdUnit && (
+                        <AdUnit
+                          client="ca-pub-5021308603136043"
+                          slot="3167248456"
+                        />
+                      )}
+                    </React.Fragment>
                   ))}
                   
                   {/*  <!-- Pagination --> */}
@@ -306,29 +282,22 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                       typeof window !== 'undefined' && window.location.reload()
                     ) : null
                   }
+                  {placeAdUnit && (
+                    <AdUnit
+                      client="ca-pub-5021308603136043"
+                      slot="3167248456"
+                    />
+                  )}
                 </motion.div>
                 <motion.div className="col-span-1 lg:col-span-4" variants={fadeInUp}>
                   <div className="relative lg:sticky top-8">
                     <div className="mb-8">
                         {
                             placeAdUnit && (
-                                <>
-                                  {/* <!-- Recommended-ad-unit --> */}
-                                  {/* <ins className="adsbygoogle"
-                                  style={{ display: 'block' }}
-                                  data-ad-client="ca-pub-1339539882255727"
-                                  data-ad-slot="9618957531"
-                                  data-ad-format="auto"
-                                  data-full-width-responsive="true"></ins> */}
-
-                                  {/* <!-- Recommended-ad-unit --> */}
-                                  <ins className="adsbygoogle"
-                                  style={{ display: 'block' }}
-                                  data-ad-client="ca-pub-5021308603136043"
-                                  data-ad-slot="3167248456"
-                                  data-ad-format="auto"
-                                  data-full-width-responsive="true"></ins>
-                              </>
+                                <AdUnit
+                                    client="ca-pub-5021308603136043"
+                                    slot="3167248456"
+                                />
                             )
                         }
                     </div>

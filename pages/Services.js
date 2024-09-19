@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 import Head from 'next/head'
@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { getPosts } from '../services/index';
 import { motion } from 'framer-motion';
 import { FaBook, FaLaptopCode, FaLightbulb, FaCalendarAlt, FaNewspaper, FaRobot } from 'react-icons/fa';
+import { AdUnit } from '../components';
 
 const ServiceCard = ({ title, description, icon: Icon, imgSrc, link }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -43,6 +44,12 @@ const ServiceCard = ({ title, description, icon: Icon, imgSrc, link }) => {
 };
 
 function Services() {
+  const [placeAdUnit, setPlaceAdUnit] = useState(false);
+
+  useEffect(() => {
+    setPlaceAdUnit(true);
+  }, []);
+
   const servicesData = [
     {
       title: 'Technical Guides and Tutorials',
@@ -112,6 +119,13 @@ function Services() {
             </p>
           </motion.div>
 
+          {placeAdUnit && (
+            <AdUnit
+              client="ca-pub-5021308603136043"
+              slot="3167248456"
+            />
+          )}
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -119,9 +133,24 @@ function Services() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
           >
             {servicesData.map((service, index) => (
-              <ServiceCard key={service.title} {...service} />
+              <React.Fragment key={service.title}>
+                <ServiceCard {...service} />
+                {(index + 1) % 3 === 0 && placeAdUnit && (
+                  <AdUnit
+                    client="ca-pub-5021308603136043"
+                    slot="3167248456"
+                  />
+                )}
+              </React.Fragment>
             ))}
           </motion.div>
+
+          {placeAdUnit && (
+            <AdUnit
+              client="ca-pub-5021308603136043"
+              slot="3167248456"
+            />
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -144,9 +173,24 @@ function Services() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {tools.map((tool, index) => (
-              <ServiceCard key={tool.title} {...tool} />
+              <React.Fragment key={tool.title}>
+                <ServiceCard {...tool} />
+                {(index + 1) % 3 === 0 && placeAdUnit && (
+                  <AdUnit
+                    client="ca-pub-5021308603136043"
+                    slot="3167248456"
+                  />
+                )}
+              </React.Fragment>
             ))}
           </motion.div>
+
+          {placeAdUnit && (
+            <AdUnit
+              client="ca-pub-5021308603136043"
+              slot="3167248456"
+            />
+          )}
         </div>
       </div>
     </>

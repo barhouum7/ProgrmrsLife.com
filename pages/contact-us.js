@@ -3,6 +3,9 @@ import { Tooltip, Checkbox, Toast, Alert } from "flowbite-react";
 import {HiMail, HiPencil, HiPencilAlt, HiUser} from "react-icons/hi";
 import { getPosts } from '../services/index'
 import Link from 'next/link'
+import Head from 'next/head'
+import { motion } from 'framer-motion'
+import { AdUnit } from '../components'
 
 const ContactUs = () => {
 
@@ -13,6 +16,7 @@ const ContactUs = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [showErrorMessage, setShowErrorMessage] = useState(false)
     const [showUndoSave, setShowUndoSave] = useState(false)
+    const [placeAdUnit, setPlaceAdUnit] = useState(false)
     const messageEl = useRef()
     const subjectEl = useRef()
     const nameEl = useRef()
@@ -22,6 +26,7 @@ const ContactUs = () => {
     useEffect(() => {
         nameEl.current.value = window.localStorage.getItem('name') || ''
         emailEl.current.value = window.localStorage.getItem('email') || ''
+        setPlaceAdUnit(true)
     }, [])
     
 
@@ -100,21 +105,41 @@ const ContactUs = () => {
         
     }
     
+    const fadeInUp = {
+        initial: { opacity: 0, y: 60 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.6 }
+    };
 
   return (
-    <div className='bg-white dark:bg-gray-800 rounded-t-lg shadow-xl p-8 sm:p-8 pb-12 m-0 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl'>
+    <motion.div 
+        className='bg-white dark:bg-gray-800 rounded-t-lg shadow-xl p-8 sm:p-8 pb-12 m-0 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl'
+        initial="initial"
+        animate="animate"
+        variants={fadeInUp}
+    >
+        <Head>
+            <title>Contact Us - Programmers Life</title>
+            <meta name="description" content="Get in touch with Programmers Life. We'd love to hear from you!" />
+        </Head>
         {/* Comment Form */}
         <div className="max-w-6xl mx-auto py-12 sm:px-6 lg:px-8">
-            <div className="text-center">
+            <motion.div className="text-center" variants={fadeInUp}>
                 <h1 className="lg:text-4xl text-2xl text-pink-500 dark:text-indigo-400 leading-8 font-extrabold tracking-wide uppercase mb-8">Contact Us</h1>
                 <h3 className='lg:text-xl md:text-lg font-semibold border-b pb-4 mb-8'>
                     Say hello, and Let&apos;s brainstorm together! 📝
                 </h3>
-            </div>
+            </motion.div>
             <h4 className='text-sm dark:text-gray-400 pt-8 mb-4'>
                 ✨ We&apos;re excited to hear from you! Let&apos;s communicate and let us know your thoughts.
             </h4>
-            <div className="mt-10 sm:flex sm:justify-center">
+            {placeAdUnit && (
+                <AdUnit
+                    client="ca-pub-5021308603136043"
+                    slot="3167248456"
+                />
+            )}
+            <motion.div className="mt-10 sm:flex sm:justify-center" variants={fadeInUp}>
                 <form onSubmit={handleSubmit} className="sm:max-w-4xl sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden bg-white dark:bg-gray-800 shadow-xl p-8 sm:p-8 pb-12 m-0 mb-0 transition duration-700 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         {/* Name Input */}
@@ -472,9 +497,15 @@ const ContactUs = () => {
                         }
                     </div>
                 </form>
-            </div>
+            </motion.div>
+            {placeAdUnit && (
+              <AdUnit
+                client="ca-pub-5021308603136043"
+                slot="3167248456"
+              />
+            )}
         </div>
-    </div>
+    </motion.div>
   )
 }
 
