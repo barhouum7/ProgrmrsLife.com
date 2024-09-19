@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import { getPosts, getPostDetails } from "../../services"
 
-import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader, AdsenseScript, AdUnit } from "../../components"
+import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader, AdsenseScript } from "../../components"
 import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
@@ -269,10 +269,23 @@ const PostDetails = ({ post, error }) => {
                             <div className="mb-8">
                                 {
                                     placeAdUnit && (
-                                        <AdUnit
-                                            client="ca-pub-5021308603136043"
-                                            slot="3167248456"
-                                        />
+                                        <>
+                                            {/* <!-- Recommended-ad-unit --> */}
+                                            {/* <ins className="adsbygoogle"
+                                            style={{ display: 'block' }}
+                                            data-ad-client="ca-pub-1339539882255727"
+                                            data-ad-slot="9618957531"
+                                            data-ad-format="auto"
+                                            data-full-width-responsive="true"></ins> */}
+
+                                            {/* <!-- Recommended-ad-unit --> */}
+                                            <ins className="adsbygoogle"
+                                            style={{ display: 'block' }}
+                                            data-ad-client="ca-pub-5021308603136043"
+                                            data-ad-slot="3167248456"
+                                            data-ad-format="auto"
+                                            data-full-width-responsive="true"></ins>
+                                        </>
                                     )
                                 }
                             </div>
@@ -326,10 +339,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    <AdUnit
-                                                        client="ca-pub-5021308603136043"
-                                                        slot="3167248456"
-                                                    />
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -340,10 +366,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    <AdUnit
-                                                        client="ca-pub-5021308603136043"
-                                                        slot="3167248456"
-                                                    />
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -351,10 +390,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    <AdUnit
-                                                        client="ca-pub-5021308603136043"
-                                                        slot="3167248456"
-                                                    />
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -364,10 +416,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    <AdUnit
-                                                        client="ca-pub-5021308603136043"
-                                                        slot="3167248456"
-                                                    />
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -377,10 +442,23 @@ const PostDetails = ({ post, error }) => {
                                         <div className="mb-8">
                                             {
                                                 placeAdUnit && (
-                                                    <AdUnit
-                                                        client="ca-pub-5021308603136043"
-                                                        slot="3167248456"
-                                                    />
+                                                    <>
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        {/* <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-1339539882255727"
+                                                        data-ad-slot="9618957531"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins> */}
+
+                                                        {/* <!-- Recommended-ad-unit --> */}
+                                                        <ins className="adsbygoogle"
+                                                        style={{ display: 'block' }}
+                                                        data-ad-client="ca-pub-5021308603136043"
+                                                        data-ad-slot="3167248456"
+                                                        data-ad-format="auto"
+                                                        data-full-width-responsive="true"></ins>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -391,10 +469,23 @@ const PostDetails = ({ post, error }) => {
                                             <div className="mb-8">
                                                 {
                                                     placeAdUnit && (
-                                                        <AdUnit
-                                                            client="ca-pub-5021308603136043"
-                                                            slot="3167248456"
-                                                        />
+                                                        <>
+                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9697463409"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
                                                     )
                                                 }
                                             </div>
@@ -403,10 +494,23 @@ const PostDetails = ({ post, error }) => {
                                             <div className="mb-8">
                                                 {
                                                     placeAdUnit && (
-                                                        <AdUnit
-                                                            client="ca-pub-5021308603136043"
-                                                            slot="3167248456"
-                                                        />
+                                                        <>
+                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9697463409"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
                                                     )
                                                 }
                                             </div>

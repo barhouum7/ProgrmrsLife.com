@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { getPosts } from '../services/index';
 import { motion } from 'framer-motion';
 import { FaBook, FaLaptopCode, FaLightbulb, FaCalendarAlt, FaNewspaper, FaRobot } from 'react-icons/fa';
-import { AdUnit } from '../components';
+import { Loader } from '../components';
 
 const ServiceCard = ({ title, description, icon: Icon, imgSrc, link }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -43,8 +43,38 @@ const ServiceCard = ({ title, description, icon: Icon, imgSrc, link }) => {
   );
 };
 
-function Services() {
+const Services = ({ posts, error }) => {
   const [placeAdUnit, setPlaceAdUnit] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // If the document is still loading, set isLoading to true
+    if (document.readyState === "loading") {
+      setIsLoading(true);
+    }
+
+    // If the document has finished loading, set isLoading to false
+    if (document.readyState === "complete") {
+      setIsLoading(false);
+    }
+    
+    // If posts are not available, set isLoading to true
+    if (!posts) {
+      setIsLoading(true);
+    }
+
+    // If posts are available, set isLoading to false
+    if (posts) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
+    }
+
+    // If there is an error fetching posts, set isLoading to false
+    if (error) {
+      setIsLoading(false);
+    }
+  }, [posts, error]);
 
   useEffect(() => {
     setPlaceAdUnit(true);
@@ -104,94 +134,137 @@ function Services() {
         <title>Programmers Life | Services</title>
       </Head>
       <div className='bg-gray-100 dark:bg-gray-800 min-h-screen py-12'>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
-          >
-            <h1 className='text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white mb-4'>
-              Our Services
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Empowering developers with knowledge and tools
-            </p>
-          </motion.div>
+        {isLoading ? (
+          <Loader 
+            loading={isLoading}
+          />
+        ) : error ? (
+          <div className="text-center justify-center">
+            <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
+            <p className="mb-4 text-2xl tracking-tight font-bold text-white md:text-3xl dark:text-white">There was an error loading the posts. Please try again later.</p>
+          </div>
+        ) : (
+          <>
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-center mb-12"
+              >
+                <h1 className='text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white mb-4'>
+                  Our Services
+                </h1>
+                <p className="text-xl text-gray-600 dark:text-gray-300">
+                  Empowering developers with knowledge and tools
+                </p>
+              </motion.div>
 
-          {placeAdUnit && (
-            <AdUnit
-              client="ca-pub-5021308603136043"
-              slot="3167248456"
-            />
-          )}
+              {placeAdUnit && (
+                <>
+                  {/* <!-- Recommended-ad-unit --> */}
+                  <ins className="adsbygoogle"
+                    style={{ display: 'block' }}
+                    data-ad-client="ca-pub-5021308603136043"
+                    data-ad-slot="3167248456"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true">
+                  </ins>
+                </>
+              )}
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
-          >
-            {servicesData.map((service, index) => (
-              <React.Fragment key={service.title}>
-                <ServiceCard {...service} />
-                {(index + 1) % 3 === 0 && placeAdUnit && (
-                  <AdUnit
-                    client="ca-pub-5021308603136043"
-                    slot="3167248456"
-                  />
-                )}
-              </React.Fragment>
-            ))}
-          </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+              >
+                {servicesData.map((service, index) => (
+                  <React.Fragment key={service.title}>
+                    <ServiceCard {...service} />
+                    {(index + 1) % 3 === 0 && placeAdUnit && (
+                      <>
+                        {/* <!-- Recommended-ad-unit --> */}
+                        <ins className="adsbygoogle"
+                          style={{ display: 'block' }}
+                          data-ad-client="ca-pub-5021308603136043"
+                          data-ad-slot="3167248456"
+                          data-ad-format="auto"
+                          data-full-width-responsive="true">
+                        </ins>
+                      </>
+                    )}
+                  </React.Fragment>
+                ))}
+              </motion.div>
 
-          {placeAdUnit && (
-            <AdUnit
-              client="ca-pub-5021308603136043"
-              slot="3167248456"
-            />
-          )}
+              {placeAdUnit && (
+                <>
+                  {/* <!-- Recommended-ad-unit --> */}
+                  <ins className="adsbygoogle"
+                    style={{ display: 'block' }}
+                    data-ad-client="ca-pub-5021308603136043"
+                    data-ad-slot="3167248456"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true">
+                  </ins>
+                </>
+              )}
 
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-center mb-12"
-          >
-            <h2 className='text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-4'>
-              Our Online Tools
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Cutting-edge tools to enhance your development experience
-            </p>
-          </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="text-center mb-12"
+              >
+                <h2 className='text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-4'>
+                  Our Online Tools
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300">
+                  Cutting-edge tools to enhance your development experience
+                </p>
+              </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {tools.map((tool, index) => (
-              <React.Fragment key={tool.title}>
-                <ServiceCard {...tool} />
-                {(index + 1) % 3 === 0 && placeAdUnit && (
-                  <AdUnit
-                    client="ca-pub-5021308603136043"
-                    slot="3167248456"
-                  />
-                )}
-              </React.Fragment>
-            ))}
-          </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
+                {tools.map((tool, index) => (
+                  <React.Fragment key={tool.title}>
+                    <ServiceCard {...tool} />
+                    {(index + 1) % 3 === 0 && placeAdUnit && (
+                      <>
+                        {/* <!-- Recommended-ad-unit --> */}
+                        <ins className="adsbygoogle"
+                          style={{ display: 'block' }}
+                          data-ad-client="ca-pub-5021308603136043"
+                          data-ad-slot="3167248456"
+                          data-ad-format="auto"
+                          data-full-width-responsive="true">
+                        </ins>
+                      </>
+                    )}
+                  </React.Fragment>
+                ))}
+              </motion.div>
 
-          {placeAdUnit && (
-            <AdUnit
-              client="ca-pub-5021308603136043"
-              slot="3167248456"
-            />
-          )}
-        </div>
+              {placeAdUnit && (
+                <>
+                  {/* <!-- Recommended-ad-unit --> */}
+                  <ins className="adsbygoogle"
+                    style={{ display: 'block' }}
+                    data-ad-client="ca-pub-5021308603136043"
+                    data-ad-slot="3167248456"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true">
+                  </ins>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </>
   )
@@ -205,12 +278,35 @@ ServiceCard.propTypes = {
     link: PropTypes.string.isRequired,
 };
 
+Services.propTypes = {
+  posts: PropTypes.array,
+  error: PropTypes.bool
+};
+
 export default Services;
+
 
 // Fetch data at build time
 export async function getStaticProps() {
-    const posts = (await getPosts()) || [];
+  try {
+    const posts = await getPosts();
     return {
       props: { posts },
+  // Next.js will attempt to re-generate the page:
+      // - When a request is made to the page
+      // - At most once every 2 days (172800 seconds)
+      revalidate: 172800, // 2 days
+      // This is useful for pages that are not frequently updated
+      // So if the page is not updated in 2 days, it will be re-generated
+      // So what this does is it fetches the posts from the API and stores them in the props
+      // For a blog, this is useful because the blog posts are not updated frequently
+      // So if the blog posts are not updated in 2 days, the blog posts will be fetched again from the API and stored in the cache
+      // And then Next.js will serve the page from the cache if the same page is requested again within 2 days
+    };
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return {
+      props: { posts: [], error: true },
     };
   }
+}
