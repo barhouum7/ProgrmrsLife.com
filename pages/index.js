@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { useRouter } from "next/router";
 import { useMyContext } from "../contexts/MyContext";
 import { FaEllipsisH } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,8 +7,10 @@ import { PostCard, Categories, PostWidget, FeaturedPosts, Loader, AdsenseScript}
 import { getPosts } from '../services/index'
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
+import Head from "next/head";
 
 export default function Home ({ posts, error }) {
+    const router = useRouter();
     // Check if returning visitor or not handle...
     const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
     const [showToast, setShowToast] = useState(false); // New state to control toast display
@@ -138,7 +141,7 @@ const pageButtons = [];
 for (let pageNumber = startPage; pageNumber <= endPage; pageNumber++) {
   pageButtons.push(
     <button
-    className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white ${
+      className={`inline-flex items-center mr-1 px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white ${
       pageNumber === currentPage ? "font-extrabold text-white bg-violet-700 dark:bg-opacity-20 px-2 shadow-xl shadow-gray-700 dark:shadow-gray-900" : "rounded-l-full px-2"
       } ${pageNumber !== currentPage ? "rounded-r-full px-2" : ""}`}
       key={pageNumber}
@@ -190,6 +193,28 @@ if (totalPages > MAX_VISIBLE_PAGES) {
       transition={{ duration: 0.5 }}
     >
       <div>
+        <Head>
+          <title>ProgrmrsLife - Web Dev, Tech Tips & News</title>
+          <meta name="description" content="Explore programming, web development, and tech insights with ProgrmrsLife. Get the latest tips, tutorials, and news in the tech world." />
+          <meta name="keywords" content="programming, web development, technology, coding tutorials, software engineering, latest tech trends, frameworks, libraries, tech news" />
+          <meta name="author" content="ProgrmrsLife" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta property="og:title" content="ProgrmrsLife - Your Hub for Programming Insights" />
+          <meta property="og:description" content="Explore the latest in programming, tech, and web development with expert insights and tutorials." />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content="https://www.progrmrslife.com/icons/icon-512x512.png" />
+          <meta property="og:url" content={`https://www.progrmrslife.com${router.asPath}`} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="ProgrmrsLife - Web Dev, Tech Tips & News" />
+          <meta name="twitter:description" content="Explore the latest in programming, tech, and web development with expert insights and tutorials." />
+          <meta name="twitter:image" content="https://www.progrmrslife.com/icons/icon-512x512.png" />
+          <meta name="twitter:url" content={`https://www.progrmrslife.com${router.asPath}`} />
+          <link rel="icon" href="/icons/favicon.svg" />
+          <link rel="apple-touch-icon" href="/icons/icon-128x128.png" />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+          <meta name="theme-color" content="#60A5FA" />
+        </Head>
         <ToastContainer />
         {/* Render loading state or post cards based on isLoading */}
         {isLoading ? (
@@ -298,35 +323,36 @@ if (totalPages > MAX_VISIBLE_PAGES) {
                             <span className="text-sm text-gray-900 dark:text-gray-400">
                                 Showing <span className="font-extrabold text-gray-900 dark:text-white">1</span> to <span className="font-extrabold text-gray-900 dark:text-white">{currentPosts.length}</span> of <span className="font-extrabold text-gray-900 dark:text-white">{posts.length}</span> Entries
                             </span>
-                          <div className="inline-flex justify-center items-center space-x-4 mt-4 xs:mt-0">
-                            {/*  <!-- Pagination --> */}
-                            {currentPage > 1 && (
-                              <button
-                              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                              onClick={() => handlePageChange(currentPage - 1)}
-                              aria-label="Previous Page"
-                            >
-                              <svg aria-hidden="true" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path>
-                              </svg>
-                              Previous
-                            </button>
-                            )}
                             
-                            {
-                              pageButtons
-                            }
-  
-                            {currentPage < totalPages && (
-                              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" 
-                              onClick={() => handlePageChange(currentPage + 1)}
-                              aria-label="Next Page"
+                            <div className="flex-col sm:flex-row sm:inline-flex justify-center items-center space-y-4 sm:space-y-0 space-x-1 sm:space-x-4 mt-4 xs:mt-0">
+                              {/*  <!-- Pagination --> */}
+                              {currentPage > 1 && (
+                                <button
+                                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                aria-label="Previous Page"
                               >
-                                Next
-                                <svg aria-hidden="true" className="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                                <svg aria-hidden="true" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                  <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path>
+                                </svg>
+                                Previous
                               </button>
-                            )}
-                          </div>
+                              )}
+                              
+                              <div className="sm:inline-flex block">
+                                {pageButtons}
+                              </div>
+    
+                              {currentPage < totalPages && (
+                                <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" 
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                aria-label="Next Page"
+                                >
+                                  Next
+                                  <svg aria-hidden="true" className="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                                </button>
+                              )}
+                            </div>
                         </div>
   
                       )

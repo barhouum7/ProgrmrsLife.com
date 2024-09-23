@@ -102,7 +102,7 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
   for (let pageNumber = startPage; pageNumber <= endPage; pageNumber++) {
     pageButtons.push(
       <button
-        className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white ${
+        className={`inline-flex items-center mr-1 px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white ${
           pageNumber === currentPage ? "font-extrabold text-white bg-violet-700 dark:bg-opacity-20 px-2 shadow-xl shadow-gray-700 dark:shadow-gray-900" : "rounded-l-full px-2"
         } ${pageNumber !== currentPage ? "rounded-r-full px-2" : ""}`}
         key={pageNumber}
@@ -147,90 +147,170 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
   }
 
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      variants={{
-        initial: { opacity: 0 },
-        animate: { opacity: 1 }
-      }}
-      transition={{ duration: 0.5 }}
-    >
-      {
-        isLoading ? (
-          <Loader loading={isLoading} />
-        ) :
-        error ? (
-          <div className="text-center justify-center">
-              <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
-              <p className="mb-4 text-2xl tracking-tight font-bold text-white md:text-3xl dark:text-white">There was an error loading this post content. Please try again later.</p>
-          </div>
-        ) : (
-          <>
-            <Head>
-              <title>{`${categoryName} | Programmers Life`}</title>
-              <meta name="description" content={
-                `Programmers Life is a blog for programmers. We write about programming, web development, and software development.`
-              } />
-              <meta name="keywords" content="programming, web development, software development, programming blog, web development blog, software development blog" />
-              <meta name="author" content="Programmers Life" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <meta name="robots" content="index, follow" />
-              <meta name="googlebot" content="index, follow" />
-              <meta name="google" content="nositelinkssearchbox" />
-              <meta name="google" content="notranslate" />
-              <meta name="google" content="notranslate" />
-              <meta httpEquiv="Content-Language" content="en" />
-              <meta name="language" content="English" />
-              <meta property="og:title" content={`${categoryName} | Programmers Life`} />
-              <meta property="og:description" content={
-                `Programmers Life is a blog for programmers. We write about programming, web development, and software development.`
-              } />
-              <meta property="og:type" content="website" />
-              <meta property="og:url" content="https://progrmrslife.com" />
-              <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
-              <link rel="icon" href="/imgs/favicon.svg" />
-              <link rel="canonical" href="https://progrmrslife.com" />
-              <link rel="alternate" href="https://progrmrslife.com" hrefLang="en" />
-              <link rel="alternate" href="https://progrmrslife.com" hrefLang="x-default" />
-              <link rel="alternate" href="https://progrmrslife.com" hrefLang="en-US" />
-            </Head>
-            <div className="mb-8">
-                {
-                    placeAdUnit && (
-                        <>
-                          {/* <!-- Recommended-ad-unit --> */}
-                          {/* <ins className="adsbygoogle"
-                          style={{ display: 'block' }}
-                          data-ad-client="ca-pub-1339539882255727"
-                          data-ad-slot="9618957531"
-                          data-ad-format="auto"
-                          data-full-width-responsive="true"></ins> */}
-
-                          {/* <!-- Recommended-ad-unit --> */}
-                          <ins className="adsbygoogle"
-                          style={{ display: 'block' }}
-                          data-ad-client="ca-pub-5021308603136043"
-                          data-ad-slot="3167248456"
-                          data-ad-format="auto"
-                          data-full-width-responsive="true"></ins>
-                      </>
-                    )
-                }
+    <>
+      <Head>
+        <title>{`${categoryName} | Programmers Life`}</title>
+        <meta name="description" content={
+          `Programmers Life is a blog for programmers. We write about programming, web development, and software development.`
+        } />
+        <meta name="keywords" content="programming, web development, software development, programming blog, web development blog, software development blog" />
+        <meta name="author" content="Programmers Life" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="google" content="nositelinkssearchbox" />
+        <meta name="google" content="notranslate" />
+        <meta name="google" content="notranslate" />
+        <meta httpEquiv="Content-Language" content="en" />
+        <meta name="language" content="English" />
+        <meta property="og:title" content={`${categoryName} | Programmers Life`} />
+        <meta property="og:description" content={
+          `Programmers Life is a blog for programmers. We write about programming, web development, and software development.`
+        } />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://progrmrslife.com" />
+        <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <link rel="icon" href="/icons/favicon.svg" />
+        <link rel="canonical" href={`https://www.progrmrslife.com${router.asPath}`} />
+        <link rel="alternate" href={`https://www.progrmrslife.com${router.asPath}`} hrefLang="en" />
+        <link rel="alternate" href={`https://www.progrmrslife.com${router.asPath}`} hrefLang="x-default" />
+        <link rel="alternate" href={`https://www.progrmrslife.com${router.asPath}`} hrefLang="en-US" />
+      </Head>
+      <motion.div
+        initial="initial"
+        animate="animate"
+        variants={{
+          initial: { opacity: 0 },
+          animate: { opacity: 1 }
+        }}
+        transition={{ duration: 0.5 }}
+      >
+        {
+          isLoading ? (
+            <Loader loading={isLoading} />
+          ) :
+          error ? (
+            <div className="text-center justify-center">
+                <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
+                <p className="mb-4 text-2xl tracking-tight font-bold text-white md:text-3xl dark:text-white">There was an error loading this post content. Please try again later.</p>
             </div>
-            <AdsenseScript />
-            {/* <AWeberScript /> */}
-            <motion.div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl" variants={fadeInUp}>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <motion.div className="col-span-1 lg:col-span-12 text-center" variants={fadeInUp}>
-                  <h1 className="lg:text-4xl text-2xl text-pink-500 dark:text-indigo-400 leading-8 font-extrabold tracking-wide uppercase my-4">
-                    {categoryName}
-                  </h1>
-                </motion.div>
-                <motion.div className="col-span-1 lg:col-span-8" variants={fadeInUp}>
-                  {currentPosts.map((post, index) => (
-                    <motion.div key={index} variants={fadeInUp}>
-                      <PostCard post={post.node} />
+          ) : (
+            <>
+              <div className="mb-8">
+                  {
+                      placeAdUnit && (
+                          <>
+                            {/* <!-- Recommended-ad-unit --> */}
+                            {/* <ins className="adsbygoogle"
+                            style={{ display: 'block' }}
+                            data-ad-client="ca-pub-1339539882255727"
+                            data-ad-slot="9618957531"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins> */}
+
+                            {/* <!-- Recommended-ad-unit --> */}
+                            <ins className="adsbygoogle"
+                            style={{ display: 'block' }}
+                            data-ad-client="ca-pub-5021308603136043"
+                            data-ad-slot="3167248456"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        </>
+                      )
+                  }
+              </div>
+              <AdsenseScript />
+              {/* <AWeberScript /> */}
+              <motion.div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl" variants={fadeInUp}>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                  <motion.div className="col-span-1 lg:col-span-12 text-center" variants={fadeInUp}>
+                    <h1 className="lg:text-4xl text-2xl text-pink-500 dark:text-indigo-400 leading-8 font-extrabold tracking-wide uppercase my-4">
+                      {categoryName}
+                    </h1>
+                  </motion.div>
+                  <motion.div className="col-span-1 lg:col-span-8" variants={fadeInUp}>
+                    {currentPosts.map((post, index) => (
+                      <motion.div key={index} variants={fadeInUp}>
+                        <PostCard post={post.node} />
+                        <div className="mb-8">
+                            {
+                                placeAdUnit && (
+                                    <>
+                                      {/* <!-- Recommended-ad-unit --> */}
+                                      {/* <ins className="adsbygoogle"
+                                      style={{ display: 'block' }}
+                                      data-ad-client="ca-pub-1339539882255727"
+                                      data-ad-slot="9618957531"
+                                      data-ad-format="auto"
+                                      data-full-width-responsive="true"></ins> */}
+
+                                      {/* <!-- Recommended-ad-unit --> */}
+                                      <ins className="adsbygoogle"
+                                      style={{ display: 'block' }}
+                                      data-ad-client="ca-pub-5021308603136043"
+                                      data-ad-slot="3167248456"
+                                      data-ad-format="auto"
+                                      data-full-width-responsive="true"></ins>
+                                  </>
+                                )
+                            }
+                        </div>
+                      </motion.div>
+                    ))}
+                    
+                    {/*  <!-- Pagination --> */}
+                    
+                    {
+                      totalPages > 1 ? (
+                        <div className="flex flex-col items-center">
+                            {/*  <!-- Help text --> */}
+                            <span className="text-sm text-gray-900 dark:text-gray-400">
+                                Showing <span className="font-extrabold text-gray-900 dark:text-white">1</span> to <span className="font-extrabold text-gray-900 dark:text-white">{currentPosts.length}</span> of <span className="font-extrabold text-gray-900 dark:text-white">{catPosts.length}</span> Entries
+                            </span>
+
+                          <div className="flex-col sm:flex-row sm:inline-flex justify-center items-center space-y-4 sm:space-y-0 space-x-1 sm:space-x-4 mt-4 xs:mt-0">
+                            {/*  <!-- Pagination --> */}
+                            {currentPage > 1 && (
+                              <button
+                              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                              onClick={() => handlePageChange(currentPage - 1)}
+                              aria-label="Previous Page"
+                            >
+                              <svg aria-hidden="true" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path>
+                              </svg>
+                              Previous
+                            </button>
+                            )}
+                            
+                            <div className="sm:inline-flex block">
+                              {pageButtons}
+                            </div>
+
+                            {currentPage < totalPages && (
+                              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" 
+                              onClick={() => handlePageChange(currentPage + 1)}
+                              aria-label="Next Page"
+                              >
+                                Next
+                                <svg aria-hidden="true" className="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+
+                      ) : totalPages === 0 && catPosts.length === 0 ? (
+                          <div className="text-center justify-center">
+                              <h1 className="mb-4 mt-8 tracking-tight font-extrabold text-2xl md:text-4xl text-red-400 dark:text-red-400">Whoops!</h1>
+                              <p className="text-xl tracking-tight font-bold text-gray-900 md:text-xl dark:text-white">There are no posts in this category yet.</p>
+                          </div>
+                      ) : totalPages === 1 && currentPage !== 1 ? (
+                        typeof window !== 'undefined' && window.location.reload()
+                      ) : null
+                    }
+                  </motion.div>
+                  <motion.div className="col-span-1 lg:col-span-4" variants={fadeInUp}>
+                    <div className="relative lg:sticky top-8">
                       <div className="mb-8">
                           {
                               placeAdUnit && (
@@ -254,93 +334,16 @@ const CategoryPost = ({ catPosts, categoryName, error }) => {
                               )
                           }
                       </div>
-                    </motion.div>
-                  ))}
-                  
-                  {/*  <!-- Pagination --> */}
-                  
-                  {
-                    totalPages > 1 ? (
-                      <div className="flex flex-col items-center">
-                          {/*  <!-- Help text --> */}
-                          <span className="text-sm text-gray-900 dark:text-gray-400">
-                              Showing <span className="font-extrabold text-gray-900 dark:text-white">1</span> to <span className="font-extrabold text-gray-900 dark:text-white">{currentPosts.length}</span> of <span className="font-extrabold text-gray-900 dark:text-white">{catPosts.length}</span> Entries
-                          </span>
-                        <div className="inline-flex justify-center items-center space-x-4 mt-4 xs:mt-0">
-                          {/*  <!-- Pagination --> */}
-                          {currentPage > 1 && (
-                            <button
-                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            aria-label="Previous Page"
-                          >
-                            <svg aria-hidden="true" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                              <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path>
-                            </svg>
-                            Previous
-                          </button>
-                          )}
-                          
-                          {
-                            pageButtons
-                          }
-
-                          {currentPage < totalPages && (
-                            <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" 
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            aria-label="Next Page"
-                            >
-                              Next
-                              <svg aria-hidden="true" className="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
-                            </button>
-                          )}
-                        </div>
-                      </div>
-
-                    ) : totalPages === 0 && catPosts.length === 0 ? (
-                        <div className="text-center justify-center">
-                            <h1 className="mb-4 mt-8 tracking-tight font-extrabold text-2xl md:text-4xl text-red-400 dark:text-red-400">Whoops!</h1>
-                            <p className="text-xl tracking-tight font-bold text-gray-900 md:text-xl dark:text-white">There are no posts in this category yet.</p>
-                        </div>
-                    ) : totalPages === 1 && currentPage !== 1 ? (
-                      typeof window !== 'undefined' && window.location.reload()
-                    ) : null
-                  }
-                </motion.div>
-                <motion.div className="col-span-1 lg:col-span-4" variants={fadeInUp}>
-                  <div className="relative lg:sticky top-8">
-                    <div className="mb-8">
-                        {
-                            placeAdUnit && (
-                                <>
-                                  {/* <!-- Recommended-ad-unit --> */}
-                                  {/* <ins className="adsbygoogle"
-                                  style={{ display: 'block' }}
-                                  data-ad-client="ca-pub-1339539882255727"
-                                  data-ad-slot="9618957531"
-                                  data-ad-format="auto"
-                                  data-full-width-responsive="true"></ins> */}
-
-                                  {/* <!-- Recommended-ad-unit --> */}
-                                  <ins className="adsbygoogle"
-                                  style={{ display: 'block' }}
-                                  data-ad-client="ca-pub-5021308603136043"
-                                  data-ad-slot="3167248456"
-                                  data-ad-format="auto"
-                                  data-full-width-responsive="true"></ins>
-                              </>
-                            )
-                        }
+                      <Categories />
                     </div>
-                    <Categories />
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </>
-        )
-      }
-    </motion.div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </>
+          )
+        }
+      </motion.div>
+    </>
   );
 };
 
