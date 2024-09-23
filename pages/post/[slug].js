@@ -195,333 +195,334 @@ const PostDetails = ({ post, error }) => {
         }
 
     return (
-        <motion.div
-            initial="initial"
-            animate="animate"
-            variants={{
-                initial: { opacity: 0 },
-                animate: { opacity: 1 }
-            }}
-            transition={{ duration: 0.5 }}
-        >
-            {
-                isLoading ? (
-                    <Loader loading={isLoading} />
-                ) :
-                error ? (
-                        <div className="text-center justify-center">
-                            <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
-                            <p className="mb-4 text-2xl tracking-tight font-bold text-white md:text-3xl dark:text-white">There was an error loading this post content. Please try again later.</p>
-                        </div>
-                    ) : (
-                        <>
-                            <Head>
-                                <title>{`${post.title} — ${
-                                        // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
-                                        new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
-                                } | Programmers Life`}</title>
-                                <meta name="description" content={post.excerpt} />
-                                <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
-                                <meta name="author" content={post.author.name} />
-                                
-                                {/* Open Graph */}
-                                <meta property="og:title" content={post.title} />
-                                <meta property="og:description" content={post.excerpt} />
-                                <meta property="og:image" content={post.featuredImage.url} />
-                                <meta property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
-                                <meta property="og:type" content="article" />
-                                <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
+        <>
+            <Head>
+                <title>{`${post.title} — ${
+                        // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
+                        new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
+                } | Programmers Life`}</title>
+                <meta name="description" content={post.excerpt} />
+                <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
+                <meta name="author" content={post.author.name} />
+                
+                {/* Open Graph */}
+                <meta property="og:title" content={post.title} />
+                <meta property="og:description" content={post.excerpt} />
+                <meta property="og:image" content={post.featuredImage.url} />
+                <meta property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                <meta property="og:type" content="article" />
+                <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
 
-                                {/* Twitter */}
-                                <meta name="twitter:card" content="summary_large_image" />
-                                <meta name="twitter:title" content={post.title} />
-                                <meta name="twitter:description" content={post.excerpt} />
-                                <meta name="twitter:image" content={post.featuredImage.url} />
-                                <meta name="twitter:creator" content="https://links.progrmrslife.com" />
-                                <meta name="twitter:site" content="https://links.progrmrslife.com" />
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={post.title} />
+                <meta name="twitter:description" content={post.excerpt} />
+                <meta name="twitter:image" content={post.featuredImage.url} />
+                <meta name="twitter:creator" content="https://links.progrmrslife.com" />
+                <meta name="twitter:site" content="https://links.progrmrslife.com" />
 
-                                {/* Other important meta tags */}
-                                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                                <meta name="robots" content="index, follow" />
-                                <meta name="googlebot" content="index, follow" />
-                                <meta httpEquiv="Content-Language" content="en" />
+                {/* Other important meta tags */}
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="robots" content="index, follow" />
+                <meta name="googlebot" content="index, follow" />
+                <meta httpEquiv="Content-Language" content="en" />
 
-                                {/* App-specific meta tags */}
-                                <meta name="apple-mobile-web-app-title" content="ProgrammersLife" />
-                                <meta name="application-name" content="ProgrammersLife" />
-                                <meta name="msapplication-TileColor" content="#ffffff" />
-                                <meta name="msapplication-TileImage" content="/icons/icon-128x128.png" />
+                {/* App-specific meta tags */}
+                <meta name="apple-mobile-web-app-title" content="ProgrammersLife" />
+                <meta name="application-name" content="ProgrammersLife" />
+                <meta name="msapplication-TileColor" content="#ffffff" />
+                <meta name="msapplication-TileImage" content="/icons/icon-128x128.png" />
 
-                                {/* Article-specific meta tags */}
-                                <meta property="article:published_time" content={post.createdAt} />
-                                <meta property="article:modified_time" content={post.updatedAt} />
-                                <meta property="article:author" content={post.author.name} />
-                                <meta property="article:section" content={post.categories[0].name} />
-                                <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
+                {/* Article-specific meta tags */}
+                <meta property="article:published_time" content={post.createdAt} />
+                <meta property="article:modified_time" content={post.updatedAt} />
+                <meta property="article:author" content={post.author.name} />
+                <meta property="article:section" content={post.categories[0].name} />
+                <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
 
-                                <link rel="icon" href="/imgs/favicon.svg" />
-                                <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
-                                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
-                            </Head>
-                            
-                            <ToastContainer />
-
-                            <div className="mb-8">
-                                {
-                                    placeAdUnit && (
-                                        <>
-                                            {/* <!-- Recommended-ad-unit --> */}
-                                            {/* <ins className="adsbygoogle"
-                                            style={{ display: 'block' }}
-                                            data-ad-client="ca-pub-1339539882255727"
-                                            data-ad-slot="9618957531"
-                                            data-ad-format="auto"
-                                            data-full-width-responsive="true"></ins> */}
-
-                                            {/* <!-- Recommended-ad-unit --> */}
-                                            <ins className="adsbygoogle"
-                                            style={{ display: 'block' }}
-                                            data-ad-client="ca-pub-5021308603136043"
-                                            data-ad-slot="3167248456"
-                                            data-ad-format="auto"
-                                            data-full-width-responsive="true"></ins>
-                                        </>
-                                    )
-                                }
+                <link rel="icon" href="/icons/favicon.svg" />
+                <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
+                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
+            </Head>
+            <motion.div
+                initial="initial"
+                animate="animate"
+                variants={{
+                    initial: { opacity: 0 },
+                    animate: { opacity: 1 }
+                }}
+                transition={{ duration: 0.5 }}
+            >
+                {
+                    isLoading ? (
+                        <Loader loading={isLoading} />
+                    ) :
+                    error ? (
+                            <div className="text-center justify-center">
+                                <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
+                                <p className="mb-4 text-2xl tracking-tight font-bold text-white md:text-3xl dark:text-white">There was an error loading this post content. Please try again later.</p>
                             </div>
-                            <AdsenseScript />
-                            {/* <AWeberScript /> */}
-                            <motion.div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl" variants={fadeInUp}>
-                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <motion.div className='lg:col-span-8 col-span-1' variants={fadeInUp}>
-                                        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 hover:shadow-indigo-500/40 hover:shadow-2xl">
-                                            <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} showToast={showToast} showWelcomeMessage={showWelcomeMessage} />
-                                            {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
-                                                {/* <p className='text-center'>
-                                                <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-white dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent dark:hover:text-white">Let us know your reaction</span>
-                                            </p> */}
-                                            <div className='justify-center text-center'>
-                                                <p>
-                                                    <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-gray-600 dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent hover:text-gray-900 dark:hover:text-white">Let us know your reaction</span>
-                                                </p>
-                                                <InlineReactionButtons
-                                                    config={{
-                                                        alignment: 'center',  // alignment of buttons (left, center, right)
-                                                        enabled: true,        // show/hide buttons (true, false)
-                                                        language: 'en',       // which language to use (see LANGUAGES)
-                                                        min_count: 0,         // hide react counts less than min_count (INTEGER)
-                                                        padding: 12,          // padding within buttons (INTEGER)
-                                                        reactions: [          // which reactions to include (see REACTIONS)
-                                                        'slight_smile',
-                                                        'heart_eyes',
-                                                        'laughing',
-                                                        'astonished',
-                                                        'sob',
-                                                        'rage'
-                                                        ],
-                                                        size: 48,             // the size of each button (INTEGER)
-                                                        spacing: 8,           // the spacing between buttons (INTEGER)
-                                                        static: false,        // hide react buttons and display static emoji (true, false)
-                                                        url: `https://progrmrslife.com/post/${post.slug}`, // (defaults to current url)
+                        ) : (
+                            <>
+                                <ToastContainer />
 
-                                                        // OPTIONAL PARAMETERS
-                                                        hideWhenOffline: true,   // hide the react buttons when the browser goes offline (true, false)
-                                                        onReactionButtonClick: function(e) {
-                                                            console.log(e);
-                                                        }, // fires when a user clicks one of the reaction buttons
-                                                        preFetch: true,        // pre-fetch reaction images (true, false)
-                                                        showReactionTotal: true // show the total number of reactions (true, false)
-                                                    }}
-                                                />
-                                            </div>
-                                            {/* <!-- ShareThis END --> */}
-                                        </div>
-                                        <div className="mb-8">
-                                            {
-                                                placeAdUnit && (
-                                                    <>
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        {/* <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-1339539882255727"
-                                                        data-ad-slot="9618957531"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins> */}
+                                <div className="mb-8">
+                                    {
+                                        placeAdUnit && (
+                                            <>
+                                                {/* <!-- Recommended-ad-unit --> */}
+                                                {/* <ins className="adsbygoogle"
+                                                style={{ display: 'block' }}
+                                                data-ad-client="ca-pub-1339539882255727"
+                                                data-ad-slot="9618957531"
+                                                data-ad-format="auto"
+                                                data-full-width-responsive="true"></ins> */}
 
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-5021308603136043"
-                                                        data-ad-slot="3167248456"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins>
-                                                    </>
-                                                )
-                                            }
-                                        </div>
-                                        
-                                        <div id='authorBio'>
-                                            <Author author={post.author} />
-                                        </div>
-                                        <div className="mb-8">
-                                            {
-                                                placeAdUnit && (
-                                                    <>
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        {/* <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-1339539882255727"
-                                                        data-ad-slot="9618957531"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins> */}
-
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-5021308603136043"
-                                                        data-ad-slot="3167248456"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins>
-                                                    </>
-                                                )
-                                            }
-                                        </div>
-                                        <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
-                                        <div className="mb-8">
-                                            {
-                                                placeAdUnit && (
-                                                    <>
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        {/* <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-1339539882255727"
-                                                        data-ad-slot="9618957531"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins> */}
-
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-5021308603136043"
-                                                        data-ad-slot="3167248456"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins>
-                                                    </>
-                                                )
-                                            }
-                                        </div>
-                                        <div id='commentForm'>
-                                            <CommentsForm slug={post.slug} postTitle={post.title} />
-                                        </div>
-                                        <div className="mb-8">
-                                            {
-                                                placeAdUnit && (
-                                                    <>
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        {/* <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-1339539882255727"
-                                                        data-ad-slot="9618957531"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins> */}
-
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-5021308603136043"
-                                                        data-ad-slot="3167248456"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins>
-                                                    </>
-                                                )
-                                            }
-                                        </div>
-                                        <div id='allComments'>
-                                            <Comments slug={post.slug} />
-                                        </div>
-                                        <div className="mb-8">
-                                            {
-                                                placeAdUnit && (
-                                                    <>
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        {/* <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-1339539882255727"
-                                                        data-ad-slot="9618957531"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins> */}
-
-                                                        {/* <!-- Recommended-ad-unit --> */}
-                                                        <ins className="adsbygoogle"
-                                                        style={{ display: 'block' }}
-                                                        data-ad-client="ca-pub-5021308603136043"
-                                                        data-ad-slot="3167248456"
-                                                        data-ad-format="auto"
-                                                        data-full-width-responsive="true"></ins>
-                                                    </>
-                                                )
-                                            }
-                                        </div>
-                                    </motion.div>
-
-                                    <motion.div className="lg:col-span-4 col-span-1" variants={fadeInUp}>
-                                        <div className="lg:sticky relative top-0">
-                                            <div className="mb-8">
-                                                {
-                                                    placeAdUnit && (
-                                                        <>
-                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
-                                                            {/* <ins className="adsbygoogle"
-                                                            style={{ display: 'block' }}
-                                                            data-ad-client="ca-pub-1339539882255727"
-                                                            data-ad-slot="9697463409"
-                                                            data-ad-format="auto"
-                                                            data-full-width-responsive="true"></ins> */}
-
-                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
-                                                            <ins className="adsbygoogle"
-                                                            style={{ display: 'block' }}
-                                                            data-ad-client="ca-pub-5021308603136043"
-                                                            data-ad-slot="3167248456"
-                                                            data-ad-format="auto"
-                                                            data-full-width-responsive="true"></ins>
-                                                        </>
-                                                    )
-                                                }
-                                            </div>
-                                            <PostWidget slug={post.slug} categories={post.categories.map((category) => category.slug)} />
-                                            <Categories />
-                                            <div className="mb-8">
-                                                {
-                                                    placeAdUnit && (
-                                                        <>
-                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
-                                                            {/* <ins className="adsbygoogle"
-                                                            style={{ display: 'block' }}
-                                                            data-ad-client="ca-pub-1339539882255727"
-                                                            data-ad-slot="9697463409"
-                                                            data-ad-format="auto"
-                                                            data-full-width-responsive="true"></ins> */}
-
-                                                            {/* // <!-- Vertical_Recommended_AdUnit --> */}
-                                                            <ins className="adsbygoogle"
-                                                            style={{ display: 'block' }}
-                                                            data-ad-client="ca-pub-5021308603136043"
-                                                            data-ad-slot="3167248456"
-                                                            data-ad-format="auto"
-                                                            data-full-width-responsive="true"></ins>
-                                                        </>
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                    </motion.div>
+                                                {/* <!-- Recommended-ad-unit --> */}
+                                                <ins className="adsbygoogle"
+                                                style={{ display: 'block' }}
+                                                data-ad-client="ca-pub-5021308603136043"
+                                                data-ad-slot="3167248456"
+                                                data-ad-format="auto"
+                                                data-full-width-responsive="true"></ins>
+                                            </>
+                                        )
+                                    }
                                 </div>
-                            </motion.div>
-                        </>
-                    )
-                }
-        </motion.div>
+                                <AdsenseScript />
+                                {/* <AWeberScript /> */}
+                                <motion.div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl" variants={fadeInUp}>
+                                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                                        <motion.div className='lg:col-span-8 col-span-1' variants={fadeInUp}>
+                                            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 hover:shadow-indigo-500/40 hover:shadow-2xl">
+                                                <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} showToast={showToast} showWelcomeMessage={showWelcomeMessage} />
+                                                {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
+                                                    {/* <p className='text-center'>
+                                                    <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-white dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent dark:hover:text-white">Let us know your reaction</span>
+                                                </p> */}
+                                                <div className='justify-center text-center'>
+                                                    <p>
+                                                        <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-gray-600 dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent hover:text-gray-900 dark:hover:text-white">Let us know your reaction</span>
+                                                    </p>
+                                                    <InlineReactionButtons
+                                                        config={{
+                                                            alignment: 'center',  // alignment of buttons (left, center, right)
+                                                            enabled: true,        // show/hide buttons (true, false)
+                                                            language: 'en',       // which language to use (see LANGUAGES)
+                                                            min_count: 0,         // hide react counts less than min_count (INTEGER)
+                                                            padding: 12,          // padding within buttons (INTEGER)
+                                                            reactions: [          // which reactions to include (see REACTIONS)
+                                                            'slight_smile',
+                                                            'heart_eyes',
+                                                            'laughing',
+                                                            'astonished',
+                                                            'sob',
+                                                            'rage'
+                                                            ],
+                                                            size: 48,             // the size of each button (INTEGER)
+                                                            spacing: 8,           // the spacing between buttons (INTEGER)
+                                                            static: false,        // hide react buttons and display static emoji (true, false)
+                                                            url: `https://progrmrslife.com/post/${post.slug}`, // (defaults to current url)
+
+                                                            // OPTIONAL PARAMETERS
+                                                            hideWhenOffline: true,   // hide the react buttons when the browser goes offline (true, false)
+                                                            onReactionButtonClick: function(e) {
+                                                                console.log(e);
+                                                            }, // fires when a user clicks one of the reaction buttons
+                                                            preFetch: true,        // pre-fetch reaction images (true, false)
+                                                            showReactionTotal: true // show the total number of reactions (true, false)
+                                                        }}
+                                                    />
+                                                </div>
+                                                {/* <!-- ShareThis END --> */}
+                                            </div>
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        <>
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9618957531"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
+                                            
+                                            <div id='authorBio'>
+                                                <Author author={post.author} />
+                                            </div>
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        <>
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9618957531"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
+                                            <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        <>
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9618957531"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
+                                            <div id='commentForm'>
+                                                <CommentsForm slug={post.slug} postTitle={post.title} />
+                                            </div>
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        <>
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9618957531"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
+                                            <div id='allComments'>
+                                                <Comments slug={post.slug} />
+                                            </div>
+                                            <div className="mb-8">
+                                                {
+                                                    placeAdUnit && (
+                                                        <>
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            {/* <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-1339539882255727"
+                                                            data-ad-slot="9618957531"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins> */}
+
+                                                            {/* <!-- Recommended-ad-unit --> */}
+                                                            <ins className="adsbygoogle"
+                                                            style={{ display: 'block' }}
+                                                            data-ad-client="ca-pub-5021308603136043"
+                                                            data-ad-slot="3167248456"
+                                                            data-ad-format="auto"
+                                                            data-full-width-responsive="true"></ins>
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
+                                        </motion.div>
+
+                                        <motion.div className="lg:col-span-4 col-span-1" variants={fadeInUp}>
+                                            <div className="lg:sticky relative top-0">
+                                                <div className="mb-8">
+                                                    {
+                                                        placeAdUnit && (
+                                                            <>
+                                                                {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                                {/* <ins className="adsbygoogle"
+                                                                style={{ display: 'block' }}
+                                                                data-ad-client="ca-pub-1339539882255727"
+                                                                data-ad-slot="9697463409"
+                                                                data-ad-format="auto"
+                                                                data-full-width-responsive="true"></ins> */}
+
+                                                                {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                                <ins className="adsbygoogle"
+                                                                style={{ display: 'block' }}
+                                                                data-ad-client="ca-pub-5021308603136043"
+                                                                data-ad-slot="3167248456"
+                                                                data-ad-format="auto"
+                                                                data-full-width-responsive="true"></ins>
+                                                            </>
+                                                        )
+                                                    }
+                                                </div>
+                                                <PostWidget slug={post.slug} categories={post.categories.map((category) => category.slug)} />
+                                                <Categories />
+                                                <div className="mb-8">
+                                                    {
+                                                        placeAdUnit && (
+                                                            <>
+                                                                {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                                {/* <ins className="adsbygoogle"
+                                                                style={{ display: 'block' }}
+                                                                data-ad-client="ca-pub-1339539882255727"
+                                                                data-ad-slot="9697463409"
+                                                                data-ad-format="auto"
+                                                                data-full-width-responsive="true"></ins> */}
+
+                                                                {/* // <!-- Vertical_Recommended_AdUnit --> */}
+                                                                <ins className="adsbygoogle"
+                                                                style={{ display: 'block' }}
+                                                                data-ad-client="ca-pub-5021308603136043"
+                                                                data-ad-slot="3167248456"
+                                                                data-ad-format="auto"
+                                                                data-full-width-responsive="true"></ins>
+                                                            </>
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                </motion.div>
+                            </>
+                        )
+                    }
+            </motion.div>
+        </>
     )
 }
 
