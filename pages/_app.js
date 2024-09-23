@@ -105,7 +105,7 @@ const actions = [
 
   return (
     <ErrorBoundary>
-      <main className={currentFont.className}>
+      <main className={`${currentFont.className} min-h-screen flex flex-col`}>
         <HelmetProvider>
           <ThemeProvider enableSystem={true} attribute="class">
             <KBarProvider actions={actions}
@@ -117,7 +117,9 @@ const actions = [
                 <Suspense fallback={<SuspenseLoader />}>
                   <Layout>
                     <CommandBar {...pageProps} />
-                    <MemoizedComponent {...pageProps} />
+                    <div className="flex-grow">
+                      <MemoizedComponent {...pageProps} />
+                    </div>
                   </Layout>
                 </Suspense>
               </MyProvider>
