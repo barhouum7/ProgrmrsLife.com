@@ -203,26 +203,13 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Head>
-        <title>ProgrmrsLife - Web Dev, Tech Tips & News</title>
-        <link rel="icon" href="/imgs/favicon.svg" />
+        <link rel="icon" href="/icons/favicon.svg" />
         <link rel="apple-touch-icon" href="/icons/icon-128x128.png" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="canonical" href={`https://www.progrmrslife.com${router.asPath}`} />
         <meta name="theme-color" content="#60A5FA" />
-        <meta name="description" content="Explore programming, web development, and tech insights with ProgrmrsLife. Get the latest tips, tutorials, and news in the tech world." />
-        <meta name="keywords" content="programming, web development, technology, coding tutorials, software engineering, latest tech trends, frameworks, libraries, tech news" />
-        <meta name="author" content="ProgrmrsLife" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:title" content="ProgrmrsLife - Your Hub for Programming Insights" />
-        <meta property="og:description" content="Explore the latest in programming, tech, and web development with expert insights and tutorials." />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.progrmrslife.com/icons/icon-512x512.png" />
-        <meta property="og:url" content={`https://www.progrmrslife.com${router.asPath}`} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ProgrmrsLife - Programming Insights & Tech Trends" />
-        <meta name="twitter:description" content="Stay ahead in the tech world with our expert articles and tutorials on programming and web development." />
-        <meta name="twitter:image" content="https://www.progrmrslife.com/icons/icon-512x512.png" />
         
         {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
         <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
@@ -275,7 +262,7 @@ const Layout = ({ children }) => {
         )
       }
         <Header showBanner={showBanner} />
-        <main className={`relative rounded-t mx-4 dark:bg-gray-900 shadow-md bg-indigo-100`}>
+        <main className={`min-h-screen relative rounded-t px-2 dark:bg-gray-900 shadow-md bg-indigo-100`}>
             <h1 className="sr-only">ProgrmrsLife - Web Development and Tech Insights</h1>
             {/* <div className="mt-4">
               <Search />
