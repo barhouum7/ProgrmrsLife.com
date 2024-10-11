@@ -135,7 +135,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             viewAllPTag.classList.add('hidden');
                         } else if (isViewLess && i > 3) {
                             pTag.classList.add('hidden');
-                            pTag.scrollIntoView();
+                            pTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             viewAllPTag.classList.remove('hidden');
                         }
                         });
@@ -1373,7 +1373,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                             setShowPopupPage(true)
                                                             const popupPageElement = document.querySelector('.popup-page');
                                                             if (popupPageElement) {
-                                                                popupPageElement.scrollIntoView();
+                                                                popupPageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                                             }
                                                         }}
                                                         className="text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500 hover:underline dark:hover:underline" title="LinkedIn Learning Free trial Accounts">Free trials here ⬇</button>
@@ -1409,7 +1409,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                             onCloseButtonClick();
                                                                             const popupPageLink = document.getElementById("popup-page-link");
                                                                             if (popupPageLink) {
-                                                                                popupPageLink.scrollIntoView();
+                                                                                popupPageLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                                                             }
                                                                         }}
                                                                     >
@@ -1456,7 +1456,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                             setShowGoToLinkButton(true);
                                                                             const goToLinkElement = document.getElementById("follow-steps");
                                                                             if (goToLinkElement) {
-                                                                                goToLinkElement.scrollIntoView();
+                                                                                goToLinkElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                                                             }
                                                                         }}
                                                                         className="relative w-full z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
@@ -1499,8 +1499,24 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         return (
                                             <div className={className} id={className}>{children}</div>
                                         )
-                                    }
-                                    else {
+                                    } else if (className === 'apply-now-button') {
+                                        return (
+                                            <div className="w-full mx-auto flex items-center justify-center">
+                                                <button
+                                                    className="relative w-1/2 z-10 flex justify-center text-center text-lg font-semibold text-white hover:bg-green-600 focus:outline-none active:bg-green-700 rounded-lg px-5 py-2.5 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-green-500 to-blue-500"
+                                                    onClick={() => {
+                                                        const applyNowSection = document.querySelector('.apply-now-section');
+                                                        if (applyNowSection) {
+                                                            applyNowSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                        }
+                                                    }}
+                                                >
+                                                    Apply Now 🚀
+                                                    <div className='w-10 h-10 rounded-full align-middle absolute top-0 hover:bg-green-500 hover:bg-opacity-50 bg-green-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
+                                                </button>
+                                            </div>
+                                        )
+                                    } else {
                                         return (
                                             <div className={className}>{children}</div>
                                         )
