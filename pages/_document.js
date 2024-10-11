@@ -72,13 +72,11 @@ class MyDocument extends Document {
 
 
           {/* // Code from AdSense */}
-          <Script 
+          <script 
             id="adsbygoogle-init"
             crossOrigin="anonymous"
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
+            async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
             // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-            loading="lazy"
           />
 
           {/* <!-- Google Tag Manager --> */}
@@ -150,6 +148,7 @@ class MyDocument extends Document {
             }}
           />
           {/* <!-- End Google tag (gtag.js) --> */}
+          
           <Main />
           <NextScript />
 

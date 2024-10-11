@@ -282,9 +282,8 @@ const Layout = ({ children }) => {
       {/* Start of All Scripts */}
 
       {/* // Code from AdSense */}
-      <Script 
+      <script 
         id="adsbygoogle-init"
-        strategy="afterInteractive"
         crossOrigin="anonymous"
         async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
         // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
