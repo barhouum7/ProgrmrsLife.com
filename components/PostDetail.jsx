@@ -67,6 +67,17 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     }
 
 
+    // Initialize all the ad units on the page
+    useEffect(() => {
+        // console.log('AdsenseScript');
+        var ads = document.getElementsByClassName("adsbygoogle").length;
+            for (var i = 0; i < ads; i++) {
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) { }
+            }
+        // console.log('adsbygoogle: ', document.getElementsByClassName("adsbygoogle"));
+    }, []);
 
     // Ads configuration ...
     const [adsLoaded, setAdsLoaded] = useState(false);
@@ -844,7 +855,6 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 transition={{ duration: 0.5 }}
             >
                 <article className="post-detail">
-                    <AdsenseScript />
                     <motion.div className="mb-8" variants={fadeInUp}>
                         {
                             adsLoaded ? (

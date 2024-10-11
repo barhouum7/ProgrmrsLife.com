@@ -74,9 +74,9 @@ class MyDocument extends Document {
           {/* // Code from AdSense */}
           <Script 
             id="adsbygoogle-init"
-            strategy="afterInteractive"
             crossOrigin="anonymous"
-            async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
             // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
             loading="lazy"
           />
@@ -109,7 +109,7 @@ class MyDocument extends Document {
             src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" 
             strategy="lazyOnload"
             nonce="ML-8Zn0qG97P5bAGURNW3Q" 
-      />
+          />
           <Script
             id="google-fc-present"
             strategy="lazyOnload"
@@ -123,28 +123,33 @@ class MyDocument extends Document {
           {/* Allow Ads Error protection message */}
 
           {/* <!-- Google Tag Manager (noscript) --> */}
-          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFFN5QDF"
-              height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe></noscript>
-              {/* <!-- End Google Tag Manager (noscript) --> */}
-              {/* <!-- Google tag (gtag.js) --> */}
-              <Script 
-                  async 
-                  src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
-                  strategy="lazyOnload"
-              />
-              <Script
-                id="google-analytics"
-                strategy="lazyOnload"
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-PEF01PTY1T');
-                  `,
-                }}
-              />
-              {/* <!-- End Google tag (gtag.js) --> */}
+          <Script strategy="afterInteractive" id="google-tag-manager-noscript">
+            {`
+              <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFFN5QDF"
+              height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+            `}
+          </Script>
+
+          {/* <!-- End Google Tag Manager (noscript) --> */}
+          {/* <!-- Google tag (gtag.js) --> */}
+          <Script 
+              async 
+              src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
+              strategy="lazyOnload"
+          />
+          <Script
+            id="google-analytics"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-PEF01PTY1T');
+              `,
+            }}
+          />
+          {/* <!-- End Google tag (gtag.js) --> */}
           <Main />
           <NextScript />
 
