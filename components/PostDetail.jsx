@@ -1491,8 +1491,8 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                 {
                                                     !showGoToLinkButton && (
                                                         <>
-                                                            <div className="go-to-link">
-                                                                <div className="flex flex-col justify-center items-center space-y-2">
+                                                            <div className="go-to-link w-full flex flex-col items-center justify-center mx-auto">
+                                                                <div className="w-1/2 flex justify-center items-center mb-2">
                                                                     <Tooltip
                                                                         content="Go to Link 👇"
                                                                         placement="top"
@@ -1512,35 +1512,35 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                             <div className='w-10 h-10 rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
                                                                         </button>
                                                                     </Tooltip>
+                                                                </div>
+                                                                
+                                                                <div className="w-full my-8">
+                                                                    {
+                                                                    adsLoaded ? (
+                                                                            <>
+                                                                                <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
+                                                                                {/* <!-- Recommended-ad-unit --> */}
+                                                                                {/* <ins className="adsbygoogle"
+                                                                                style={{ display: 'block' }}
+                                                                                data-ad-client="ca-pub-1339539882255727"
+                                                                                data-ad-slot="9618957531"
+                                                                                data-ad-format="auto"
+                                                                                data-full-width-responsive="true"></ins> */}
 
-                                                                    <div className="my-8">
-                                                                        {
-                                                                        adsLoaded ? (
-                                                                                <>
-                                                                                    <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
-                                                                                    {/* <!-- Recommended-ad-unit --> */}
-                                                                                    {/* <ins className="adsbygoogle"
-                                                                                    style={{ display: 'block' }}
-                                                                                    data-ad-client="ca-pub-1339539882255727"
-                                                                                    data-ad-slot="9618957531"
-                                                                                    data-ad-format="auto"
-                                                                                    data-full-width-responsive="true"></ins> */}
-
-                                                                                    {/* <!-- Recommended-ad-unit --> */}
-                                                                                    <ins className="adsbygoogle"
-                                                                                    style={{ display: 'block' }}
-                                                                                    data-ad-client="ca-pub-5021308603136043"
-                                                                                    data-ad-slot="3167248456"
-                                                                                    data-ad-format="auto"
-                                                                                    data-full-width-responsive="true"></ins>
-                                                                                </>
-                                                                            ) : (
-                                                                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                                                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                                                                </div>
-                                                                            )
-                                                                        }
-                                                                    </div>
+                                                                                {/* <!-- Recommended-ad-unit --> */}
+                                                                                <ins className="adsbygoogle"
+                                                                                style={{ display: 'block' }}
+                                                                                data-ad-client="ca-pub-5021308603136043"
+                                                                                data-ad-slot="3167248456"
+                                                                                data-ad-format="auto"
+                                                                                data-full-width-responsive="true"></ins>
+                                                                            </>
+                                                                        ) : (
+                                                                            <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                                                <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                                            </div>
+                                                                        )
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         </>
