@@ -68,6 +68,32 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
 
 
+    // Ads configuration ...
+    const [adsLoaded, setAdsLoaded] = useState(false);
+
+    useEffect(() => {
+        // This effect will run after the component mounts and renders
+        const loadAds = () => {
+        try {
+            if (window.adsbygoogle && !adsLoaded) {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+            setAdsLoaded(true);
+            }
+        } catch (error) {
+            console.error('Error loading ads:', error);
+        }
+        };
+
+        // Small delay to ensure content is rendered
+        const timer = setTimeout(() => {
+        loadAds();
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, [adsLoaded]);
+
+
+
     // Popup page customizations ...
 
     const onCloseButtonClick = () => {
@@ -135,7 +161,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             viewAllPTag.classList.add('hidden');
                         } else if (isViewLess && i > 3) {
                             pTag.classList.add('hidden');
-                            pTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            pTag.scrollIntoView();
                             viewAllPTag.classList.remove('hidden');
                         }
                         });
@@ -619,13 +645,6 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     // };
 
 
-
-    const [placeAdUnit, setPlaceAdUnit] = useState(false);
-    useEffect(() => {
-        setPlaceAdUnit(true);
-    }, []);
-
-
     const [showPopup, setShowPopup] = useState(false);
     const [isValidAdLink, setIsValidAdLink] = useState(false);
     const modalRef = useRef(null);
@@ -828,8 +847,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     <AdsenseScript />
                     <motion.div className="mb-8" variants={fadeInUp}>
                         {
-                            placeAdUnit && (
+                            adsLoaded ? (
                                 <>
+                                    <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                     {/* <!-- Recommended-ad-unit --> */}
                                     {/* <ins className="adsbygoogle"
                                     style={{ display: 'block' }}
@@ -846,6 +866,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     data-ad-format="auto"
                                     data-full-width-responsive="true"></ins>
                                 </>
+                            ) : (
+                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                </div>
                             )
                         }
                     </motion.div>
@@ -939,8 +963,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                         </header>
                         <div className="my-8">
                             {
-                                placeAdUnit && (
+                                adsLoaded ? (
                                     <>
+                                        <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                         {/* <!-- Recommended-ad-unit --> */}
                                         {/* <ins className="adsbygoogle"
                                         style={{ display: 'block' }}
@@ -957,6 +982,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         data-ad-format="auto"
                                         data-full-width-responsive="true"></ins>
                                     </>
+                                ) : (
+                                    <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                        <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                    </div>
                                 )
                             }
                         </div>
@@ -1006,9 +1035,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     <div className='group relative py-2 overflow-hidden'>
                                         <div className='absolute left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:h-[53%] group-hover:top-0 group-hover:translate-y-2 z-0 group-hover:z-10 bg-opacity-100 group-hover:bg-opacity-0'></div>
                                         
-                                        <h1 className="text-3xl font-semibold pl-4 mb-4 relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-indigo-500 before:rounded-full transition-all duration-300 ease-in-out hover:pl-8 hover:text-indigo-600 dark:hover:text-indigo-400 hover:before:w-2 before:bg-opacity-100 group-hover:before:bg-opacity-0 group">
+                                        <h1 className="text-3xl font-semibold text-gray-800 dark:text-gray-100 pl-4 mb-4 relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-indigo-500 before:rounded-full transition-all duration-300 ease-in-out hover:pl-8 hover:text-indigo-600 dark:hover:text-indigo-200 hover:before:w-2 before:bg-opacity-100 group-hover:before:bg-opacity-0 group">
                                             <span className="relative z-[5] transition-transform duration-300 ease-in-out group-hover:translate-x-2">{children}</span>
-                                            <div className="overflow-hidden absolute inset-0 bg-indigo-100 dark:bg-indigo-900 transform scale-x-0 origin-left transition-transform duration-300 ease-in-out group-hover:scale-x-100 rounded-full">
+                                            <div className="overflow-hidden absolute inset-0 bg-indigo-100 dark:bg-indigo-900/40 transform scale-x-0 origin-left transition-transform duration-300 ease-in-out group-hover:scale-x-100 rounded-full">
                                                 <div className='absolute z-0 left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:w-2 group-hover:h-[1000px] group-hover:top-[14px] group-hover:z-10'></div>
                                             </div>
                                         </h1>
@@ -1019,8 +1048,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
                                         {/* Place an Ad before every h2 */}
                                         {
-                                            placeAdUnit ? (
+                                            adsLoaded ? (
                                                 <>
+                                                    <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                     <ins className="adsbygoogle"
                                                     style={{ display: 'block', textAlign: 'center' }}
                                                     data-ad-layout="in-article"
@@ -1037,9 +1067,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         <div className='group relative py-2 overflow-hidden'>
                                             <div className='absolute z-0 left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:opacity-0 group-hover:scale-0'></div>
 
-                                            <h2 className="overflow-hidden text-xl font-semibold ml-2 pl-4 mb-3 relative before:content-[''] before:absolute before:left-0 before:top-1/4 before:bottom-1/4 before:w-1 before:bg-pink-400 before:rounded-full transition-all duration-300 ease-in-out group-hover:ml-4 group-hover:text-pink-600 dark:group-hover:text-pink-400 group-hover:before:top-0 group-hover:before:bottom-0 group-hover:before:w-2 before:bg-opacity-100 group-hover:before:bg-opacity-0">
+                                            <h2 className="overflow-hidden text-xl font-semibold ml-2 pl-4 mb-3 relative before:content-[''] before:absolute before:left-0 before:top-1/4 before:bottom-1/4 before:w-1 before:bg-pink-400 before:rounded-full transition-all duration-300 ease-in-out group-hover:ml-4 group-hover:text-pink-600 dark:group-hover:text-pink-200 group-hover:before:top-0 group-hover:before:bottom-0 group-hover:before:w-2 before:bg-opacity-100 group-hover:before:bg-opacity-0">
                                                 <span className="relative z-[5] transition-transform duration-300 ease-in-out group-hover:translate-x-2">{children}</span>
-                                                <div className="overflow-hidden absolute inset-0 bg-pink-100 dark:bg-pink-900 transform scale-x-0 origin-left transition-transform duration-300 ease-in-out group-hover:scale-x-100 rounded-full">
+                                                <div className="overflow-hidden absolute inset-0 bg-pink-100 dark:bg-pink-900/10 transform scale-x-0 origin-left transition-transform duration-300 ease-in-out group-hover:scale-x-100 rounded-full">
                                                     <div className='absolute z-0 left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:w-2 group-hover:h-[1000px] group-hover:top-[14px] group-hover:z-10'></div>
                                                 </div>
                                             </h2>
@@ -1142,8 +1172,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                 {children}
                                                 <div className="my-8">
                                                     {
-                                                        placeAdUnit && (
+                                                        adsLoaded ? (
                                                             <>
+                                                                <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                                 <ins className="adsbygoogle"
                                                                 style={{ display: 'block', textAlign: 'center' }}
                                                                 data-ad-layout="in-article"
@@ -1151,6 +1182,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                 data-ad-client="ca-pub-5021308603136043"
                                                                 data-ad-slot="6952766017"></ins>
                                                             </>
+                                                        ) : (
+                                                            <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                                <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                            </div>
                                                         )
                                                     }
                                                 </div>
@@ -1163,8 +1198,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                 <div id='follow-steps'>
                                                     <div className="my-8">
                                                         {
-                                                            placeAdUnit && (
+                                                            adsLoaded ? (
                                                                 <>
+                                                                    <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                                     <ins className="adsbygoogle"
                                                                     style={{ display: 'block', textAlign: 'center' }}
                                                                     data-ad-layout="in-article"
@@ -1172,6 +1208,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     data-ad-client="ca-pub-5021308603136043"
                                                                     data-ad-slot="6952766017"></ins>
                                                                 </>
+                                                            ) : (
+                                                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                                </div>
                                                             )
                                                         }
                                                     </div>
@@ -1322,8 +1362,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                     }
                                                     <div className="my-8">
                                                         {
-                                                            placeAdUnit && (
+                                                            adsLoaded ? (
                                                                 <>
+                                                                    <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                                     {/* <!-- Recommended-ad-unit --> */}
                                                                     {/* <ins className="adsbygoogle"
                                                                     style={{ display: 'block' }}
@@ -1340,6 +1381,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     data-ad-format="auto"
                                                                     data-full-width-responsive="true"></ins>
                                                                 </>
+                                                            ) : (
+                                                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                                </div>
                                                             )
                                                         }
                                                     </div>
@@ -1351,7 +1396,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         )
                                     } else if (className === 'table-of-contents') {
                                         return (
-                                            <div className="table-of-contents relative rounded-md p-4 my-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-400 shadow-inner transition duration-500 ease-in-out">
+                                            <div className="table-of-contents relative rounded-md p-4 my-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-400 shadow-inner">
                                                 {/* // Add an absolutely positioned element to the table of contents */}
                                                 {/* // that will be used to toggle the table of contents */}
                                                 <button onClick={handleToggleElementClick}
@@ -1373,7 +1418,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                             setShowPopupPage(true)
                                                             const popupPageElement = document.querySelector('.popup-page');
                                                             if (popupPageElement) {
-                                                                popupPageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                                popupPageElement.scrollIntoView({ behavior: 'smooth' });
                                                             }
                                                         }}
                                                         className="text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500 hover:underline dark:hover:underline" title="LinkedIn Learning Free trial Accounts">Free trials here ⬇</button>
@@ -1382,10 +1427,11 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                 {
                                                     showPopupPage && (
                                                         <>
-                                                            <div className="popup-page sticky p-8 text-sm shadow-2xl z-40 flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-800 dark:bg-opacity-95 w-full sm:mx-auto transition duration-500 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
+                                                            <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 flex justify-center items-center">
+                                                                <div className="popup-page relative w-full max-w-2xl p-8 text-sm shadow-2xl z-50 flex flex-col justify-center items-center bg-white dark:bg-gray-800 rounded-lg transition duration-500 ease-in-out transform hover:shadow-indigo-500/40 hover:shadow-2xl">
                                                                     <div className="popup-page__content__header text-gray-900 dark:text-white justify-center items-center text-center mt-4">
                                                                         <p>If you appreciate my work, maybe you could show your support by buying me a cup of coffee/tea ☕️🤗</p>
-
+                                                
                                                                         <div className="flex justify-center items-center mt-4 mb-4">
                                                                             <Link href="https://www.buymeacoffee.com/ProgrammersLife" target="_blank" rel="noopener noreferrer" title="Buy me a coffee" className="flex justify-center items-center text-gray-900 dark:text-white hover:text-gray-900 dark:hover:text-white transition duration-500 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700">
                                                                                 <Image
@@ -1399,39 +1445,40 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                             </Link>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="popup-page__content__body text-gray-900 dark:text-white px-8 sm:p-4 sm:max-w-lg max-w-sm">
+                                                                    <div className="popup-page__content__body text-gray-900 dark:text-white px-8 sm:p-4 sm:max-w-lg max-w-sm overflow-y-auto max-h-[60vh]">
                                                                         {children}
                                                                     </div>
-
+                                                
                                                                     <button
-                                                                        className="absolute right-1 top-1 w-8 h-8 rounded-full border-none bg-gray-700 hover:bg-gray-900 cursor-pointer transform hover:scale-110 hover:shadow-2xl hover:z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 active:bg-gray-700 transition duration-300 ease-in-out"
+                                                                        className="absolute right-2 top-2 w-8 h-8 rounded-full border-none bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 cursor-pointer transform hover:scale-110 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition duration-300 ease-in-out"
                                                                         onClick={() => {
                                                                             onCloseButtonClick();
                                                                             const popupPageLink = document.getElementById("popup-page-link");
                                                                             if (popupPageLink) {
-                                                                                popupPageLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                                                popupPageLink.scrollIntoView({ behavior: 'smooth' });
                                                                             }
                                                                         }}
                                                                     >
                                                                         <Tooltip
-                                                                        content="Close"
-                                                                        placement="left"
-                                                                        style="dark"
-                                                                        className="text-xs transition duration-700 ease-in-out"
+                                                                            content="Close"
+                                                                            placement="left"
+                                                                            style="dark"
+                                                                            className="text-xs transition duration-700 ease-in-out"
                                                                         >
-                                                                        <svg
-                                                                            className="w-6 h-6 text-white text-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                                                                            viewBox="0 0 24 24"
-                                                                            stroke="currentColor"
-                                                                            strokeWidth="2"
-                                                                            fill="none"
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        >
-                                                                            <path d="M18 6L6 18M6 6l12 12" />
-                                                                        </svg>
+                                                                            <svg
+                                                                                className="w-6 h-6 text-gray-600 dark:text-gray-300 text-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                                                                viewBox="0 0 24 24"
+                                                                                stroke="currentColor"
+                                                                                strokeWidth="2"
+                                                                                fill="none"
+                                                                                strokeLinecap="round"
+                                                                                strokeLinejoin="round"
+                                                                            >
+                                                                                <path d="M18 6L6 18M6 6l12 12" />
+                                                                            </svg>
                                                                         </Tooltip>
                                                                     </button>
+                                                                </div>
                                                             </div>
                                                         </>
                                                     )
@@ -1467,8 +1514,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     </Tooltip>
                                                                     <div className="my-8">
                                                                         {
-                                                                            placeAdUnit && (
+                                                                        adsLoaded ? (
                                                                                 <>
+                                                                                    <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                                                     {/* <!-- Recommended-ad-unit --> */}
                                                                                     {/* <ins className="adsbygoogle"
                                                                                     style={{ display: 'block' }}
@@ -1485,6 +1533,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                                     data-ad-format="auto"
                                                                                     data-full-width-responsive="true"></ins>
                                                                                 </>
+                                                                            ) : (
+                                                                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                                                </div>
                                                                             )
                                                                         }
                                                                     </div>
@@ -1587,8 +1639,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     </motion.div>
                     <motion.div className="my-8" variants={fadeInUp}>
                         {
-                            placeAdUnit && (
+                            adsLoaded ? (
                                 <>
+                                    <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                     {/* <!-- Recommended-ad-unit --> */}
                                     {/* <ins className="adsbygoogle"
                                     style={{ display: 'block' }}
@@ -1605,6 +1658,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     data-ad-format="auto"
                                     data-full-width-responsive="true"></ins>
                                 </>
+                            ) : (
+                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                </div>
                             )
                         }
                     </motion.div>
@@ -1624,7 +1681,7 @@ PostDetail.propTypes = {
     error: PropTypes.string,
     isCaptionText: PropTypes.bool,
     isSubtitle: PropTypes.bool,
-    placeAdUnit: PropTypes.bool,
+    adsLoaded: PropTypes.bool,
     showWaitingText: PropTypes.bool,
     showWaitingBlock: PropTypes.bool,
     showGetLinkButton: PropTypes.bool,

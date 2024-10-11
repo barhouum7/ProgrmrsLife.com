@@ -35,6 +35,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
         { hostname: "media.graphassets.com"},
+        { hostname: "cdn.buymeacoffee.com"},
     ],
   },
   experimental: {
