@@ -37,6 +37,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     const [showGoToLinkButton, setShowGoToLinkButton] = useState(false);
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [countdown, setCountdown] = useState(30);
+    const [youtubeButtonClicked, setYoutubeButtonClicked] = useState(false);
 
     useEffect(() => {
         const isReturningUser = localStorage.getItem('returningUser') === 'true';
@@ -878,7 +879,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                             />
                                             <div className='absolute inset-0 rounded-full hover:bg-purple-500 hover:bg-opacity-50 hover:animate-ping bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow cursor-pointer'></div>
                                         </div>
-                                        <p className="author-name inline align-middle text-gray-700 dark:text-gray-200 ml-2 text-lg cursor-pointer">{post.author.name}</p>
+                                    <p className="author-name inline align-middle text-gray-700 dark:text-gray-200 ml-2 text-lg cursor-pointer" style={{fontStyle: 'normal'}}>{post.author.name}</p>
                                     </address>
                                 </Link>
                                 <div className="flex items-center justify-center gap-4 w-full lg:w-auto font-medium text-gray-700 dark:text-gray-200">
@@ -929,7 +930,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     </span>
                                 }
                             </nav>
-                            <h1 className='post-title mb-8 mt-4 text-3xl font-semibold'>
+                            <h1 className='post-title mb-8 mt-4 text-4xl font-semibold'>
                                 {post.title} — {
                                     // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
                                     new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
@@ -1001,14 +1002,72 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                             </Link>
                                     );
                                 },
-                                h1: ({ children }) => <h1 className="text-3xl font-semibold">{children}</h1>,
-                                h2: ({ children }) => <h2 className="text-1xl font-semibold">{children}</h2>,
-                                h3: ({ children }) => <h3 className="text-xl font-semibold">{children}</h3>,
-                                h4: ({ children }) => <h4 className="text-xl font-semibold my-4">{children}</h4>,
-                                h5: ({ children }) => <h5 className="text-gray-700 dark:text-gray-300 font-semibold">{children}</h5>,
-                                h6: ({ children }) => <h6 className="text-gray-700 dark:text-gray-300 font-semibold">{children}</h6>,
+                                h1: ({ children }) => (
+                                    <div className='group relative py-2 overflow-hidden'>
+                                        <div className='absolute left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:h-[53%] group-hover:top-0 group-hover:translate-y-2 z-0 group-hover:z-10 bg-opacity-100 group-hover:bg-opacity-0'></div>
+                                        
+                                        <h1 className="text-3xl font-semibold pl-4 mb-4 relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-indigo-500 before:rounded-full transition-all duration-300 ease-in-out hover:pl-8 hover:text-indigo-600 dark:hover:text-indigo-400 hover:before:w-2 before:bg-opacity-100 group-hover:before:bg-opacity-0 group">
+                                            <span className="relative z-[5] transition-transform duration-300 ease-in-out group-hover:translate-x-2">{children}</span>
+                                            <div className="overflow-hidden absolute inset-0 bg-indigo-100 dark:bg-indigo-900 transform scale-x-0 origin-left transition-transform duration-300 ease-in-out group-hover:scale-x-100 rounded-full">
+                                                <div className='absolute z-0 left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:w-2 group-hover:h-[1000px] group-hover:top-[14px] group-hover:z-10'></div>
+                                            </div>
+                                        </h1>
+                                    </div>
+                                ),
+                                h2: ({ children }) => (
+                                    <div>
+
+                                        {/* Place an Ad before every h2 */}
+                                        {
+                                            placeAdUnit ? (
+                                                <>
+                                                    <ins className="adsbygoogle"
+                                                    style={{ display: 'block', textAlign: 'center' }}
+                                                    data-ad-layout="in-article"
+                                                    data-ad-format="fluid"
+                                                    data-ad-client="ca-pub-5021308603136043"
+                                                    data-ad-slot="6952766017"></ins>
+                                                </>
+                                            ) : (
+                                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                </div>
+                                            )
+                                        }
+                                        <div className='group relative py-2 overflow-hidden'>
+                                            <div className='absolute z-0 left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:opacity-0 group-hover:scale-0'></div>
+
+                                            <h2 className="overflow-hidden text-xl font-semibold ml-2 pl-4 mb-3 relative before:content-[''] before:absolute before:left-0 before:top-1/4 before:bottom-1/4 before:w-1 before:bg-pink-400 before:rounded-full transition-all duration-300 ease-in-out group-hover:ml-4 group-hover:text-pink-600 dark:group-hover:text-pink-400 group-hover:before:top-0 group-hover:before:bottom-0 group-hover:before:w-2 before:bg-opacity-100 group-hover:before:bg-opacity-0">
+                                                <span className="relative z-[5] transition-transform duration-300 ease-in-out group-hover:translate-x-2">{children}</span>
+                                                <div className="overflow-hidden absolute inset-0 bg-pink-100 dark:bg-pink-900 transform scale-x-0 origin-left transition-transform duration-300 ease-in-out group-hover:scale-x-100 rounded-full">
+                                                    <div className='absolute z-0 left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:w-2 group-hover:h-[1000px] group-hover:top-[14px] group-hover:z-10'></div>
+                                                </div>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                ),
+                                h3: ({ children }) => (
+                                    <h3 className="text-lg font-semibold ml-4 pl-4 mb-2 relative before:content-[''] before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-purple-400 before:skew-y-12 transition-all duration-300 hover:ml-6 hover:text-purple-600 dark:hover:text-purple-400 hover:before:skew-y-0">
+                                        {children}
+                                    </h3>
+                                ),
+                                h4: ({ children }) => (
+                                    <h4 className="text-base font-semibold ml-6 pl-4 mb-2 relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:w-3 before:h-3 before:bg-blue-400 before:rounded-full before:transform before:-translate-y-1/2 transition-all duration-300 hover:ml-8 hover:text-blue-600 dark:hover:text-blue-400 hover:before:scale-150">
+                                        {children}
+                                    </h4>
+                                ),
+                                h5: ({ children }) => (
+                                    <h5 className="text-sm font-semibold ml-7 pl-4 mb-2 text-gray-800 dark:text-gray-200 relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:w-2 before:h-2 before:bg-teal-400 before:transform before:-translate-y-1/2 before:rotate-45 transition-all duration-300 hover:ml-9 hover:text-teal-600 dark:hover:text-teal-400 hover:before:rotate-90">
+                                        {children}
+                                    </h5>
+                                ),
+                                h6: ({ children }) => (
+                                    <h6 className="text-xs font-semibold ml-8 pl-4 mb-2 text-gray-700 dark:text-gray-300 relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:w-2 before:h-1 before:bg-green-400 before:transform before:-translate-y-1/2 transition-all duration-300 hover:ml-10 hover:text-green-600 dark:hover:text-green-400 hover:before:w-3 hover:before:h-3 hover:before:rounded-full">
+                                        {children}
+                                    </h6>
+                                ),
                                 p: ({ children }) => <p className="mb-8 text-gray-900 dark:text-gray-400">{children}</p>,
-                                bold: ({ children }) => <span className="font-semibold text-sm text-gray-900 dark:text-gray-400">{children}</span>,
+                                bold: ({ children }) => <span className="font-bold text-sm text-black dark:text-gray-200">{children}</span>,
                                 italic: ({ children }) => <em className="post-detail-em relative text-gray-900 dark:text-white mr-0">{children}</em>,
                                 code: ({ children }) => <code className="bg-gray-200 dark:bg-gray-600 px-2 py-0 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</code>,
                                 code_block:
@@ -1166,7 +1225,8 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                         // if (isValidAdLink) {
                                                                         //     setShowPopup(false);
                                                                         // }
-                                                                        if (localStorage.getItem('returningUser') !== 'true') {
+                                                                        const returningUser = localStorage.getItem('returningUser');
+                                                                        if (returningUser !== null && returningUser !== undefined && returningUser !== 'true') {
                                                                             if (isSubscribed) {
                                                                                 setShowGetLinkButton(true);
                                                                                 setShowWaitingText(true);
@@ -1295,7 +1355,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                 {/* // Add an absolutely positioned element to the table of contents */}
                                                 {/* // that will be used to toggle the table of contents */}
                                                 <button onClick={handleToggleElementClick}
-                                                className="toggle-element absolute top-5 right-5 cursor-pointer font-bold text-indigo-600 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full px-1 shadow-xl dark:shadow-xl hover:shadow-inner hover:shadow-indigo-200 dark:hover:shadow-gray-700 shadow-indigo-600 dark:shadow-indigo-600"
+                                                className="toggle-element z-[5] absolute top-5 right-5 cursor-pointer font-bold text-indigo-600 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full px-1 shadow-xl dark:shadow-xl hover:shadow-inner hover:shadow-indigo-200 dark:hover:shadow-gray-700 shadow-indigo-600 dark:shadow-indigo-600"
                                                 >
                                                     <i className="fas fa-chevron-up"></i>
                                                 </button>
