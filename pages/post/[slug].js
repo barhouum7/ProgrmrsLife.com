@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { postContentFont } from '../../config/fonts';
 import { useMyContext } from '../../contexts/MyContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -295,7 +296,10 @@ const PostDetails = ({ post, error }) => {
                                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                                         <motion.div className='lg:col-span-8 col-span-1' variants={fadeInUp}>
                                             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 hover:shadow-indigo-500/40 hover:shadow-2xl">
-                                                <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} showToast={showToast} showWelcomeMessage={showWelcomeMessage} />
+                                                <div className={`${postContentFont.className} text-base`}>
+                                                    <PostDetail post={post} onCopyToClipboard={copyToClipboard} isCopied={isCopied} onEnablePopupMessage={enablePopupMessage} showToast={showToast} showWelcomeMessage={showWelcomeMessage} />
+                                                </div>
+                                                
                                                 {/* <!-- ShareThis Inline Reaction Buttons BEGIN --> */}
                                                     {/* <p className='text-center'>
                                                     <span className="hover:transition hover:duration-700 hover:ease-in-out text-lg font-thin text-white dark:text-gray-400 hover:underline bg-transparent hover:bg-gradient-to-r from-pink-500 to-transparent dark:hover:text-white">Let us know your reaction</span>
