@@ -857,7 +857,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 <article className="post-detail">
                     <motion.div className="mb-8" variants={fadeInUp}>
                         {
-                            adsLoaded ? (
+                            adsLoaded && (
                                 <>
                                     <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                     {/* <!-- Recommended-ad-unit --> */}
@@ -876,11 +876,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     data-ad-format="auto"
                                     data-full-width-responsive="true"></ins>
                                 </>
-                            ) : (
-                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                </div>
-                            )
+                            ) 
+                            // : (
+                            //     <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                            //         <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                            //     </div>
+                            // )
                         }
                     </motion.div>
                     <motion.div className="relative overflow-hidden shadow-xl mb-6 cursor-pointer transition duration-700 ease-in-out transform hover:opacity-80" variants={fadeInUp}>
@@ -973,7 +974,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                         </header>
                         <div className="my-8">
                             {
-                                adsLoaded ? (
+                                adsLoaded && (
                                     <>
                                         <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                         {/* <!-- Recommended-ad-unit --> */}
@@ -992,11 +993,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         data-ad-format="auto"
                                         data-full-width-responsive="true"></ins>
                                     </>
-                                ) : (
-                                    <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                        <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                    </div>
-                                )
+                                ) 
+                            // : (
+                            //         <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                            //             <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                            //         </div>
+                            //     )
                             }
                         </div>
 
@@ -1058,7 +1060,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
                                         {/* Place an Ad before every h2 */}
                                         {
-                                            adsLoaded ? (
+                                            adsLoaded && (
                                                 <>
                                                     <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                     <ins className="adsbygoogle"
@@ -1068,11 +1070,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                     data-ad-client="ca-pub-5021308603136043"
                                                     data-ad-slot="6952766017"></ins>
                                                 </>
-                                            ) : (
-                                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                                </div>
-                                            )
+                                            ) 
+                                        // : (
+                                        //         <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                        //             <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                        //         </div>
+                                        //     )
                                         }
                                         <div className='group relative py-2 overflow-hidden'>
                                             <div className='absolute z-0 left-0 top-1/2 w-1 h-1/2 bg-pink-400 rounded-full transform -translate-y-1/2 transition-all duration-300 ease-in-out group-hover:opacity-0 group-hover:scale-0'></div>
@@ -1182,7 +1185,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                 {children}
                                                 <div className="my-8">
                                                     {
-                                                        adsLoaded ? (
+                                                        adsLoaded && (
                                                             <>
                                                                 <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                                 <ins className="adsbygoogle"
@@ -1192,11 +1195,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                 data-ad-client="ca-pub-5021308603136043"
                                                                 data-ad-slot="6952766017"></ins>
                                                             </>
-                                                        ) : (
-                                                            <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                                                <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                                            </div>
-                                                        )
+                                                        ) 
+                                                    // : (
+                                                    //         <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                    //             <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                    //         </div>
+                                                    //     )
                                                     }
                                                 </div>
                                             </>
@@ -1208,7 +1212,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                 <div id='follow-steps'>
                                                     <div className="my-8">
                                                         {
-                                                            adsLoaded ? (
+                                                            adsLoaded && (
                                                                 <>
                                                                     <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                                     <ins className="adsbygoogle"
@@ -1218,11 +1222,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     data-ad-client="ca-pub-5021308603136043"
                                                                     data-ad-slot="6952766017"></ins>
                                                                 </>
-                                                            ) : (
-                                                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                                                </div>
-                                                            )
+                                                            ) 
+                                                            // : (
+                                                            //     <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                            //         <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                            //     </div>
+                                                            // )
                                                         }
                                                     </div>
                                                     {
@@ -1372,7 +1377,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                     }
                                                     <div className="my-8">
                                                         {
-                                                            adsLoaded ? (
+                                                            adsLoaded && (
                                                                 <>
                                                                     <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                                     {/* <!-- Recommended-ad-unit --> */}
@@ -1391,11 +1396,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     data-ad-format="auto"
                                                                     data-full-width-responsive="true"></ins>
                                                                 </>
-                                                            ) : (
-                                                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                                                </div>
-                                                            )
+                                                            ) 
+                                                        // : (
+                                                        //         <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                        //             <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                        //         </div>
+                                                        //     )
                                                         }
                                                     </div>
                                                 </div>
@@ -1526,7 +1532,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                 
                                                                 <div className="w-full my-8">
                                                                     {
-                                                                    adsLoaded ? (
+                                                                    adsLoaded && (
                                                                             <>
                                                                                 <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                                                                 {/* <!-- Recommended-ad-unit --> */}
@@ -1545,11 +1551,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                                 data-ad-format="auto"
                                                                                 data-full-width-responsive="true"></ins>
                                                                             </>
-                                                                        ) : (
-                                                                            <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                                                                <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                                                            </div>
-                                                                        )
+                                                                        ) 
+                                                                    // : (
+                                                                    //         <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                                                                    //             <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                                                                    //         </div>
+                                                                    //     )
                                                                     }
                                                                 </div>
                                                             </div>
@@ -1650,7 +1657,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     </motion.div>
                     <motion.div className="my-8" variants={fadeInUp}>
                         {
-                            adsLoaded ? (
+                            adsLoaded && (
                                 <>
                                     <p className='hidden text-center text-xs font-thin text-gray-700 dark:text-gray-200'>TEST: assuming Ad is showed up here</p>
                                     {/* <!-- Recommended-ad-unit --> */}
@@ -1669,11 +1676,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     data-ad-format="auto"
                                     data-full-width-responsive="true"></ins>
                                 </>
-                            ) : (
-                                <div className='py-4 bg-gray-100 dark:bg-gray-800'>
-                                    <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
-                                </div>
-                            )
+                            ) 
+                        // : (
+                        //         <div className='py-4 bg-gray-100 dark:bg-gray-800'>
+                        //             <p className='text-center text-xs font-thin text-gray-700 dark:text-gray-200'>Advertisement</p>
+                        //         </div>
+                        //     )
                         }
                     </motion.div>
                 </article>
