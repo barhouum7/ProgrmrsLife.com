@@ -1492,7 +1492,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                     !showGoToLinkButton && (
                                                         <>
                                                             <div className="go-to-link">
-                                                                <div className="flex justify-center items-center">
+                                                                <div className="flex flex-col justify-center items-center space-y-2">
                                                                     <Tooltip
                                                                         content="Go to Link 👇"
                                                                         placement="top"
@@ -1512,6 +1512,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                             <div className='w-10 h-10 rounded-full align-middle absolute top-0 hover:bg-purple-500 hover:bg-opacity-50 bg-purple-400 dark:hover:bg-purple-400 bg-opacity-50 animate-ping-slow hover:animate-ping cursor-pointer'></div>
                                                                         </button>
                                                                     </Tooltip>
+
                                                                     <div className="my-8">
                                                                         {
                                                                         adsLoaded ? (
