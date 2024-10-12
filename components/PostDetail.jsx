@@ -33,7 +33,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
 
     const router = useRouter();
-    const fullUrl = `https://progrmrslife.com${router.asPath}`;
+    const fullUrl = `https://www.progrmrslife.com${router.asPath}`;
 
     const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
@@ -71,41 +71,55 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         };
     }
 
-
-    // Initialize all the ad units on the page
-    useEffect(() => {
-        // console.log('AdsenseScript');
-        var ads = document.getElementsByClassName("adsbygoogle").length;
-            for (var i = 0; i < ads; i++) {
-                try {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (e) { }
-            }
-        // console.log('adsbygoogle: ', document.getElementsByClassName("adsbygoogle"));
-    }, []);
-
     // Ads configuration ...
     const [adsLoaded, setAdsLoaded] = useState(false);
 
     useEffect(() => {
-        // This effect will run after the component mounts and renders
         const loadAds = () => {
-        try {
-            if (window.adsbygoogle && !adsLoaded) {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-            setAdsLoaded(true);
+            try {
+                if (window.adsbygoogle && document.getElementsByClassName("adsbygoogle").length > 0) {
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                    setAdsLoaded(true);
+                }
+            } catch (error) {
+                console.error('Error loading ads:', error);
             }
-        } catch (error) {
-            console.error('Error loading ads:', error);
-        }
         };
 
-        // Small delay to ensure content is rendered
-        const timer = setTimeout(() => {
-        loadAds();
-        }, 100);
+        const handleLoad = () => {
+            loadAds();
+            window.removeEventListener('load', handleLoad);
+        };
 
-        return () => clearTimeout(timer);
+        if (document.readyState === 'complete') {
+            loadAds();
+        } else {
+            window.addEventListener('load', handleLoad);
+        }
+
+        return () => {
+            window.removeEventListener('load', handleLoad);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!adsLoaded) {
+            const timer = setTimeout(() => {
+                const loadAds = () => {
+                    try {
+                        if (window.adsbygoogle) {
+                            (window.adsbygoogle = window.adsbygoogle || []).push({});
+                            setAdsLoaded(true);
+                        }
+                    } catch (error) {
+                        console.error('Error loading ads:', error);
+                    }
+                };
+                loadAds();
+            }, 100);
+
+            return () => clearTimeout(timer);
+        }
     }, [adsLoaded]);
 
 
@@ -269,16 +283,16 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         };
     
         const handleLinkedInClick  = () => {
-            const articleUrl = encodeURIComponent(`https://progrmrslife.com/post/${post.slug}`);
+            const articleUrl = encodeURIComponent(`https://www.progrmrslife.com/post/${post.slug}`);
             const articleTitle = encodeURIComponent(post.title);
-            const redirectUri = encodeURIComponent(`https://progrmrslife.com/m/share/success?postId=${post.slug}`);
+            const redirectUri = encodeURIComponent(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`);
             const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?mini=true&url=${articleUrl}&title=${articleTitle}&redirect_uri=${redirectUri}`;
 
             // window.open(redirectUri, '_blank');
             // window.open(linkedInUrl, '_blank');
 
             const linkedInWindow = window.open(linkedInUrl, 'linkedin-share-dialog', 'width=626,height=436');
-            const successWindow = window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            const successWindow = window.open(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
 
             if ((!linkedInWindow || !successWindow) || (linkedInWindow.closed || successWindow.closed) || (typeof linkedInWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
                 // Display a message to the user asking them to enable popups for your website
@@ -295,21 +309,21 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             }
             if (!(typeof linkedInWindow.closed === 'undefined' || linkedInWindow.closed)) {
                 window.setTimeout(function() {
-                    window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+                    window.open(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
                 }, 20000);
             }
 
         };
 
         const handleFacebookClick = () => {
-            const articleUrl = encodeURIComponent(`https://progrmrslife.com/post/${post.slug}`);
+            const articleUrl = encodeURIComponent(`https://www.progrmrslife.com/post/${post.slug}`);
             const facebookAppId = '5864440530335233';
             const facebookUrl = `https://www.facebook.com/dialog/share?app_id=${facebookAppId}&display=popup&href=${articleUrl}&redirect_uri=https%3A%2F%2Fprogrmrslife.com%2Fm%2Fshare%2Fsuccess%3FpostId%3D${post.slug}`;
 
             // window.open(facebookUrl, '_blank');
             
             const facebookWindow = window.open(facebookUrl, 'facebook-share-dialog', 'width=626,height=436');
-            const successWindow = window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            const successWindow = window.open(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
             
             if ((!facebookWindow || !successWindow) || (facebookWindow.closed || successWindow.closed) || (typeof facebookWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
                 // Display a message to the user asking them to enable popups for your website
@@ -326,20 +340,20 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             }
             // if (!(typeof facebookWindow.closed === 'undefined' || facebookWindow.closed)) {
             //     window.setTimeout(function() {
-            //         window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            //         window.open(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
             //     }, 20000);
             // }
         };
 
         // const handleTwitterClick = () => {
-        //     const articleUrl = encodeURIComponent(`https://progrmrslife.com/post/${post.slug}`);
+        //     const articleUrl = encodeURIComponent(`https://www.progrmrslife.com/post/${post.slug}`);
         //     const articleTitle = encodeURIComponent(post.title);
-        //     // const redirectUri = encodeURIComponent(`https://progrmrslife.com/m/share/success?postId=${post.slug}`);
+        //     // const redirectUri = encodeURIComponent(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`);
         //     const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr`;
 
             
         //     const twitterWindow = window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
-        //     const successWindow = window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+        //     const successWindow = window.open(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
 
         //     if ((!twitterWindow || !successWindow) || (twitterWindow.closed || successWindow.closed) || (typeof twitterWindow.closed === 'undefined' || typeof successWindow.closed === 'undefined')) {
         //         // Display a message to the user asking them to enable popups for your website
@@ -356,7 +370,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         //     }
         //     if (!(typeof twitterWindow.closed === 'undefined' || twitterWindow.closed)) {
         //         window.setTimeout(function() {
-        //             window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+        //             window.open(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
         //         }, 20000);
         //     }
 
@@ -364,7 +378,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
 
         const openTwitterShareWindow = (twitterUrl) => {
             const twitterWindow = window.open(twitterUrl, 'twitter-share-dialog', 'width=626,height=436');
-            const successWindow = window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+            const successWindow = window.open(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
             
             if (!twitterWindow || !successWindow || twitterWindow.closed || successWindow.closed) {
                 onEnablePopupMessage();
@@ -375,13 +389,13 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             
             if (!twitterWindow?.closed) {
                 window.setTimeout(() => {
-                    window.open(`https://progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
+                    window.open(`https://www.progrmrslife.com/m/share/success?postId=${post.slug}`, '_blank', 'width=1226,height=736');
                 }, 20000);
             }
         };
             
         const handleTwitterClick = () => {
-            const articleUrl = encodeURIComponent(`https://progrmrslife.com/post/${post.slug}`);
+            const articleUrl = encodeURIComponent(`https://www.progrmrslife.com/post/${post.slug}`);
             const articleTitle = encodeURIComponent(post.title);
             const twitterUrl = `https://twitter.com/intent/tweet?url=${articleUrl}&text=${articleTitle}&via=mindh4q3rr`;
             
@@ -821,7 +835,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
                 <meta name="robots" content="index, follow" />
                 <meta name="googlebot" content="index, follow" />
-                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
+                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://www.progrmrslife.com/rss.xml" />
             </Head>
             <Script id="schema-script" type="application/ld+json">
                 {JSON.stringify({
@@ -838,7 +852,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                         "name": "ProgrmrsLife",
                         "logo": {
                             "@type": "ImageObject",
-                            "url": "https://progrmrslife.com/imgs/logo.svg"
+                            "url": "https://www.progrmrslife.com/imgs/logo.svg"
                         }
                     },
                     "datePublished": post.createdAt,

@@ -16,7 +16,8 @@ import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
     const router = useRouter();
-    const fullUrl = `https://progrmrslife.com${router.asPath}`;
+    const fullUrl = `https://www.progrmrslife.com${router.asPath}`;
+    // console.log('fullUrl: ', fullUrl);
 
     const [shouldReload, setShouldReload] = useState(false);
 
@@ -82,7 +83,7 @@ const PostDetails = ({ post, error }) => {
 
 
     const copyToClipboard = () => {
-        const link = `https://progrmrslife.com/post/${post.slug}`;
+        const link = `https://www.progrmrslife.com/post/${post.slug}`;
         navigator.clipboard.writeText(link)
             .then(() => {
             // show a success message or perform any other action on successful copy
@@ -245,8 +246,8 @@ const PostDetails = ({ post, error }) => {
                 <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
 
                 <link rel="icon" href="/icons/favicon.svg" />
-                <link rel="canonical" href={`https://progrmrslife.com/post/${post.slug}`} />
-                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://progrmrslife.com/rss.xml" />
+                <link rel="canonical" href={`https://www.progrmrslife.com/post/${post.slug}`} />
+                <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://www.progrmrslife.com/rss.xml" />
             </Head>
             <motion.div
                 initial="initial"
@@ -329,7 +330,7 @@ const PostDetails = ({ post, error }) => {
                                                             size: 48,             // the size of each button (INTEGER)
                                                             spacing: 8,           // the spacing between buttons (INTEGER)
                                                             static: false,        // hide react buttons and display static emoji (true, false)
-                                                            url: `https://progrmrslife.com/post/${post.slug}`, // (defaults to current url)
+                                                            url: `https://www.progrmrslife.com/post/${post.slug}`, // (defaults to current url)
 
                                                             // OPTIONAL PARAMETERS
                                                             hideWhenOffline: true,   // hide the react buttons when the browser goes offline (true, false)
