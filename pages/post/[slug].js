@@ -204,15 +204,15 @@ const PostDetails = ({ post, error }) => {
                         // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
                         new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
                 } | Programmers Life`}</title>
-                <meta name="description" content={post.excerpt} />
-                <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
-                <meta name="author" content={post.author.name} />
+                <meta name="description" content={`${post.excerpt}`} />
+                <meta name="keywords" content={`${post.categories.map((category) => category.name).join(', ')}`} />
+                <meta name="author" content={`${post.author.name}`} />
                 
                 {/* Open Graph */}
-                <meta property="og:title" content={post.title} />
-                <meta property="og:description" content={post.excerpt} />
-                <meta property="og:image" content={post.featuredImage.url} />
-                <meta property="og:url" content={fullUrl} />
+                <meta property="og:title" content={`${post.title}`} />
+                <meta property="og:description" content={`${post.excerpt}`} />
+                <meta property="og:image" content={`${post.featuredImage.url}`} />
+                <meta property="og:url" content={`${fullUrl}`} />
                 <meta property="og:type" content="article" />
                 <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
                 <meta property="og:image:width" content="1200" />
@@ -220,9 +220,9 @@ const PostDetails = ({ post, error }) => {
 
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={post.title} />
-                <meta name="twitter:description" content={post.excerpt} />
-                <meta name="twitter:image" content={post.featuredImage.url} />
+                <meta name="twitter:title" content={`${post.title}`} />
+                <meta name="twitter:description" content={`${post.excerpt}`} />
+                <meta name="twitter:image" content={`${post.featuredImage.url}`} />
                 <meta name="twitter:creator" content="https://links.progrmrslife.com" />
                 <meta name="twitter:site" content="https://links.progrmrslife.com" />
 
@@ -239,11 +239,11 @@ const PostDetails = ({ post, error }) => {
                 <meta name="msapplication-TileImage" content="/icons/icon-128x128.png" />
 
                 {/* Article-specific meta tags */}
-                <meta property="article:published_time" content={post.createdAt} />
-                <meta property="article:modified_time" content={post.updatedAt} />
-                <meta property="article:author" content={post.author.name} />
-                <meta property="article:section" content={post.categories[0].name} />
-                <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
+                <meta property="article:published_time" content={`${post.createdAt}`} />
+                <meta property="article:modified_time" content={`${post.updatedAt}`} />
+                <meta property="article:author" content={`${post.author.name}`} />
+                <meta property="article:section" content={`${post.categories[0].name}`} />
+                <meta property="article:tag" content={`${post.categories.map((category) => category.name).join(', ')}`} />
 
                 <link rel="icon" href="/icons/favicon.svg" />
                 <link rel="canonical" href={`https://www.progrmrslife.com/post/${post.slug}`} />

@@ -812,40 +812,53 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     // Get the current year from Date + one month (For example, if the current month is December, the year will be next year)
                     new Date().getFullYear() + (new Date().getMonth() === 11 ? 1 : 0) // If the current month is December, add 1 to the current year to get the next year
                 } | Programmers Life`}</title>
-                <meta name="description" content={post.excerpt} />
-                <meta name="keywords" content={post.categories.map((category) => category.name).join(', ')} />
-                <meta name="author" content={post.author.name} />
-                <meta property="og:title" content={post.title} />
-                <meta property="og:description" content={post.excerpt} />
-                <meta property="og:image" content={post.featuredImage.url} />
+                <meta name="description" content={`${post.excerpt}`} />
+                <meta name="keywords" content={`${post.categories.map((category) => category.name).join(', ')}`} />
+                <meta name="author" content={`${post.author.name}`} />
+
+                {/* Open Graph */}
+                <meta property="og:title" content={`${post.title}`} />
+                <meta property="og:description" content={`${post.excerpt}`} />
+                <meta property="og:image" content={`${post.featuredImage.url}`} />
                 <meta property="og:url" content={`${fullUrl}`} />
                 <meta property="og:type" content="article" />
-                <meta property="og:site_name" content="ProgrmrsLife" />
+                <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+
+                {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={post.title} />
-                <meta name="twitter:description" content={post.excerpt} />
-                <meta name="twitter:image" content={post.featuredImage.url} />
+                <meta name="twitter:title" content={`${post.title}`} />
+                <meta name="twitter:description" content={`${post.excerpt}`} />
+                <meta name="twitter:image" content={`${post.featuredImage.url}`} />
                 <meta name="twitter:site" content="@mindh4q3rr" />
                 <meta name="twitter:creator" content="@mindh4q3rr" />
-                <link rel="canonical" href={`${fullUrl}`} />
-                <meta property="article:published_time" content={post.createdAt} />
-                <meta property="article:modified_time" content={post.updatedAt} />
-                <meta property="article:author" content={post.author.name} />
-                <meta property="article:section" content={post.categories[0].name} />
-                <meta property="article:tag" content={post.categories.map((category) => category.name).join(', ')} />
+                
+                {/* Article-specific meta tags */}
+                <meta property="article:published_time" content={`${post.createdAt}`} />
+                <meta property="article:modified_time" content={`${post.updatedAt}`} />
+                <meta property="article:author" content={`${post.author.name}`} />
+                <meta property="article:section" content={`${post.categories[0].name}`} />
+                <meta property="article:tag" content={`${post.categories.map((category) => category.name).join(', ')}`} />
+
+                {/* Other important meta tags */}
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta name="robots" content="index, follow" />
                 <meta name="googlebot" content="index, follow" />
+                <meta httpEquiv="Content-Language" content="en" />
+
+                <link rel="icon" href="/icons/favicon.svg" />
                 <link rel="alternate" type="application/rss+xml" title="Programmers Life RSS Feed" href="https://www.progrmrslife.com/rss.xml" />
             </Head>
             <Script id="schema-script" type="application/ld+json">
                 {JSON.stringify({
                     "@context": "https://schema.org",
                     "@type": "Article",
-                    "headline": post.title,
-                    "image": post.featuredImage.url,
+                    "headline": `${post.title}`,
+                    "image": `${post.featuredImage.url}`,
                     "author": {
                         "@type": "Person",
-                        "name": post.author.name
+                        "name": `${post.author.name}`
                     },
                     "publisher": {
                         "@type": "Organization",
@@ -855,9 +868,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             "url": "https://www.progrmrslife.com/imgs/logo.svg"
                         }
                     },
-                    "datePublished": post.createdAt,
-                    "dateModified": post.updatedAt,
-                    "description": post.excerpt,
+                    "datePublished": `${post.createdAt}`,
+                    "dateModified": `${post.updatedAt}`,
+                    "description": `${post.excerpt}`,
                     "mainEntityOfPage": {
                         "@type": "WebPage",
                         "@id": `${fullUrl}`
