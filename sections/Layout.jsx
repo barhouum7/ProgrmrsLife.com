@@ -184,21 +184,62 @@ const Layout = ({ children }) => {
 
     useEffect(() => {
       // Initialize adBlock recovery when the component mounts
-      initializeAdBlockRecovery();
+      const initAdBlockRecovery = async () => {
+        try {
+          await initializeAdBlockRecovery();
+        } catch (error) {
+          console.error('Error initializing AdBlock recovery:', error);
+        }
+      };
+    
+      initAdBlockRecovery();
     }, []);
+  
+    // useEffect(() => {
+    //   const initAdsense = () => {
+    //     try {
+    //       const ads = document.getElementsByClassName("adsbygoogle");
+    //       if (window.adsbygoogle && ads.length > 0) {
+    //         for (let i = 0; i < ads.length; i++) {
+    //           (adsbygoogle = window.adsbygoogle || []).push({});
+    //         }
+    //       }
+    //     } catch (error) {
+    //       console.error('Error initializing AdSense:', error);
+    //     }
+    //   };
+  
+    //   if (document.readyState === 'complete') {
+    //     initAdsense();
+    //   } else {
+    //     window.addEventListener('load', initAdsense);
+    //     return () => window.removeEventListener('load', initAdsense);
+    //   }
+    // }, []);
 
 
-    // Initialize all the ad units on the page
-    useEffect(() => {
-        // console.log('AdsenseScript');
-        var ads = document.getElementsByClassName("adsbygoogle").length;
-            for (var i = 0; i < ads; i++) {
-                try {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (e) { }
-            }
-        // console.log('adsbygoogle: ', document.getElementsByClassName("adsbygoogle"));
-    }, []);
+    // useEffect(() => {
+    //   const initAdsense = () => {
+    //     try {
+    //       if (typeof window !== 'undefined' && window.adsbygoogle) {
+    //         window.adsbygoogle = window.adsbygoogle || [];
+    //         window.adsbygoogle.push({
+    //           google_ad_client: "ca-pub-5021308603136043",
+    //           enable_page_level_ads: true
+    //         });
+    //       }
+    //     } catch (error) {
+    //       console.error('Error initializing AdSense:', error);
+    //     }
+    //   };
+    
+    //   if (document.readyState === 'complete') {
+    //     initAdsense();
+    //   } else {
+    //     window.addEventListener('load', initAdsense);
+    //     return () => window.removeEventListener('load', initAdsense);
+    //   }
+    // }, []);
 
   return (
     <div>
@@ -214,19 +255,19 @@ const Layout = ({ children }) => {
         {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
         <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
 
-          {/* Schema markup  */}
-          <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "ProgrmrsLife",
-              "url": "https://www.progrmrslife.com/",
-              "description": "Explore programming, web development, and tech insights with ProgrmrsLife. Get the latest tips, tutorials, and news in the tech world."
-            }
-          `}
-        </script>
       </Head>
+      {/* Schema markup  */}
+      <Script id="schema-script" type="application/ld+json">
+        {`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "ProgrmrsLife",
+            "url": "https://www.progrmrslife.com/",
+            "description": "Explore programming, web development, and tech insights with ProgrmrsLife. Get the latest tips, tutorials, and news in the tech world."
+          }
+        `}
+      </Script>
       
       {/* Announcement Banner */}
       
@@ -282,11 +323,12 @@ const Layout = ({ children }) => {
       {/* Start of All Scripts */}
 
       {/* // Code from AdSense */}
-      <script 
+      <Script 
         id="adsbygoogle-init"
         crossOrigin="anonymous"
         async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
         // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+        loading="lazy"
       />
 
       {/* UserWay Script */}

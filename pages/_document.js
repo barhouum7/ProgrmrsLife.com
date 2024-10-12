@@ -3,11 +3,6 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import Script from 'next/script';
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
-
   render() {
     return (
       <Html lang='en'>
@@ -25,8 +20,18 @@ class MyDocument extends Document {
         <body>
 
           {/* // Code from AdSense (Ad Blocking Recovery Code) */}
-          <Script async src="https://fundingchoicesmessages.google.com/i/pub-5021308603136043?ers=1" nonce="xfSPYvIvCASQi3buWSF2eg"></Script>
-          <Script id="adsbygoogle-recovery" nonce="xfSPYvIvCASQi3buWSF2eg">{`(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})()`}</Script>
+          <Script 
+            async 
+            src="https://fundingchoicesmessages.google.com/i/pub-5021308603136043?ers=1" nonce="xfSPYvIvCASQi3buWSF2eg"
+          />
+
+          <Script 
+            id="adsbygoogle-recovery" 
+            nonce="xfSPYvIvCASQi3buWSF2eg"
+          >
+            {`(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})()`}
+          </Script>
+
 
           {/* // Code from AdSense (Ad Blocking Recovery Code - Error Protection Message) */}
           <Script 
@@ -72,8 +77,9 @@ class MyDocument extends Document {
 
 
           {/* // Code from AdSense */}
-          <script 
+          <Script 
             id="adsbygoogle-init"
+            strategy="afterInteractive"
             crossOrigin="anonymous"
             async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
             // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
@@ -96,21 +102,21 @@ class MyDocument extends Document {
           {/* <!-- End Google Tag Manager --> */}
           {/* Sharethis integration code */}
           <Script 
+            async 
             src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" 
-            async="async" 
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
           
           {/* Google Adsense Allow Ads message tag */}
           <Script 
             async 
-            src="https://fundingchoicesmessages.google.com/i/pub-1339539882255727?ers=1" 
-            strategy="lazyOnload"
+            src="https://fundingchoicesmessages.google.com/i/pub-5021308603136043?ers=1" 
+            strategy="afterInteractive"
             nonce="ML-8Zn0qG97P5bAGURNW3Q" 
           />
           <Script
             id="google-fc-present"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
             nonce="ML-8Zn0qG97P5bAGURNW3Q"
             dangerouslySetInnerHTML={{
               __html: `
@@ -121,23 +127,19 @@ class MyDocument extends Document {
           {/* Allow Ads Error protection message */}
 
           {/* <!-- Google Tag Manager (noscript) --> */}
-          <Script strategy="afterInteractive" id="google-tag-manager-noscript">
-            {`
-              <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFFN5QDF"
-              height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-            `}
-          </Script>
+          {/* <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFFN5QDF"
+              height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe></noscript> */}
 
           {/* <!-- End Google Tag Manager (noscript) --> */}
           {/* <!-- Google tag (gtag.js) --> */}
           <Script 
               async 
               src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
-              strategy="lazyOnload"
+              strategy="afterInteractive"
           />
           <Script
             id="google-analytics"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];
