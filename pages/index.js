@@ -173,7 +173,11 @@ if (totalPages > MAX_VISIBLE_PAGES) {
 
   const [placeAdUnit, setPlaceAdUnit] = useState(false);
   useEffect(() => {
+    const timer = setTimeout(() => {
       setPlaceAdUnit(true);
+    }, 2000); // 2 seconds delay
+  
+    return () => clearTimeout(timer);
   }, []);
 
   const fadeInUp = {
