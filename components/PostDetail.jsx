@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { FaPlay, FaComment } from 'react-icons/fa';
@@ -29,6 +30,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         animate: { opacity: 1, y: 0 },
         transition: { duration: 0.6 }
     };
+
+
+    const router = useRouter();
+    const fullUrl = `https://progrmrslife.com${router.asPath}`;
 
     const [showPopupPage, setShowPopupPage] = useState(false);
     const [showWaitingBlock, setShowWaitingBlock] = useState(false);
@@ -529,12 +534,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
         return (
             <Tooltip content="Leave a Comment, We're excited to hear from you!😍" placement="top" style="dark" className="transition duration-700 ease-in-out">
                 <button className="mr-3 cursor-pointer">
-                    <a href={`/post/${post.slug}#commentForm`}>
+                    <Link href={`/post/${post.slug}#commentForm`}>
                         <div className='relative'>
                             <FaComment className="h-6 w-6 text-gray-400 hover:text-black dark:text-gray-400 dark:hover:text-white transition duration-700 ease-in-out" />
                             <div className='w-full h-full rounded-full align-middle absolute top-0 hover:bg-slate-400 dark:hover:bg-white bg-opacity-50 hover:animate-ping'></div>
                         </div>
-                    </a>
+                    </Link>
                 </button>
             </Tooltip>
         )
@@ -799,7 +804,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 <meta property="og:title" content={post.title} />
                 <meta property="og:description" content={post.excerpt} />
                 <meta property="og:image" content={post.featuredImage.url} />
-                <meta property="og:url" content={`https://www.progrmrslife.com/post/${post.slug}`} />
+                <meta property="og:url" content={`${fullUrl}`} />
                 <meta property="og:type" content="article" />
                 <meta property="og:site_name" content="ProgrmrsLife" />
                 <meta name="twitter:card" content="summary_large_image" />
@@ -808,7 +813,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 <meta name="twitter:image" content={post.featuredImage.url} />
                 <meta name="twitter:site" content="@mindh4q3rr" />
                 <meta name="twitter:creator" content="@mindh4q3rr" />
-                <link rel="canonical" href={`https://www.progrmrslife.com/post/${post.slug}`} />
+                <link rel="canonical" href={`${fullUrl}`} />
                 <meta property="article:published_time" content={post.createdAt} />
                 <meta property="article:modified_time" content={post.updatedAt} />
                 <meta property="article:author" content={post.author.name} />
@@ -825,23 +830,23 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     "headline": post.title,
                     "image": post.featuredImage.url,
                     "author": {
-                    "@type": "Person",
-                    "name": post.author.name
+                        "@type": "Person",
+                        "name": post.author.name
                     },
                     "publisher": {
-                    "@type": "Organization",
-                    "name": "ProgrmrsLife",
-                    "logo": {
-                        "@type": "ImageObject",
-                        "url": "https://www.progrmrslife.com/imgs/logo.png"
-                    }
+                        "@type": "Organization",
+                        "name": "ProgrmrsLife",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://progrmrslife.com/imgs/logo.svg"
+                        }
                     },
                     "datePublished": post.createdAt,
                     "dateModified": post.updatedAt,
                     "description": post.excerpt,
                     "mainEntityOfPage": {
-                    "@type": "WebPage",
-                    "@id": `https://www.progrmrslife.com/post/${post.slug}`
+                        "@type": "WebPage",
+                        "@id": `${fullUrl}`
                     }
                 })}
             </Script>
@@ -1238,14 +1243,16 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                     placement="top"
                                                                     style='dark'
                                                                 >
-                                                                    <a href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw?sub_confirmation=1"
+                                                                    <Link href="https://www.youtube.com/channel/UCBuiwdT12ytcmE_NMEPR-Sw?sub_confirmation=1"
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
                                                                     >
                                                                         <button
                                                                             onClick={() => {
-                                                                                setIsSubscribed(true);
-                                                                                setShowGetLinkButton(true);
+                                                                                setTimeout(() => {
+                                                                                    setIsSubscribed(true);
+                                                                                    setShowGetLinkButton(true);
+                                                                                }, 5000); // 5 seconds delay
                                                                             }}
                                                                             className="relative w-40 z-10 flex justify-center text-center text-lg font-semibold text-gray-900 dark:text-white hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none dark:active:bg-pink-600 active:bg-pink-600 rounded-lg px-5 py-2.5 dark:focus:ring-primary-900 my-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-2xl hover:z-50 bg-gradient-to-r from-violet-500 to-transparent"
                                                                             >
@@ -1261,7 +1268,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                                 </div>
                                                                             </div>
                                                                         </button>
-                                                                    </a>
+                                                                </Link>
                                                                 </Tooltip>
                                                             </div>
                                                         )
@@ -1280,8 +1287,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                                                         // if (isValidAdLink) {
                                                                         //     setShowPopup(false);
                                                                         // }
+                                                                        
                                                                         const returningUser = localStorage.getItem('returningUser');
-                                                                        if (returningUser !== null && returningUser !== undefined && returningUser !== 'true') {
+                                                                        if ( ((returningUser === null || returningUser === undefined) && isSubscribed) || returningUser !== 'true' ) {
                                                                             if (isSubscribed) {
                                                                                 setShowGetLinkButton(true);
                                                                                 setShowWaitingText(true);

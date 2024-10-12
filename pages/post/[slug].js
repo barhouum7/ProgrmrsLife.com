@@ -16,6 +16,7 @@ import { AdjacentPosts } from '../../sections';
 
 const PostDetails = ({ post, error }) => {
     const router = useRouter();
+    const fullUrl = `https://progrmrslife.com${router.asPath}`;
 
     const [shouldReload, setShouldReload] = useState(false);
 
@@ -210,9 +211,11 @@ const PostDetails = ({ post, error }) => {
                 <meta property="og:title" content={post.title} />
                 <meta property="og:description" content={post.excerpt} />
                 <meta property="og:image" content={post.featuredImage.url} />
-                <meta property="og:url" content={`https://progrmrslife.com/post/${post.slug}`} />
+                <meta property="og:url" content={fullUrl} />
                 <meta property="og:type" content="article" />
                 <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
 
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
