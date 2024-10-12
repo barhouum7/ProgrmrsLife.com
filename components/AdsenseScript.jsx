@@ -5,14 +5,22 @@ import { useEffect } from 'react';
 const AdsenseScript = () => {
     // Initialize all the ad units on the page
     useEffect(() => {
-        // console.log('AdsenseScript');
-        var ads = document.getElementsByClassName("adsbygoogle").length;
-            for (var i = 0; i < ads; i++) {
-                try {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (e) { }
+        const loadAds = () => {
+        try {
+            if (window.adsbygoogle && document.getElementsByClassName("adsbygoogle").length > 0) {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
             }
-        // console.log('adsbygoogle: ', document.getElementsByClassName("adsbygoogle"));
+        } catch (error) {
+            console.error('Error loading ads:', error);
+        }
+        };
+    
+        if (document.readyState === 'complete') {
+        loadAds();
+        } else {
+        window.addEventListener('load', loadAds);
+        return () => window.removeEventListener('load', loadAds);
+        }
     }, []);
 
   return null; // This component doesn't render anything on the page
