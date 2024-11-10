@@ -113,6 +113,7 @@ return (
                                             required
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
+                                            autoComplete='true'
                                         />
                                     </div>
                                     {/* Email Input */}
