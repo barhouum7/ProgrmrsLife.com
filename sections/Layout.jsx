@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header/Header";
 import Footer from "./FooterSection";
-import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton, AdSupportModal } from "../components";
+import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton, AdSupportModal, VersionNotifier } from "../components";
 import Head from "next/head";
 import Script from "next/script";
 import { initializeAdBlockRecovery } from "../adBlockRecovery";
@@ -268,6 +268,8 @@ const Layout = ({ children }) => {
           }
         `}
       </Script>
+
+      <VersionNotifier />
       
       {/* Announcement Banner */}
       
