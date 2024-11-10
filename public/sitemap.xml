@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.progrmrslife.com</loc>
-    <lastmod>2024-09-14T11:13:02.742Z</lastmod>
+    <lastmod>2024-11-10T21:46:41.347Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/about-us</loc>
-    <lastmod>2024-09-14T11:13:02.743Z</lastmod>
+    <lastmod>2024-11-10T21:46:41.348Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/contact-us</loc>
-    <lastmod>2024-09-14T11:13:02.743Z</lastmod>
+    <lastmod>2024-11-10T21:46:41.348Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/Services</loc>
-    <lastmod>2024-09-14T11:13:02.743Z</lastmod>
+    <lastmod>2024-11-10T21:46:41.348Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/privacyPolicy</loc>
-    <lastmod>2024-09-14T11:13:02.743Z</lastmod>
+    <lastmod>2024-11-10T21:46:41.348Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/terms-and-conditions</loc>
-    <lastmod>2024-09-14T11:13:02.743Z</lastmod>
+    <lastmod>2024-11-10T21:46:41.348Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -87,6 +87,40 @@
   </url>
 
   <url>
+    <loc>https://www.progrmrslife.com/category/opportunities</loc>
+    <lastmod>2024-10-10T21:50:35.496Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc
+      >https://www.progrmrslife.com/post/how-to-access-oreilly-premium-content-for-free</loc
+    >
+    <lastmod>2024-10-18T11:05:15.684Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc
+      >https://www.progrmrslife.com/post/travel-to-uae-2025-free-ai-internship</loc
+    >
+    <lastmod>2024-10-11T04:44:38.049Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc
+      >https://www.progrmrslife.com/post/duolingo-super-premium-free-invitation</loc
+    >
+    <lastmod>2024-10-11T02:19:33.665Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc
       >https://www.progrmrslife.com/post/ultimate-guide-to-cybersecurity-and-ctf-challenges</loc
     >
@@ -99,14 +133,16 @@
     <loc
       >https://www.progrmrslife.com/post/gemini-advanced-google-latest-ai-breakthrough</loc
     >
-    <lastmod>2024-03-08T14:09:29.559Z</lastmod>
+    <lastmod>2024-10-11T01:12:24.347Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://www.progrmrslife.com/post/scribd-pro</loc>
-    <lastmod>2024-01-01T23:42:51.063Z</lastmod>
+    <loc
+      >https://www.progrmrslife.com/post/free-scribd-everand-slideshare-access-170m-documents-audiobooks</loc
+    >
+    <lastmod>2024-10-14T20:01:16.711Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -134,7 +170,7 @@
 
   <url>
     <loc>https://www.progrmrslife.com/post/get-canva-pro</loc>
-    <lastmod>2024-09-13T20:49:24.318Z</lastmod>
+    <lastmod>2024-11-09T19:30:39.770Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -169,14 +205,14 @@
 
   <url>
     <loc>https://www.progrmrslife.com/post/ethical-hacking-roadmap</loc>
-    <lastmod>2023-08-20T20:44:38.425Z</lastmod>
+    <lastmod>2024-11-02T22:56:45.752Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/post/linkedin-learning-free-trials</loc>
-    <lastmod>2024-05-07T13:59:36.616Z</lastmod>
+    <lastmod>2024-11-02T19:36:20.908Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
