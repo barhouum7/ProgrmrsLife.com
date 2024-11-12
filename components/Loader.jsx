@@ -1,3 +1,5 @@
+import React from "react";
+import PropTypes from "prop-types";
 import HashLoader from "react-spinners/HashLoader";
 
 const Loader = ({
@@ -14,6 +16,10 @@ const Loader = ({
       />
     </div>
   );
+};
+
+Loader.propTypes = {
+  loading: PropTypes.bool.isRequired
 };
 
 export default Loader;
