@@ -15,8 +15,8 @@ const URLS_TO_CACHE = [
 // 3. Try to cache all URLs in URLS_TO_CACHE (but continue even if some fail)
 // 4. Skip waiting to activate immediately
 self.addEventListener('install', async (event) => {
-  console.log('[SW] Installing new version');
-  console.log('Service Worker installing with version:', CACHE_NAME);
+  // console.log('[SW] Installing new version');
+  // console.log('Service Worker installing with version:', CACHE_NAME);
   
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -39,21 +39,21 @@ self.addEventListener('install', async (event) => {
 // 2. Delete any old caches that don't match current CACHE_NAME
 // 3. Claim all open clients so the new service worker takes control immediately
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating new version');
+  // console.log('[SW] Activating new version');
   event.waitUntil(
     caches.keys()
       .then(cacheNames => {
         return Promise.all(
           cacheNames.map(cacheName => {
             if (cacheName !== CACHE_NAME) {
-              console.log('[SW] Deleting old cache:', cacheName);
+              // console.log('[SW] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
         );
       })
       .then(() => {
-        console.log('[SW] Claiming clients');
+        // console.log('[SW] Claiming clients');
         return clients.claim();
       })
   );
