@@ -6,6 +6,7 @@ import React from 'react'
 import { Tooltip } from "flowbite-react"
 import Link from 'next/link'
 import Image from 'next/image'
+import Script from 'next/script'
 
 const BsFacebook = () => {
   return (
@@ -102,28 +103,74 @@ const BsYoutube = () => {
 
 const FooterSection = () => {
   return (
-        
     <footer className="p-4 sm:p-6 dark:bg-gray-900 rounded-b mx-4 px-10 mb-1 sm:px-6">
+      {/* Accessibility button */}
+      <div className="userway-container">
+        {/* UserWay Script */}
+        <Script id="userway-script">
+          {`
+            (function(d){
+              var s = d.createElement('script');
+              
+              /* Position the button (1-9) */
+              /* Set position to custom (9) to allow CSS override */
+              s.setAttribute('data-position', '1');
+              
+              /* Other attributes */
+
+              /* Set button size */
+              s.setAttribute('data-size', 'small'); // 'small' or 'large'
+              
+              /* Set language */
+              s.setAttribute('data-language', 'en');
+              
+              /* Customize button color */
+              // s.setAttribute('data-color', '#60A5FA');
+              /* s.setAttribute('data-color', '#053e67');*/
+              
+              /* Set icon type (1=person, 2=chair, 3=eye, 4=text) */
+              s.setAttribute('data-type', '1');
+              
+              /* Customize accessibility statement */
+              s.setAttribute('data-statement_text', 'Our Accessibility Statement');
+              s.setAttribute('data-statement_url', 'https://www.progrmrslife.com/accessibility');
+              
+              /* Enable on mobile */
+              s.setAttribute('data-mobile', true);
+              
+              /* Custom trigger ID (optional) */
+              s.setAttribute('data-trigger', 'accessibility-btn');
+              
+              /* Your UserWay account */
+              s.setAttribute('data-account', 'qvONRLOSyv');
+              
+              s.setAttribute('src', 'https://cdn.userway.org/widget.js');
+
+              (d.body || d.head).appendChild(s);
+            })(document)
+          `}
+        </Script>
+      </div>
         <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-            <a href="https://progrmrslife.com/" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center mr-8">
-                      <div className='relative w-12 h-12'>
-                        <Image
-                          alt="Programmers Life logo"
-                          src="/imgs/logo.svg"
-                          fill
-                          className='rounded-full cursor-pointer mr-1 inset-0 object-cover transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10'
-                        />
-                      </div>
-                      <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
-                        Programmers Life
-                      </span>
+              <a href="https://progrmrslife.com/" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                  <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center mr-8">
+                    <div className='relative w-12 h-12'>
+                      <Image
+                        alt="Programmers Life logo"
+                        src="/imgs/logo.svg"
+                        fill
+                        className='rounded-full cursor-pointer mr-1 inset-0 object-cover transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-2xl hover:z-10'
+                      />
                     </div>
-                </a>
-                <div className="mt-4 text-gray-900 dark:text-gray-400 max-w-sm sm:px-6 lg:px-8">
-                  <p className="text-sm">Programmers Life is a community dedicated to helping IT professionals and enthusiasts by providing free resources, tools, and expert tips to help them succeed in their careers and stay up-to-date with the latest industry trends.</p>
-                </div>
+                    <span className="self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
+                      Programmers Life
+                    </span>
+                  </div>
+              </a>
+              <div className="mt-4 text-gray-900 dark:text-gray-400 max-w-sm sm:px-6 lg:px-8">
+                <p className="text-sm">Programmers Life is a community dedicated to helping IT professionals and enthusiasts by providing free resources, tools, and expert tips to help them succeed in their careers and stay up-to-date with the latest industry trends.</p>
+              </div>
             </div>
             <div className="sm:flex sm:flex-col grid-cols-4 gap-4 footer-items-size">
                 <div className="mr-8 px-4 lg:px-0">
