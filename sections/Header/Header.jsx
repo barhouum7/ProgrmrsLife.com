@@ -15,7 +15,7 @@ import useThemeActions from '../../hooks/useThemeActions';
 import Link from "next/link";
 import { getCategories } from '../../services'
 
-const Header = ({showBanner}) => {
+const Header = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isItemHovered, setIsItemHovered] = useState("");
   const [ isToggleSwitched, setIsToggleSwitched] = useState(false);
@@ -225,22 +225,99 @@ const Header = ({showBanner}) => {
     }
 };
 
+
+  // Announcement Banner
+  const [showBanner, setShowBanner] = useState(true);
+  const [closeBanner, setCloseBanner] = useState(false);
+
+  const handleCloseBanner = () => {
+    setCloseBanner(true);
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 500);
+  };
+
+  const bannerStyle = {
+    background: showBanner
+        ? 'linear-gradient(to right, #4a00e0, #8e2de2)' // Vibrant purple gradient
+        : 'none', // No background when banner is hidden
+    boxShadow: showBanner ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none', // Subtle shadow when banner is shown
+    transition: 'all 0.5s ease-in-out', // Smooth transition with easing
+  };
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setShowBanner(false);
+      } else if (!closeBanner) {
+        setShowBanner(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [closeBanner]);
+
+
+
   return (
       <header className={`relative 
+
         ${!showBanner ? 'h-20' : 'h-32'}
       `}
       style={{
         zIndex: "10",
       }}
       >
+        {/* Announcement Banner */}
+      
+        {
+          showBanner && (
+            <>
+              <div 
+              style={bannerStyle}
+              className={`bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs sm:text-sm relative top-0 left-0 right-0 z-10 
+                overflow-hidden
+              ${
+                closeBanner ? 'p-0 transition-all duration-500' : 'p-3'
+              }`}
+              >
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 container mx-auto justify-center text-center z-50">
+                  <p className="flex items-center">
+                  <span className="mr-2">🚀</span>
+                  <span className="font-bold">Exciting news! We now offer sponsorship services for businesses. <Link href="/contact-us" className="underline hover:text-black transition-colors duration-300">Get in touch</Link> to learn more and boost your brand visibility.</span>
+                  </p>
+                  <button
+                    className="ml-2 px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300"
+                    onClick={handleCloseBanner}
+                  >
+                  Close
+                  </button>
+                </div>
+                
+                <div
+                  id="flash-div"
+                  className={`absolute inset-0 -z-20 top-0 left-0 bg-indigo-900 bg-opacity-30 animated-banner
+                    ${closeBanner ? 'hidden' : 'block'}
+                  `}
+                >
+                </div>
+              </div>
+            </>
+          )
+        }
+
         {/* <Navbar fluid className="w-full backdrop-filter backdrop-blur-lg fixed top-0 h-16 z-30  duration-500"> */}
         {/* <nav className={`w-full h-16 z-10 fixed top-0 left-0 backdrop-filter backdrop-blur-lg dark:bg-gray-800 flex-grow sm:px-6 rounded-b shadow-lg dark:border-gray-700 transition ease-in-out transition-all duration-500
               bg-transparent ${isScrolled ? "bg-transparent" : "bg-white"}`}> */}
           <Flowbite>
             <Navbar
             fluid={true} 
-            className={`w-full h-16 fixed ${
-              showBanner ? 'top-10 mt-2 sm:mt-4' : 'top-0 mt-0 transition-all duration-500'
+            className={`w-full h-16 fixed 
+
+            ${
+              showBanner ? 'top-10 sm:top-0 mt-12 sm:mt-0' : 'top-0 mt-0 transition-all duration-500'
             } left-0 flex-grow sm:px-6 rounded-b shadow-lg
               dark:bg-opacity-90 dark:bg-gray-800 bg-opacity-90
             `}
@@ -254,10 +331,12 @@ const Header = ({showBanner}) => {
               <Navbar.Brand href="/">
                 <div className="lg:w-0 lg:flex-1 sm:px-6 flex justify-between items-center">
                   <Logo />
-                  <span className="relative self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
-                    Programmers Life
-                    <div className="absolute left-1 z-40 inset-0 bg-white rounded-lg shadow-2xl animated-slow__for-logo w-2 h-15"></div>
-                  </span>
+                  <div className="overflow-hidden rounded-lg">
+                    <span className="relative self-center whitespace-nowrap px-3 ml-1 text-md font-semibold bg-gradient-to-r from-pink-500 to-transparent rounded-lg">
+                      Programmers Life
+                      <div className="absolute left-1 z-40 inset-0 animated-pro"></div>
+                    </span>
+                  </div>
                 </div>
                 </Navbar.Brand>
                 
