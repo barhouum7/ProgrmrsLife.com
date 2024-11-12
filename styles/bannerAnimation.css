@@ -1,0 +1,112 @@
+
+
+
+.animated-pro {
+    animation-name: proFlash;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    display: inline-block; /* Ensures proper sizing */
+}
+
+.animated-pro::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -50%; /* Adjust the starting position */
+    bottom: 0;
+    left: -50%; /* Adjust the ending position */
+    width: 50%; /* Control the width of the flash */
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 20%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.2) 80%,
+        transparent 100%
+    );
+    transform: skewX(-15deg);
+    animation: proFlash 2.5s infinite;
+}
+
+@keyframes proFlash {
+    0% {
+        transform: translateX(-100%) skewX(-15deg);
+    }
+    20% {
+        transform: translateX(-50%) skewX(-15deg);
+    }
+    40% {
+        transform: translateX(0%) skewX(-15deg);
+        opacity: 1;
+    }
+    60% {
+        transform: translateX(50%) skewX(-15deg);
+    }
+    100% {
+        transform: translateX(200%) skewX(-15deg);
+    }
+}
+
+@-webkit-keyframes proFlash {
+    0% {
+        -webkit-transform: translateX(-100%) skewX(-15deg);
+    }
+    20% {
+        -webkit-transform: translateX(-50%) skewX(-15deg);
+    }
+    40% {
+        -webkit-transform: translateX(0%) skewX(-15deg);
+        opacity: 1;
+    }
+    60% {
+        -webkit-transform: translateX(50%) skewX(-15deg);
+    }
+    100% {
+        -webkit-transform: translateX(200%) skewX(-15deg);
+    }
+}
+
+
+
+
+
+
+
+
+.animated-banner {
+    width: 100%;
+    /* height: 20vh; */
+}
+
+.animated-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 20%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.1) 80%,
+        transparent 100%
+    );
+    transform: translateX(-50%) skewX(-15deg);
+    animation: bannerSweep 3s infinite linear;
+}
+
+@keyframes bannerSweep {
+    0% {
+        left: -50%;
+    }
+    100% {
+        left: 150%;
+    }
+}

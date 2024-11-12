@@ -18,13 +18,15 @@ const Layout = lazy(() => import('../sections/Layout'));
 
 
 
-import '../styles/globals.scss'
-import '../styles/postDetail.css'
-import '../styles/scrollbar.css'
-import '../styles/moonSunBg.css'
-import '../styles/loader.css'
-import '../styles/animation.css'
+import '../styles/globals.scss';
+import '../styles/postDetail.css';
+import '../styles/scrollbar.css';
+import '../styles/moonSunBg.css';
+import '../styles/loader.css';
 import '../styles/FlyingHearts.css';
+import '../styles/userWayAccessibility.css';
+import '../styles/animation.css';
+import '../styles/bannerAnimation.css';
 
 import 'tailwindcss/tailwind.css'
 import 'react-toastify/dist/ReactToastify.css';
