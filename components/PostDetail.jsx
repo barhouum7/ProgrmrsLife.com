@@ -19,7 +19,7 @@ import dynamic from 'next/dynamic';
 import { Tooltip } from "flowbite-react";
 import toast, { Toaster } from 'react-hot-toast';
 
-import { AdPopup, AdsenseScript, Breadcrumbs } from "../components"
+import { AdPopup, AdsenseScript, Breadcrumbs, CanvaWarningModal } from "../components"
 import Image from 'next/image';
 import Script from 'next/script';
 
@@ -44,6 +44,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     const [countdown, setCountdown] = useState(30);
     const [youtubeButtonClicked, setYoutubeButtonClicked] = useState(false);
 
+    // New state for the Canva warning modal
+    const [showCanvaWarning, setShowCanvaWarning] = useState(false);
+    const hasSeenCanvaWarning = localStorage.getItem('hasSeenCanvaWarning') === 'true';
+
     useEffect(() => {
         const isReturningUser = localStorage.getItem('returningUser') === 'true';
 
@@ -52,6 +56,13 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
             setShowWaitingText(false);
             setCountdown(30);
             setShowGoToLinkButton(false);
+        }
+
+
+        // Show modal for Canva Pro post only if user hasn't seen it before
+        if (post.slug === 'get-canva-pro' && !hasSeenCanvaWarning) {
+            setShowCanvaWarning(true);
+            localStorage.setItem('hasSeenCanvaWarning', 'true');
         }
 
     }, [post.slug]);
@@ -825,6 +836,10 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                 <meta property="og:site_name" content="Programmers Life - Your Guide to Web Development, Tips & Tricks and Tech News" />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
+                <meta property="fb:app_id" content="5864440530335233" />
+                <meta property="og:locale" content="en_US" />
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:updated_time" content={post.updatedAt} />
 
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
@@ -877,6 +892,9 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                     }
                 })}
             </Script>
+
+            {showCanvaWarning && <CanvaWarningModal setShowCanvaWarning={setShowCanvaWarning} /> }
+
             <motion.div
                 initial="initial"
                 animate="animate"

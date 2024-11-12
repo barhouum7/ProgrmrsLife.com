@@ -28,9 +28,9 @@ const checkAdBlocker = () => {
       document.body.appendChild(bait);
 
       const computedStyle = window.getComputedStyle(bait);
-      console.log('Bait element computed display:', computedStyle.display);
-      console.log('Bait element offset height:', bait.offsetHeight);
-      console.log('Bait element offset parent:', bait.offsetParent);
+      // console.log('Bait element computed display:', computedStyle.display);
+      // console.log('Bait element offset height:', bait.offsetHeight);
+      // console.log('Bait element offset parent:', bait.offsetParent);
 
       const isBlocked = (
         computedStyle.display === 'none' ||
@@ -39,16 +39,16 @@ const checkAdBlocker = () => {
       );
 
       document.body.removeChild(bait);
-      console.log('Bait element check result:', isBlocked);
+      // console.log('Bait element check result:', isBlocked);
       return isBlocked;
     };
 
     // Method 3: Check Google Adsense
     const checkGoogleAds = () => {
       const isBlocked = typeof window.adsbygoogle === 'undefined' || !window.adsbygoogle.loaded;
-      console.log('Google Ads check - adsbygoogle exists:', typeof window.adsbygoogle !== 'undefined');
-      console.log('Google Ads check - loaded status:', window.adsbygoogle?.loaded);
-      console.log('Google Ads check result:', isBlocked);
+      // console.log('Google Ads check - adsbygoogle exists:', typeof window.adsbygoogle !== 'undefined');
+      // console.log('Google Ads check - loaded status:', window.adsbygoogle?.loaded);
+      // console.log('Google Ads check result:', isBlocked);
       return isBlocked;
     };
 
@@ -61,25 +61,25 @@ const checkAdBlocker = () => {
           'https://googleadservices.com'
         ];
 
-        console.log('Testing domains:', testUrls);
+        // console.log('Testing domains:', testUrls);
         const results = await Promise.all(
           testUrls.map(async url => {
             try {
               await fetch(url, { method: 'HEAD', mode: 'no-cors' });
-              console.log(`Domain ${url} is accessible`);
+              // console.log(`Domain ${url} is accessible`);
               return false;
             } catch (error) {
-              console.log(`Domain ${url} is blocked:`, error.message);
+              // console.log(`Domain ${url} is blocked:`, error.message);
               return true;
             }
           })
         );
 
         const isBlocked = results.some(blocked => blocked);
-        console.log('Domain blocking check result:', isBlocked);
+        // console.log('Domain blocking check result:', isBlocked);
         return isBlocked;
       } catch (error) {
-        console.error('Domain checking error:', error);
+        // console.error('Domain checking error:', error);
         return true;
       }
     };
@@ -87,37 +87,37 @@ const checkAdBlocker = () => {
     // Combine all checks
     const runChecks = async () => {
       try {
-        console.log('Starting ad blocker detection checks...');
+        // console.log('Starting ad blocker detection checks...');
         
         const isBraveBlocking = await checkBrave();
-        console.log('Brave shields check completed');
+        // console.log('Brave shields check completed');
         
         const isBaitBlocked = checkBaitElement();
-        console.log('Bait element check completed');
+        // console.log('Bait element check completed');
         
         const isGoogleAdsBlocked = checkGoogleAds();
-        console.log('Google Ads check completed');
+        // console.log('Google Ads check completed');
         
         const isDomainsBlocked = await checkBlockedDomains();
-        console.log('Domain blocking check completed');
+        // console.log('Domain blocking check completed');
 
         const isBlocked = isBraveBlocking || isBaitBlocked || isGoogleAdsBlocked || isDomainsBlocked;
-        console.log('Final ad blocker detection result:', isBlocked, {
-          isBraveBlocking,
-          isBaitBlocked,
-          isGoogleAdsBlocked,
-          isDomainsBlocked
-        });
+        // console.log('Final ad blocker detection result:', isBlocked, {
+        //   isBraveBlocking,
+        //   isBaitBlocked,
+        //   isGoogleAdsBlocked,
+        //   isDomainsBlocked
+        // });
         
         resolve(isBlocked);
       } catch (error) {
-        console.error('Ad blocker detection error:', error);
+        // console.error('Ad blocker detection error:', error);
         resolve(false); // Don't assume blocked if there's an error
       }
     };
 
     // Add a small delay to ensure all checks run properly
-    console.log('Initiating ad blocker detection with delay...');
+    // console.log('Initiating ad blocker detection with delay...');
     setTimeout(runChecks, 100);
   });
 };
