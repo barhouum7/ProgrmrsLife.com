@@ -142,6 +142,41 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
     };
     
     // Table of Contents customizations ...
+
+
+    // Function to handle table of contents navigation
+    const handleTableOfContentsClick = (e, href) => {
+        if (href && href.includes('#')) {
+            e.preventDefault();
+            const targetId = href.split('#')[1];
+            const element = document.getElementById(targetId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                // Only update with the hash portion of the URL
+                window.history.pushState({}, '', `#${targetId}`);
+            }
+        }
+    };
+
+
+    // This function handles the toggle functionality for the table of contents:
+    // 1. When clicked, it rotates a toggle element arrow 180 degrees with animation
+    // 2. It shows/hides content in the table of contents:
+    //    - Initially shows only first 3 items
+    //    - Has "View All"/"View Less" buttons to expand/collapse
+    // 3. Manages visibility of items:
+    //    - Shows first 3 items by default
+    //    - Hides remaining items until "View All" is clicked
+    //    - Clicking "View Less" collapses back to showing only first 3
+    // 4. Styles the View All/Less buttons with:
+    //    - Cursor pointer
+    //    - Bold text
+    //    - Indigo colors (with dark mode support)
+    //    - Hover effects
+    //    - Smooth transitions
     const handleToggleElementClick = () => {
         
             typeof window !== 'undefined' && window.document.querySelector('.table-of-contents .toggle-element').classList.add('rotate-180', 'transition', 'duration-500', 'ease-in-out');
@@ -1071,25 +1106,27 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                             <RichText
                                 content={post.content.json.children}
                                 renderers={{
-                                a: ({ children, openInNewTab, href, rel, ...rest }) => {
-                                    if (href.match(/^https?:\/\/|^\/\//i)) {
-                                    return (
-                                            <Link
-                                            className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500'
-                                            href={href}
-                                            target={openInNewTab ? '_blank' : '_self'}
-                                            rel={rel || 'noopener noreferrer'}
-                                            {...rest}
-                                            >
-                                                {children}
+                                a: ({ children, openInNewTab, className, href, rel, ...rest }) => {
 
-                                            </Link>
-                                    );
+                                    if (href.match(/^https?:\/\/|^\/\//i)) {
+                                        return (
+                                                <Link
+                                                className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500'
+                                                href={href}
+                                                onClick={(e) => handleTableOfContentsClick(e, href)}
+                                                target={openInNewTab ? '_blank' : '_self'}
+                                                rel={rel || 'noopener noreferrer'}
+                                                {...rest}
+                                                >
+                                                    {children}
+
+                                                </Link>
+                                        );
                                     }
 
                                     return (
-                                            <Link href={href}>
-                                                <a {...rest}>{children}</a>
+                                            <Link href={href} className='text-indigo-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-indigo-500 transition duration-500' onClick={(e) => handleTableOfContentsClick(e, href)}>
+                                                <span {...rest}>{children}</span>
                                             </Link>
                                     );
                                 },
