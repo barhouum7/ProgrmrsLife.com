@@ -1,3 +1,4 @@
+import React from 'react';
 import BarLoader from "react-spinners/BarLoader";
 import { useTheme } from "next-themes";
 

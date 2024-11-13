@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import PropTypes from "prop-types";
 
 const MyContext = createContext();
 
@@ -11,6 +12,10 @@ return (
     </MyContext.Provider>
 );
 }
+
+MyProvider.propTypes = {
+    children: PropTypes.node.isRequired
+};
 
 export function useMyContext() {
     return useContext(MyContext);
