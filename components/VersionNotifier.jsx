@@ -5,7 +5,8 @@ import { toast } from 'react-hot-toast';
 const VersionNotifier = () => {
     const [showNotification, setShowNotification] = useState(false);
     const [waitingWorker, setWaitingWorker] = useState(null);
-    const currentVersion = process.env.NEXT_PUBLIC_APP_VERSION || '2.0.18';
+    // const currentVersion = process.env.NEXT_PUBLIC_APP_VERSION || '2.0.18';
+    const currentVersion = '2.0.18';
 
 
     useEffect(() => {
@@ -15,25 +16,23 @@ const VersionNotifier = () => {
                 // Add listener for new updates
                 registration.addEventListener('waiting', (event) => {
                     setWaitingWorker(event.target);
-                    setShowNotification(true); // Show notification when new service worker is waiting
                 });
 
                 // Check if there's already a waiting worker
                 if (registration.waiting) {
                     setWaitingWorker(registration.waiting);
-                    setShowNotification(true);
                 }
 
-                registration.addEventListener('activated', () => {
-                    // Update localStorage with the new version after successful activation
-                    localStorage.setItem('lastUpdateVersion', currentVersion);
+                // Add listener for controlling change
+                registration.addEventListener('controlling', () => {
+                    window.location.reload();
                 });
             });
         }
-    }, [currentVersion]);
+    }, []);
 
 
-    // Immediate version check on first load
+    // Immediate check on first load
     useEffect(() => {
       const checkVersionImmediately = async () => {
           try {
@@ -55,10 +54,9 @@ const VersionNotifier = () => {
               
               const data = await response.json();
               
-              
-              if (data.version !== lastUpdateVersion) {
-                  console.log('[Version Check]', {
-                      current: lastUpdateVersion || 'none',
+              if (data.version !== currentVersion) {
+                  console.log('[Version Check] Update needed:', {
+                      current: currentVersion,
                       new: data.version
                   });
                   setShowNotification(true);
@@ -69,13 +67,15 @@ const VersionNotifier = () => {
       };
 
       checkVersionImmediately();
-  }, [currentVersion]);
+    }, [currentVersion]);
 
     const handleUpdate = () => {
         if (waitingWorker) {
             waitingWorker.postMessage({ type: 'SKIP_WAITING' });
         }
         
+        // Store the current version as the last update version
+        localStorage.setItem('lastUpdateVersion', currentVersion);
         setShowNotification(false);
         
         // Reload after a short delay to ensure service worker is activated
