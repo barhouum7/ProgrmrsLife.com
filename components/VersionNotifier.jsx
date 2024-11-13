@@ -15,23 +15,25 @@ const VersionNotifier = () => {
                 // Add listener for new updates
                 registration.addEventListener('waiting', (event) => {
                     setWaitingWorker(event.target);
+                    setShowNotification(true); // Show notification when new service worker is waiting
                 });
 
                 // Check if there's already a waiting worker
                 if (registration.waiting) {
                     setWaitingWorker(registration.waiting);
+                    setShowNotification(true);
                 }
 
-                // Add listener for controlling change
-                registration.addEventListener('controlling', () => {
-                    window.location.reload();
+                registration.addEventListener('activated', () => {
+                    // Update localStorage with the new version after successful activation
+                    localStorage.setItem('lastUpdateVersion', currentVersion);
                 });
             });
         }
-    }, []);
+    }, [currentVersion]);
 
 
-    // Immediate check on first load
+    // Immediate version check on first load
     useEffect(() => {
       const checkVersionImmediately = async () => {
           try {
@@ -53,9 +55,10 @@ const VersionNotifier = () => {
               
               const data = await response.json();
               
-              if (data.version !== currentVersion) {
-                  console.log('[Version Check] Update needed:', {
-                      current: currentVersion,
+              
+              if (data.version !== lastUpdateVersion) {
+                  console.log('[Version Check]', {
+                      current: lastUpdateVersion || 'none',
                       new: data.version
                   });
                   setShowNotification(true);
@@ -66,15 +69,13 @@ const VersionNotifier = () => {
       };
 
       checkVersionImmediately();
-    }, [currentVersion]);
+  }, [currentVersion]);
 
     const handleUpdate = () => {
         if (waitingWorker) {
             waitingWorker.postMessage({ type: 'SKIP_WAITING' });
         }
         
-        // Store the current version as the last update version
-        localStorage.setItem('lastUpdateVersion', currentVersion);
         setShowNotification(false);
         
         // Reload after a short delay to ensure service worker is activated
