@@ -107,12 +107,6 @@ const PostDetails = ({ post, error }) => {
                 // console.error('Failed to copy link:', error.message);
             });
     };
-    const getMinutesRead = (text) => {
-        const words = text.split(' ').length;
-        const wordsPerMinute = 60;
-        const minutes = Math.round(words / wordsPerMinute);
-        return minutes;
-    }
 
 
     const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
