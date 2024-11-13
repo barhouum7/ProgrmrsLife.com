@@ -6,7 +6,7 @@ const VersionNotifier = () => {
     const [showNotification, setShowNotification] = useState(false);
     const [waitingWorker, setWaitingWorker] = useState(null);
     // const currentVersion = process.env.NEXT_PUBLIC_APP_VERSION || '2.0.18';
-    const currentVersion = '2.0.18';
+    const currentVersion = '2.0.19';
 
 
     useEffect(() => {

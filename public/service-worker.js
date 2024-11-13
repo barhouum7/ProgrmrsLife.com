@@ -1,5 +1,5 @@
 // Cache name and version for this service worker
-const CACHE_NAME = 'programmers-life-v2.0.18';
+const CACHE_NAME = 'programmers-life-v2.0.19';
 
 // List of URLs that should be cached for offline access
 const URLS_TO_CACHE = [
