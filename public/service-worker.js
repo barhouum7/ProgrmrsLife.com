@@ -1,5 +1,5 @@
 // Cache name and version for this service worker
-const CACHE_NAME = 'programmers-life-v2.0.16';
+const CACHE_NAME = 'programmers-life-v2.0.17';
 
 // List of URLs that should be cached for offline access
 const URLS_TO_CACHE = [
@@ -15,7 +15,7 @@ const URLS_TO_CACHE = [
 // 3. Try to cache all URLs in URLS_TO_CACHE (but continue even if some fail)
 // 4. Skip waiting to activate immediately
 self.addEventListener('install', async (event) => {
-  // console.log('[SW] Installing new version');
+  console.log('[SW] Installing new version');
   // console.log('Service Worker installing with version:', CACHE_NAME);
   
   event.waitUntil(
@@ -31,7 +31,8 @@ self.addEventListener('install', async (event) => {
         );
       })
   );
-  self.skipWaiting();
+  // Force activation
+  await self.skipWaiting();
 });
 
 // When service worker is activated:
@@ -39,23 +40,23 @@ self.addEventListener('install', async (event) => {
 // 2. Delete any old caches that don't match current CACHE_NAME
 // 3. Claim all open clients so the new service worker takes control immediately
 self.addEventListener('activate', (event) => {
-  // console.log('[SW] Activating new version');
+  console.log('[SW] Activating new version');
   event.waitUntil(
-    caches.keys()
-      .then(cacheNames => {
-        return Promise.all(
-          cacheNames.map(cacheName => {
-            if (cacheName !== CACHE_NAME) {
-              // console.log('[SW] Deleting old cache:', cacheName);
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      })
-      .then(() => {
-        // console.log('[SW] Claiming clients');
-        return clients.claim();
-      })
+      Promise.all([
+          // Clean old caches
+          caches.keys().then(cacheNames => {
+              return Promise.all(
+                  cacheNames.map(cacheName => {
+                      if (cacheName !== CACHE_NAME) {
+                          console.log('[SW] Deleting old cache:', cacheName);
+                          return caches.delete(cacheName);
+                      }
+                  })
+              );
+          }),
+          // Take control immediately
+          clients.claim()
+      ])
   );
 });
 

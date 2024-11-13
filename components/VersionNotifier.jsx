@@ -5,7 +5,49 @@ import { toast } from 'react-hot-toast';
 const VersionNotifier = () => {
     const [showNotification, setShowNotification] = useState(false);
     const [waitingWorker, setWaitingWorker] = useState(null);
-    const currentVersion = process.env.NEXT_PUBLIC_APP_VERSION || '2.0.16';
+    const currentVersion = process.env.NEXT_PUBLIC_APP_VERSION || '2.0.17';
+
+
+    // Immediate check on first load
+    useEffect(() => {
+      const checkVersionImmediately = async () => {
+          try {
+              const response = await fetch('/version.json', {
+                  cache: 'no-store',
+                  headers: {
+                      'Cache-Control': 'no-cache',
+                      'Pragma': 'no-cache'
+                  }
+              });
+              
+              if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+              
+              const data = await response.json();
+              const lastKnownVersion = localStorage.getItem('lastKnownVersion');
+              
+              // Show notification if:
+              // 1. Version is different from current
+              // 2. Last known version is different (first visit after deploy)
+              if (data.version !== currentVersion || lastKnownVersion !== data.version) {
+                  console.log('[Version Check] Update needed:', {
+                      current: currentVersion,
+                      new: data.version,
+                      lastKnown: lastKnownVersion
+                  });
+                  setShowNotification(true);
+              }
+              
+              // Update last known version
+              localStorage.setItem('lastKnownVersion', data.version);
+          } catch (error) {
+              console.error('[Version Check] Failed:', error);
+          }
+      };
+
+      // Check immediately on mount
+      checkVersionImmediately();
+  }, [currentVersion]);
+
 
     useEffect(() => {
         if ('serviceWorker' in navigator) {
@@ -29,38 +71,6 @@ const VersionNotifier = () => {
         }
     }, []);
 
-    useEffect(() => {
-        const checkVersion = async () => {
-          try {
-            // Check if user just updated
-            const lastUpdateVersion = localStorage.getItem('lastUpdateVersion');
-            if (lastUpdateVersion === currentVersion) {
-              return;
-            }
-
-            const response = await fetch('/version.json', { cache: 'no-store' });
-            
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            
-            if (data.version !== currentVersion) {
-              console.log('[Version Check] New version available:', data.version);
-              setShowNotification(true);
-            }
-          } catch (error) {
-            console.error('[Version Check] Failed:', error);
-          }
-        };
-      
-        // Check immediately and then every 5 minutes
-        checkVersion();
-        const interval = setInterval(checkVersion, 5 * 60 * 1000);
-      
-        return () => clearInterval(interval);
-      }, [currentVersion]);
 
       const handleUpdate = () => {
           if (waitingWorker) {
