@@ -57,7 +57,7 @@ const withPWA = require('next-pwa')({
     },
     {
       urlPattern: /version\.json/,
-      handler: 'NetworkFirst',
+      handler: 'NetworkOnly',
       options: {
         cacheName: 'version-cache',
         expiration: {

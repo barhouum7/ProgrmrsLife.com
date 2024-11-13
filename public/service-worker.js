@@ -4,9 +4,7 @@ const CACHE_NAME = 'programmers-life-v2.0.17';
 // List of URLs that should be cached for offline access
 const URLS_TO_CACHE = [
   '/',
-  '/offline',
-  '/manifest.json', 
-  '/version.json'
+  '/manifest.json'
 ];
 
 // When service worker is installed:
@@ -31,8 +29,6 @@ self.addEventListener('install', async (event) => {
         );
       })
   );
-  // Force activation
-  await self.skipWaiting();
 });
 
 // When service worker is activated:

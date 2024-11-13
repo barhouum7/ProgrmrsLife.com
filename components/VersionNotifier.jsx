@@ -8,47 +8,6 @@ const VersionNotifier = () => {
     const currentVersion = process.env.NEXT_PUBLIC_APP_VERSION || '2.0.17';
 
 
-    // Immediate check on first load
-    useEffect(() => {
-      const checkVersionImmediately = async () => {
-          try {
-              const response = await fetch('/version.json', {
-                  cache: 'no-store',
-                  headers: {
-                      'Cache-Control': 'no-cache',
-                      'Pragma': 'no-cache'
-                  }
-              });
-              
-              if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-              
-              const data = await response.json();
-              const lastKnownVersion = localStorage.getItem('lastKnownVersion');
-              
-              // Show notification if:
-              // 1. Version is different from current
-              // 2. Last known version is different (first visit after deploy)
-              if (data.version !== currentVersion || lastKnownVersion !== data.version) {
-                  console.log('[Version Check] Update needed:', {
-                      current: currentVersion,
-                      new: data.version,
-                      lastKnown: lastKnownVersion
-                  });
-                  setShowNotification(true);
-              }
-              
-              // Update last known version
-              localStorage.setItem('lastKnownVersion', data.version);
-          } catch (error) {
-              console.error('[Version Check] Failed:', error);
-          }
-      };
-
-      // Check immediately on mount
-      checkVersionImmediately();
-  }, [currentVersion]);
-
-
     useEffect(() => {
         if ('serviceWorker' in navigator) {
             // Register the service worker
@@ -72,19 +31,61 @@ const VersionNotifier = () => {
     }, []);
 
 
-      const handleUpdate = () => {
-          if (waitingWorker) {
-              // Properly handle the service worker update
-              waitingWorker.postMessage({ type: 'SKIP_WAITING' });
-              localStorage.setItem('lastUpdateVersion', currentVersion);
-              toast.success('Installing update...');
-          } else {
-              // Fallback for when service worker isn't available
-              localStorage.setItem('lastUpdateVersion', currentVersion);
-              toast.success('Updating to the latest version...');
-              window.location.reload();
+    // Immediate check on first load
+    useEffect(() => {
+      const checkVersionImmediately = async () => {
+          try {
+              // Check if we've already updated to this version
+              const lastUpdateVersion = localStorage.getItem('lastUpdateVersion');
+              if (lastUpdateVersion === currentVersion) {
+                  return;
+              }
+
+              const response = await fetch('/version.json', {
+                  cache: 'no-store',
+                  headers: {
+                      'Cache-Control': 'no-cache',
+                      'Pragma': 'no-cache'
+                  }
+              });
+              
+              if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+              
+              const data = await response.json();
+              
+              if (data.version !== currentVersion) {
+                  console.log('[Version Check] Update needed:', {
+                      current: currentVersion,
+                      new: data.version
+                  });
+                  setShowNotification(true);
+              }
+          } catch (error) {
+              console.error('[Version Check] Failed:', error);
           }
       };
+
+      checkVersionImmediately();
+    }, [currentVersion]);
+
+    const handleUpdate = () => {
+        if (waitingWorker) {
+            waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+        }
+        
+        // Store the current version as the last update version
+        localStorage.setItem('lastUpdateVersion', currentVersion);
+        setShowNotification(false);
+        
+        // Reload after a short delay to ensure service worker is activated
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+        
+        toast.success('Installing update...', {
+            duration: 3000
+        });
+    };
     
       useEffect(() => {
         if (showNotification) {
