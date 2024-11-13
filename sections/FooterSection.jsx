@@ -114,7 +114,7 @@ const FooterSection = () => {
               
               /* Position the button (1-9) */
               /* Set position to custom (9) to allow CSS override */
-              s.setAttribute('data-position', '1');
+              s.setAttribute('data-position', '3');
               
               /* Other attributes */
 
