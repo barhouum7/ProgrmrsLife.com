@@ -7,6 +7,7 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import { SuspenseLoader } from '../components';
 import * as gtag from '../lib/gtag';
 
+import NextTopLoader from 'nextjs-toploader';
 
 const ThemeProvider = dynamic(() => import('next-themes').then(mod => mod.ThemeProvider), { ssr: false });
 const HelmetProvider = dynamic(() => import('react-helmet-async').then(mod => mod.HelmetProvider), { ssr: false });
@@ -118,6 +119,21 @@ const actions = [
               <MyProvider>
                 <Suspense fallback={<SuspenseLoader />}>
                   <Layout>
+                    <NextTopLoader 
+                      color="#8A2BE2"
+                      initialPosition={0.08}
+                      crawlSpeed={200}
+                      height={3}
+                      crawl={true}
+                      showSpinner={true}
+                      easing="ease"
+                      speed={200}
+                      shadow="0 0 10px #FF69B4,0 0 5px #FF69B4"
+                      template='<div class="bar" role="bar"><div class="peg"></div></div> 
+                      <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+                      zIndex={1600}
+                      showAtBottom={false}
+                    />
                     <CommandBar {...pageProps} />
                     <div className="flex-grow">
                       <MemoizedComponent {...pageProps} />
