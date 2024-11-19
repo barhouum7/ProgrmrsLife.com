@@ -41,3 +41,6 @@ next-env.d.ts
 **/public/workbox-*.js
 **/public/fallback-*.js
 **/public/fallback-*.js.map
+
+# Backup Data
+data/tweet-backups
