@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tweet {
+  id          String   @id
+  text        String
+  authorId    String
+  username    String
+  displayName String?
+  createdAt   DateTime
+  canvaLink   String
+  tweetUrl    String
+  fetchedAt   DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model ApiCallLog {
+  id        String   @id @default(cuid())
+  date      DateTime @unique
+  callCount Int      @default(0)
+  lastCallTime DateTime
+  lastCallSuccess Boolean @default(false)
+}
+
+model Vote {
+    id        String   @id @default(cuid())
+    tweetId   String
+    type      String   // 'up' or 'down'
+    active    Boolean  @default(true)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    userId    String   @default("")
+
+    @@index([tweetId])
+    @@index([type])
+    @@index([active])
+}
