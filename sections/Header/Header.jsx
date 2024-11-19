@@ -76,7 +76,7 @@ const Header = () => {
       content: "Services"
     },
     {
-      href: "/canva-links",
+      href: "/canva-pro-invites",
       id: "canva",
       content: (
         <div className="flex items-center space-x-2 group">
