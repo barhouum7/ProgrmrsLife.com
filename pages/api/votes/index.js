@@ -17,10 +17,11 @@ export default async function handler(req, res) {
         // console.log('Handling GET request for votes');
         try {
             // console.log('Attempting to fetch votes from database...');
+            const userId = getUserId(req);
             const votes = await prisma.vote.findMany({
                 where: {
                     active: true,
-                    userId: getUserId(req)  // Only get votes for this user
+                    userId: userId  // Only get votes for this user
                 },
                 select: {
                     tweetId: true,
@@ -29,9 +30,14 @@ export default async function handler(req, res) {
                     userId: true
                 }
             });
+
+            // Set the cookie here too for consistency
+            res.setHeader('Set-Cookie', `userId=${userId}; Path=/; HttpOnly; SameSite=Strict`);
+
             // console.log('Successfully fetched votes:', votes);
             return res.status(200).json({
                 success: true,
+                currentUserId: userId,
                 votes
             });
         } catch (error) {
@@ -167,6 +173,7 @@ export default async function handler(req, res) {
 
             return res.status(200).json({
                 success: true,
+                currentUserId: userId,
                 ...voteUpdate
             });
     
