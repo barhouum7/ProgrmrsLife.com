@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Head from 'next/head';
 import { motion } from 'framer-motion';
-import { AdsenseScript, CanvaLinks } from '../components';
+import { AdsenseScript, CanvaLinks, Loader } from '../components';
 
 const CanvaLinksPage = () => {
-
-const [placeAdUnit, setPlaceAdUnit] = useState(false);
+    
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 5000); // 5 seconds delay
+    
+        return () => clearTimeout(timer);
+    }, []);
+    
+    const [placeAdUnit, setPlaceAdUnit] = useState(false);
     useEffect(() => {
         const timer = setTimeout(() => {
         setPlaceAdUnit(true);
-        }, 5000); // 5 seconds delay
+        }, 2000); // 2 seconds delay
     
         return () => clearTimeout(timer);
     }, []);
@@ -41,88 +50,94 @@ const [placeAdUnit, setPlaceAdUnit] = useState(false);
                 <meta property="og:image" content="https://www.progrmrslife.com/icons/icon-512x512.png" />
                 <meta property="og:url" content="https://www.progrmrslife.com/canva-links" />
             </Head>
-            
-            <div className="flex py-8">
-                <div className="flex-1 container mx-auto px-4 md:px-10 py-8">
-                    <div className="mb-4">
-                        {
-                        placeAdUnit && (
-                            <>
-                            {/* <!-- Recommended-ad-unit --> */}
-                            {/* <ins className="adsbygoogle"
-                            style={{ display: 'block' }}
-                            data-ad-client="ca-pub-1339539882255727"
-                            data-ad-slot="9618957531"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins> */}
 
-                            {/* <!-- Recommended-ad-unit --> */}
-                            <ins className="adsbygoogle"
-                            style={{ display: 'block' }}
-                            data-ad-client="ca-pub-5021308603136043"
-                            data-ad-slot="3167248456"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins>
-                        </>
-                        )
-                        }
-                    </div>
-                    <AdsenseScript />
-
-                    <motion.div variants={fadeInUp}>
-                        <CanvaLinks />
-                    </motion.div>
-
-                    <motion.div variants={fadeInUp} className="mt-4">
+            {isLoading ? (
+                <Loader
+                    loading={isLoading}
+                />
+            ) : (
+                <div className="flex py-8">
+                    <div className="flex-1 container mx-auto px-4 md:px-10 py-8">
                         <div className="mb-4">
                             {
-                                placeAdUnit && (
-                                    <>
-                                    {/* <!-- Recommended-ad-unit --> */}
-                                    {/* <ins className="adsbygoogle"
-                                    style={{ display: 'block' }}
-                                    data-ad-client="ca-pub-1339539882255727"
-                                    data-ad-slot="9618957531"
-                                    data-ad-format="auto"
-                                    data-full-width-responsive="true"></ins> */}
+                            placeAdUnit && (
+                                <>
+                                {/* <!-- Recommended-ad-unit --> */}
+                                {/* <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-1339539882255727"
+                                data-ad-slot="9618957531"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins> */}
 
-                                    {/* <!-- Recommended-ad-unit --> */}
-                                    <ins className="adsbygoogle"
-                                    style={{ display: 'block' }}
-                                    data-ad-client="ca-pub-5021308603136043"
-                                    data-ad-slot="3167248456"
-                                    data-ad-format="auto"
-                                    data-full-width-responsive="true"></ins>
-                                </>
+                                {/* <!-- Recommended-ad-unit --> */}
+                                <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-5021308603136043"
+                                data-ad-slot="3167248456"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            </>
                             )
                             }
                         </div>
-                    </motion.div>
-                </div>
+                        <AdsenseScript />
 
-                {/* Right side ad */}
-                <div className="hidden lg:block w-fit py-20 sticky top-20 -ml-8">
-                    {placeAdUnit && (
-                        <>
-                            {/* <!-- Recommended-ad-unit --> */}
-                            {/* <ins className="adsbygoogle"
-                            style={{ display: 'block' }}
-                            data-ad-client="ca-pub-1339539882255727"
-                            data-ad-slot="9618957531"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins> */}
+                        <motion.div variants={fadeInUp}>
+                            <CanvaLinks />
+                        </motion.div>
 
-                            {/* <!-- Recommended-ad-unit --> */}
-                            <ins className="adsbygoogle"
-                            style={{ display: 'block' }}
-                            data-ad-client="ca-pub-5021308603136043"
-                            data-ad-slot="3167248456"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins>
-                        </>
-                    )}
+                        <motion.div variants={fadeInUp} className="mt-4">
+                            <div className="mb-4">
+                                {
+                                    placeAdUnit && (
+                                        <>
+                                        {/* <!-- Recommended-ad-unit --> */}
+                                        {/* <ins className="adsbygoogle"
+                                        style={{ display: 'block' }}
+                                        data-ad-client="ca-pub-1339539882255727"
+                                        data-ad-slot="9618957531"
+                                        data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins> */}
+
+                                        {/* <!-- Recommended-ad-unit --> */}
+                                        <ins className="adsbygoogle"
+                                        style={{ display: 'block' }}
+                                        data-ad-client="ca-pub-5021308603136043"
+                                        data-ad-slot="3167248456"
+                                        data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins>
+                                    </>
+                                )
+                                }
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    {/* Right side ad */}
+                    <div className="hidden lg:block w-fit py-20 sticky top-20 -ml-8">
+                        {placeAdUnit && (
+                            <>
+                                {/* <!-- Recommended-ad-unit --> */}
+                                {/* <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-1339539882255727"
+                                data-ad-slot="9618957531"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins> */}
+
+                                {/* <!-- Recommended-ad-unit --> */}
+                                <ins className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-client="ca-pub-5021308603136043"
+                                data-ad-slot="3167248456"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
         </motion.div>
     );
 };

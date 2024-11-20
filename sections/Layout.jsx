@@ -307,18 +307,20 @@ const Layout = ({ children }) => {
         </Script>
 
         <VersionNotifier />
-      
-        <Header/>
-        <main className={`min-h-screen relative rounded-t px-2 dark:bg-gray-900 shadow-md bg-indigo-100`}>
-            <h1 className="sr-only">ProgrmrsLife - Web Development and Tech Insights</h1>
-            {/* <div className="mt-4">
-              <Search />
-            </div> */}
-            {children}
-            <AdSupportModal />
-        </main>
-        <Subscribe />
-        <Footer />
+        
+        <div className="min-h-screen">
+          <Header/>
+          <main className={`min-h-screen relative rounded-t px-2 dark:bg-gray-900 shadow-md bg-indigo-100`}>
+              <h1 className="sr-only">ProgrmrsLife - Web Development and Tech Insights</h1>
+              {/* <div className="mt-4">
+                <Search />
+              </div> */}
+              {children}
+              <AdSupportModal />
+          </main>
+          <Subscribe />
+          <Footer />
+        </div>
         
         <ScrollToTopButton />
         <ChatWithAIButton />

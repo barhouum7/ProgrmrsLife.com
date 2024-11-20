@@ -217,14 +217,6 @@ const CanvaLinks = () => {
         };
 
         const initializeWebSocket = async () => {
-            // Wait for currentUserId to be set
-            if (!currentUserId) {
-                if (mounted) {
-                    reconnectTimeout = setTimeout(initializeWebSocket, 1000);
-                }
-                return;
-            }
-
             try {
                 await wsService.connect();
                 

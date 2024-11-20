@@ -71,7 +71,7 @@ const Header = () => {
       )
     },
     {
-      href: "/Services",
+      href: "/services",
       id: "services",
       content: "Services"
     },
@@ -114,9 +114,23 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [closeBanner]);
 
+
+  useEffect(() => {
+    // Add a class to the body when banner is shown
+    if (showBanner) {
+      document.body.classList.add('has-banner');
+    } else {
+      document.body.classList.remove('has-banner');
+    }
+    return () => {
+      document.body.classList.remove('has-banner');
+    };
+  }, [showBanner]);
+  
+
   return (
     <header 
-      className={`relative ${!showBanner ? 'h-20 sm:h-20' : 'h-40 sm:h-28'}`}
+      className={`fixed top-0 right-0 left-0 ${!showBanner ? 'h-20' : 'h-40'}`}
       style={{ zIndex: 50 }}
     >
       <AnnouncementBanner
@@ -128,7 +142,6 @@ const Header = () => {
       
       <nav
         className={`w-full h-16 fixed transition-all duration-500
-          ${showBanner ? 'top-10 sm:top-0 mt-12 sm:mt-0' : 'top-0 mt-0'}
           left-0 flex-grow sm:px-6 rounded-b shadow-lg
           dark:bg-opacity-90 dark:bg-gray-800 bg-opacity-90`}
         style={bgStyle}
@@ -198,12 +211,12 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         <div
-          className={`md:hidden fixed z-40 inset-0 transform transition-transform duration-300 ease-in-out ${
+          className={`md:hidden fixed z-40 inset-0 w-full transform transition-transform duration-300 ease-in-out ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
           style={{ top: '4rem' }}
         >
-          <div className="bg-white dark:bg-gray-900 h-full shadow-xl">
+          <div className="bg-white dark:bg-gray-900 h-full shadow-xl w-full">
             <div className="pt-4 pb-3 space-y-1">
               {navItems.map(({ href, id, content }) => (
                 <div

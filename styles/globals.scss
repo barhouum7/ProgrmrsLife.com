@@ -28,6 +28,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
   &:before {
     content: '';
     width: 100%;
@@ -143,4 +144,30 @@ a {
   to {
     transform: translateX(100%);
   }
+}
+
+
+
+/* Main content padding based on banner state */
+body.has-banner main {
+  margin-top: 4rem;
+}
+
+body main {
+  margin-top: 3rem;
+}
+
+@media (max-width: 640px) {
+  body.has-banner main {
+    margin-top: 5rem;
+  }
+  
+  body main {
+    margin-top: 3rem;
+  }
+}
+
+/* Ensure smooth transitions */
+main {
+  transition: padding-top 0.3s ease-in-out;
 }
