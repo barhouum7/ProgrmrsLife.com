@@ -226,10 +226,17 @@ if (totalPages > MAX_VISIBLE_PAGES) {
           <Loader 
             loading={isLoading}
           />
+
         ) : error ? (
-          <div className="text-center justify-center">
-            <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
-            <p className="mb-4 text-2xl tracking-tight font-bold text-white md:text-3xl dark:text-white">There was an error loading the posts. Please try again later.</p>
+          <div className="flex flex-col items-center justify-center min-h-[50vh]">
+              <h1 className="mb-4 tracking-tight font-extrabold text-4xl md:text-7xl text-red-400 dark:text-red-400">Whoops!</h1>
+              <p className="mb-4 text-2xl tracking-tight font-bold text-gray-800 md:text-3xl dark:text-white">There was an error loading this page.</p>
+              <button 
+                  onClick={() => window.location.reload()}
+                  className="px-6 py-2 bg-red-400 hover:bg-red-500 text-white rounded-lg transition-colors"
+              >
+                  Try Again
+              </button>
           </div>
         ) : (
             <div>
