@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { AdjacentPostCard } from '../components';
 import { getAdjacentPosts } from '../services';
@@ -32,6 +33,11 @@ return (
     )}
 </div>
 );
+};
+
+AdjacentPosts.propTypes = {
+  createdAt: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired
 };
 
 export default AdjacentPosts;
