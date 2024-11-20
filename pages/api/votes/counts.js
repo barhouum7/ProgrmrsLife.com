@@ -8,13 +8,9 @@ export default async function handler(req, res) {
     try {
         // Get all active votes
         const votes = await prisma.vote.findMany({
-            where: {
-                active: true,
-            },
             select: {
                 tweetId: true,
                 type: true,
-                active: true,
                 createdAt: true
             },
             orderBy: {
