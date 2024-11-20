@@ -99,7 +99,7 @@ async function fetchAllItems(query, itemType) {
           <priority>0.8</priority>
         </url>
         <url>
-          <loc>https://www.progrmrslife.com/Services</loc>
+          <loc>https://www.progrmrslife.com/services</loc>
           <lastmod>${new Date().toISOString()}</lastmod>
           <changefreq>weekly</changefreq>
           <priority>0.8</priority>

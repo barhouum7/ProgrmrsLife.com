@@ -77,7 +77,7 @@ const actions = [
     keywords: ["services, services page"],
     section: "Navigation",
     perform: () => {
-      window.location.href = "/Services"
+      window.location.href = "/services"
     },
     subtitle: "Go to the services page",
     icon: <ServicesIcon />,
