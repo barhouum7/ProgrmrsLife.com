@@ -116,6 +116,12 @@ async function fetchAllItems(query, itemType) {
           <changefreq>monthly</changefreq>
           <priority>0.5</priority>
         </url>
+        <url>
+          <loc>https://www.progrmrslife.com/canva-pro-invites</loc>
+          <lastmod>${new Date().toISOString()}</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>0.5</priority>
+        </url>
         ${categories
           .map(({ slug, updatedAt }) => {
             return `
