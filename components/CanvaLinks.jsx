@@ -293,49 +293,49 @@ const CanvaLinks = () => {
 
         // Immediately invoke the fetch
         fetchVoteCounts();
-    }, []); // Empty dependency array for initial mount only
+    }, []);
 
-    // // Get votes on component mount
-    // useEffect(() => {
-    //     const fetchVotes = async () => {
-    //         try {
-    //             console.log('[ CanvaLinks.jsx ] Initial fetch - Fetching user votes...');
-    //             const response = await fetch('/api/votes', {
-    //                 // Add cache control headers to prevent caching
-    //                 headers: {
-    //                     'Cache-Control': 'no-cache, no-store, must-revalidate',
-    //                     'Pragma': 'no-cache'
-    //                 }
-    //             });
-    //             const data = await response.json();
+    // Get votes on component mount
+    useEffect(() => {
+        const fetchVotes = async () => {
+            try {
+                console.log('[ CanvaLinks.jsx ] Initial fetch - Fetching user votes...');
+                const response = await fetch('/api/votes', {
+                    // Add cache control headers to prevent caching
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                });
+                const data = await response.json();
 
-    //             console.log('[ CanvaLinks.jsx ] Initial fetch - User votes response:', {
-    //                 status: response.status,
-    //                 ok: response.ok,
-    //                 data
-    //             });
+                console.log('[ CanvaLinks.jsx ] Initial fetch - User votes response:', {
+                    status: response.status,
+                    ok: response.ok,
+                    data
+                });
 
-    //             if (response.ok && data.success && data.votes) {
-    //                 const formattedVotes = data.votes.reduce((acc, vote) => {
-    //                     acc[vote.tweetId] = {
-    //                         type: vote.type,
-    //                         lastVoteTime: vote.createdAt
-    //                     };
-    //                     return acc;
-    //                 }, {});
+                if (response.ok && data.success && data.votes) {
+                    const formattedVotes = data.votes.reduce((acc, vote) => {
+                        acc[vote.tweetId] = {
+                            type: vote.type,
+                            lastVoteTime: vote.createdAt
+                        };
+                        return acc;
+                    }, {});
 
-    //                 setVotes(formattedVotes);
-    //             } else {
-    //                 console.warn('[ CanvaLinks.jsx ] Initial fetch - Failed to fetch user votes:', data);
-    //             }
-    //         } catch (error) {
-    //             console.error('[ CanvaLinks.jsx ] Initial fetch - Error fetching user votes:', error);
-    //         }
-    //     };
+                    setVotes(formattedVotes);
+                } else {
+                    console.warn('[ CanvaLinks.jsx ] Initial fetch - Failed to fetch user votes:', data);
+                }
+            } catch (error) {
+                console.error('[ CanvaLinks.jsx ] Initial fetch - Error fetching user votes:', error);
+            }
+        };
 
-    //     // Immediately invoke the fetch
-    //     fetchVotes();
-    // }, []); // Empty dependency array for initial mount only
+        // Immediately invoke the fetch
+        fetchVotes();
+    }, []);
 
     
     const handleVote = async (tweetId, voteType) => {
@@ -571,16 +571,23 @@ const CanvaLinks = () => {
         // Reset daily call status at midnight
         const resetDailyStatus = () => {
             const now = new Date();
-            const tomorrow = startOfTomorrow();
-            const timeUntilMidnight = tomorrow.getTime() - now.getTime();
+            const today = new Date(now);
+            const midday = new Date(today.setHours(12, 0, 0, 0));
+
+            // If it's past midday, set for next day's midday
+            if (now > midday) {
+                midday.setDate(midday.getDate() + 1);
+            }
+
+            const timeUntilMidDay = midday.getTime() - now.getTime();
 
             setTimeout(() => {
                 setDailyCallMade(false);
-                setNextRefreshTime(addDays(tomorrow, 1));
+                setNextRefreshTime(new Date(midday.getTime() + 24 * 60 * 60 * 1000));
                 if (autoRefreshEnabled) {
                     fetchCanvaLinks();
                 }
-            }, timeUntilMidnight);
+            }, timeUntilMidDay);
         };
 
         resetDailyStatus();
@@ -798,7 +805,7 @@ const CanvaLinks = () => {
                             Latest Canva PRO Teams
                         </h1>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Fresh links updated daily at midnight UTC
+                            Fresh links updated daily at 12:00 PM UTC
                         </p>
                     </div>
 
