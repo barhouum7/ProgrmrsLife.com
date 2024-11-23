@@ -246,96 +246,110 @@ const CanvaLinks = () => {
     }, [currentUserId]);
 
 
+    const [votesLoading, setVotesLoading] = useState(true);
 
     // First function to fetch initial vote counts when the component mounts
-    useEffect(() => {
-        const fetchVoteCounts = async () => {
-            try {
-                // console.log('[ CanvaLinks.jsx ] Initial fetch - Fetching vote counts...');
-                const [votesResponse, countsResponse] = await Promise.all([
-                    fetch('/api/votes', {
-                        headers: {
-                            'Cache-Control': 'no-cache, no-store, must-revalidate',
-                            'Pragma': 'no-cache'
-                        }
-                    }),
-                    fetch('/api/votes/counts', {
-                        headers: {
-                            'Cache-Control': 'no-cache, no-store, must-revalidate',
-                            'Pragma': 'no-cache'
-                        }
-                    })
-                ]);
-
-                const [votesData, countsData] = await Promise.all([
-                    votesResponse.json(),
-                    countsResponse.json()
-                ]);
-
-                if (votesData.success && votesData.votes) {
-                    const formattedVotes = votesData.votes.reduce((acc, vote) => {
-                        acc[vote.tweetId] = {
-                            type: vote.type,
-                            lastVoteTime: vote.createdAt
-                        };
-                        return acc;
-                    }, {});
-                    setVotes(formattedVotes);
-                }
-
-                if (countsData.success && countsData.counts) {
-                    setVoteCounts(countsData.counts);
-                }
-            } catch (error) {
-                console.error('[ CanvaLinks.jsx ] Initial fetch - Error fetching vote counts:', error);
-            }
-        };
-
-        // Immediately invoke the fetch
-        fetchVoteCounts();
-    }, []);
-
-    // Get votes on component mount
-    useEffect(() => {
-        const fetchVotes = async () => {
-            try {
-                console.log('[ CanvaLinks.jsx ] Initial fetch - Fetching user votes...');
-                const response = await fetch('/api/votes', {
-                    // Add cache control headers to prevent caching
+    const fetchInitialData = async () => {
+        setVotesLoading(true);
+        try {
+            const [votesResponse, countsResponse] = await Promise.all([
+                fetch('/api/votes', {
                     headers: {
                         'Cache-Control': 'no-cache, no-store, must-revalidate',
                         'Pragma': 'no-cache'
                     }
-                });
-                const data = await response.json();
-
-                console.log('[ CanvaLinks.jsx ] Initial fetch - User votes response:', {
-                    status: response.status,
-                    ok: response.ok,
-                    data
-                });
-
-                if (response.ok && data.success && data.votes) {
-                    const formattedVotes = data.votes.reduce((acc, vote) => {
-                        acc[vote.tweetId] = {
-                            type: vote.type,
-                            lastVoteTime: vote.createdAt
-                        };
-                        return acc;
-                    }, {});
-
-                    setVotes(formattedVotes);
-                } else {
-                    console.warn('[ CanvaLinks.jsx ] Initial fetch - Failed to fetch user votes:', data);
-                }
-            } catch (error) {
-                console.error('[ CanvaLinks.jsx ] Initial fetch - Error fetching user votes:', error);
+                }),
+                fetch('/api/votes/counts', {
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                })
+            ]);
+    
+            if (!votesResponse.ok || !countsResponse.ok) {
+                throw new Error('Failed to fetch vote data');
             }
-        };
+    
+            const [votesData, countsData] = await Promise.all([
+                votesResponse.json(),
+                countsResponse.json()
+            ]);
+    
+            if (votesData.success && votesData.votes) {
+                const formattedVotes = votesData.votes.reduce((acc, vote) => {
+                    acc[vote.tweetId] = {
+                        type: vote.type,
+                        lastVoteTime: vote.createdAt
+                    };
+                    return acc;
+                }, {});
+                setVotes(formattedVotes);
+            }
+    
+            if (countsData.success && countsData.counts) {
+                setVoteCounts(countsData.counts);
+            }
+    
+            // Set current user ID if available
+            if (votesData.currentUserId) {
+                setCurrentUserId(votesData.currentUserId);
+            }
+    
+        } catch (error) {
+            console.error('Error fetching initial vote data:', error);
+            toast.error('Failed to load vote data. Please refresh the page.');
+        } finally {
+            setVotesLoading(false);
+        }
+    };
 
-        // Immediately invoke the fetch
-        fetchVotes();
+
+    useEffect(() => {
+        fetchInitialData();
     }, []);
+
+    // Get votes on component mount
+    // useEffect(() => {
+    //     const fetchVotes = async () => {
+    //         try {
+    //             console.log('[ CanvaLinks.jsx ] Initial fetch - Fetching user votes...');
+    //             const response = await fetch('/api/votes', {
+    //                 // Add cache control headers to prevent caching
+    //                 headers: {
+    //                     'Cache-Control': 'no-cache, no-store, must-revalidate',
+    //                     'Pragma': 'no-cache'
+    //                 }
+    //             });
+    //             const data = await response.json();
+
+    //             console.log('[ CanvaLinks.jsx ] Initial fetch - User votes response:', {
+    //                 status: response.status,
+    //                 ok: response.ok,
+    //                 data
+    //             });
+
+    //             if (response.ok && data.success && data.votes) {
+    //                 const formattedVotes = data.votes.reduce((acc, vote) => {
+    //                     acc[vote.tweetId] = {
+    //                         type: vote.type,
+    //                         lastVoteTime: vote.createdAt
+    //                     };
+    //                     return acc;
+    //                 }, {});
+
+    //                 setVotes(formattedVotes);
+    //             } else {
+    //                 console.warn('[ CanvaLinks.jsx ] Initial fetch - Failed to fetch user votes:', data);
+    //             }
+    //         } catch (error) {
+    //             console.error('[ CanvaLinks.jsx ] Initial fetch - Error fetching user votes:', error);
+    //         }
+    //     };
+
+    //     // Immediately invoke the fetch
+    //     fetchVotes();
+    // }, []);
 
     
     const handleVote = async (tweetId, voteType) => {
@@ -1176,98 +1190,126 @@ const CanvaLinks = () => {
                                                             <span>Posted <span className="text-amber-600 dark:text-amber-400 font-mono">{formatRelativeTime(tweet.created_at)}</span></span>
                                                         </div>
 
+
                                                         {/* Voting section */}
                                                         <div className="flex items-center gap-2 sm:border-l border-gray-300 dark:border-gray-600 sm:pl-4">
-                                                            <div className="flex items-center space-x-2">
-                                                                <Tooltip 
-                                                                    content={`${voteCounts[tweet.id]?.up || 0} ${
-                                                                        voteCounts[tweet.id]?.up === 1 ? 'user' : 'users'
-                                                                    } confirmed working`} 
-                                                                    style="dark"
-                                                                >
-                                                                    <button
-                                                                        onClick={() => handleVote(tweet.id, 'up')}
-                                                                        disabled={votingId === tweet.id}
-                                                                        className={`p-2.5 rounded-lg transition-all duration-300 group relative
-                                                                            ${votingId === tweet.id ? 'opacity-50 cursor-progress' : ''}
-                                                                            ${votes[tweet.id]?.type === 'up'
-                                                                                ? 'bg-gradient-to-r from-green-100/80 to-emerald-100/80 dark:from-green-800/30 dark:to-emerald-800/30'
-                                                                                : 'hover:bg-gradient-to-r hover:from-green-100/50 hover:to-emerald-100/50 dark:hover:from-green-800/20 dark:hover:to-emerald-800/20'
-                                                                            } hover:scale-110 hover:shadow-lg`}
-                                                                    >
-                                                                        <div className="flex items-center space-x-1.5">
-                                                                            <FaThumbsUp className={`w-3.5 h-3.5 transition-colors duration-300
-                                                                                ${votingId === tweet.id ? 'animate-pulse' : ''}
-                                                                                ${votes[tweet.id]?.type === 'up'
-                                                                                    ? 'text-green-600 dark:text-green-400'
-                                                                                    : 'text-gray-500 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400'
-                                                                                }`} 
-                                                                            />
-                                                                            <span className={`text-xs font-medium transition-colors duration-300
-                                                                                ${votes[tweet.id]?.type === 'up'
-                                                                                    ? 'text-green-600 dark:text-green-400'
-                                                                                    : 'text-gray-500 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400'
-                                                                                }`}
-                                                                            >
-                                                                                {voteCounts[tweet.id]?.up ?? 0}
-                                                                            </span>
+                                                            {votesLoading ? (
+                                                                <div className="animate-pulse">
+                                                                    <div className="flex items-center space-x-2">
+                                                                        {/* Up vote skeleton */}
+                                                                        <div className="p-2.5 rounded-lg bg-gray-100 dark:bg-gray-700/50 animate-pulse">
+                                                                            <div className="flex items-center space-x-1.5">
+                                                                                <div className="w-3.5 h-3.5 bg-gray-200 dark:bg-gray-600 rounded"></div>
+                                                                                <div className="w-4 h-3.5 bg-gray-200 dark:bg-gray-600 rounded"></div>
+                                                                            </div>
                                                                         </div>
-                                                                    </button>
-                                                                </Tooltip>
 
-                                                                <Tooltip 
-                                                                    content={`${voteCounts[tweet.id]?.down || 0} ${
-                                                                        voteCounts[tweet.id]?.down === 1 ? 'user' : 'users'
-                                                                    } reported broken`} 
-                                                                    style="dark"
-                                                                >
-                                                                    <button
-                                                                        onClick={() => handleVote(tweet.id, 'down')}
-                                                                        disabled={votingId === tweet.id}
-                                                                        className={`p-2.5 rounded-lg transition-all duration-300 group relative
-                                                                            ${votingId === tweet.id ? 'opacity-50 cursor-progress' : ''}
-                                                                            ${votes[tweet.id]?.type === 'down'
-                                                                                ? 'bg-gradient-to-r from-red-100/80 to-rose-100/80 dark:from-red-800/30 dark:to-rose-800/30'
-                                                                                : 'hover:bg-gradient-to-r hover:from-red-100/50 hover:to-rose-100/50 dark:hover:from-red-800/20 dark:hover:to-rose-800/20'
-                                                                            } hover:scale-110 hover:shadow-lg`}
-                                                                    >
-                                                                        <div className="flex items-center space-x-1.5">
-                                                                            <FaThumbsDown className={`w-3.5 h-3.5 transition-colors duration-300
-                                                                                ${votingId === tweet.id ? 'animate-pulse' : ''}
-                                                                                ${votes[tweet.id]?.type === 'down'
-                                                                                    ? 'text-red-600 dark:text-red-400'
-                                                                                    : 'text-gray-500 dark:text-gray-400 group-hover:text-red-600 dark:group-hover:text-red-400'
-                                                                                }`} 
-                                                                            />
-                                                                            <span className={`text-xs font-medium transition-colors duration-300
-                                                                                ${votes[tweet.id]?.type === 'down'
-                                                                                    ? 'text-red-600 dark:text-red-400'
-                                                                                    : 'text-gray-500 dark:text-gray-400 group-hover:text-red-600 dark:group-hover:text-red-400'
-                                                                                }`}
-                                                                            >
-                                                                                {voteCounts[tweet.id]?.down ?? 0}
-                                                                            </span>
+                                                                        {/* Down vote skeleton */}
+                                                                        <div className="p-2.5 rounded-lg bg-gray-100 dark:bg-gray-700/50 animate-pulse">
+                                                                            <div className="flex items-center space-x-1.5">
+                                                                                <div className="w-3.5 h-3.5 bg-gray-200 dark:bg-gray-600 rounded"></div>
+                                                                                <div className="w-4 h-3.5 bg-gray-200 dark:bg-gray-600 rounded"></div>
+                                                                            </div>
                                                                         </div>
-                                                                    </button>
-                                                                </Tooltip>
-                                                            </div>
-                                                            
-                                                            {/* Last vote time indicator */}
-                                                            {voteCounts[tweet.id]?.latestVote && (
-                                                                <div className="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500 w-full sm:w-auto">
-                                                                    <Tooltip content={voteCounts[tweet.id].latestVote.type === 'up' ? 'Last confirmed working' : 'Last reported broken'} style="dark">
-                                                                        <div className="flex items-center space-x-1">
-                                                                            <span>Status:</span>
-                                                                            <span className={`font-medium ${
-                                                                                voteCounts[tweet.id].latestVote.type === 'up' 
-                                                                                    ? 'text-green-500 dark:text-green-400' 
-                                                                                    : 'text-red-500 dark:text-red-400'
-                                                                            }`}>
-                                                                                {voteCounts[tweet.id].latestVote.type === 'up' ? 'Working' : 'Broken'} • {formatRelativeTime(voteCounts[tweet.id].latestVote.time)}
-                                                                            </span>
-                                                                        </div>
-                                                                    </Tooltip>
+
+                                                                        {/* Status skeleton */}
+                                                                        <div className="hidden sm:block w-32 h-3.5 bg-gray-100 dark:bg-gray-700/50 rounded animate-pulse"></div>
+                                                                    </div>
                                                                 </div>
+                                                            ) : (
+                                                                <>
+                                                                    <div className="flex items-center space-x-2">
+                                                                        <Tooltip 
+                                                                            content={`${voteCounts[tweet.id]?.up || 0} ${
+                                                                                voteCounts[tweet.id]?.up === 1 ? 'user' : 'users'
+                                                                            } confirmed working`} 
+                                                                            style="dark"
+                                                                        >
+                                                                            <button
+                                                                                onClick={() => handleVote(tweet.id, 'up')}
+                                                                                disabled={votingId === tweet.id}
+                                                                                className={`p-2.5 rounded-lg transition-all duration-300 group relative
+                                                                                    ${votingId === tweet.id ? 'opacity-50 cursor-progress' : ''}
+                                                                                    ${votes[tweet.id]?.type === 'up'
+                                                                                        ? 'bg-gradient-to-r from-green-100/80 to-emerald-100/80 dark:from-green-800/30 dark:to-emerald-800/30'
+                                                                                        : 'hover:bg-gradient-to-r hover:from-green-100/50 hover:to-emerald-100/50 dark:hover:from-green-800/20 dark:hover:to-emerald-800/20'
+                                                                                    } hover:scale-110 hover:shadow-lg`}
+                                                                            >
+                                                                                <div className="flex items-center space-x-1.5">
+                                                                                    <FaThumbsUp className={`w-3.5 h-3.5 transition-colors duration-300
+                                                                                        ${votingId === tweet.id ? 'animate-pulse' : ''}
+                                                                                        ${votes[tweet.id]?.type === 'up'
+                                                                                            ? 'text-green-600 dark:text-green-400'
+                                                                                            : 'text-gray-500 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400'
+                                                                                        }`} 
+                                                                                    />
+                                                                                    <span className={`text-xs font-medium transition-colors duration-300
+                                                                                        ${votes[tweet.id]?.type === 'up'
+                                                                                            ? 'text-green-600 dark:text-green-400'
+                                                                                            : 'text-gray-500 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400'
+                                                                                        }`}
+                                                                                    >
+                                                                                        {voteCounts[tweet.id]?.up ?? 0}
+                                                                                    </span>
+                                                                                </div>
+                                                                            </button>
+                                                                        </Tooltip>
+
+                                                                        <Tooltip 
+                                                                            content={`${voteCounts[tweet.id]?.down || 0} ${
+                                                                                voteCounts[tweet.id]?.down === 1 ? 'user' : 'users'
+                                                                            } reported broken`} 
+                                                                            style="dark"
+                                                                        >
+                                                                            <button
+                                                                                onClick={() => handleVote(tweet.id, 'down')}
+                                                                                disabled={votingId === tweet.id}
+                                                                                className={`p-2.5 rounded-lg transition-all duration-300 group relative
+                                                                                    ${votingId === tweet.id ? 'opacity-50 cursor-progress' : ''}
+                                                                                    ${votes[tweet.id]?.type === 'down'
+                                                                                        ? 'bg-gradient-to-r from-red-100/80 to-rose-100/80 dark:from-red-800/30 dark:to-rose-800/30'
+                                                                                        : 'hover:bg-gradient-to-r hover:from-red-100/50 hover:to-rose-100/50 dark:hover:from-red-800/20 dark:hover:to-rose-800/20'
+                                                                                    } hover:scale-110 hover:shadow-lg`}
+                                                                            >
+                                                                                <div className="flex items-center space-x-1.5">
+                                                                                    <FaThumbsDown className={`w-3.5 h-3.5 transition-colors duration-300
+                                                                                        ${votingId === tweet.id ? 'animate-pulse' : ''}
+                                                                                        ${votes[tweet.id]?.type === 'down'
+                                                                                            ? 'text-red-600 dark:text-red-400'
+                                                                                            : 'text-gray-500 dark:text-gray-400 group-hover:text-red-600 dark:group-hover:text-red-400'
+                                                                                        }`} 
+                                                                                    />
+                                                                                    <span className={`text-xs font-medium transition-colors duration-300
+                                                                                        ${votes[tweet.id]?.type === 'down'
+                                                                                            ? 'text-red-600 dark:text-red-400'
+                                                                                            : 'text-gray-500 dark:text-gray-400 group-hover:text-red-600 dark:group-hover:text-red-400'
+                                                                                        }`}
+                                                                                    >
+                                                                                        {voteCounts[tweet.id]?.down ?? 0}
+                                                                                    </span>
+                                                                                </div>
+                                                                            </button>
+                                                                        </Tooltip>
+                                                                    </div>
+
+                                                                    {/* Last vote time indicator */}
+                                                                    {voteCounts[tweet.id]?.latestVote && (
+                                                                        <div className="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500 w-full sm:w-auto">
+                                                                            <Tooltip content={voteCounts[tweet.id].latestVote.type === 'up' ? 'Last confirmed working' : 'Last reported broken'} style="dark">
+                                                                                <div className="flex items-center space-x-1">
+                                                                                    <span>Status:</span>
+                                                                                    <span className={`font-medium ${
+                                                                                        voteCounts[tweet.id].latestVote.type === 'up' 
+                                                                                            ? 'text-green-500 dark:text-green-400' 
+                                                                                            : 'text-red-500 dark:text-red-400'
+                                                                                    }`}>
+                                                                                        {voteCounts[tweet.id].latestVote.type === 'up' ? 'Working' : 'Broken'} • {formatRelativeTime(voteCounts[tweet.id].latestVote.time)}
+                                                                                    </span>
+                                                                                </div>
+                                                                            </Tooltip>
+                                                                        </div>
+                                                                    )}
+                                                                </>
                                                             )}
 
                                                         </div>
