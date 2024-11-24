@@ -643,7 +643,7 @@ const CanvaLinks = () => {
             if (autoRefreshEnabled && document.visibilityState === 'visible') {
                 fetchCanvaLinks();
                 calculateNextRefresh();
-                toast.success('Links refreshed automatically!', { id: 'auto-refresh' });
+                // toast.success('Links checked!', { id: 'auto-check' });
             }
         }, 15 * 60 * 1000); // Fetching every 15 minutes
 
@@ -652,7 +652,7 @@ const CanvaLinks = () => {
             if (document.visibilityState === 'visible' && autoRefreshEnabled) {
                 fetchCanvaLinks();
                 calculateNextRefresh();
-                toast.success('Links refreshed automatically on visibility change!', { id: 'visibility-refresh' });
+                // toast.success('Links checked!', { id: 'visibility-check' });
             }
         };
 
@@ -670,7 +670,7 @@ const CanvaLinks = () => {
         setAutoRefreshEnabled(!autoRefreshEnabled);
         toast.success(
             !autoRefreshEnabled 
-            ? 'Auto-refresh enabled - Will refresh daily at midnight' 
+            ? 'Auto-refresh enabled - Will refresh daily at 12:00 PM UTC' 
             : 'Auto-refresh disabled'
         );
     };
