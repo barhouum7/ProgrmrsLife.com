@@ -36,20 +36,24 @@ export default async function handler(req, res) {
         const forceFetch = req.query.force === 'true';
         const bypassDaily = req.query.bypass === 'true';
         const { tweets, cached, rateLimited, error } = await fetchTweets(forceFetch, bypassDaily);
+        if (error) {
+            console.error('Twitter API Error:', error); // Log the error for debugging
+            return res.status(500).json({ success: false, error: error.message || 'Failed to fetch tweets from Twitter API.' });
+        }
 
         // Transform tweets before sending to frontend
         const transformedTweets = tweets.map(transformTweet);
 
         // Add specific error handling for database operations
         try {
-            const dbCheck = await prisma.$connect();
+            await prisma.$connect();
             await prisma.apiCallLog.findFirst(); // Test query
         } catch (dbError) {
             console.error('Database Connection Error:', dbError);
             // Still return tweets but log the database error
             return res.status(200).json({
                 success: true,
-                tweets: tweets,
+                tweets: transformedTweets,
                 cached: false,
                 dailyCallMade: false,
                 error: 'Database connection failed - Data retrieved but not cached',
@@ -84,9 +88,6 @@ export default async function handler(req, res) {
 
         if (rateLimited) {
             response.message = 'Rate limit reached. Showing cached data.';
-        }
-        if (error) {
-            response.message = 'Error occurred. Showing cached data.';
         }
 
         res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate');

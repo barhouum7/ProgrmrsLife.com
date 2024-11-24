@@ -213,6 +213,8 @@ const CanvaLinks = () => {
             if (mounted) {
                 // console.log('WebSocket disconnected');
                 setWsConnected(false);
+                // Attempt to reconnect after a delay
+                reconnectTimeout = setTimeout(initializeWebSocket, 2000);
             }
         };
 
@@ -228,7 +230,6 @@ const CanvaLinks = () => {
             } catch (error) {
                 console.error('WebSocket initialization error:', error);
                 if (mounted) {
-                    clearTimeout(reconnectTimeout);
                     reconnectTimeout = setTimeout(initializeWebSocket, 2000);
                 }
             }
@@ -526,7 +527,7 @@ const CanvaLinks = () => {
         
         } catch (error) {
             console.error('Error fetching Canva links:', error);
-            setError(error.message);
+            setError(error.message || 'An unexpected error occurred. Please try again later.');
             
             
             // Determine if it's a network error
@@ -580,24 +581,22 @@ const CanvaLinks = () => {
 
     // Initial fetch and daily refresh setup
     useEffect(() => {
-        fetchCanvaLinks();
-        
-        // Reset daily call status at midnight
+        // Reset daily call status at 12:00 PM UTC
         const resetDailyStatus = () => {
             const now = new Date();
             const today = new Date(now);
-            const midday = new Date(today.setHours(12, 0, 0, 0));
+            const midday = new Date(today.setUTCHours(12, 0, 0, 0));
 
             // If it's past midday, set for next day's midday
             if (now > midday) {
-                midday.setDate(midday.getDate() + 1);
+                midday.setUTCDate(midday.getUTCDate() + 1);
             }
 
             const timeUntilMidDay = midday.getTime() - now.getTime();
 
             setTimeout(() => {
                 setDailyCallMade(false);
-                setNextRefreshTime(new Date(midday.getTime() + 24 * 60 * 60 * 1000));
+                setNextRefreshTime(new Date(midday.getTime() + 24 * 60 * 60 * 1000)); // Set for next day's refresh
                 if (autoRefreshEnabled) {
                     fetchCanvaLinks();
                 }
@@ -616,21 +615,66 @@ const CanvaLinks = () => {
             if (nextAvailable) {
                 const date = new Date(nextAvailable);
                 if (!isNaN(date.getTime())) {
+                    date.setUTCHours(12, 0, 0, 0); // Ensure time is at 12:00 PM UTC
                     setNextRefreshTime(date);
                     return;
                 }
             }
             
-            // Always set to next day at midnight
+            // Always set to next day at 12:00 PM UTC
             const next = new Date();
-            next.setHours(24, 0, 0, 0);
+            next.setUTCHours(12, 0, 0, 0); // Ensure time is at 12:00 PM UTC
+            next.setUTCDate(next.getUTCDate() + 1); // Ensure it's the next day
             setNextRefreshTime(next);
         } catch (error) {
             console.error('Error calculating next refresh time:', error);
-            // Fallback to 24 hours from now
-            setNextRefreshTime(new Date(Date.now() + 24 * 60 * 60 * 1000));
+            // Fallback to 24 hours from now at 12:00 PM UTC
+            const fallbackDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
+            fallbackDate.setUTCHours(12, 0, 0, 0); // Ensure time is at 12:00 PM UTC
+            setNextRefreshTime(fallbackDate);
         }
     }, []);
+
+
+
+    useEffect(() => {
+        // More intelligent refresh interval
+        const interval = setInterval(() => {
+            if (autoRefreshEnabled && document.visibilityState === 'visible') {
+                fetchCanvaLinks();
+                calculateNextRefresh();
+                toast.success('Links refreshed automatically!', { id: 'auto-refresh' });
+            }
+        }, 15 * 60 * 1000); // Fetching every 15 minutes
+
+        // Listen for visibility changes
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible' && autoRefreshEnabled) {
+                fetchCanvaLinks();
+                calculateNextRefresh();
+                toast.success('Links refreshed automatically on visibility change!', { id: 'visibility-refresh' });
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            clearInterval(interval);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [fetchCanvaLinks, autoRefreshEnabled, calculateNextRefresh]);
+
+
+    // Add auto-refresh toggle to UI
+    const toggleAutoRefresh = () => {
+        setAutoRefreshEnabled(!autoRefreshEnabled);
+        toast.success(
+            !autoRefreshEnabled 
+            ? 'Auto-refresh enabled - Will refresh daily at midnight' 
+            : 'Auto-refresh disabled'
+        );
+    };
+
 
 
     // Reset the flag after 24 hours
@@ -719,45 +763,6 @@ const CanvaLinks = () => {
     };
     
 
-
-    useEffect(() => {
-        fetchCanvaLinks();
-        calculateNextRefresh();
-
-        // More intelligent refresh interval
-        const interval = setInterval(() => {
-            if (autoRefreshEnabled && !document.hidden) {
-            fetchCanvaLinks();
-            calculateNextRefresh();
-            }
-        }, 15 * 60 * 1000);
-
-        // Listen for visibility changes
-        const handleVisibilityChange = () => {
-            if (!document.hidden && autoRefreshEnabled) {
-            fetchCanvaLinks();
-            calculateNextRefresh();
-            }
-        };
-
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-
-        return () => {
-            clearInterval(interval);
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-        };
-    }, [fetchCanvaLinks, autoRefreshEnabled, calculateNextRefresh]);
-
-
-    // Add auto-refresh toggle to UI
-    const toggleAutoRefresh = () => {
-        setAutoRefreshEnabled(!autoRefreshEnabled);
-        toast.success(
-            !autoRefreshEnabled 
-            ? 'Auto-refresh enabled - Will refresh daily at midnight' 
-            : 'Auto-refresh disabled'
-        );
-    };
 
     return (
         <div className="bg-gradient-to-br from-white/80 to-white/40 dark:from-gray-800/80 dark:to-gray-800/40 backdrop-blur-xl rounded-2xl p-8 mb-8 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 dark:border-gray-700/30">
