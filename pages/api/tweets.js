@@ -81,8 +81,11 @@ export default async function handler(req, res) {
             // Only consider daily call made if it was successful AND we have cached data
             // dailyCallMade: false,
             dailyCallMade: apiLog?.lastCallSuccess && transformedTweets.length > 0,
+            // Calculate the next refresh time based on the current state
             nextRefreshAvailable: cached && (!apiLog?.lastCallSuccess || tweets.length === 0) ? 
+                // If the data is cached and the last call was not successful or there are no tweets, set the next refresh time to 15 minutes after the last call
                 new Date(apiLog.lastCallTime.getTime() + 15 * 60 * 1000) : 
+                // If the data is not cached or the last call was successful and there are tweets, set the next refresh time to the next day
                 apiLog ? addDays(startOfDay(today), 1) : null
         };
 
