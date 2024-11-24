@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /components/AdBlockWarning.jsx
 
 Sitemap: https://www.progrmrslife.com/sitemap.xml

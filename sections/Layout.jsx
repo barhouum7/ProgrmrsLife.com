@@ -4,7 +4,7 @@ import Footer from "./FooterSection";
 import { Subscribe, ScrollToTopButton, ConsentPreferenceLink, ChatWithAIButton, AdSupportModal, VersionNotifier, AdBlockWarning } from "../components";
 import Head from "next/head";
 import Script from "next/script";
-import checkAdBlocker from "../scripts/adBlockDetector";
+import { checkAdBlocker } from "../scripts/adBlockDetector";
 import PropTypes from 'prop-types';
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -135,7 +135,7 @@ function makeHeartAnimation () {
     }
 }
 
-const Layout = ({ children }) => {
+const Layout = ({ children, adBlockerDetected }) => {
   
   const router = useRouter();
 
@@ -159,42 +159,48 @@ const Layout = ({ children }) => {
   //   });
   // }
 
-    const [isAdBlockerEnabled, setIsAdBlockerEnabled] = useState(false);
+    const [isAdBlockerEnabled, setIsAdBlockerEnabled] = useState(adBlockerDetected);
     const [hasChecked, setHasChecked] = useState(false);
 
     useEffect(() => {
-      const detectAdBlocker = async () => {
-        try {
-          // Initial delay to let the page load
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          const isBlocked = await checkAdBlocker();
-          setIsAdBlockerEnabled(isBlocked);
-          setHasChecked(true);
+      if (!adBlockerDetected) {
+          const detectAdBlocker = async () => {
+              try {
+                // Initial delay to let the page load
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                const isBlocked = await checkAdBlocker();
+                setIsAdBlockerEnabled(isBlocked);
+                setHasChecked(true);
+          
+                // Recheck after a short delay to catch delayed shields
+                setTimeout(async () => {
+                  const recheckBlocked = await checkAdBlocker();
+                  setIsAdBlockerEnabled(recheckBlocked);
+                }, 2000);
+              } catch (error) {
+                console.error('Error detecting ad blocker:', error);
+                setIsAdBlockerEnabled(true);
+                setHasChecked(true);
+              }
+          };
+        
+          detectAdBlocker();
+          
+          // Check again when window gains focus
+          const handleFocus = () => detectAdBlocker();
+          window.addEventListener('focus', handleFocus);
+          window.addEventListener('visibilitychange', handleFocus);
+
+          return () => {
+            window.removeEventListener('focus', handleFocus);
+            window.removeEventListener('visibilitychange', handleFocus);
+          };
+      } else {
+        setHasChecked(true);
+      }
     
-          // Recheck after a short delay to catch delayed shields
-          setTimeout(async () => {
-            const recheckBlocked = await checkAdBlocker();
-            setIsAdBlockerEnabled(recheckBlocked);
-          }, 2000);
-        } catch (error) {
-          console.error('Error detecting ad blocker:', error);
-          setIsAdBlockerEnabled(true);
-          setHasChecked(true);
-        }
-      };
     
-      detectAdBlocker();
-    
-      // Check again when window gains focus
-      const handleFocus = () => detectAdBlocker();
-      window.addEventListener('focus', handleFocus);
-      window.addEventListener('visibilitychange', handleFocus);
-    
-      return () => {
-        window.removeEventListener('focus', handleFocus);
-        window.removeEventListener('visibilitychange', handleFocus);
-      };
-    }, []);
+    }, [adBlockerDetected]);
 
     // Add CSS to detect ad blockers
     useEffect(() => {
@@ -227,7 +233,7 @@ const Layout = ({ children }) => {
     }
 
     if (isAdBlockerEnabled) {
-      return <AdBlockWarning />;
+      return <AdBlockWarning isBrave={(navigator.brave?.isBrave?.name === 'isBrave') || ('brave' in navigator)} />;
     }
 
   
@@ -351,6 +357,7 @@ Layout.propTypes = {
   closeBanner: PropTypes.bool,
   handleCloseBanner: PropTypes.func,
   bannerStyle: PropTypes.object,
+  adBlockerDetected: PropTypes.bool,
 };
 
 export default Layout;

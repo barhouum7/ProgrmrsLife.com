@@ -1,4 +1,4 @@
-const checkAdBlocker = () => {
+export const checkAdBlocker = () => {
   return new Promise((resolve) => {
     // Method 1: Check for Brave browser with active shields
     const checkBrave = async () => {
@@ -111,7 +111,7 @@ const checkAdBlocker = () => {
         
         resolve(isBlocked);
       } catch (error) {
-        // console.error('Ad blocker detection error:', error);
+        console.error('Ad blocker detection error:', error);
         resolve(false); // Don't assume blocked if there's an error
       }
     };
@@ -121,5 +121,3 @@ const checkAdBlocker = () => {
     setTimeout(runChecks, 100);
   });
 };
-
-export default checkAdBlocker;
