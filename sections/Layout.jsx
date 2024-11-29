@@ -159,65 +159,66 @@ const Layout = ({ children }) => {
   //   });
   // }
 
-    const [isAdBlockerEnabled, setIsAdBlockerEnabled] = useState(false);
-    const [hasChecked, setHasChecked] = useState(false);
 
-    useEffect(() => {
-      const detectAdBlocker = async () => {
-          try {
-            // Initial delay to let the page load
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            const isBlocked = await checkAdBlocker();
-            setIsAdBlockerEnabled(isBlocked);
-            setHasChecked(true);
+    // const [isAdBlockerEnabled, setIsAdBlockerEnabled] = useState(false);
+    // const [hasChecked, setHasChecked] = useState(false);
+
+    // useEffect(() => {
+    //   const detectAdBlocker = async () => {
+    //       try {
+    //         // Initial delay to let the page load
+    //         await new Promise(resolve => setTimeout(resolve, 1000));
+    //         const isBlocked = await checkAdBlocker();
+    //         setIsAdBlockerEnabled(isBlocked);
+    //         setHasChecked(true);
       
-            // Recheck after a short delay to catch delayed shields
-            setTimeout(async () => {
-              const recheckBlocked = await checkAdBlocker();
-              setIsAdBlockerEnabled(recheckBlocked);
-            }, 2000);
-          } catch (error) {
-            console.error('Error detecting ad blocker:', error);
-            setIsAdBlockerEnabled(true);
-            setHasChecked(true);
-          }
-      };
+    //         // Recheck after a short delay to catch delayed shields
+    //         setTimeout(async () => {
+    //           const recheckBlocked = await checkAdBlocker();
+    //           setIsAdBlockerEnabled(recheckBlocked);
+    //         }, 2000);
+    //       } catch (error) {
+    //         console.error('Error detecting ad blocker:', error);
+    //         setIsAdBlockerEnabled(true);
+    //         setHasChecked(true);
+    //       }
+    //   };
     
-      detectAdBlocker();
+    //   detectAdBlocker();
       
-      // Check again when window gains focus
-      const handleFocus = () => detectAdBlocker();
-      window.addEventListener('focus', handleFocus);
-      window.addEventListener('visibilitychange', handleFocus);
+    //   // Check again when window gains focus
+    //   const handleFocus = () => detectAdBlocker();
+    //   window.addEventListener('focus', handleFocus);
+    //   window.addEventListener('visibilitychange', handleFocus);
 
-      return () => {
-        window.removeEventListener('focus', handleFocus);
-        window.removeEventListener('visibilitychange', handleFocus);
-      };
+    //   return () => {
+    //     window.removeEventListener('focus', handleFocus);
+    //     window.removeEventListener('visibilitychange', handleFocus);
+    //   };
     
-    }, []);
+    // }, []);
 
-    // Add CSS to detect ad blockers with a delay
-    useEffect(() => {
-      const addStyle = async () => {
-        // await new Promise(resolve => setTimeout(resolve, 1000)); // Delay of 1 second
-        const style = document.createElement('style');
-        style.innerHTML = `
-          .adsbox {
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            height: 1px !important;
-            width: 1px !important;
-            background: transparent !important;
-            pointer-events: none;
-          }
-        `;
-        document.head.appendChild(style);
-      };
-      addStyle();
-      return () => document.head.removeChild(document.querySelector('style'));
-    }, []);
+    // // Add CSS to detect ad blockers with a delay
+    // useEffect(() => {
+    //   const addStyle = async () => {
+    //     // await new Promise(resolve => setTimeout(resolve, 1000)); // Delay of 1 second
+    //     const style = document.createElement('style');
+    //     style.innerHTML = `
+    //       .adsbox {
+    //         position: absolute;
+    //         top: -1px;
+    //         left: -1px;
+    //         height: 1px !important;
+    //         width: 1px !important;
+    //         background: transparent !important;
+    //         pointer-events: none;
+    //       }
+    //     `;
+    //     document.head.appendChild(style);
+    //   };
+    //   addStyle();
+    //   return () => document.head.removeChild(document.querySelector('style'));
+    // }, []);
 
     
 
@@ -298,30 +299,12 @@ const Layout = ({ children }) => {
           `}
         </Script>
 
-        {hasChecked ? (
+        {/* {hasChecked ? (
           isAdBlockerEnabled ? (
             <AdBlockWarning isBrave={(navigator.brave?.isBrave?.name === 'isBrave') || ('brave' in navigator)} />
           ) : (
             <>
-              <VersionNotifier />
-              <div className="min-h-screen">
-                <Header/>
-                <main className={`min-h-screen relative rounded-t px-2 dark:bg-gray-900 shadow-md bg-indigo-100`}>
-                    <h1 className="sr-only">ProgrmrsLife - Web Development and Tech Insights</h1>
-                    {/* <div className="mt-4">
-                      <Search />
-                    </div> */}
-                    {children}
-                    <AdSupportModal />
-                </main>
-                <Subscribe />
-                <Footer />
-              </div>
-              <ScrollToTopButton />
-              <ChatWithAIButton />
-              {/* <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
-                <ConsentPreferenceLink />
-              </div> */}
+              
             </>
           )
         ) : (
@@ -334,7 +317,28 @@ const Layout = ({ children }) => {
               data-testid="loader"
             />
           </div>
-        )}
+        )} */}
+
+
+          <VersionNotifier />
+          <div className="min-h-screen">
+            <Header/>
+            <main className={`min-h-screen relative rounded-t px-2 dark:bg-gray-900 shadow-md bg-indigo-100`}>
+                <h1 className="sr-only">ProgrmrsLife - Web Development and Tech Insights</h1>
+                {/* <div className="mt-4">
+                  <Search />
+                </div> */}
+                {children}
+                <AdSupportModal />
+            </main>
+            <Subscribe />
+            <Footer />
+          </div>
+          <ScrollToTopButton />
+          <ChatWithAIButton />
+          {/* <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
+            <ConsentPreferenceLink />
+          </div> */}
         {/* Start of All Scripts */}
 
         {/* // Code from AdSense */}
