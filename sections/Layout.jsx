@@ -135,7 +135,7 @@ function makeHeartAnimation () {
     }
 }
 
-const Layout = ({ children, adBlockerDetected }) => {
+const Layout = ({ children }) => {
   
   const router = useRouter();
 
@@ -159,82 +159,67 @@ const Layout = ({ children, adBlockerDetected }) => {
   //   });
   // }
 
-    const [isAdBlockerEnabled, setIsAdBlockerEnabled] = useState(adBlockerDetected);
+    const [isAdBlockerEnabled, setIsAdBlockerEnabled] = useState(false);
     const [hasChecked, setHasChecked] = useState(false);
 
     useEffect(() => {
-      if (!adBlockerDetected) {
-          const detectAdBlocker = async () => {
-              try {
-                // Initial delay to let the page load
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                const isBlocked = await checkAdBlocker();
-                setIsAdBlockerEnabled(isBlocked);
-                setHasChecked(true);
-          
-                // Recheck after a short delay to catch delayed shields
-                setTimeout(async () => {
-                  const recheckBlocked = await checkAdBlocker();
-                  setIsAdBlockerEnabled(recheckBlocked);
-                }, 2000);
-              } catch (error) {
-                console.error('Error detecting ad blocker:', error);
-                setIsAdBlockerEnabled(true);
-                setHasChecked(true);
-              }
-          };
-        
-          detectAdBlocker();
-          
-          // Check again when window gains focus
-          const handleFocus = () => detectAdBlocker();
-          window.addEventListener('focus', handleFocus);
-          window.addEventListener('visibilitychange', handleFocus);
-
-          return () => {
-            window.removeEventListener('focus', handleFocus);
-            window.removeEventListener('visibilitychange', handleFocus);
-          };
-      } else {
-        setHasChecked(true);
-      }
+      const detectAdBlocker = async () => {
+          try {
+            // Initial delay to let the page load
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            const isBlocked = await checkAdBlocker();
+            setIsAdBlockerEnabled(isBlocked);
+            setHasChecked(true);
+      
+            // Recheck after a short delay to catch delayed shields
+            setTimeout(async () => {
+              const recheckBlocked = await checkAdBlocker();
+              setIsAdBlockerEnabled(recheckBlocked);
+            }, 2000);
+          } catch (error) {
+            console.error('Error detecting ad blocker:', error);
+            setIsAdBlockerEnabled(true);
+            setHasChecked(true);
+          }
+      };
     
-    
-    }, [adBlockerDetected]);
+      detectAdBlocker();
+      
+      // Check again when window gains focus
+      const handleFocus = () => detectAdBlocker();
+      window.addEventListener('focus', handleFocus);
+      window.addEventListener('visibilitychange', handleFocus);
 
-    // Add CSS to detect ad blockers
-    useEffect(() => {
-      const style = document.createElement('style');
-      style.innerHTML = `
-        .adsbox {
-          position: absolute;
-          top: -1px;
-          left: -1px;
-          height: 1px !important;
-          width: 1px !important;
-          background: transparent !important;
-          pointer-events: none;
-        }
-      `;
-      document.head.appendChild(style);
-      return () => document.head.removeChild(style);
+      return () => {
+        window.removeEventListener('focus', handleFocus);
+        window.removeEventListener('visibilitychange', handleFocus);
+      };
+    
     }, []);
 
-    if (!hasChecked) {
-      return <div className="min-h-screen flex items-center justify-center">
-        <PacmanLoader
-          color={"#FFF9"}
-          loading={true}
-          size={20}
-          aria-label="Loading spinner"
-          data-testid="loader"
-        />
-      </div>;
-    }
+    // Add CSS to detect ad blockers with a delay
+    useEffect(() => {
+      const addStyle = async () => {
+        // await new Promise(resolve => setTimeout(resolve, 1000)); // Delay of 1 second
+        const style = document.createElement('style');
+        style.innerHTML = `
+          .adsbox {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            height: 1px !important;
+            width: 1px !important;
+            background: transparent !important;
+            pointer-events: none;
+          }
+        `;
+        document.head.appendChild(style);
+      };
+      addStyle();
+      return () => document.head.removeChild(document.querySelector('style'));
+    }, []);
 
-    if (isAdBlockerEnabled) {
-      return <AdBlockWarning isBrave={(navigator.brave?.isBrave?.name === 'isBrave') || ('brave' in navigator)} />;
-    }
+    
 
   
     // useEffect(() => {
@@ -293,6 +278,7 @@ const Layout = ({ children, adBlockerDetected }) => {
         <link rel="canonical" href={`https://www.progrmrslife.com${router.asPath}`} />
         <meta name="theme-color" content="#60A5FA" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {/* This meta tag is used to detect ad blockers. */}
         <meta name="detect-adblock" content="technical" />
 
         {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
@@ -312,43 +298,57 @@ const Layout = ({ children, adBlockerDetected }) => {
           `}
         </Script>
 
-        <VersionNotifier />
-        
-        <div className="min-h-screen">
-          <Header/>
-          <main className={`min-h-screen relative rounded-t px-2 dark:bg-gray-900 shadow-md bg-indigo-100`}>
-              <h1 className="sr-only">ProgrmrsLife - Web Development and Tech Insights</h1>
-              {/* <div className="mt-4">
-                <Search />
+        {hasChecked ? (
+          isAdBlockerEnabled ? (
+            <AdBlockWarning isBrave={(navigator.brave?.isBrave?.name === 'isBrave') || ('brave' in navigator)} />
+          ) : (
+            <>
+              <VersionNotifier />
+              <div className="min-h-screen">
+                <Header/>
+                <main className={`min-h-screen relative rounded-t px-2 dark:bg-gray-900 shadow-md bg-indigo-100`}>
+                    <h1 className="sr-only">ProgrmrsLife - Web Development and Tech Insights</h1>
+                    {/* <div className="mt-4">
+                      <Search />
+                    </div> */}
+                    {children}
+                    <AdSupportModal />
+                </main>
+                <Subscribe />
+                <Footer />
+              </div>
+              <ScrollToTopButton />
+              <ChatWithAIButton />
+              {/* <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
+                <ConsentPreferenceLink />
               </div> */}
-              {children}
-              <AdSupportModal />
-          </main>
-          <Subscribe />
-          <Footer />
-        </div>
-        
-        <ScrollToTopButton />
-        <ChatWithAIButton />
-        {/* <div className="h-16 z-10 fixed bottom-0 left-0 w-screen">
-          <ConsentPreferenceLink />
-        </div> */}
+            </>
+          )
+        ) : (
+          <div className="min-h-screen flex items-center justify-center">
+            <PacmanLoader
+              color={"#FFF9"}
+              loading={true}
+              size={20}
+              aria-label="Loading spinner"
+              data-testid="loader"
+            />
+          </div>
+        )}
+        {/* Start of All Scripts */}
 
-      {/* Start of All Scripts */}
+        {/* // Code from AdSense */}
+        <Script 
+          id="adsbygoogle-init"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+          async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
+          // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+        />
 
-      {/* // Code from AdSense */}
-      <Script 
-        id="adsbygoogle-init"
-        crossOrigin="anonymous"
-        async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
-        // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
-        loading="lazy"
-      />
-
-
-      {/* End of All Scripts */}
-    </div>
-  );
+        {/* End of All Scripts */}
+      </div>
+    );
 };
 
 Layout.propTypes = {
@@ -357,7 +357,6 @@ Layout.propTypes = {
   closeBanner: PropTypes.bool,
   handleCloseBanner: PropTypes.func,
   bannerStyle: PropTypes.object,
-  adBlockerDetected: PropTypes.bool,
 };
 
 export default Layout;

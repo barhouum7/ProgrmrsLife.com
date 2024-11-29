@@ -33,21 +33,7 @@ import 'tailwindcss/tailwind.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 
-import { checkAdBlocker } from '../scripts/adBlockDetector';
-
-export const getServerSideProps = async () => {
-  // Initial delay to let the page load
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  const isBlocked = await checkAdBlocker();
-  return {
-    props: {
-      adBlockerDetected: isBlocked,
-    },
-  };
-};
-
-
-function MyApp({ Component, pageProps, adBlockerDetected }) {
+function MyApp({ Component, pageProps }) {
   const MemoizedComponent = React.memo(Component);
   
   const [currentFont, setCurrentFont] = useState(defaultFont);
@@ -133,7 +119,7 @@ const actions = [
             >
               <MyProvider>
                 <Suspense fallback={<SuspenseLoader />}>
-                  <Layout adBlockerDetected={adBlockerDetected}>
+                  <Layout>
                     <NextTopLoader 
                       color="#8A2BE2"
                       initialPosition={0.08}

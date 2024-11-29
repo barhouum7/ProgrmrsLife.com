@@ -12,6 +12,7 @@ class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
           <meta name="theme-color" content="#60A5FA" />
+          {/* This meta tag is used to detect ad blockers. */}
           <meta name="detect-adblock" content="technical" />
 
           {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
