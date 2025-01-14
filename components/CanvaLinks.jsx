@@ -26,6 +26,19 @@ const CanvaLinks = () => {
     const [currentUserId, setCurrentUserId] = useState(null);
     const [hasShownCacheToast, setHasShownCacheToast] = useState(false);
 
+    // Adds a periodic refresh mechanism to fetch fresh vote counts
+    useEffect(() => {
+        // Initial fetch
+        fetchInitialData();
+    
+        // Set up periodic refresh every 30 seconds
+        const refreshInterval = setInterval(() => {
+            fetchInitialData();
+        }, 30000);
+    
+        return () => clearInterval(refreshInterval);
+    }, []);
+
     useEffect(() => {
         // Get initial user ID
         const fetchInitialUserId = async () => {
