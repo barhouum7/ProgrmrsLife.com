@@ -1254,12 +1254,43 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         </blockquote>
                                     );
                                 },
-                                table: ({ children }) => <table>{children}</table>,
-                                table_head: ({ children }) => <thead>{children}</thead>,
-                                table_body: ({ children }) => <tbody>{children}</tbody>,
-                                table_row: ({ children }) => <tr>{children}</tr>,
-                                table_cell: ({ children }) => <td>{children}</td>,
-                                table_header_cell: ({ children }) => <th>{children}</th>,
+                                table: ({ children }) => (
+                                    <div className="w-full my-8">
+                                        <table className="w-full table-fixed divide-y divide-gray-200 dark:divide-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                        {children}
+                                        </table>
+                                    </div>
+                                ),
+                                
+                                table_head: ({ children }) => (
+                                    <thead className="bg-gray-50 dark:bg-gray-800">
+                                        {children}
+                                    </thead>
+                                ),
+                                
+                                table_body: ({ children }) => (
+                                    <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+                                        {children}
+                                    </tbody>
+                                ),
+                                
+                                table_row: ({ children }) => (
+                                    <tr className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors divide-x divide-gray-200 dark:divide-gray-700">
+                                        {children}
+                                    </tr>
+                                ),
+                                
+                                table_cell: ({ children }) => (
+                                    <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-300 break-words">
+                                        {children}
+                                    </td>
+                                ),
+                                
+                                table_header_cell: ({ children }) => (
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider break-words divide-x divide-gray-200 dark:divide-gray-700">
+                                        {children}
+                                    </th>
+                                ),
                                 class: ({ children, className }) => {
                                     // const childArray = React.Children.toArray(children);
                                     // const isWaitingBlock = childArray.map(child => child.props.parent.className === 'waiting-block')
@@ -1688,8 +1719,27 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         )
                                     }
                                 },
-                                ol: ({ children }) => <ol className="list-decimal leading-10 bg-gray-200 dark:bg-gray-700 px-10 py-0 my-2 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</ol>,
-                                li: ({ children }) => <li className="text-gray-900 dark:text-gray-400">{children}</li>,
+                                ol: ({ children }) => (
+                                    <ol className="relative space-y-4 list-none pl-14 my-4 [counter-reset:section] before:content-[''] before:absolute before:left-5 before:top-2 before:bottom-2 before:w-[1px] before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent dark:before:via-gray-700">
+                                        {children}
+                                    </ol>
+                                ),
+                                li: ({ children }) => (
+                                    <li className="relative pl-2 group transition-transform duration-200 hover:translate-x-1 [counter-increment:section]">
+                                        {/* Number circle */}
+                                        <div className="absolute -left-10 top-1 flex items-center justify-center w-7 h-7 rounded-full bg-blue-50/80 dark:bg-blue-900/10 ring-1 ring-gray-200/50 dark:ring-gray-700/50">
+                                        <span className="text-base font-normal text-gray-600 dark:text-gray-300 before:content-[counter(section)]"></span>
+                                        </div>
+                                        {/* Connecting line */}
+                                        <div className="absolute -left-[14px] -z-10 top-4 w-4 h-[1px] bg-gray-200 dark:bg-gray-700"></div>
+                                        {/* Content box */}
+                                        <div className="p-4 rounded-lg bg-white/40 dark:bg-gray-800/20 hover:bg-white/60 dark:hover:bg-gray-800/30 transition-colors duration-200 ring-1 ring-gray-200/50 dark:ring-gray-700/50">
+                                        <div className="text-gray-700 dark:text-gray-200 text-base">
+                                            {children}
+                                        </div>
+                                        </div>
+                                    </li>
+                                ),
                                 ul: ({ children }) => <ul className="list-disc px-10 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
                                 img: ({ src }) => {
                                     const Image = dynamic(() => import('next/image'));
