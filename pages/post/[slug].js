@@ -290,8 +290,8 @@ const PostDetails = ({ post, error }) => {
                                 </div>
                                 <AdsenseScript />
                                 {/* <AWeberScript /> */}
-                                <motion.div className="rounded-t-lg shadow-xl lg:p-4 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl" variants={fadeInUp}>
-                                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                                <motion.div className="rounded-t-lg shadow-xl lg:p-2 mb-0 hover:shadow-indigo-500/40 hover:shadow-2xl" variants={fadeInUp}>
+                                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-2">
                                         <motion.div className='lg:col-span-8 col-span-1' variants={fadeInUp}>
                                             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl lg:p-8 pb-12 m-0 mb-8 hover:shadow-indigo-500/40 hover:shadow-2xl">
                                                 <div className={`${postContentFont.className} text-base`}>

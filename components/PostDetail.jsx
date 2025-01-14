@@ -1720,27 +1720,49 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     }
                                 },
                                 ol: ({ children }) => (
-                                    <ol className="relative space-y-4 list-none pl-14 my-4 [counter-reset:section] before:content-[''] before:absolute before:left-5 before:top-2 before:bottom-2 before:w-[1px] before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent dark:before:via-gray-700">
-                                        {children}
+                                    <ol className="relative space-y-2 list-none pl-14 my-4 [counter-reset:section] before:content-[''] before:absolute before:left-5 before:top-2 before:bottom-2 before:w-[1px] before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent dark:before:via-gray-700">
+                                      {children}
                                     </ol>
-                                ),
-                                li: ({ children }) => (
-                                    <li className="relative pl-2 group transition-transform duration-200 hover:translate-x-1 [counter-increment:section]">
-                                        {/* Number circle */}
-                                        <div className="absolute -left-10 top-1 flex items-center justify-center w-7 h-7 rounded-full bg-blue-50/80 dark:bg-blue-900/10 ring-1 ring-gray-200/50 dark:ring-gray-700/50">
-                                        <span className="text-base font-normal text-gray-600 dark:text-gray-300 before:content-[counter(section)]"></span>
-                                        </div>
-                                        {/* Connecting line */}
-                                        <div className="absolute -left-[14px] -z-10 top-4 w-4 h-[1px] bg-gray-200 dark:bg-gray-700"></div>
-                                        {/* Content box */}
-                                        <div className="p-4 rounded-lg bg-white/40 dark:bg-gray-800/20 hover:bg-white/60 dark:hover:bg-gray-800/30 transition-colors duration-200 ring-1 ring-gray-200/50 dark:ring-gray-700/50">
-                                        <div className="text-gray-700 dark:text-gray-200 text-base">
-                                            {children}
-                                        </div>
-                                        </div>
-                                    </li>
-                                ),
-                                ul: ({ children }) => <ul className="list-disc px-10 py-0 my-2 text-gray-900 dark:text-gray-100">{children}</ul>,
+                                  ),
+                                  
+                                  li: ({ children }) => {
+                                    // console.log("children:", children);
+                                    // Check if this is part of an ordered list
+                                    if (children?._owner?._debugOwner?.pendingProps?.parent?.type === 'numbered-list') {
+                                      return (
+                                        <li className="relative pl-2 group transition-transform duration-200 hover:translate-x-1 [counter-increment:section]">
+                                          {/* Number circle */}
+                                          <div className="absolute -left-10 top-1 flex items-center justify-center w-7 h-7 rounded-full bg-blue-50/80 dark:bg-blue-900/10 ring-1 ring-gray-200/50 dark:ring-gray-700/50">
+                                            <span className="text-base font-normal text-gray-600 dark:text-gray-300 before:content-[counter(section)]"></span>
+                                          </div>
+                                          {/* Connecting line */}
+                                          <div className="absolute -left-[14px] -z-10 top-4 w-6 h-[1px] bg-gray-200 dark:bg-gray-700"></div>
+                                          {/* Content box */}
+                                          <div className="p-4 rounded-lg bg-white/40 dark:bg-gray-800/20 hover:bg-white/60 dark:hover:bg-gray-800/30 transition-colors duration-200 ring-1 ring-gray-200/50 dark:ring-gray-700/50">
+                                            <div className="text-gray-700 dark:text-gray-200 text-base">
+                                              {children}
+                                            </div>
+                                          </div>
+                                        </li>
+                                      );
+                                    }
+                                    
+                                    // For unordered list items
+                                    return (
+                                      <li className="relative flex items-start pl-2">
+                                        <div className="absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500"></div>
+                                        <span className="text-gray-700 dark:text-gray-200 ml-4">
+                                          {children}
+                                        </span>
+                                      </li>
+                                    );
+                                  },
+                                  
+                                  ul: ({ children }) => (
+                                    <ul className="relative list-none space-y-2 pl-14 my-4 before:content-[''] before:absolute before:left-5 before:top-2 before:bottom-2 before:w-[1px] before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent dark:before:via-gray-700">
+                                      {children}
+                                    </ul>
+                                  ),
                                 img: ({ src }) => {
                                     const Image = dynamic(() => import('next/image'));
                                     return (
