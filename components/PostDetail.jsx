@@ -1254,6 +1254,12 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                         </blockquote>
                                     );
                                 },
+                                table: ({ children }) => <table>{children}</table>,
+                                table_head: ({ children }) => <thead>{children}</thead>,
+                                table_body: ({ children }) => <tbody>{children}</tbody>,
+                                table_row: ({ children }) => <tr>{children}</tr>,
+                                table_cell: ({ children }) => <td>{children}</td>,
+                                table_header_cell: ({ children }) => <th>{children}</th>,
                                 class: ({ children, className }) => {
                                     // const childArray = React.Children.toArray(children);
                                     // const isWaitingBlock = childArray.map(child => child.props.parent.className === 'waiting-block')
