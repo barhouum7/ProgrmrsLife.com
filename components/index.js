@@ -28,8 +28,8 @@ export { default as VersionNotifier } from './VersionNotifier'
 export { default as AdBlockWarning } from './AdBlockWarning'
 export { default as CanvaWarningModal } from './CanvaWarningModal'
 export { default as CanvaLinks } from './CanvaLinks'
-export { default as ThemeToggle } from './theme/ThemeToggle'
-export { default as CategoryDropdown } from './navigation/CategoryDropdown'
-export { default as NavLink } from './navigation/NavLink'
-export { default as AnnouncementBanner } from './AnnouncementBanner'
+export { ThemeToggle } from './theme/ThemeToggle' // This component uses a named export, not a default export
+export { CategoryDropdown } from './navigation/CategoryDropdown' // This component uses a named export, not a default export
+export { NavLink } from './navigation/NavLink' // This component uses a named export, not a default export
+export { AnnouncementBanner } from './AnnouncementBanner' // This component uses a named export, not a default export
 export { default as MockDataIndicator } from './MockDataIndicator'
