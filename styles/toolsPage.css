@@ -1,0 +1,347 @@
+/* ═══════════════════════════════════════════════════════════ */
+/*  Dev Toolkit Styles — ProgrmrsLife                         */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* ── Glass Panel ──────────────────────────────────────────── */
+.tool-glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 1rem;
+}
+:is(.dark) .tool-glass {
+  background: rgba(30, 32, 48, 0.65);
+  border-color: rgba(139, 92, 246, 0.12);
+}
+
+/* ── Tool Card (hub page) ──────────────────────────────────── */
+.tool-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+.tool-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.06) 0%,
+    rgba(236, 72, 153, 0.06) 50%,
+    rgba(59, 130, 246, 0.06) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.tool-card:hover::before {
+  opacity: 1;
+}
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -8px rgba(139, 92, 246, 0.18),
+              0 4px 16px -4px rgba(0, 0, 0, 0.06);
+}
+:is(.dark) .tool-card:hover {
+  box-shadow: 0 12px 40px -8px rgba(139, 92, 246, 0.25),
+              0 4px 16px -4px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Tool Card Icon Container ─────────────────────────────── */
+.tool-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.tool-card:hover .tool-card-icon {
+  transform: scale(1.1) rotate(-3deg);
+}
+
+/* ── Editor Panel ─────────────────────────────────────────── */
+.tool-editor {
+  min-height: 220px;
+  max-height: 500px;
+  resize: vertical;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  tab-size: 2;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(156, 163, 175, 0.25);
+  background: rgba(249, 250, 251, 0.8);
+  color: #1f2937;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  width: 100%;
+}
+.tool-editor:focus {
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+:is(.dark) .tool-editor {
+  background: rgba(17, 24, 39, 0.7);
+  border-color: rgba(75, 85, 99, 0.4);
+  color: #e5e7eb;
+}
+:is(.dark) .tool-editor:focus {
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+/* ── Output Panel ─────────────────────────────────────────── */
+.tool-output {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  tab-size: 2;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  min-height: 220px;
+  max-height: 500px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  border: 1px solid rgba(156, 163, 175, 0.15);
+  background: rgba(249, 250, 251, 0.6);
+  color: #1f2937;
+}
+:is(.dark) .tool-output {
+  background: rgba(17, 24, 39, 0.5);
+  border-color: rgba(75, 85, 99, 0.3);
+  color: #e5e7eb;
+}
+
+/* ── Action Buttons ───────────────────────────────────────── */
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.tool-btn-primary {
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  color: #ffffff;
+  border-color: rgba(139, 92, 246, 0.3);
+}
+.tool-btn-primary:hover {
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  box-shadow: 0 4px 12px -2px rgba(139, 92, 246, 0.4);
+  transform: translateY(-1px);
+}
+
+.tool-btn-secondary {
+  background: rgba(243, 244, 246, 0.8);
+  color: #374151;
+  border-color: rgba(209, 213, 219, 0.5);
+}
+.tool-btn-secondary:hover {
+  background: rgba(229, 231, 235, 0.9);
+}
+:is(.dark) .tool-btn-secondary {
+  background: rgba(55, 65, 81, 0.6);
+  color: #d1d5db;
+  border-color: rgba(75, 85, 99, 0.5);
+}
+:is(.dark) .tool-btn-secondary:hover {
+  background: rgba(75, 85, 99, 0.7);
+}
+
+.tool-btn-danger {
+  background: rgba(254, 226, 226, 0.8);
+  color: #dc2626;
+  border-color: rgba(252, 165, 165, 0.3);
+}
+.tool-btn-danger:hover {
+  background: rgba(254, 202, 202, 0.9);
+}
+:is(.dark) .tool-btn-danger {
+  background: rgba(127, 29, 29, 0.3);
+  color: #fca5a5;
+  border-color: rgba(185, 28, 28, 0.3);
+}
+
+/* ── Status Badge ─────────────────────────────────────────── */
+.tool-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.tool-badge-success {
+  background: rgba(209, 250, 229, 0.8);
+  color: #059669;
+}
+:is(.dark) .tool-badge-success {
+  background: rgba(6, 78, 59, 0.3);
+  color: #6ee7b7;
+}
+.tool-badge-error {
+  background: rgba(254, 226, 226, 0.8);
+  color: #dc2626;
+}
+:is(.dark) .tool-badge-error {
+  background: rgba(127, 29, 29, 0.3);
+  color: #fca5a5;
+}
+.tool-badge-info {
+  background: rgba(219, 234, 254, 0.8);
+  color: #2563eb;
+}
+:is(.dark) .tool-badge-info {
+  background: rgba(30, 58, 138, 0.3);
+  color: #93c5fd;
+}
+
+/* ── Sidebar Navigation ───────────────────────────────────── */
+.tool-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.tool-sidebar-link:hover {
+  background: rgba(139, 92, 246, 0.06);
+  color: #8b5cf6;
+}
+.tool-sidebar-link.active {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+  font-weight: 600;
+}
+:is(.dark) .tool-sidebar-link {
+  color: #9ca3af;
+}
+:is(.dark) .tool-sidebar-link:hover {
+  background: rgba(139, 92, 246, 0.12);
+  color: #a78bfa;
+}
+:is(.dark) .tool-sidebar-link.active {
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+}
+
+/* ── Gradient Text ────────────────────────────────────────── */
+.tool-gradient-text {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899, #3b82f6);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: toolGradientShift 4s ease infinite;
+}
+@keyframes toolGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ── Regex Match Highlighting ─────────────────────────────── */
+.regex-match {
+  background: rgba(139, 92, 246, 0.2);
+  border-bottom: 2px solid #8b5cf6;
+  padding: 0.125rem 0;
+  border-radius: 2px;
+}
+:is(.dark) .regex-match {
+  background: rgba(139, 92, 246, 0.3);
+}
+
+/* ── Color Swatch ─────────────────────────────────────────── */
+.color-swatch {
+  width: 100%;
+  height: 120px;
+  border-radius: 0.75rem;
+  border: 2px solid rgba(156, 163, 175, 0.2);
+  transition: transform 0.3s ease;
+}
+.color-swatch:hover {
+  transform: scale(1.02);
+}
+
+/* ── Diff Viewer ──────────────────────────────────────────── */
+.diff-added {
+  background: rgba(209, 250, 229, 0.5);
+  border-left: 3px solid #10b981;
+}
+:is(.dark) .diff-added {
+  background: rgba(6, 78, 59, 0.2);
+  border-left-color: #6ee7b7;
+}
+.diff-removed {
+  background: rgba(254, 226, 226, 0.5);
+  border-left: 3px solid #ef4444;
+}
+:is(.dark) .diff-removed {
+  background: rgba(127, 29, 29, 0.2);
+  border-left-color: #fca5a5;
+}
+
+/* ── Responsive Grid ──────────────────────────────────────── */
+.tools-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media (min-width: 640px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .tools-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Split Pane (Input / Output) ──────────────────────────── */
+.tool-split {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .tool-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Scroll Animation ─────────────────────────────────────── */
+@keyframes toolFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.tool-animate-in {
+  animation: toolFadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

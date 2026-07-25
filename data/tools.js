@@ -1,0 +1,173 @@
+/**
+ * Central registry of all dev tools.
+ * Used by the hub page, sidebar navigation, sitemap, and kbar actions.
+ */
+
+export const TOOL_CATEGORIES = [
+  { id: 'formatters', label: 'Formatters & Validators', emoji: '✨' },
+  { id: 'encoders',   label: 'Encoders & Decoders',    emoji: '🔐' },
+  { id: 'generators', label: 'Generators',              emoji: '⚡' },
+  { id: 'analyzers',  label: 'Analyzers & Testers',     emoji: '🔬' },
+  { id: 'converters', label: 'Converters',              emoji: '🔄' },
+];
+
+export const TOOLS = [
+  {
+    slug: 'json-formatter',
+    name: 'JSON Formatter',
+    description: 'Validate, format, and minify JSON data with instant error detection and syntax highlighting.',
+    icon: '{ }',
+    category: 'formatters',
+    color: 'from-amber-400 to-orange-500',
+    bgColor: 'bg-amber-50 dark:bg-amber-900/20',
+    keywords: ['json', 'validate', 'format', 'minify', 'prettify'],
+  },
+  {
+    slug: 'base64',
+    name: 'Base64 Encoder / Decoder',
+    description: 'Encode text to Base64 or decode Base64 strings instantly. Supports UTF-8 and file conversion.',
+    icon: '🔑',
+    category: 'encoders',
+    color: 'from-blue-400 to-cyan-500',
+    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+    keywords: ['base64', 'encode', 'decode', 'binary', 'text'],
+  },
+  {
+    slug: 'regex-tester',
+    name: 'Regex Tester',
+    description: 'Test regular expressions in real-time with match highlighting, capture groups, and flag controls.',
+    icon: '.*',
+    category: 'analyzers',
+    color: 'from-green-400 to-emerald-500',
+    bgColor: 'bg-green-50 dark:bg-green-900/20',
+    keywords: ['regex', 'regular expression', 'pattern', 'match', 'test'],
+  },
+  {
+    slug: 'css-minifier',
+    name: 'CSS / JS Minifier',
+    description: 'Minify or prettify CSS and JavaScript code with real-time size compression stats.',
+    icon: '< />',
+    category: 'formatters',
+    color: 'from-violet-400 to-purple-500',
+    bgColor: 'bg-violet-50 dark:bg-violet-900/20',
+    keywords: ['css', 'javascript', 'minify', 'compress', 'prettify', 'beautify'],
+  },
+  {
+    slug: 'jwt-decoder',
+    name: 'JWT Decoder',
+    description: 'Decode JSON Web Tokens to inspect header, payload, and signature. Check expiration dates instantly.',
+    icon: '🪙',
+    category: 'encoders',
+    color: 'from-rose-400 to-pink-500',
+    bgColor: 'bg-rose-50 dark:bg-rose-900/20',
+    keywords: ['jwt', 'json web token', 'decode', 'header', 'payload', 'auth'],
+  },
+  {
+    slug: 'color-converter',
+    name: 'Color Converter',
+    description: 'Convert colors between HEX, RGB, HSL, and HSB formats with a live visual preview and palette generator.',
+    icon: '🎨',
+    category: 'converters',
+    color: 'from-pink-400 to-fuchsia-500',
+    bgColor: 'bg-pink-50 dark:bg-pink-900/20',
+    keywords: ['color', 'hex', 'rgb', 'hsl', 'converter', 'palette'],
+  },
+  {
+    slug: 'markdown-preview',
+    name: 'Markdown Preview',
+    description: 'Write Markdown and see a live rendered preview side by side. Supports GFM tables, code blocks, and more.',
+    icon: '📝',
+    category: 'formatters',
+    color: 'from-sky-400 to-blue-500',
+    bgColor: 'bg-sky-50 dark:bg-sky-900/20',
+    keywords: ['markdown', 'preview', 'editor', 'gfm', 'render', 'live'],
+  },
+  {
+    slug: 'hash-generator',
+    name: 'Hash Generator',
+    description: 'Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from any text input for integrity verification.',
+    icon: '#️⃣',
+    category: 'generators',
+    color: 'from-teal-400 to-cyan-500',
+    bgColor: 'bg-teal-50 dark:bg-teal-900/20',
+    keywords: ['hash', 'md5', 'sha', 'sha256', 'checksum', 'digest'],
+  },
+  {
+    slug: 'url-encoder',
+    name: 'URL Encoder / Decoder',
+    description: 'Encode or decode URLs and query strings. Handles special characters and Unicode safely.',
+    icon: '🔗',
+    category: 'encoders',
+    color: 'from-indigo-400 to-blue-500',
+    bgColor: 'bg-indigo-50 dark:bg-indigo-900/20',
+    keywords: ['url', 'encode', 'decode', 'percent', 'query string', 'uri'],
+  },
+  {
+    slug: 'diff-checker',
+    name: 'Diff Checker',
+    description: 'Compare two blocks of text side by side and instantly visualize additions, deletions, and changes.',
+    icon: '⇄',
+    category: 'analyzers',
+    color: 'from-emerald-400 to-green-500',
+    bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
+    keywords: ['diff', 'compare', 'text', 'difference', 'merge', 'changes'],
+  },
+  {
+    slug: 'json-to-typescript',
+    name: 'JSON → TypeScript',
+    description: 'Convert any JSON object into clean TypeScript interfaces. Handles nested objects, arrays, and mixed types.',
+    icon: '⚡',
+    category: 'converters',
+    color: 'from-blue-500 to-indigo-600',
+    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+    keywords: ['json', 'typescript', 'interface', 'convert', 'type', 'codegen'],
+  },
+  {
+    slug: 'lorem-ipsum',
+    name: 'Lorem Ipsum Generator',
+    description: 'Generate placeholder text in paragraphs, sentences, or words with word and character count.',
+    icon: '📄',
+    category: 'generators',
+    color: 'from-gray-400 to-slate-500',
+    bgColor: 'bg-gray-50 dark:bg-gray-900/20',
+    keywords: ['lorem', 'ipsum', 'placeholder', 'dummy', 'text', 'filler'],
+  },
+  {
+    slug: 'crontab-generator',
+    name: 'Crontab Generator',
+    description: 'Build cron expressions visually with common presets and human-readable schedule descriptions.',
+    icon: '⏰',
+    category: 'generators',
+    color: 'from-orange-400 to-red-500',
+    bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+    keywords: ['cron', 'crontab', 'schedule', 'timer', 'job', 'automation'],
+  },
+  {
+    slug: 'text-case-converter',
+    name: 'Text Case Converter',
+    description: 'Convert text between 12 cases: camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE, and more.',
+    icon: 'Aa',
+    category: 'converters',
+    color: 'from-cyan-400 to-teal-500',
+    bgColor: 'bg-cyan-50 dark:bg-cyan-900/20',
+    keywords: ['case', 'camelcase', 'snakecase', 'kebab', 'pascal', 'uppercase', 'lowercase'],
+  },
+  {
+    slug: 'password-generator',
+    name: 'Password Generator',
+    description: 'Generate cryptographically secure passwords with customizable length, character sets, and strength meter.',
+    icon: '🔐',
+    category: 'generators',
+    color: 'from-red-400 to-rose-500',
+    bgColor: 'bg-red-50 dark:bg-red-900/20',
+    keywords: ['password', 'generate', 'secure', 'random', 'strong', 'crypto'],
+  },
+];
+
+export function getToolBySlug(slug) {
+  return TOOLS.find((t) => t.slug === slug) || null;
+}
+
+export function getToolsByCategory(categoryId) {
+  return TOOLS.filter((t) => t.category === categoryId);
+}
