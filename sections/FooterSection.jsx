@@ -193,6 +193,15 @@ const FooterSection = () => {
                 <div className="mr-8 px-4 lg:px-0">
                     <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-white inline items-center h-9">Resources</h2>
                     <ul className="mt-4 text-gray-900 dark:text-gray-400">
+                        <li className="mb-4 cursor-pointer hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <Link href="/tools" target="_top" rel="noopener noreferrer" className="relative menu-item">🛠️ Dev Tools <span className="border-b-effect-footer"></span></Link>
+                        </li>
+                        <li className="mb-4 cursor-pointer hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <Link href="/guides" target="_top" rel="noopener noreferrer" className="relative menu-item">📖 Guides <span className="border-b-effect-footer"></span></Link>
+                        </li>
+                        <li className="mb-4 cursor-pointer hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
+                            <Link href="/alternatives" target="_top" rel="noopener noreferrer" className="relative menu-item">⇄ Alternatives <span className="border-b-effect-footer"></span></Link>
+                        </li>
                         <li className="mb-4 cursor-pointer flex hover:text-pink-300 align-middle inset-0 object-contain transition duration-700 ease-in-out transform hover:scale-110 hover:shadow-4xl hover:z-10">
                             <a href="https://ask-chatgpt.progrmrslife.com/coming-soon-page.html" target="_blank" rel="noopener noreferrer" className="relative menu-item">Services <span className="border-b-effect-footer"></span></a>
                             <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="a-icon--arrow-north-east400 a-icon--text a-icon--no-align top-[0.05em] relative f-ui-1 ml-1 mt-1 -mr-4" style={{width: '1em', height: '1em'}} data-new="" aria-hidden="true" data-v-069f367b=""><polygon fill="currentColor" points="5 4.31 5 5.69 9.33 5.69 2.51 12.51 3.49 13.49 10.31 6.67 10.31 11 11.69 11 11.69 4.31 5 4.31" data-v-069f367b=""></polygon></svg>

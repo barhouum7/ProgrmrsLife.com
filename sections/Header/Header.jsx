@@ -8,6 +8,7 @@ import { HiMenu, HiX } from 'react-icons/hi';
 import Logo from "../../components/Logo";
 import SearchBar from "./SearchBar";
 import { CategoryDropdown } from '../../components/navigation/CategoryDropdown';
+import ResourcesDropdown from '../../components/navigation/ResourcesDropdown';
 import { ThemeToggle } from '../../components/theme/ThemeToggle';
 import { AnnouncementBanner } from '../../components/AnnouncementBanner';
 
@@ -74,6 +75,15 @@ const Header = () => {
       href: "/services",
       id: "services",
       content: "Services"
+    },
+    {
+      id: "resources",
+      content: (
+        <ResourcesDropdown
+          currentPath={router.pathname}
+          isScrolled={isScrolled}
+        />
+      )
     },
     {
       href: "/canva-pro-invites",
