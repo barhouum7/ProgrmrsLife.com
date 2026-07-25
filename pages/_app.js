@@ -28,6 +28,7 @@ import '../styles/FlyingHearts.css';
 import '../styles/userWayAccessibility.css';
 import '../styles/animation.css';
 import '../styles/bannerAnimation.css';
+import '../styles/toolsPage.css';
 
 import 'tailwindcss/tailwind.css'
 import 'react-toastify/dist/ReactToastify.css';
@@ -91,6 +92,35 @@ const actions = [
     section: "Preferences",
     perform: changeFontAction,
     icon: <FontIcon />,
+  },
+  {
+    id: "tools",
+    name: "Dev Tools",
+    shortcut: ["t"],
+    keywords: "tools json base64 regex hash color diff jwt url markdown",
+    section: "Resources",
+    perform: () => { window.location.href = "/tools" },
+    subtitle: "Free online developer tools",
+    icon: <ToolsIcon />,
+  },
+  {
+    id: "guides",
+    name: "Guides",
+    shortcut: ["g"],
+    keywords: "guides how-to tutorial code snippet fix",
+    section: "Resources",
+    perform: () => { window.location.href = "/guides" },
+    subtitle: "How-to guides & code snippets",
+    icon: <GuidesIcon />,
+  },
+  {
+    id: "alternatives",
+    name: "Alternatives",
+    keywords: "alternatives compare software free open source",
+    section: "Resources",
+    perform: () => { window.location.href = "/alternatives" },
+    subtitle: "Software comparison articles",
+    icon: <AlternativesIcon />,
   },
 ]
 
@@ -194,6 +224,30 @@ function FontIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
       <path d="M4 7V4h16v3M9 20h6M12 4v16"/>
+    </svg>
+  )
+}
+
+function ToolsIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </svg>
+  )
+}
+
+function GuidesIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    </svg>
+  )
+}
+
+function AlternativesIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+      <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
     </svg>
   )
 }
