@@ -2,44 +2,181 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.progrmrslife.com</loc>
-    <lastmod>2024-11-11T00:47:52.514Z</lastmod>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/about-us</loc>
-    <lastmod>2024-11-11T00:47:52.516Z</lastmod>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/contact-us</loc>
-    <lastmod>2024-11-11T00:47:52.516Z</lastmod>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/services</loc>
-    <lastmod>2024-11-11T00:47:52.516Z</lastmod>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/privacyPolicy</loc>
-    <lastmod>2024-11-11T00:47:52.516Z</lastmod>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/terms-and-conditions</loc>
-    <lastmod>2024-11-11T00:47:52.516Z</lastmod>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.progrmrslife.com/canva-pro-invites</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
+  <!-- Dev Tools Hub -->
+  <url>
+    <loc>https://www.progrmrslife.com/tools</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/json-formatter</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/base64</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/regex-tester</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/css-minifier</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/jwt-decoder</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/color-converter</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/markdown-preview</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/hash-generator</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/url-encoder</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/diff-checker</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/json-to-typescript</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/lorem-ipsum</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/crontab-generator</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/text-case-converter</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/tools/password-generator</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Alternatives Hub -->
+  <url>
+    <loc>https://www.progrmrslife.com/alternatives</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Guides Hub -->
+  <url>
+    <loc>https://www.progrmrslife.com/guides</loc>
+    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Categories -->
+
   <url>
     <loc>https://www.progrmrslife.com/category/free-online-resources</loc>
-    <lastmod>2023-07-13T23:49:59.138Z</lastmod>
+    <lastmod>2025-02-15T23:15:19.316Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -60,7 +197,7 @@
 
   <url>
     <loc>https://www.progrmrslife.com/category/tips-and-tricks</loc>
-    <lastmod>2023-03-03T20:37:05.036Z</lastmod>
+    <lastmod>2025-02-15T23:15:19.316Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -93,11 +230,38 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog Posts -->
+
+  <url>
+    <loc
+      >https://www.progrmrslife.com/post/best-strategies-deepseek-r1-local-setup</loc
+    >
+    <lastmod>2025-02-16T22:25:17.529Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc
+      >https://www.progrmrslife.com/post/enhancing-performance-nextjs-applications</loc
+    >
+    <lastmod>2025-01-17T17:32:08.532Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.progrmrslife.com/post/ssr-vs-csr-guide</loc>
+    <lastmod>2025-01-14T05:41:02.905Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <url>
     <loc
       >https://www.progrmrslife.com/post/how-to-access-oreilly-premium-content-for-free</loc
     >
-    <lastmod>2024-10-18T11:05:15.684Z</lastmod>
+    <lastmod>2026-02-04T01:19:29.746Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -115,7 +279,7 @@
     <loc
       >https://www.progrmrslife.com/post/duolingo-super-premium-free-invitation</loc
     >
-    <lastmod>2024-10-11T02:19:33.665Z</lastmod>
+    <lastmod>2024-11-12T22:25:23.632Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -142,7 +306,7 @@
     <loc
       >https://www.progrmrslife.com/post/free-scribd-everand-slideshare-access-170m-documents-audiobooks</loc
     >
-    <lastmod>2024-10-14T20:01:16.711Z</lastmod>
+    <lastmod>2025-08-27T17:08:36.102Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -170,7 +334,7 @@
 
   <url>
     <loc>https://www.progrmrslife.com/post/get-canva-pro</loc>
-    <lastmod>2024-11-09T19:30:39.770Z</lastmod>
+    <lastmod>2026-01-30T01:19:52.744Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -212,7 +376,7 @@
 
   <url>
     <loc>https://www.progrmrslife.com/post/linkedin-learning-free-trials</loc>
-    <lastmod>2024-11-02T19:36:20.908Z</lastmod>
+    <lastmod>2026-07-20T00:43:51.389Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -235,7 +399,7 @@
     <loc
       >https://www.progrmrslife.com/post/explained-autonomous-ai-agents-auto-gpt</loc
     >
-    <lastmod>2023-06-09T15:33:08.576Z</lastmod>
+    <lastmod>2025-01-14T02:52:52.074Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>

@@ -44,6 +44,57 @@ const GET_ALL_CATEGORIES = gql`
   }
 `;
 
+const GET_ALL_ALTERNATIVES = gql`
+  query GetAlternatives($first: Int!, $skip: Int!) {
+    alternativePostsConnection(first: $first, skip: $skip, orderBy: createdAt_DESC) {
+      edges {
+        node {
+          slug
+          updatedAt
+        }
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }
+`;
+
+const GET_ALL_GUIDES = gql`
+  query GetGuides($first: Int!, $skip: Int!) {
+    guidesConnection(first: $first, skip: $skip, orderBy: createdAt_DESC) {
+      edges {
+        node {
+          slug
+          updatedAt
+        }
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }
+`;
+
+// Static tool page slugs (no CMS needed)
+const TOOL_SLUGS = [
+  'json-formatter',
+  'base64',
+  'regex-tester',
+  'css-minifier',
+  'jwt-decoder',
+  'color-converter',
+  'markdown-preview',
+  'hash-generator',
+  'url-encoder',
+  'diff-checker',
+  'json-to-typescript',
+  'lorem-ipsum',
+  'crontab-generator',
+  'text-case-converter',
+  'password-generator',
+];
+
 async function fetchAllItems(query, itemType) {
   let allItems = [];
   let hasNextPage = true;
@@ -51,16 +102,21 @@ async function fetchAllItems(query, itemType) {
   const first = 100; // Number of items to fetch per request
 
   while (hasNextPage) {
-    const result = await request({
-      url: HYGRAPH_ENDPOINT,
-      document: query,
-      variables: { first, skip }
-    });
+    try {
+      const result = await request({
+        url: HYGRAPH_ENDPOINT,
+        document: query,
+        variables: { first, skip }
+      });
 
-    const connection = result[`${itemType}Connection`];
-    allItems = allItems.concat(connection.edges.map(edge => edge.node));
-    hasNextPage = connection.pageInfo.hasNextPage;
-    skip += first;
+      const connection = result[`${itemType}Connection`];
+      allItems = allItems.concat(connection.edges.map(edge => edge.node));
+      hasNextPage = connection.pageInfo.hasNextPage;
+      skip += first;
+    } catch (error) {
+      console.warn(`Warning: Could not fetch ${itemType} — model may not exist yet. Skipping.`);
+      hasNextPage = false;
+    }
   }
 
   return allItems;
@@ -69,62 +125,116 @@ async function fetchAllItems(query, itemType) {
 (async () => {
   try {
     const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
-    
-    console.log('Fetching all posts and categories...');
-    
+
+    console.log('Fetching all content for sitemap...');
+
     const posts = await fetchAllItems(GET_ALL_POSTS, 'posts');
     const categories = await fetchAllItems(GET_ALL_CATEGORIES, 'categories');
+    const alternatives = await fetchAllItems(GET_ALL_ALTERNATIVES, 'alternativePosts');
+    const guides = await fetchAllItems(GET_ALL_GUIDES, 'guides');
 
-    console.log(`Fetched ${posts.length} posts and ${categories.length} categories`);
+    console.log(`Fetched ${posts.length} posts, ${categories.length} categories, ${alternatives.length} alternatives, ${guides.length} guides`);
+
+    const now = new Date().toISOString();
 
     const sitemap = `
       <?xml version="1.0" encoding="UTF-8"?>
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
           <loc>https://www.progrmrslife.com</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
+          <lastmod>${now}</lastmod>
           <changefreq>daily</changefreq>
           <priority>1.0</priority>
         </url>
         <url>
           <loc>https://www.progrmrslife.com/about-us</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
+          <lastmod>${now}</lastmod>
           <changefreq>monthly</changefreq>
           <priority>0.8</priority>
         </url>
         <url>
           <loc>https://www.progrmrslife.com/contact-us</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
+          <lastmod>${now}</lastmod>
           <changefreq>monthly</changefreq>
           <priority>0.8</priority>
         </url>
         <url>
           <loc>https://www.progrmrslife.com/services</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
+          <lastmod>${now}</lastmod>
           <changefreq>weekly</changefreq>
           <priority>0.8</priority>
         </url>
         <url>
           <loc>https://www.progrmrslife.com/privacyPolicy</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
+          <lastmod>${now}</lastmod>
           <changefreq>monthly</changefreq>
           <priority>0.5</priority>
         </url>
         <url>
           <loc>https://www.progrmrslife.com/terms-and-conditions</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
+          <lastmod>${now}</lastmod>
           <changefreq>monthly</changefreq>
           <priority>0.5</priority>
         </url>
         <url>
           <loc>https://www.progrmrslife.com/canva-pro-invites</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
+          <lastmod>${now}</lastmod>
           <changefreq>monthly</changefreq>
           <priority>0.5</priority>
         </url>
+
+        <!-- Dev Tools Hub -->
+        <url>
+          <loc>https://www.progrmrslife.com/tools</loc>
+          <lastmod>${now}</lastmod>
+          <changefreq>weekly</changefreq>
+          <priority>0.9</priority>
+        </url>
+        ${TOOL_SLUGS.map(slug => `
+          <url>
+            <loc>https://www.progrmrslife.com/tools/${slug}</loc>
+            <lastmod>${now}</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+          </url>
+        `).join('')}
+
+        <!-- Alternatives Hub -->
+        <url>
+          <loc>https://www.progrmrslife.com/alternatives</loc>
+          <lastmod>${now}</lastmod>
+          <changefreq>weekly</changefreq>
+          <priority>0.9</priority>
+        </url>
+        ${alternatives.map(({ slug, updatedAt }) => `
+          <url>
+            <loc>https://www.progrmrslife.com/alternatives/${slug}</loc>
+            <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+          </url>
+        `).join('')}
+
+        <!-- Guides Hub -->
+        <url>
+          <loc>https://www.progrmrslife.com/guides</loc>
+          <lastmod>${now}</lastmod>
+          <changefreq>weekly</changefreq>
+          <priority>0.9</priority>
+        </url>
+        ${guides.map(({ slug, updatedAt }) => `
+          <url>
+            <loc>https://www.progrmrslife.com/guides/${slug}</loc>
+            <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+          </url>
+        `).join('')}
+
+        <!-- Categories -->
         ${categories
-          .map(({ slug, updatedAt }) => {
-            return `
+        .map(({ slug, updatedAt }) => {
+          return `
               <url>
                 <loc>${`https://www.progrmrslife.com/category/${slug}`}</loc>
                 <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
@@ -132,11 +242,13 @@ async function fetchAllItems(query, itemType) {
                 <priority>0.7</priority>
               </url>
             `;
-          })
-          .join('')}
+        })
+        .join('')}
+
+        <!-- Blog Posts -->
         ${posts
-          .map(({ slug, updatedAt }) => {
-            return `
+        .map(({ slug, updatedAt }) => {
+          return `
               <url>
                 <loc>${`https://www.progrmrslife.com/post/${slug}`}</loc>
                 <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
@@ -144,8 +256,8 @@ async function fetchAllItems(query, itemType) {
                 <priority>0.6</priority>
               </url>
             `;
-          })
-          .join('')}
+        })
+        .join('')}
       </urlset>
     `;
 
@@ -159,6 +271,6 @@ async function fetchAllItems(query, itemType) {
     console.log('Sitemap generated successfully!');
   } catch (error) {
     console.error('Error details:', error);
-    process.exit(1); // Exit with an error code
+    process.exit(1); // Exit with a non-zero code to indicate failure
   }
 })();
