@@ -5,8 +5,8 @@ import { toast } from 'react-hot-toast';
 const VersionNotifier = () => {
     const [showNotification, setShowNotification] = useState(false);
     const [waitingWorker, setWaitingWorker] = useState(null);
-    // const currentVersion = process.env.NEXT_PUBLIC_APP_VERSION || '2.0.18';
-    const currentVersion = '2.0.20';
+    // const currentVersion = process.env.NEXT_PUBLIC_APP_VERSION || '2.0.25';
+    const currentVersion = '2.0.25';
 
 
     useEffect(() => {
