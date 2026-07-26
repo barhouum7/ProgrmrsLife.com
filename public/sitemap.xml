@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.progrmrslife.com</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/about-us</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/contact-us</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/services</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/privacyPolicy</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/terms-and-conditions</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.progrmrslife.com/canva-pro-invites</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -46,112 +46,112 @@
   <!-- Dev Tools Hub -->
   <url>
     <loc>https://www.progrmrslife.com/tools</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/json-formatter</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/base64</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/regex-tester</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/css-minifier</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/jwt-decoder</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/color-converter</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/markdown-preview</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/hash-generator</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/url-encoder</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/diff-checker</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/json-to-typescript</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/lorem-ipsum</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/crontab-generator</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/text-case-converter</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.progrmrslife.com/tools/password-generator</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -159,7 +159,7 @@
   <!-- Alternatives Hub -->
   <url>
     <loc>https://www.progrmrslife.com/alternatives</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -167,7 +167,7 @@
   <!-- Guides Hub -->
   <url>
     <loc>https://www.progrmrslife.com/guides</loc>
-    <lastmod>2026-07-25T00:09:08.428Z</lastmod>
+    <lastmod>2026-07-26T21:42:43.577Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

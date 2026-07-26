@@ -4,7 +4,7 @@ import { useMyContext } from '../../contexts/MyContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 // import toast from 'react-hot-toast';
-import { ToastContainer, toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import {InlineReactionButtons} from 'sharethis-reactjs';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
@@ -128,18 +128,16 @@ const PostDetails = ({ post, error }) => {
         useEffect(() => {
             if (!isWelcomed && showWelcomeMessage) {
                 toast('👋Welcome to Programmers Life!', {
-                    autoClose: 8000,
+                    duration: 8000,
                     position: 'top-center',
-                    className: 'dark:text-white dark:bg-gray-900',
                 });
                 setIsWelcomed(true);
             }
 
             if (!isWelcomed && showToast && !showWelcomeMessage) {
                 toast('👋Welcome back! Thanks for visiting again!🤩', {
-                    autoClose: 8000,
+                    duration: 8000,
                     position: 'top-center',
-                    className: 'dark:text-white dark:bg-gray-900',
                 });
                 setIsWelcomed(true);
             }
@@ -263,7 +261,6 @@ const PostDetails = ({ post, error }) => {
                             </div>
                         ) : (
                             <>
-                                <ToastContainer />
 
                                 <div className="mb-8">
                                     {

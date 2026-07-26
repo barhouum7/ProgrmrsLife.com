@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { RichText } from '@graphcms/rich-text-react-renderer';
-import moment from 'moment'
+import { formatFromNow } from '../lib/formatDate';
 import parser from 'html-react-parser'
 import Avatar from 'react-avatar';
 import md5 from 'md5'
@@ -131,7 +131,7 @@ const Comments = ({ slug }) => {
                             {' '}
                             &nbsp;•&nbsp;
                             {' '}
-                            <span className='text-gray-500 dark:text-gray-400'>{moment(comment.createdAt).fromNow()}</span>
+                            <span className='text-gray-500 dark:text-gray-400'>{formatFromNow(comment.createdAt)}</span>
                         </div>
                         <p className='whitespace-pre-line text-gray-600 dark:text-gray-400 w-full'>{parser(comment.comment)}</p>
                         {comment.comments !== null && comment.comments.raw.children && (

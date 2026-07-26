@@ -12,7 +12,6 @@ export const getGuides = async () => {
         title
         slug
         excerpt
-        difficulty
         estimatedTime
         framework
         featuredImage {
@@ -53,7 +52,6 @@ export const getGuideDetails = async (slug) => {
         title
         slug
         excerpt
-        difficulty
         estimatedTime
         framework
         featuredImage {
@@ -123,7 +121,6 @@ export const getGuidesByFramework = async (framework) => {
         title
         slug
         excerpt
-        difficulty
         estimatedTime
         framework
         featuredImage {

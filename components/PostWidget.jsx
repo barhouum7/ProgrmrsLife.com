@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
-import moment from 'moment'
+import { formatDate } from '../lib/formatDate';
 import Link from 'next/link'
 
 import { getRecentPosts, getSimilarPosts } from '../services'
@@ -43,7 +43,7 @@ const PostWidget = ({ categories, slug }) => {
                     </div>
                     <div className="flex-grow flex-col ml-4">
                         <p className='text-gray-500 dark:text-gray-400 font-xs'>
-                            {moment(post.createdAt).format('MMMM DD, YYYY')}
+                            {formatDate(post.createdAt, 'MMMM dd, yyyy')}
                         </p>
                         <Link href={`/post/${post.slug}`}>
                             <p className='text-md font-semibold text-violet-700 hover:text-pink-300 dark:hover:text-pink-300 cursor-pointer dark:text-gray-400 transition duration-700'>

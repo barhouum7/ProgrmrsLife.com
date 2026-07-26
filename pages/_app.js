@@ -10,12 +10,12 @@ import * as gtag from '../lib/gtag';
 import NextTopLoader from 'nextjs-toploader';
 
 const ThemeProvider = dynamic(() => import('next-themes').then(mod => mod.ThemeProvider), { ssr: false });
-const HelmetProvider = dynamic(() => import('react-helmet-async').then(mod => mod.HelmetProvider), { ssr: false });
 const KBarProvider = dynamic(() => import('kbar').then(mod => mod.KBarProvider), { ssr: false });
 const Toaster = dynamic(() => import('react-hot-toast').then(mod => mod.Toaster), { ssr: false });
-const MyProvider = dynamic(() => import('../contexts/MyContext').then(mod => mod.MyProvider), { ssr: false });
 const CommandBar = dynamic(() => import('../components/CommandBar'), { ssr: false });
 const Layout = lazy(() => import('../sections/Layout'));
+
+import { MyProvider } from '../contexts/MyContext';
 
 
 
@@ -31,11 +31,9 @@ import '../styles/bannerAnimation.css';
 import '../styles/toolsPage.css';
 
 import 'tailwindcss/tailwind.css'
-import 'react-toastify/dist/ReactToastify.css';
 
 
 function MyApp({ Component, pageProps }) {
-  const MemoizedComponent = React.memo(Component);
   
   const [currentFont, setCurrentFont] = useState(defaultFont);
 
@@ -140,46 +138,40 @@ const actions = [
   return (
     <ErrorBoundary>
       <main className={`${currentFont.className} min-h-screen flex flex-col`}>
-        <HelmetProvider>
-          <ThemeProvider enableSystem={true} attribute="class">
-            <KBarProvider actions={actions}
-              options={{
-                enableHistory: true,
-              }}
-            >
-              <MyProvider>
-                <Suspense fallback={<SuspenseLoader />}>
-                  <Layout>
-                    <NextTopLoader 
-                      color="#8A2BE2"
-                      initialPosition={0.08}
-                      crawlSpeed={200}
-                      height={3}
-                      crawl={true}
-                      showSpinner={true}
-                      easing="ease"
-                      speed={200}
-                      shadow="0 0 10px #FF69B4,0 0 5px #FF69B4"
-                      template='<div class="bar" role="bar"><div class="peg"></div></div> 
-                      <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
-                      zIndex={1600}
-                      showAtBottom={false}
-                    />
-                    <CommandBar {...pageProps} />
-                    <div className="flex-grow">
-                      <MemoizedComponent {...pageProps} />
-                    </div>
-                  </Layout>
-                </Suspense>
-              </MyProvider>
-              <Toaster
-                // toastOptions={{
-                //   position: "bottom-right",
-                // }}
-              />
-            </KBarProvider>
-          </ThemeProvider>
-        </HelmetProvider>
+        <ThemeProvider enableSystem={true} attribute="class">
+          <KBarProvider actions={actions}
+            options={{
+              enableHistory: true,
+            }}
+          >
+            <MyProvider>
+              <Suspense fallback={<SuspenseLoader />}>
+                <Layout>
+                  <NextTopLoader 
+                    color="#8A2BE2"
+                    initialPosition={0.08}
+                    crawlSpeed={200}
+                    height={3}
+                    crawl={true}
+                    showSpinner={true}
+                    easing="ease"
+                    speed={200}
+                    shadow="0 0 10px #FF69B4,0 0 5px #FF69B4"
+                    template='<div class="bar" role="bar"><div class="peg"></div></div> 
+                    <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+                    zIndex={1600}
+                    showAtBottom={false}
+                  />
+                  <CommandBar {...pageProps} />
+                  <div className="flex-grow">
+                    <Component {...pageProps} />
+                  </div>
+                </Layout>
+              </Suspense>
+            </MyProvider>
+            <Toaster />
+          </KBarProvider>
+        </ThemeProvider>
       </main>
     </ErrorBoundary>
   )

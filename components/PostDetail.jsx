@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { FaPlay, FaComment } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.css';
-// import { Helmet } from 'react-helmet-async';
 import Head from 'next/head';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
@@ -12,7 +11,6 @@ import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
 import { Prism } from '@mantine/prism';
 
 import { RichText } from '@graphcms/rich-text-react-renderer';
-import moment from 'moment';
 
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
