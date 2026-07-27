@@ -6,7 +6,7 @@ import { fonts, defaultFont } from '../config/fonts';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { SuspenseLoader } from '../components';
 import * as gtag from '../lib/gtag';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 import NextTopLoader from 'nextjs-toploader';
 
