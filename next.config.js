@@ -5,7 +5,7 @@ const withPWA = require('next-pwa')({
   skipWaiting: true, // skip waiting for service worker activation
   runtimeCaching: [
     {
-      urlPattern: /^https?:\/\/(?:pagead2\.googlesyndication\.com|googleads\.g\.doubleclick\.net|tpc\.googlesyndication\.com|www\.google\.com\/adsense).*/, 
+      urlPattern: /^https?:\/\/(?:pagead2\.googlesyndication\.com|googleads\.g\.doubleclick\.net|tpc\.googlesyndication\.com|www\.google\.com\/adsense).*/,
       handler: 'NetworkOnly',  // Never cache AdSense content
       options: {
         cacheName: 'adsense'
@@ -73,7 +73,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,            // Enable SWC minification for improved performance
   compiler: {
-      removeConsole: process.env.NODE_ENV !== "development"     // Remove console.log in production
+    removeConsole: process.env.NODE_ENV !== "development"     // Remove console.log in production
   },
   typescript: {
     ignoreBuildErrors: false,
@@ -84,8 +84,9 @@ const nextConfig = {
 
   images: {
     remotePatterns: [
-        { hostname: "media.graphassets.com"},
-        { hostname: "cdn.buymeacoffee.com"},
+      { hostname: "media.graphassets.com" },
+      { hostname: "eu-central-1-shared-euc1-02.graphassets.com" },
+      { hostname: "cdn.buymeacoffee.com" },
     ],
   },
   experimental: {
