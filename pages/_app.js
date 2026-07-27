@@ -6,6 +6,7 @@ import { fonts, defaultFont } from '../config/fonts';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { SuspenseLoader } from '../components';
 import * as gtag from '../lib/gtag';
+import { Analytics } from "@vercel/analytics/next"
 
 import NextTopLoader from 'nextjs-toploader';
 
@@ -147,6 +148,7 @@ const actions = [
             <MyProvider>
               <Suspense fallback={<SuspenseLoader />}>
                 <Layout>
+                  <Analytics />
                   <NextTopLoader 
                     color="#8A2BE2"
                     initialPosition={0.08}
