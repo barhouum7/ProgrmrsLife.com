@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
@@ -8,6 +8,17 @@ import ComparisonTable from '../../components/alternatives/ComparisonTable';
 import AlternativeCard from '../../components/alternatives/AlternativeCard';
 import { AdsenseScript } from '../../components';
 import Image from 'next/image';
+import NativeAdBanner from '../../components/ads/NativeAdBanner';
+import CodeBlockAd from '../../components/ads/CodeBlockAd';
+import RichTextContent from '../../components/shared/RichTextContent';
+
+/** Auto-calculate reading time from text content */
+function getReadingTime(text) {
+  if (!text) return null;
+  const words = text.replace(/(<[^>]+>|\{[^}]*\}|\[[^\]]*\])/g, '').split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min read`;
+}
 
 export default function AlternativePostPage({ post }) {
   if (!post) {
@@ -23,6 +34,11 @@ export default function AlternativePostPage({ post }) {
 
   const alternatives = Array.isArray(post.alternatives) ? post.alternatives : [];
   const canonicalUrl = `https://www.progrmrslife.com/alternatives/${post.slug}`;
+  const readingTime = useMemo(
+    () => getReadingTime(post.content?.text),
+    [post]
+  );
+  const publishDate = new Date(post.updatedAt || post.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   return (
     <>
@@ -53,7 +69,7 @@ export default function AlternativePostPage({ post }) {
             "position": i + 1,
             "name": alt.name,
             "description": alt.description || '',
-            ...(alt.url && { "url": alt.url }),
+            ...(alt.website && { "url": alt.website }),
           })),
         })}
       </Script>
@@ -86,30 +102,48 @@ export default function AlternativePostPage({ post }) {
           <span className="text-gray-900 dark:text-white font-semibold truncate max-w-[300px]">{post.title}</span>
         </nav>
 
-        {/* Top Ad */}
-        <div className="mb-6">
-          <AdsenseScript />
-          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-5021308603136043" data-ad-slot="3167248456" data-ad-format="auto" data-full-width-responsive="true" />
-        </div>
+        {/* Featured Image */}
+        {post.featuredImage?.url && (
+          <div className="relative w-full aspect-[2/1] rounded-xl overflow-hidden mb-8 shadow-lg">
+            <Image
+              src={post.featuredImage.url}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
 
         {/* Hero */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
             {post.targetSoftwareLogo?.url && (
               <div className='relative flex-none w-16 h-16'>
-                <Image fill src={post.targetSoftwareLogo.url} alt={post.targetSoftware} className="w-16 h-16 rounded-xl object-contain shadow-md" />
+                <Image fill src={post.targetSoftwareLogo.url} alt={post.targetSoftware} className="rounded-xl object-contain shadow-md" />
               </div>
             )}
             <div>
-              {post.categories?.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mb-1">
-                  {post.categories.map((cat) => (
-                    <span key={cat.slug} className="text-xs px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
-                      {cat.name}
-                    </span>
-                  ))}
-                </div>
-              )}
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                {post.targetSoftware && (
+                  <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                    vs {post.targetSoftware}
+                  </span>
+                )}
+                {readingTime && (
+                  <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {readingTime}
+                  </span>
+                )}
+                {post.categories?.map((cat) => (
+                  <span key={cat.slug} className="text-xs px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
+                    {cat.name}
+                  </span>
+                ))}
+              </div>
               <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">{post.title}</h1>
             </div>
           </div>
@@ -123,13 +157,13 @@ export default function AlternativePostPage({ post }) {
             <div className="flex items-center gap-3 mt-4">
               {post.author.photo?.url && (
                 <div className='relative flex-none w-8 h-8'>
-                  <Image fill src={post.author.photo.url} alt={post.author.name} className="w-8 h-8 rounded-full" />
+                  <Image fill src={post.author.photo.url} alt={post.author.name} className="rounded-full object-cover" />
                 </div>
               )}
               <div className="text-sm">
                 <span className="font-medium text-gray-900 dark:text-white">{post.author.name}</span>
                 <span className="text-gray-400 mx-2">·</span>
-                <time className="text-gray-500">{new Date(post.updatedAt || post.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                <time className="text-gray-500">{publishDate}</time>
               </div>
             </div>
           )}
@@ -138,28 +172,33 @@ export default function AlternativePostPage({ post }) {
         {/* Comparison Table */}
         {alternatives.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Quick Comparison</h2>
+            <h2 className="text-xl font-extrabold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <span className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-xs">⚡</span>
+              Quick Comparison
+            </h2>
             <ComparisonTable alternatives={alternatives} targetSoftware={post.targetSoftware} />
           </div>
         )}
 
-        {/* Main Content */}
-        {post.content?.html && (
-          <div
-            className="prose dark:prose-invert max-w-none mb-8"
-            dangerouslySetInnerHTML={{ __html: post.content.html }}
-          />
-        )}
-
-        {/* Mid-article Ad */}
-        <div className="my-8">
+        {/* Top Ad */}
+        <div className="my-6">
+          <AdsenseScript />
           <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-5021308603136043" data-ad-slot="3167248456" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
-        {/* Alternative Cards */}
+        {/* Main Content (RichText — same renderer as PostDetail) */}
+        <RichTextContent content={post.content} />
+
+        {/* Mid-article Ad */}
+        <CodeBlockAd />
+
+        {/* Alternative Cards - Detailed Breakdown */}
         {alternatives.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Detailed Breakdown</h2>
+            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-sm">📊</span>
+              Detailed Breakdown
+            </h2>
             <div className="space-y-6">
               {alternatives.map((alt, i) => (
                 <AlternativeCard key={i} alternative={alt} index={i} />
@@ -172,6 +211,9 @@ export default function AlternativePostPage({ post }) {
         <div className="mt-8">
           <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-5021308603136043" data-ad-slot="3167248456" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
+
+        {/* Cross-promo banner */}
+        <NativeAdBanner className="mt-6" />
 
         {/* Back Link */}
         <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">

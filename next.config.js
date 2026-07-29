@@ -87,6 +87,8 @@ const nextConfig = {
       { hostname: "media.graphassets.com" },
       { hostname: "eu-central-1-shared-euc1-02.graphassets.com" },
       { hostname: "cdn.buymeacoffee.com" },
+      { hostname: "upload.wikimedia.org" },
+      { hostname: "astro.build" },
     ],
   },
   experimental: {

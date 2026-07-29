@@ -12,6 +12,11 @@ const FRAMEWORKS = [
   { id: 'Git', label: 'Git', icon: '🔀' },
   { id: 'Docker', label: 'Docker', icon: '🐳' },
   { id: 'Linux', label: 'Linux', icon: '🐧' },
+  { id: 'Bash', label: 'Bash', icon: '🐧' },
+  { id: 'Web Security', label: 'Web Security', icon: '🔒' },
+  { id: 'Web Development', label: 'Web Development', icon: '🌐' },
+  { id: 'AI', label: 'AI', icon: '🤖' },
+  { id: 'Others', label: 'Others', icon: '...' },
 ];
 
 const FrameworkFilter = ({ active, onChange }) => {

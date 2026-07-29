@@ -1197,7 +1197,7 @@ const PostDetail = ({ post, onCopyToClipboard, isCopied, onEnablePopupMessage, s
                                     ),
                                     p: ({ children }) => <p className="mb-8 text-gray-900 dark:text-gray-400">{children}</p>,
                                     bold: ({ children }) => <span className="font-bold text-sm text-black dark:text-gray-200">{children}</span>,
-                                    italic: ({ children }) => <em className="post-detail-em relative text-gray-900 dark:text-white mr-0">{children}</em>,
+                                    italic: ({ children }) => <em className="relative text-gray-900 dark:text-white mr-0">{children}</em>,
                                     code: ({ children }) => <code className="bg-gray-200 dark:bg-gray-600 px-2 py-0 rounded font-mono text-sm text-gray-900 dark:text-gray-100">{children}</code>,
                                     code_block:
                                         ({ children }) => {

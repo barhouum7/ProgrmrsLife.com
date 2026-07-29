@@ -23,11 +23,13 @@ export default function usePostsActions(posts) {
   );
 
   const postsActions = useMemo(() => {
-    if (posts === undefined) {
+    if (posts === undefined || !Array.isArray(posts)) {
       return defaultActions;
     }
 
-      return posts.map((post, index) => ({
+      return posts
+        .filter((post) => post?.node?.slug)
+        .map((post, index) => ({
         id: post.node.slug,
         name: post.node.title,
         keywords: [post.node.title, post.node.slug],

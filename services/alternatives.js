@@ -64,6 +64,7 @@ export const getAlternativePostDetails = async (slug) => {
         content {
           raw
           html
+          json
           text
         }
         alternatives

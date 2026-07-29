@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -9,6 +9,19 @@ import Image from 'next/image';
 import NativeAdBanner from '../../components/ads/NativeAdBanner';
 
 export default function AlternativesHub({ posts }) {
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  // Build unique target software list dynamically from the data
+  const targetSoftwareList = useMemo(() => {
+    const unique = [...new Set(posts?.map((p) => p.targetSoftware).filter(Boolean))];
+    return unique.sort();
+  }, [posts]);
+
+  const filteredPosts = useMemo(() => {
+    if (activeFilter === 'all') return posts;
+    return posts.filter((p) => p.targetSoftware === activeFilter);
+  }, [posts, activeFilter]);
+
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
@@ -67,6 +80,35 @@ export default function AlternativesHub({ posts }) {
           </p>
         </motion.div>
 
+        {/* Target Software Filter */}
+        {targetSoftwareList.length > 0 && (
+          <div className="mb-8 flex flex-wrap items-center gap-2 justify-center">
+            <button
+              onClick={() => setActiveFilter('all')}
+              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                activeFilter === 'all'
+                  ? 'bg-violet-600 text-white shadow-md shadow-violet-500/25'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+            >
+              All
+            </button>
+            {targetSoftwareList.map((sw) => (
+              <button
+                key={sw}
+                onClick={() => setActiveFilter(sw)}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                  activeFilter === sw
+                    ? 'bg-violet-600 text-white shadow-md shadow-violet-500/25'
+                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+              >
+                vs {sw}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Ad Slot */}
         <div className="mb-8">
           <AdsenseScript />
@@ -79,9 +121,9 @@ export default function AlternativesHub({ posts }) {
         </div>
 
         {/* Posts Grid */}
-        {posts && posts.length > 0 ? (
+        {filteredPosts && filteredPosts.length > 0 ? (
           <div className="tools-grid">
-            {posts.map((post, index) => (
+            {filteredPosts.map((post, index) => (
               <motion.div
                 key={post.slug}
                 variants={fadeInUp}
@@ -135,8 +177,14 @@ export default function AlternativesHub({ posts }) {
         ) : (
           <div className="text-center py-16">
             <span className="text-5xl mb-4 block">⇄</span>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Coming Soon</h2>
-            <p className="text-gray-500 dark:text-gray-400">We&apos;re preparing in-depth software comparison articles. Check back soon!</p>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              {activeFilter !== 'all' ? `No ${activeFilter} Alternatives Yet` : 'Coming Soon'}
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400">
+              {activeFilter !== 'all'
+                ? 'Try selecting a different filter or check back soon!'
+                : 'We\'re preparing in-depth software comparison articles. Check back soon!'}
+            </p>
           </div>
         )}
 

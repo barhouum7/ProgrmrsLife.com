@@ -8,6 +8,7 @@ import DifficultyBadge from '../../components/guides/DifficultyBadge';
 import FrameworkFilter from '../../components/guides/FrameworkFilter';
 import { AdsenseScript } from '../../components';
 import NativeAdBanner from '../../components/ads/NativeAdBanner';
+import { getReadingTime } from './[slug]';
 
 export default function GuidesHub({ guides }) {
   const [activeFramework, setActiveFramework] = useState('all');
@@ -70,7 +71,7 @@ export default function GuidesHub({ guides }) {
             <span className="tool-gradient-text">Guides</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Short, focused how-to articles that solve real developer problems. 
+            Short, focused how-to articles that solve real developer problems.
             Copy-paste ready code snippets with step-by-step explanations.
           </p>
         </motion.div>
@@ -123,8 +124,8 @@ export default function GuidesHub({ guides }) {
 
                     {/* Meta */}
                     <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
-                      {guide.estimatedTime && (
-                        <span>⏱️ {guide.estimatedTime}</span>
+                      {guide.content?.text && (
+                        <span>⏱️ {getReadingTime(guide.content?.text)}</span>
                       )}
                       <span className="flex items-center gap-1 font-semibold text-violet-600 dark:text-violet-400">
                         Read Guide →

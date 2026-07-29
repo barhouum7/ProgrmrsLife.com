@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { getGuideDetails, getGuideSlugs } from '../../services/guides';
 import StepCard from '../../components/guides/StepCard';
-import DifficultyBadge from '../../components/guides/DifficultyBadge';
+import DifficultyBadge from '../../components/guides/DifficultyBadge'; // Re-added difficulty because now the guides model includes difficulty enum
 import { AdsenseScript } from '../../components';
 import Image from 'next/image';
 import CodeBlockAd from '../../components/ads/CodeBlockAd';
 import NativeAdBanner from '../../components/ads/NativeAdBanner';
+import RichTextContent from '../../components/shared/RichTextContent';
+
+/** Auto-calculate reading time from text content */
+export function getReadingTime(text) {
+  if (!text) return null;
+  const words = text.replace(/(<[^>]+>|\{[^}]*\}|\[[^\]]*\])/g, '').split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min read`;
+}
 
 export default function GuideDetailPage({ guide }) {
   if (!guide) {
@@ -25,6 +34,11 @@ export default function GuideDetailPage({ guide }) {
 
   const steps = Array.isArray(guide.steps) ? guide.steps : [];
   const canonicalUrl = `https://www.progrmrslife.com/guides/${guide.slug}`;
+  const readingTime = useMemo(
+    () => getReadingTime(guide.content?.text),
+    [guide]
+  );
+  const publishDate = new Date(guide.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   return (
     <>
@@ -49,7 +63,7 @@ export default function GuideDetailPage({ guide }) {
             "@type": "HowTo",
             "name": guide.title,
             "description": guide.excerpt,
-            "totalTime": guide.estimatedTime ? `PT${parseInt(guide.estimatedTime)}M` : "PT10M",
+            "totalTime": readingTime ? `PT${parseInt(readingTime)}M` : "PT10M",
             "url": canonicalUrl,
             ...(guide.featuredImage?.url && { "image": guide.featuredImage.url }),
             "step": steps.map((step, i) => ({
@@ -114,11 +128,18 @@ export default function GuideDetailPage({ guide }) {
           <span className="text-gray-900 dark:text-white font-semibold truncate max-w-[300px]">{guide.title}</span>
         </nav>
 
-        {/* Top Ad */}
-        <div className="mb-6">
-          <AdsenseScript />
-          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-5021308603136043" data-ad-slot="3167248456" data-ad-format="auto" data-full-width-responsive="true" />
-        </div>
+        {/* Featured Image */}
+        {guide.featuredImage?.url && (
+          <div className="relative w-full aspect-[2/1] rounded-xl overflow-hidden mb-8 shadow-lg">
+            <Image
+              src={guide.featuredImage.url}
+              alt={guide.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
 
         {/* Hero */}
         <div className="mb-8">
@@ -129,11 +150,19 @@ export default function GuideDetailPage({ guide }) {
               </span>
             )}
             <DifficultyBadge difficulty={guide.difficulty} />
-            {guide.estimatedTime && (
-              <span className="text-xs text-gray-400 dark:text-gray-500">
-                ⏱️ {guide.estimatedTime}
+            {readingTime && (
+              <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {readingTime}
               </span>
             )}
+            {guide.categories?.map((cat) => (
+              <span key={cat.slug} className="text-xs px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
+                {cat.name}
+              </span>
+            ))}
           </div>
 
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-3">
@@ -149,49 +178,56 @@ export default function GuideDetailPage({ guide }) {
             <div className="flex items-center gap-3 mt-4">
               {guide.author.photo?.url && (
                 <div className='relative flex-none w-8 h-8'>
-                  <Image fill src={guide.author.photo.url} alt={guide.author.name} className="w-8 h-8 rounded-full" />
+                  <Image fill src={guide.author.photo.url} alt={guide.author.name} className="rounded-full object-cover" />
                 </div>
               )}
               <div className="text-sm">
                 <span className="font-medium text-gray-900 dark:text-white">{guide.author.name}</span>
                 <span className="text-gray-400 mx-2">·</span>
-                <time className="text-gray-500">{new Date(guide.updatedAt || guide.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                <time className="text-gray-500">{publishDate}</time>
               </div>
             </div>
           )}
         </div>
 
-        {/* Progress Indicator */}
+        {/* Top Ad */}
+        <div className="mb-6">
+          <AdsenseScript />
+          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-5021308603136043" data-ad-slot="3167248456" data-ad-format="auto" data-full-width-responsive="true" />
+        </div>
+
+        {/* Steps Overview (quick summary) */}
         {steps.length > 0 && (
-          <div className="mb-6 tool-glass p-4">
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-              <span className="font-semibold text-gray-900 dark:text-white">{steps.length}</span>
-              <span>step{steps.length !== 1 ? 's' : ''}</span>
-              {guide.estimatedTime && (
-                <>
-                  <span className="text-gray-300 dark:text-gray-600 mx-1">·</span>
-                  <span>{guide.estimatedTime} estimated</span>
-                </>
-              )}
-            </div>
+          <div className="mb-8 tool-glass p-5">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-3">
+              📋 What You&#39;ll Learn ({steps.length} step{steps.length !== 1 ? 's' : ''})
+            </h2>
+            <ol className="space-y-1.5">
+              {steps.map((step, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 text-xs font-bold flex items-center justify-center mt-0.5">
+                    {i + 1}
+                  </span>
+                  <span>{step.stepTitle || step.title || `Step ${i + 1}`}</span>
+                </li>
+              ))}
+            </ol>
           </div>
         )}
 
-        {/* Main Content (Rich Text) */}
-        {guide.content?.html && (
-          <div
-            className="prose dark:prose-invert max-w-none mb-8"
-            dangerouslySetInnerHTML={{ __html: guide.content.html }}
-          />
-        )}
+        {/* Main Content (RichText — same renderer as PostDetail) */}
+        <RichTextContent content={guide.content} />
 
         {/* Mid-article Ad (code-adjacent style) */}
         <CodeBlockAd />
 
-        {/* Steps */}
+        {/* Steps - Detailed Walkthrough */}
         {steps.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Step-by-Step Guide</h2>
+            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-sm">📝</span>
+              Step-by-Step Walkthrough
+            </h2>
             <div>
               {steps.map((step, i) => (
                 <StepCard key={i} step={step} index={i} />

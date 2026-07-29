@@ -4,7 +4,11 @@ const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 /**
  * Fetch all guides (for the hub listing page).
+ * @returns {Promise<Array>} - Array of guide objects
+ * 
  */
+
+// Note: Re-added difficulty because now the guides model includes difficulty enum
 export const getGuides = async () => {
   const query = gql`
     query GetGuides {
@@ -12,7 +16,7 @@ export const getGuides = async () => {
         title
         slug
         excerpt
-        estimatedTime
+        difficulty
         framework
         featuredImage {
           url
@@ -52,7 +56,7 @@ export const getGuideDetails = async (slug) => {
         title
         slug
         excerpt
-        estimatedTime
+        difficulty
         framework
         featuredImage {
           url
@@ -60,6 +64,7 @@ export const getGuideDetails = async (slug) => {
         content {
           raw
           html
+          json
           text
         }
         steps
@@ -121,7 +126,7 @@ export const getGuidesByFramework = async (framework) => {
         title
         slug
         excerpt
-        estimatedTime
+        difficulty
         framework
         featuredImage {
           url
