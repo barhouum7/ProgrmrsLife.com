@@ -17,18 +17,18 @@ class MyDocument extends Document {
 
           {/* <meta name="google-adsense-account" content="ca-pub-1339539882255727" /> */}
           <meta name="google-adsense-account" content="ca-pub-5021308603136043" />
-          
+
         </Head>
         <body>
 
 
           {/* // Code from AdSense */}
-          <Script 
+          <Script
             id="adsbygoogle-init"
             strategy="afterInteractive"
             crossOrigin="anonymous"
             async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5021308603136043"
-            // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
+          // src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1339539882255727"
           />
 
           {/* <!-- Google Tag Manager --> */}
@@ -47,12 +47,12 @@ class MyDocument extends Document {
           />
           {/* <!-- End Google Tag Manager --> */}
           {/* Sharethis integration code */}
-          <Script 
-            async 
-            src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform" 
+          <Script
+            async
+            src="https://platform-api.sharethis.com/js/sharethis.js#property=65146ae9c8722100193bdff3&product=inline-reaction-buttons&source=platform"
             strategy="afterInteractive"
           />
-          
+
 
           {/* <!-- Google Tag Manager (noscript) --> */}
           {/* <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFFN5QDF"
@@ -60,10 +60,10 @@ class MyDocument extends Document {
 
           {/* <!-- End Google Tag Manager (noscript) --> */}
           {/* <!-- Google tag (gtag.js) --> */}
-          <Script 
-              async 
-              src="https://www.googletagmanager.com/gtag/js?id=G-PEF01PTY1T"
-              strategy="afterInteractive"
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=AW-823218139"
+            strategy="afterInteractive"
           />
           <Script
             id="google-analytics"
@@ -73,12 +73,12 @@ class MyDocument extends Document {
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', 'G-PEF01PTY1T');
+                gtag('config', 'AW-823218139');
               `,
             }}
           />
           {/* <!-- End Google tag (gtag.js) --> */}
-          
+
           <Main />
           <NextScript />
 
