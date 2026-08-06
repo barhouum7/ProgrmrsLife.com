@@ -36,8 +36,10 @@ export default async function handler(req, res) {
         const forceFetch = req.query.force === 'true';
         const bypassDaily = req.query.bypass === 'true';
         const { tweets, cached, rateLimited, error } = await fetchTweets(forceFetch, bypassDaily);
-        if (error) {
-            console.error('Twitter API Error:', error); // Log the error for debugging
+        
+        // Only fail if we have a hard error AND no tweets at all
+        if (error && (!tweets || tweets.length === 0)) {
+            console.error('Twitter API Error:', error);
             return res.status(500).json({ success: false, error: error.message || 'Failed to fetch tweets from Twitter API.' });
         }
 

@@ -96,7 +96,7 @@ const nextConfig = {
     // workerThreads: false,
     cpus: 1,
     fontLoaders: [
-      { loader: '@next/font/google', options: { subsets: ['latin'], timeout: 30000 } },
+      { loader: '@next/font/google', options: { subsets: ['latin'], timeout: 60000 } },
     ],
   },
   async headers() {

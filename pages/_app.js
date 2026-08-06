@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { fonts, defaultFont } from '../config/fonts';
+import { defaultFont } from '../config/fonts';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { SuspenseLoader } from '../components';
 import * as gtag from '../lib/gtag';
@@ -36,14 +36,7 @@ import 'tailwindcss/tailwind.css'
 
 function MyApp({ Component, pageProps }) {
   
-  const [currentFont, setCurrentFont] = useState(defaultFont);
 
-  const changeFontAction = useCallback(() => {
-    const fontNames = Object.keys(fonts);
-    const currentIndex = fontNames.findIndex(name => fonts[name] === currentFont);
-    const nextIndex = (currentIndex + 1) % fontNames.length;
-    setCurrentFont(fonts[fontNames[nextIndex]]);
-  }, [currentFont]);
 
 const actions = [
 
@@ -83,15 +76,7 @@ const actions = [
     subtitle: "Go to the services page",
     icon: <ServicesIcon />,
   },
-  {
-    id: "changeFont",
-    name: "Change Font",
-    shortcut: ["f"],
-    keywords: "font typography",
-    section: "Preferences",
-    perform: changeFontAction,
-    icon: <FontIcon />,
-  },
+
   {
     id: "tools",
     name: "Dev Tools",
@@ -138,7 +123,7 @@ const actions = [
 
   return (
     <ErrorBoundary>
-      <main className={`${currentFont.className} min-h-screen flex flex-col`}>
+      <main className={`${defaultFont.className} min-h-screen flex flex-col`}>
         <ThemeProvider enableSystem={true} attribute="class">
           <KBarProvider actions={actions}
             options={{
@@ -214,13 +199,6 @@ function ServicesIcon () {
   )
 }
 
-function FontIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-      <path d="M4 7V4h16v3M9 20h6M12 4v16"/>
-    </svg>
-  )
-}
 
 function ToolsIcon() {
   return (

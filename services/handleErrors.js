@@ -6,7 +6,7 @@ const handleErrors = async (graphqlApi, query, variables) => {
     return data;
   } catch (error) {
     console.error(`GraphQL request failed: ${error.message}`);
-    if (error.response) {
+    if (error.response?.errors?.[0]?.message) {
         // GraphQL error
         const message = error.response.errors[0].message;
         throw new Error(`GraphQL error: ${message}`);

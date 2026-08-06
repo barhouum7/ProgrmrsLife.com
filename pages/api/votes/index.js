@@ -1,6 +1,5 @@
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
-import { emitVoteUpdate } from '../socketio';
 
 // A helper function to get or generate a user ID
 const getUserId = (req) => {
@@ -168,8 +167,7 @@ export default async function handler(req, res) {
                 updatedTweetId: tweetId
             };
             
-            // Emit the update through Socket.IO
-            emitVoteUpdate(voteUpdate);
+            // Vote update data (picked up by client polling)
 
             return res.status(200).json({
                 success: true,

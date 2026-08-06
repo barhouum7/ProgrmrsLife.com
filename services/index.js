@@ -285,7 +285,7 @@ export const getCategoryPost = async (slug) => {
     
     const result = await handleErrors(graphqlAPI, query, { slug });
     
-    return result.postsConnection.edges;
+    return result?.postsConnection?.edges || [];
     };
 
     export const getCategory = async (slug) => {
@@ -299,7 +299,7 @@ export const getCategoryPost = async (slug) => {
         
         const result = await handleErrors(graphqlAPI, query, { slug });
         
-        return result.category.name;
+        return result?.category?.name || slug;
     };
 
 export const getSearchResults = async (searchTerm) => {

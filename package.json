@@ -54,8 +54,6 @@
     "react-use": "^17.5.1",
     "sass": "^1.58.3",
     "sharethis-reactjs": "^1.6.0",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1",
     "tailwind-highlightjs": "^2.0.1"
   },
   "devDependencies": {
