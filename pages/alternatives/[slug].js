@@ -11,6 +11,8 @@ import Image from 'next/image';
 import NativeAdBanner from '../../components/ads/NativeAdBanner';
 import CodeBlockAd from '../../components/ads/CodeBlockAd';
 import RichTextContent from '../../components/shared/RichTextContent';
+import PostActions from '../../components/shared/PostActions';
+import { formatDate } from '../../lib/formatDate';
 
 /** Auto-calculate reading time from text content */
 function getReadingTime(text) {
@@ -38,7 +40,7 @@ export default function AlternativePostPage({ post }) {
     () => getReadingTime(post.content?.text),
     [post]
   );
-  const publishDate = new Date(post.updatedAt || post.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const publishDate = formatDate(post.updatedAt || post.createdAt);
 
   return (
     <>
@@ -71,6 +73,29 @@ export default function AlternativePostPage({ post }) {
             "description": alt.description || '',
             ...(alt.website && { "url": alt.website }),
           })),
+        })}
+      </Script>
+
+      {/* Article Schema */}
+      <Script id="alt-article-schema" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": post.title,
+          "description": post.excerpt,
+          "url": canonicalUrl,
+          "datePublished": post.createdAt,
+          "dateModified": post.updatedAt || post.createdAt,
+          ...(post.featuredImage?.url && { "image": post.featuredImage.url }),
+          "author": {
+            "@type": "Person",
+            "name": post.author?.name || "ProgrmrsLife",
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "ProgrmrsLife",
+            "url": "https://www.progrmrslife.com",
+          },
         })}
       </Script>
 
@@ -116,7 +141,7 @@ export default function AlternativePostPage({ post }) {
         )}
 
         {/* Hero */}
-        <div className="mb-8">
+        <div className="mb-4">
           <div className="flex items-center gap-4 mb-4">
             {post.targetSoftwareLogo?.url && (
               <div className='relative flex-none w-16 h-16'>
@@ -128,14 +153,6 @@ export default function AlternativePostPage({ post }) {
                 {post.targetSoftware && (
                   <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
                     vs {post.targetSoftware}
-                  </span>
-                )}
-                {readingTime && (
-                  <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {readingTime}
                   </span>
                 )}
                 {post.categories?.map((cat) => (
@@ -168,6 +185,15 @@ export default function AlternativePostPage({ post }) {
             </div>
           )}
         </div>
+
+        {/* Post Actions — Share, Copy Link, Listen */}
+        <PostActions
+          title={post.title}
+          slug={post.slug}
+          basePath="/alternatives"
+          plainText={post.content?.text}
+          readingTime={readingTime}
+        />
 
         {/* Comparison Table */}
         {alternatives.length > 0 && (
@@ -215,8 +241,17 @@ export default function AlternativePostPage({ post }) {
         {/* Cross-promo banner */}
         <NativeAdBanner className="mt-6" />
 
+        {/* Bottom Actions (repeat for long articles) */}
+        <PostActions
+          title={post.title}
+          slug={post.slug}
+          basePath="/alternatives"
+          plainText={post.content?.text}
+          readingTime={readingTime}
+        />
+
         {/* Back Link */}
-        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
           <Link href="/alternatives" className="text-violet-600 dark:text-violet-400 hover:underline font-medium">
             ← Browse All Alternatives
           </Link>

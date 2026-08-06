@@ -78,7 +78,7 @@ export default function GuidesHub({ guides }) {
 
         {/* Framework Filter */}
         <div className="mb-8">
-          <FrameworkFilter active={activeFramework} onChange={setActiveFramework} />
+          <FrameworkFilter active={activeFramework} onChange={setActiveFramework} guides={guides} />
         </div>
 
         {/* Ad Slot */}

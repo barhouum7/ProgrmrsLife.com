@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { getGuideDetails, getGuideSlugs } from '../../services/guides';
 import StepCard from '../../components/guides/StepCard';
-import DifficultyBadge from '../../components/guides/DifficultyBadge'; // Re-added difficulty because now the guides model includes difficulty enum
+import DifficultyBadge from '../../components/guides/DifficultyBadge';
 import { AdsenseScript } from '../../components';
 import Image from 'next/image';
 import CodeBlockAd from '../../components/ads/CodeBlockAd';
 import NativeAdBanner from '../../components/ads/NativeAdBanner';
 import RichTextContent from '../../components/shared/RichTextContent';
+import PostActions from '../../components/shared/PostActions';
+import { formatDate } from '../../lib/formatDate';
 
 /** Auto-calculate reading time from text content */
 export function getReadingTime(text) {
@@ -38,7 +40,7 @@ export default function GuideDetailPage({ guide }) {
     () => getReadingTime(guide.content?.text),
     [guide]
   );
-  const publishDate = new Date(guide.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const publishDate = formatDate(guide.createdAt);
 
   return (
     <>
@@ -142,7 +144,7 @@ export default function GuideDetailPage({ guide }) {
         )}
 
         {/* Hero */}
-        <div className="mb-8">
+        <div className="mb-4">
           <div className="flex flex-wrap items-center gap-2 mb-3">
             {guide.framework && (
               <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
@@ -150,14 +152,6 @@ export default function GuideDetailPage({ guide }) {
               </span>
             )}
             <DifficultyBadge difficulty={guide.difficulty} />
-            {readingTime && (
-              <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                {readingTime}
-              </span>
-            )}
             {guide.categories?.map((cat) => (
               <span key={cat.slug} className="text-xs px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
                 {cat.name}
@@ -189,6 +183,15 @@ export default function GuideDetailPage({ guide }) {
             </div>
           )}
         </div>
+
+        {/* Post Actions — Share, Copy Link, Listen */}
+        <PostActions
+          title={guide.title}
+          slug={guide.slug}
+          basePath="/guides"
+          plainText={guide.content?.text}
+          readingTime={readingTime}
+        />
 
         {/* Top Ad */}
         <div className="mb-6">
@@ -244,8 +247,17 @@ export default function GuideDetailPage({ guide }) {
         {/* Cross-promo banner */}
         <NativeAdBanner className="mt-6" />
 
+        {/* Bottom Actions (repeat for long articles) */}
+        <PostActions
+          title={guide.title}
+          slug={guide.slug}
+          basePath="/guides"
+          plainText={guide.content?.text}
+          readingTime={readingTime}
+        />
+
         {/* Back Link */}
-        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
           <Link href="/guides" className="text-violet-600 dark:text-violet-400 hover:underline font-medium">
             ← Browse All Guides
           </Link>
