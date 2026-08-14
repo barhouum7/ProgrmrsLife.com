@@ -13,9 +13,7 @@ export default async function handler(req, res) {
 
     // GET request handling
     if (req.method === 'GET') {
-        // console.log('Handling GET request for votes');
         try {
-            // console.log('Attempting to fetch votes from database...');
             const userId = getUserId(req);
             const votes = await prisma.vote.findMany({
                 where: {
@@ -23,7 +21,7 @@ export default async function handler(req, res) {
                     userId: userId  // Only get votes for this user
                 },
                 select: {
-                    tweetId: true,
+                    linkId: true,
                     type: true,
                     createdAt: true,
                     userId: true
@@ -33,11 +31,18 @@ export default async function handler(req, res) {
             // Set the cookie here too for consistency
             res.setHeader('Set-Cookie', `userId=${userId}; Path=/; HttpOnly; SameSite=Strict`);
 
-            // console.log('Successfully fetched votes:', votes);
+            // Map linkId to tweetId for backward compatibility with frontend
+            const mappedVotes = votes.map(v => ({
+                tweetId: v.linkId,
+                type: v.type,
+                createdAt: v.createdAt,
+                userId: v.userId,
+            }));
+
             return res.status(200).json({
                 success: true,
                 currentUserId: userId,
-                votes
+                votes: mappedVotes
             });
         } catch (error) {
             console.error('Error fetching votes:', error);
@@ -46,32 +51,35 @@ export default async function handler(req, res) {
                 error: 'Failed to fetch votes'
             });
         }
-    } 
+    }
 
     // POST request handling
     if (req.method === 'POST') {
-    
+
         const { tweetId, voteType, action } = req.body;
         const userId = getUserId(req);
-    
-        if (!tweetId || !voteType || !action) {
-            return res.status(400).json({ 
+
+        // Accept both tweetId (legacy) and linkId (new)
+        const linkId = req.body.linkId || tweetId;
+
+        if (!linkId || !voteType || !action) {
+            return res.status(400).json({
                 success: false,
-                error: 'Missing required fields' 
+                error: 'Missing required fields'
             });
         }
-    
+
         try {
             if (action === 'add') {
                 // First, check if there's already an active vote from this user
                 const existingVote = await prisma.vote.findFirst({
                     where: {
-                        tweetId,
+                        linkId,
                         userId,
                         active: true,
                     }
                 });
-            
+
                 if (existingVote) {
                     // If vote type is different, update it
                     if (existingVote.type !== voteType) {
@@ -87,17 +95,26 @@ export default async function handler(req, res) {
                     // Create new vote
                     await prisma.vote.create({
                         data: {
-                            tweetId,
+                            linkId,
                             type: voteType,
                             active: true,
                             userId,
                         }
                     });
+
+                    // Auto-verify community links on first upvote:
+                    // unverified submissions become visible once a user confirms working
+                    if (voteType === 'up') {
+                        await prisma.canvaLink.updateMany({
+                            where: { id: linkId, source: 'community', status: 'unverified' },
+                            data: { status: 'verified' },
+                        }).catch(() => { });
+                    }
                 }
             } else if (action === 'remove') {
                 await prisma.vote.updateMany({
                     where: {
-                        tweetId,
+                        linkId,
                         userId,
                         type: voteType,
                         active: true,
@@ -107,28 +124,25 @@ export default async function handler(req, res) {
                     }
                 });
             }
-    
-            // Get updated counts for all tweets
+
+            // Get updated counts for all links
             const votes = await prisma.vote.findMany({
                 where: {
                     active: true,
                 },
                 select: {
-                    tweetId: true,
+                    linkId: true,
                     type: true,
                     active: true,
                     createdAt: true
                 }
             });
-            
-            // Log the votes for debugging
-            // console.log('Active votes found:', votes);
-            
-            // Aggregate votes with more detailed logging
+
+            // Aggregate votes
             const formattedCounts = votes.reduce((acc, vote) => {
-                if (!acc[vote.tweetId]) {
-                    acc[vote.tweetId] = { 
-                        up: 0, 
+                if (!acc[vote.linkId]) {
+                    acc[vote.linkId] = {
+                        up: 0,
                         down: 0,
                         latestVote: {
                             type: vote.type,
@@ -136,37 +150,34 @@ export default async function handler(req, res) {
                         }
                     };
                 }
-                
+
                 if (vote.type === 'up') {
-                    acc[vote.tweetId].up++;
+                    acc[vote.linkId].up++;
                 } else if (vote.type === 'down') {
-                    acc[vote.tweetId].down++;
+                    acc[vote.linkId].down++;
                 }
-                
+
                 // Update latest vote if this one is more recent
-                if (new Date(vote.createdAt) > new Date(acc[vote.tweetId].latestVote.time)) {
-                    acc[vote.tweetId].latestVote = {
+                if (new Date(vote.createdAt) > new Date(acc[vote.linkId].latestVote.time)) {
+                    acc[vote.linkId].latestVote = {
                         type: vote.type,
                         time: vote.createdAt
                     };
                 }
-                
+
                 return acc;
             }, {});
-            
-            // console.log('Final formatted counts:', formattedCounts);
 
             // Set a cookie to maintain user identity
             res.setHeader('Set-Cookie', `userId=${userId}; Path=/; HttpOnly; SameSite=Strict`);
-    
 
             const voteUpdate = {
                 counts: formattedCounts,
                 lastUpdated: new Date(),
                 userId: userId,
-                updatedTweetId: tweetId
+                updatedTweetId: linkId
             };
-            
+
             // Vote update data (picked up by client polling)
 
             return res.status(200).json({
@@ -174,20 +185,20 @@ export default async function handler(req, res) {
                 currentUserId: userId,
                 ...voteUpdate
             });
-    
+
         } catch (error) {
             console.error('Error processing vote:', error);
-            return res.status(500).json({ 
+            return res.status(500).json({
                 success: false,
-                error: 'Failed to process vote' 
+                error: 'Failed to process vote'
             });
         }
     }
 
     // Handle unsupported methods
-    return res.status(405).json({ 
+    return res.status(405).json({
         success: false,
-        error: 'Method not allowed' 
+        error: 'Method not allowed'
     });
 
 }

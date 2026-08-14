@@ -16,7 +16,7 @@ export default async function handler(req, res) {
                 active: true,
             },
             select: {
-                tweetId: true,
+                linkId: true,
                 type: true,
                 active: true,
                 createdAt: true
@@ -26,10 +26,10 @@ export default async function handler(req, res) {
             }
         });
 
-        // Group votes by tweetId to track counts and latest vote
+        // Group votes by linkId to track counts and latest vote
         const formattedCounts = votes.reduce((acc, vote) => {
-            if (!acc[vote.tweetId]) {
-                acc[vote.tweetId] = { 
+            if (!acc[vote.linkId]) {
+                acc[vote.linkId] = { 
                     up: 0, 
                     down: 0,
                     latestVote: {
@@ -41,14 +41,14 @@ export default async function handler(req, res) {
             
             // Update counts
             if (vote.type === 'up') {
-                acc[vote.tweetId].up++;
+                acc[vote.linkId].up++;
             } else if (vote.type === 'down') {
-                acc[vote.tweetId].down++;
+                acc[vote.linkId].down++;
             }
             
             // Update latest vote if this one is more recent
-            if (new Date(vote.createdAt) > new Date(acc[vote.tweetId].latestVote.time)) {
-                acc[vote.tweetId].latestVote = {
+            if (new Date(vote.createdAt) > new Date(acc[vote.linkId].latestVote.time)) {
+                acc[vote.linkId].latestVote = {
                     type: vote.type,
                     time: vote.createdAt
                 };

@@ -7,38 +7,95 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Tweet {
-  id          String   @id
-  text        String
-  authorId    String
-  username    String
-  displayName String?
-  createdAt   DateTime
-  canvaLink   String
-  tweetUrl    String
-  fetchedAt   DateTime @default(now())
+// ─── CANVA LINK (replaces old Tweet model) ─────────────────────────
+// Universal model for invite links from any source
+model CanvaLink {
+  id          String    @id @default(cuid())
+  url         String    @unique // The canva.com/brand/join... URL
+  source      String // "scraper" | "community" | "x_api" | "manual"
+  sourceRef   String? // Original source reference (tweet URL, submission ID, etc.)
+  authorName  String? // Who shared the link
+  status      String    @default("unverified") // "unverified" | "working" | "broken" | "expired"
+  submittedBy String? // userId of community submitter (if applicable)
+  createdAt   DateTime  @default(now())
+  fetchedAt   DateTime  @default(now())
+  expiresAt   DateTime? // Optional — auto-expire old links
 
+  votes Vote[]
+
+  @@index([status])
+  @@index([source])
   @@index([createdAt])
 }
 
-model ApiCallLog {
+// ─── VOTE ──────────────────────────────────────────────────────────
+model Vote {
   id        String   @id @default(cuid())
-  date      DateTime @unique
-  callCount Int      @default(0)
-  lastCallTime DateTime
-  lastCallSuccess Boolean @default(false)
+  linkId    String
+  type      String // 'up' or 'down'
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @default("")
+
+  link CanvaLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@index([linkId])
+  @@index([type])
+  @@index([active])
 }
 
-model Vote {
-    id        String   @id @default(cuid())
-    tweetId   String
-    type      String   // 'up' or 'down'
-    active    Boolean  @default(true)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    userId    String   @default("")
+// ─── SOURCE CONFIG ─────────────────────────────────────────────────
+// Admin-controlled source enable/disable + priority
+model SourceConfig {
+  id             String    @id @default(cuid())
+  sourceType     String    @unique // "scraper_apify" | "scraper_sorsa" | "x_api"
+  enabled        Boolean   @default(true)
+  priority       Int       @default(0) // Lower = higher priority
+  lastRunAt      DateTime?
+  lastRunSuccess Boolean   @default(false)
+  config         Json? // Source-specific settings
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
 
-    @@index([tweetId])
-    @@index([type])
-    @@index([active])
+// ─── PREMIUM REQUEST ───────────────────────────────────────────────
+// Tracks users requesting access to the exclusive private Canva team
+model PremiumRequest {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  userId         String // Cookie-based user ID
+  status         String    @default("pending") // "pending" | "tasks_completed" | "approved" | "active" | "expired" | "rejected"
+  tasksCompleted Json      @default("[]") // ["share_facebook", "join_telegram", "subscribe_youtube", "quiz", "survey"]
+  approvedAt     DateTime?
+  expiresAt      DateTime? // 1 month from approval date
+  adminNotes     String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([status])
+  @@index([userId])
+}
+
+// ─── API CALL LOG ──────────────────────────────────────────────────
+// Tracks daily API usage across all sources
+model ApiCallLog {
+  id              String   @id @default(cuid())
+  date            DateTime @unique
+  callCount       Int      @default(0)
+  lastCallTime    DateTime
+  lastCallSuccess Boolean  @default(false)
+  source          String? // Which source made the call
+}
+
+// ─── SURVEY RESPONSE ───────────────────────────────────────────────
+// Stores feedback survey answers from users
+model SurveyResponse {
+  id        String   @id @default(cuid())
+  userId    String // Cookie-based user ID
+  answers   Json // { rating: 4, discovery: "google", usage: "weekly", improve: "..." }
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
 }
