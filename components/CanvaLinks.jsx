@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import SubmitLinkForm from './canva/SubmitLinkForm';
 import PremiumTeamCard from './canva/PremiumTeamCard';
+import { BsInfoCircleFill } from 'react-icons/bs';
 
 // ─── SOURCE BADGES ─────────────────────────────────────────────────
 const SOURCE_CONFIG = {
@@ -629,6 +630,18 @@ const CanvaLinks = () => {
                         <span className="text-gray-500 dark:text-gray-400 text-xs">Unvoted</span>
                     </div>
                 </button>
+            </div>
+
+            {/* Let the users know that when they vote they help the system know whether should auto update with new fresh links or not, so users always get new fresh links when when the current links has been confirmed broken */}
+            <div className="mb-6">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 border border-blue-200/30 dark:border-blue-700/20">
+                    <div className="flex items-center justify-center gap-2">
+                        <BsInfoCircleFill className="w-4 h-4 text-blue-500" />
+                        <span className="text-blue-700 dark:text-blue-400 text-xs font-medium">
+                            Your votes help keep the links fresh! When you vote a link as broken, the system will automatically update with a new fresh link.
+                        </span>
+                    </div>
+                </div>
             </div>
 
 
