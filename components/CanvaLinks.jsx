@@ -2,12 +2,22 @@ import React, { useState, useEffect, useCallback, useRef, useMemo, forwardRef } 
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import { format, formatDistanceToNow } from 'date-fns';
-import { FaSync, FaExternalLinkAlt, FaClock, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
+import { FaSync, FaExternalLinkAlt, FaClock, FaThumbsUp, FaThumbsDown, FaSpider, FaUsers, FaTwitter, FaHandPointer } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import { Tooltip } from 'flowbite-react';
 import MockDataIndicator from './MockDataIndicator';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import SubmitLinkForm from './canva/SubmitLinkForm';
+import PremiumTeamCard from './canva/PremiumTeamCard';
+
+// ─── SOURCE BADGES ─────────────────────────────────────────────────
+const SOURCE_CONFIG = {
+    scraper: { label: 'Auto-found', icon: FaSpider, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-100 dark:bg-emerald-900/30' },
+    community: { label: 'Community', icon: FaUsers, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-100 dark:bg-purple-900/30' },
+    x_api: { label: 'Social', icon: FaTwitter, color: 'text-sky-600 dark:text-sky-400', bg: 'bg-sky-100 dark:bg-sky-900/30' },
+    manual: { label: 'Curated', icon: FaHandPointer, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-900/30' },
+};
 
 
 // ─── CONFIG ────────────────────────────────────────────────────────
@@ -17,13 +27,12 @@ const FETCH_DEBOUNCE = 2_000;  // Prevent rapid-fire fetches
 
 const CanvaLinks = () => {
     // ── Core state ──────────────────────────────────────────────
-    const [tweets, setTweets] = useState([]);
+    const [links, setLinks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [lastUpdated, setLastUpdated] = useState(null);
     const [error, setError] = useState(null);
     const [autoRefreshEnabled, setAutoRefreshEnabled] = useState(true);
-    const [dailyCallMade, setDailyCallMade] = useState(false);
-    const [nextRefreshTime, setNextRefreshTime] = useState(null);
+    const [cached, setCached] = useState(false);
     const [hasShownCacheToast, setHasShownCacheToast] = useState(false);
 
     // ── Vote state ──────────────────────────────────────────────
@@ -35,14 +44,18 @@ const CanvaLinks = () => {
 
     // ── UI state ────────────────────────────────────────────────
     const [revealedLinks, setRevealedLinks] = useState({});
-    const [highlightedTweetId, setHighlightedTweetId] = useState(null);
+    const [highlightedLinkId, setHighlightedLinkId] = useState(null);
     const { width, height } = useWindowSize();
     const lastFetchRef = useRef(0);
 
 
-    // ── Sorted tweets (memoized) ────────────────────────────────
-    const sortedTweets = useMemo(() => {
-        return [...tweets].sort((a, b) => {
+    // ── Filter state ─────────────────────────────────────────────
+    const [filterSource, setFilterSource] = useState('all'); // 'all' | 'scraper' | 'community' | 'x_api' | 'manual'
+    const [filterStatus, setFilterStatus] = useState('all'); // 'all' | 'working' | 'unvoted' | 'broken'
+
+    // ── Sorted links (memoized) ────────────────────────────────
+    const sortedLinks = useMemo(() => {
+        return [...links].sort((a, b) => {
             const aCount = voteCounts[a.id];
             const bCount = voteCounts[b.id];
 
@@ -62,7 +75,24 @@ const CanvaLinks = () => {
             // Finally, sort by creation date for unvoted items
             return new Date(b.created_at) - new Date(a.created_at);
         });
-    }, [tweets, voteCounts]);
+    }, [links, voteCounts]);
+
+    // ── Filtered links (memoized — derived from sortedLinks) ────
+    const filteredLinks = useMemo(() => {
+        return sortedLinks.filter(link => {
+            // Source filter
+            if (filterSource !== 'all' && link.source !== filterSource) return false;
+            // Status filter
+            if (filterStatus !== 'all') {
+                const counts = voteCounts[link.id];
+                const latestType = counts?.latestVote?.type;
+                if (filterStatus === 'working' && latestType !== 'up') return false;
+                if (filterStatus === 'broken' && latestType !== 'down') return false;
+                if (filterStatus === 'unvoted' && latestType) return false;
+            }
+            return true;
+        });
+    }, [sortedLinks, filterSource, filterStatus, voteCounts]);
 
 
     // ── Data fetching ───────────────────────────────────────────
@@ -75,7 +105,7 @@ const CanvaLinks = () => {
                 throw new Error('You are currently offline. Please check your internet connection.');
             }
 
-            const response = await fetch(`/api/tweets${force ? '?force=true' : ''}`, {
+            const response = await fetch(`/api/links${force ? '?force=true' : ''}`, {
                 headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
             });
 
@@ -89,25 +119,29 @@ const CanvaLinks = () => {
                 throw new Error(data.error || 'API returned unsuccessful response');
             }
 
-            setTweets(data.tweets);
+            setLinks(data.links);
             setLastUpdated(new Date());
-            setDailyCallMade(data.dailyCallMade);
-            if (data.nextRefreshAvailable) {
-                setNextRefreshTime(new Date(data.nextRefreshAvailable));
-            }
+            setCached(data.cached || false);
 
             if (force) {
                 toast.success(
                     data.cached
-                        ? `Showing cached links${data.retryAfter ? '. Retry available after ' + format(new Date(data.retryAfter), 'HH:mm:ss') : ''}`
+                        ? 'Showing cached links — fresh links loading in background…'
                         : 'Links refreshed successfully!'
                 );
-            } else if (data.dailyCallMade && !hasShownCacheToast) {
-                toast.success('Using cached links - Daily API limit reached', {
+            } else if (data.cached && !hasShownCacheToast) {
+                toast.success('Showing cached links', {
                     id: 'cache-toast',
-                    duration: 5000,
+                    duration: 3000,
                 });
                 setHasShownCacheToast(true);
+            }
+
+            // Background scrape in progress — auto-reload once it completes
+            if (data.scraping && !force) {
+                setTimeout(() => {
+                    fetchCanvaLinks(true);
+                }, 30_000);
             }
 
             return data;
@@ -228,9 +262,9 @@ const CanvaLinks = () => {
 
 
     // ── Handlers ────────────────────────────────────────────────
-    const handleRevealLink = (tweetId) => {
-        if (!revealedLinks[tweetId]) {
-            setRevealedLinks(prev => ({ ...prev, [tweetId]: true }));
+    const handleRevealLink = (linkId) => {
+        if (!revealedLinks[linkId]) {
+            setRevealedLinks(prev => ({ ...prev, [linkId]: true }));
             toast.success(
                 <div className="space-y-2">
                     <p className="font-medium">Link Revealed! 🎉</p>
@@ -242,19 +276,19 @@ const CanvaLinks = () => {
     };
 
 
-    const handleVote = async (tweetId, voteType) => {
-        if (votingId === tweetId) return;
+    const handleVote = async (linkId, voteType) => {
+        if (votingId === linkId) return;
 
-        setVotingId(tweetId);
-        setHighlightedTweetId(tweetId);
+        setVotingId(linkId);
+        setHighlightedLinkId(linkId);
 
         try {
-            const isChangingVote = votes[tweetId]?.type === voteType;
+            const isChangingVote = votes[linkId]?.type === voteType;
 
             const response = await fetch('/api/votes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ tweetId, voteType, action: isChangingVote ? 'remove' : 'add' }),
+                body: JSON.stringify({ tweetId: linkId, voteType, action: isChangingVote ? 'remove' : 'add' }),
             });
 
             const data = await response.json();
@@ -263,16 +297,16 @@ const CanvaLinks = () => {
             setCurrentUserId(data.currentUserId);
 
             setVotes(isChangingVote
-                ? { ...votes, [tweetId]: undefined }
-                : { ...votes, [tweetId]: { type: voteType, lastVoteTime: new Date().toISOString() } }
+                ? { ...votes, [linkId]: undefined }
+                : { ...votes, [linkId]: { type: voteType, lastVoteTime: new Date().toISOString() } }
             );
 
             setVoteCounts(prev => ({
                 ...prev,
-                [tweetId]: {
-                    up: data.counts[tweetId]?.up || 0,
-                    down: data.counts[tweetId]?.down || 0,
-                    latestVote: data.counts[tweetId]?.latestVote
+                [linkId]: {
+                    up: data.counts[linkId]?.up || 0,
+                    down: data.counts[linkId]?.down || 0,
+                    latestVote: data.counts[linkId]?.latestVote
                 }
             }));
 
@@ -287,14 +321,14 @@ const CanvaLinks = () => {
             }
 
             setTimeout(() => {
-                document.getElementById(`tweet-${tweetId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                document.getElementById(`link-${linkId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 100);
 
-            setTimeout(() => setHighlightedTweetId(null), 2000);
+            setTimeout(() => setHighlightedLinkId(null), 2000);
         } catch (error) {
             console.error('Error submitting vote:', error);
             toast.error('Failed to submit vote. Please try again.');
-            setHighlightedTweetId(null);
+            setHighlightedLinkId(null);
         } finally {
             setVotingId(null);
         }
@@ -303,10 +337,6 @@ const CanvaLinks = () => {
 
     const handleManualRefresh = () => {
         if (loading) return;
-        if (dailyCallMade) {
-            toast.error('Links refresh limit reached. Please try again tomorrow.');
-            return;
-        }
         toast.loading('Refreshing links...', { id: 'refresh' });
         fetchCanvaLinks(true).then(() => toast.dismiss('refresh'));
     };
@@ -399,17 +429,17 @@ const CanvaLinks = () => {
                     {/* Title Section */}
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-3">
-                            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-blue-500 bg-clip-text text-transparent">
+                            <h1 className="max-w-[200px] sm:max-w-none text-3xl md:text-4xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-blue-500 bg-clip-text text-transparent">
                                 Latest Canva PRO Teams
                             </h1>
-                            {tweets.length > 0 && (
+                            {links.length > 0 && (
                                 <span className="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
-                                    {tweets.length} links
+                                    {links.length} links
                                 </span>
                             )}
                         </div>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Fresh links updated daily at 12:00 PM UTC
+                            Multi-source aggregated links — updated automatically
                         </p>
                     </div>
 
@@ -425,12 +455,10 @@ const CanvaLinks = () => {
                                 </Tooltip>
                             )}
 
-                            {nextRefreshTime && autoRefreshEnabled && (
-                                <Tooltip content="Next scheduled data refresh" style="dark" className="transition duration-700 ease-in-out">
-                                    <span className="text-xs text-gray-400 dark:text-gray-500">
-                                        Next refresh in {formatDistanceToNow(nextRefreshTime)}
-                                    </span>
-                                </Tooltip>
+                            {cached && (
+                                <span className="text-xs text-amber-500 dark:text-amber-400 font-medium">
+                                    Showing cached data
+                                </span>
                             )}
                         </div>
 
@@ -462,13 +490,7 @@ const CanvaLinks = () => {
                             </Tooltip>
 
                             <Tooltip
-                                content={
-                                    dailyCallMade
-                                        ? 'Daily limit reached. Try again tomorrow'
-                                        : loading
-                                            ? 'Refreshing...'
-                                            : 'Manually refresh links'
-                                }
+                                content={loading ? 'Refreshing...' : 'Manually refresh links'}
                                 style="dark"
                                 className="transition duration-700 ease-in-out"
                             >
@@ -477,7 +499,7 @@ const CanvaLinks = () => {
                                     disabled={loading}
                                     className={`
                                         relative p-3 rounded-xl transition-all duration-300
-                                        ${loading || dailyCallMade
+                                        ${loading
                                             ? 'bg-gray-100 dark:bg-gray-700/50 cursor-not-allowed opacity-50'
                                             : 'bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-800/30 dark:to-indigo-800/30 text-blue-600 dark:text-blue-400'}
                                         hover:shadow-lg hover:scale-105
@@ -501,38 +523,117 @@ const CanvaLinks = () => {
                         </svg>
                     </div>
                     <div className="flex-1">
-                        <p className="font-medium">Daily Refresh Schedule</p>
-                        <p className="text-sm opacity-75">Links are refreshed once per day. Cached results will be shown between updates.</p>
+                        <p className="font-medium">Multi-Source Aggregation</p>
+                        <p className="text-sm opacity-75">Links are collected from multiple sources and cached. Fresh auto-fetch runs automatically.</p>
                     </div>
                 </div>
             </div>
+
+            {/* Premium Team Section */}
+            <PremiumTeamCard />
 
 
             <MockDataIndicator />
 
+            {/* ── STICKY FILTER TOOLBAR ─────────────────────────── */}
+            {links.length > 0 && (
+                <div className="sticky top-16 z-20 -mx-8 px-8 py-3 mb-4
+                    bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl
+                    border-b border-gray-200/40 dark:border-gray-700/30
+                    shadow-sm transition-all duration-300">
+                    {/* Source filter row */}
+                    <div className="flex flex-wrap gap-1.5 mb-2">
+                        {[
+                            { key: 'all', label: 'All Sources', count: sortedLinks.length },
+                            { key: 'scraper', label: '⚡ Auto-found', count: sortedLinks.filter(l => l.source === 'scraper').length },
+                            { key: 'community', label: '👥 Community', count: sortedLinks.filter(l => l.source === 'community').length },
+                            { key: 'x_api', label: '📱 Social', count: sortedLinks.filter(l => l.source === 'x_api').length },
+                            { key: 'manual', label: '✨ Curated', count: sortedLinks.filter(l => l.source === 'manual').length },
+                        ].filter(f => f.key === 'all' || f.count > 0).map(f => (
+                            <button key={f.key}
+                                onClick={() => setFilterSource(f.key)}
+                                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-all duration-200
+                                    ${filterSource === f.key
+                                        ? 'bg-violet-600 text-white shadow-sm shadow-violet-500/30'
+                                        : 'bg-gray-100 dark:bg-gray-700/60 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+                            >
+                                {f.label}
+                                {f.count > 0 && <span className={`text-[10px] ${filterSource === f.key ? 'text-violet-200' : 'text-gray-400 dark:text-gray-500'}`}>({f.count})</span>}
+                            </button>
+                        ))}
+                    </div>
+                    {/* Status filter row */}
+                    <div className="flex flex-wrap gap-1.5">
+                        {[
+                            { key: 'all', label: 'All', dot: 'bg-gray-400' },
+                            { key: 'working', label: '✅ Working', dot: 'bg-green-500' },
+                            { key: 'unvoted', label: '⚪ Unvoted', dot: 'bg-gray-400' },
+                            { key: 'broken', label: '❌ Broken', dot: 'bg-red-500' },
+                        ].map(f => (
+                            <button key={f.key}
+                                onClick={() => setFilterStatus(f.key)}
+                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-all duration-200
+                                    ${filterStatus === f.key
+                                        ? 'bg-violet-600 text-white shadow-sm shadow-violet-500/30'
+                                        : 'bg-gray-100 dark:bg-gray-700/60 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+                            >
+                                {f.label}
+                            </button>
+                        ))}
+                        {(filterSource !== 'all' || filterStatus !== 'all') && (
+                            <button
+                                onClick={() => { setFilterSource('all'); setFilterStatus('all'); }}
+                                className="px-2.5 py-1 rounded-full text-xs font-medium text-rose-500
+                                    bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/40
+                                    transition-colors duration-200"
+                            >
+                                × Clear filters
+                            </button>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {/* Stats Summary Row (clickable shortcuts) */}
             <div className="grid grid-cols-3 gap-3 mb-6">
-                <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-2.5 sm:p-3 rounded-xl border border-green-200/30 dark:border-green-700/20">
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></div>
+                <button onClick={() => setFilterStatus('working')}
+                    className={`flex items-center gap-2 text-sm p-2.5 sm:p-3 rounded-xl border transition-all duration-200 text-left
+                        ${filterStatus === 'working'
+                            ? 'bg-green-200/60 dark:bg-green-800/40 border-green-400/50 dark:border-green-500/40 ring-1 ring-green-500/30'
+                            : 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200/30 dark:border-green-700/20 hover:bg-green-100/60 dark:hover:bg-green-900/30'}`}>
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse flex-shrink-0"></div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1.5">
-                        <span className="text-green-700 dark:text-green-400 font-semibold text-base">{sortedTweets.filter(t => voteCounts[t.id]?.latestVote?.type === 'up').length}</span>
+                        <span className="text-green-700 dark:text-green-400 font-semibold text-base">{sortedLinks.filter(t => voteCounts[t.id]?.latestVote?.type === 'up').length}</span>
                         <span className="text-green-600/70 dark:text-green-400/70 text-xs">Working</span>
                     </div>
-                </div>
-                <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 p-2.5 sm:p-3 rounded-xl border border-red-200/30 dark:border-red-700/20">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                </button>
+                <button onClick={() => setFilterStatus('broken')}
+                    className={`flex items-center gap-2 text-sm p-2.5 sm:p-3 rounded-xl border transition-all duration-200 text-left
+                        ${filterStatus === 'broken'
+                            ? 'bg-red-200/60 dark:bg-red-800/40 border-red-400/50 dark:border-red-500/40 ring-1 ring-red-500/30'
+                            : 'bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-red-200/30 dark:border-red-700/20 hover:bg-red-100/60 dark:hover:bg-red-900/30'}`}>
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500 flex-shrink-0"></div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1.5">
-                        <span className="text-red-700 dark:text-red-400 font-semibold text-base">{sortedTweets.filter(t => voteCounts[t.id]?.latestVote?.type === 'down').length}</span>
+                        <span className="text-red-700 dark:text-red-400 font-semibold text-base">{sortedLinks.filter(t => voteCounts[t.id]?.latestVote?.type === 'down').length}</span>
                         <span className="text-red-600/70 dark:text-red-400/70 text-xs">Broken</span>
                     </div>
-                </div>
-                <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-800/50 dark:to-slate-800/50 p-2.5 sm:p-3 rounded-xl border border-gray-200/30 dark:border-gray-700/20">
-                    <div className="w-2.5 h-2.5 rounded-full bg-gray-400 dark:bg-gray-500"></div>
+                </button>
+                <button onClick={() => setFilterStatus('unvoted')}
+                    className={`flex items-center gap-2 text-sm p-2.5 sm:p-3 rounded-xl border transition-all duration-200 text-left
+                        ${filterStatus === 'unvoted'
+                            ? 'bg-gray-200/60 dark:bg-gray-700/40 border-gray-400/50 dark:border-gray-500/40 ring-1 ring-gray-500/30'
+                            : 'bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-800/50 dark:to-slate-800/50 border-gray-200/30 dark:border-gray-700/20 hover:bg-gray-100/60 dark:hover:bg-gray-800/60'}`}>
+                    <div className="w-2.5 h-2.5 rounded-full bg-gray-400 dark:bg-gray-500 flex-shrink-0"></div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1.5">
-                        <span className="text-gray-700 dark:text-gray-300 font-semibold text-base">{sortedTweets.filter(t => !voteCounts[t.id]?.latestVote).length}</span>
-                        <span className="text-gray-500 dark:text-gray-400 text-xs">Unverified</span>
+                        <span className="text-gray-700 dark:text-gray-300 font-semibold text-base">{sortedLinks.filter(t => !voteCounts[t.id]?.latestVote).length}</span>
+                        <span className="text-gray-500 dark:text-gray-400 text-xs">Unvoted</span>
                     </div>
-                </div>
+                </button>
             </div>
+
+
+            {/* Community Submit Form */}
+            <SubmitLinkForm onSubmitted={() => fetchCanvaLinks(false)} />
 
 
             {error ? (
@@ -556,7 +657,7 @@ const CanvaLinks = () => {
                         )}
                     </div>
                 </div>
-            ) : loading && tweets.length === 0 ? (
+            ) : loading && links.length === 0 ? (
                 <div className="space-y-4">
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="relative overflow-hidden bg-gradient-to-r from-white via-white to-white/95 dark:from-gray-800 dark:via-gray-800 dark:to-gray-800/95 rounded-xl p-5 sm:p-6 border border-gray-200/30 dark:border-gray-700/20">
@@ -574,25 +675,39 @@ const CanvaLinks = () => {
                         </div>
                     ))}
                 </div>
-            ) : tweets.length > 0 ? (
+            ) : links.length > 0 ? (
                 <div className="space-y-3 sm:space-y-4">
-                    <AnimatePresence mode="popLayout">
-                        {sortedTweets.map((tweet) => (
-                            <TweetCard
-                                key={tweet.id}
-                                tweet={tweet}
-                                revealed={!!revealedLinks[tweet.id]}
-                                onReveal={handleRevealLink}
-                                vote={votes[tweet.id]}
-                                voteCount={voteCounts[tweet.id]}
-                                votingId={votingId}
-                                highlightedTweetId={highlightedTweetId}
-                                onVote={handleVote}
-                                votesLoading={votesLoading}
-                                formatRelativeTime={formatRelativeTime}
-                            />
-                        ))}
-                    </AnimatePresence>
+                    {filteredLinks.length === 0 ? (
+                        <div className="text-center py-12">
+                            <div className="text-4xl mb-3">🔍</div>
+                            <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">No links match your current filters.</p>
+                            <button
+                                onClick={() => { setFilterSource('all'); setFilterStatus('all'); }}
+                                className="px-4 py-2 rounded-xl text-sm font-medium bg-violet-100 dark:bg-violet-900/30
+                                    text-violet-700 dark:text-violet-300 hover:bg-violet-200 dark:hover:bg-violet-900/40 transition-colors"
+                            >
+                                Clear all filters
+                            </button>
+                        </div>
+                    ) : (
+                        <AnimatePresence mode="popLayout">
+                            {filteredLinks.map((link) => (
+                                <LinkCard
+                                    key={link.id}
+                                    link={link}
+                                    revealed={!!revealedLinks[link.id]}
+                                    onReveal={handleRevealLink}
+                                    vote={votes[link.id]}
+                                    voteCount={voteCounts[link.id]}
+                                    votingId={votingId}
+                                    highlightedLinkId={highlightedLinkId}
+                                    onVote={handleVote}
+                                    votesLoading={votesLoading}
+                                    formatRelativeTime={formatRelativeTime}
+                                />
+                            ))}
+                        </AnimatePresence>
+                    )}
                 </div>
             ) : (
                 <div className="relative overflow-hidden bg-gradient-to-br from-purple-50/50 to-blue-50/50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-xl p-8 sm:p-12 border border-purple-200/20 dark:border-purple-700/10 text-center">
@@ -600,7 +715,7 @@ const CanvaLinks = () => {
                         <div className="text-5xl">🔍</div>
                         <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300">No links available right now</h3>
                         <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-                            New Canva Pro team links are shared daily. Come back soon or join our Facebook group to get notified!
+                            New Canva Pro team links are shared daily. Submit your own link above or join our Facebook group to get notified!
                         </p>
                         <a
                             href="https://facebook.com/groups/progrmrslife"
@@ -624,18 +739,21 @@ const CanvaLinks = () => {
 };
 
 
-// ─── TWEET CARD (with forwardRef for AnimatePresence popLayout) ─────
-const TweetCard = forwardRef(function TweetCard(
-    { tweet, revealed, onReveal, vote, voteCount, votingId, highlightedTweetId, onVote, votesLoading, formatRelativeTime },
+// ─── LINK CARD (with forwardRef for AnimatePresence popLayout) ─────
+const LinkCard = forwardRef(function LinkCard(
+    { link, revealed, onReveal, vote, voteCount, votingId, highlightedLinkId, onVote, votesLoading, formatRelativeTime },
     ref
 ) {
-    const isVoting = votingId === tweet.id;
-    const isHighlighted = highlightedTweetId === tweet.id;
+    const isVoting = votingId === link.id;
+    const isHighlighted = highlightedLinkId === link.id;
+    const linkUrl = link.url || link.canva_link; // backward compat
+    const sourceInfo = SOURCE_CONFIG[link.source] || SOURCE_CONFIG.manual;
+    const SourceIcon = sourceInfo.icon;
 
     return (
         <motion.div
             ref={ref}
-            id={`tweet-${tweet.id}`}
+            id={`link-${link.id}`}
             layout
             initial={{ opacity: 0, y: 20 }}
             animate={{
@@ -677,23 +795,31 @@ const TweetCard = forwardRef(function TweetCard(
                 dark:from-purple-400/10 dark:via-blue-400/10 dark:to-teal-400/10"
             />
 
-
-            {/* Status badge */}
-            {vote?.type && (
-                <div className={`absolute -top-2 right-2 sm:right-4 px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-medium
-                    ${vote.type === 'up'
-                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                        : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                    }`}
-                >
-                    {vote.type === 'up' ? 'Working' : 'Broken'}
+            {/* Top badges row: Source + Status */}
+            <div className="absolute -top-2 left-2 sm:left-4 right-2 sm:right-4 flex items-center justify-between">
+                {/* Source badge */}
+                <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-medium ${sourceInfo.bg} ${sourceInfo.color}`}>
+                    <SourceIcon className="w-3 h-3" />
+                    {sourceInfo.label}
                 </div>
-            )}
+
+                {/* Status badge */}
+                {vote?.type && (
+                    <div className={`px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-medium
+                        ${vote.type === 'up'
+                            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                            : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                        }`}
+                    >
+                        {vote.type === 'up' ? 'Working' : 'Broken'}
+                    </div>
+                )}
+            </div>
 
 
             {/* Card Content */}
             <div className="relative">
-                {tweet.canva_link && (
+                {linkUrl && (
                     <div className="flex flex-col space-y-2 sm:space-y-3">
                         <div className="relative">
                             {/* Link and buttons */}
@@ -707,7 +833,7 @@ const TweetCard = forwardRef(function TweetCard(
                                     </svg>
                                     <input
                                         type="text"
-                                        value={tweet.canva_link}
+                                        value={linkUrl}
                                         readOnly
                                         className="w-full bg-transparent text-sm sm:text-base text-gray-600 
                                         dark:text-gray-300 focus:outline-none cursor-text rounded-lg py-1.5 pl-8 pr-2
@@ -722,7 +848,7 @@ const TweetCard = forwardRef(function TweetCard(
                                         <button
                                             onClick={() => {
                                                 if (revealed) {
-                                                    navigator.clipboard.writeText(tweet.canva_link);
+                                                    navigator.clipboard.writeText(linkUrl);
                                                     toast.success('Link copied to clipboard!');
                                                 }
                                             }}
@@ -741,7 +867,7 @@ const TweetCard = forwardRef(function TweetCard(
                                     </Tooltip>
                                     <Tooltip content="Open in new tab" style="dark">
                                         <a
-                                            href={revealed ? tweet.canva_link : '#'}
+                                            href={revealed ? linkUrl : '#'}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={(e) => { if (!revealed) e.preventDefault(); }}
@@ -767,7 +893,7 @@ const TweetCard = forwardRef(function TweetCard(
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     className="absolute inset-0 cursor-pointer"
-                                    onClick={() => onReveal(tweet.id)}
+                                    onClick={() => onReveal(link.id)}
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-teal-500/10 
                                         dark:from-purple-400/5 dark:via-blue-400/5 dark:to-teal-400/5 
@@ -780,7 +906,7 @@ const TweetCard = forwardRef(function TweetCard(
                                                 Click to reveal the Canva link
                                             </p>
                                             <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
-                                                {`Don't forget to vote if it works!`}
+                                                {`Don't forget to vote!`}
                                             </p>
                                         </div>
                                     </div>
@@ -791,8 +917,8 @@ const TweetCard = forwardRef(function TweetCard(
                             {revealed && (
                                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                                     <Confetti
-                                        width={typeof document !== 'undefined' ? document.querySelector(`#tweet-${tweet.id}`)?.offsetWidth || 0 : 0}
-                                        height={typeof document !== 'undefined' ? document.querySelector(`#tweet-${tweet.id}`)?.offsetHeight || 0 : 0}
+                                        width={typeof document !== 'undefined' ? document.querySelector(`#link-${link.id}`)?.offsetWidth || 0 : 0}
+                                        height={typeof document !== 'undefined' ? document.querySelector(`#link-${link.id}`)?.offsetHeight || 0 : 0}
                                         recycle={false}
                                         numberOfPieces={100}
                                         gravity={0.3}
@@ -803,17 +929,21 @@ const TweetCard = forwardRef(function TweetCard(
                             )}
                         </div>
 
-                        {/* Footer: timestamp + votes */}
+                        {/* Footer: author + timestamp + votes */}
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between 
                             gap-2 sm:gap-0 text-xs text-gray-500 dark:text-gray-400 font-medium pt-2 sm:pt-0"
                         >
                             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-                                {/* Timestamp */}
+                                {/* Author + Timestamp */}
                                 <div className="flex items-center space-x-2">
                                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <span>Posted <span className="text-amber-600 dark:text-amber-400 font-mono">{formatRelativeTime(tweet.created_at)}</span></span>
+                                    <span>
+                                        {link.authorName && <span className="text-purple-500 dark:text-purple-400">{link.authorName}</span>}
+                                        {link.authorName && ' • '}
+                                        <span className="text-amber-600 dark:text-amber-400 font-mono">{formatRelativeTime(link.created_at)}</span>
+                                    </span>
                                 </div>
 
                                 {/* Voting section */}
@@ -844,7 +974,7 @@ const TweetCard = forwardRef(function TweetCard(
                                                     style="dark"
                                                 >
                                                     <button
-                                                        onClick={() => onVote(tweet.id, 'up')}
+                                                        onClick={() => onVote(link.id, 'up')}
                                                         disabled={isVoting}
                                                         className={`p-2.5 rounded-lg transition-all duration-300 group relative
                                                             ${isVoting ? 'opacity-50 cursor-progress' : ''}
@@ -878,7 +1008,7 @@ const TweetCard = forwardRef(function TweetCard(
                                                     style="dark"
                                                 >
                                                     <button
-                                                        onClick={() => onVote(tweet.id, 'down')}
+                                                        onClick={() => onVote(link.id, 'down')}
                                                         disabled={isVoting}
                                                         className={`p-2.5 rounded-lg transition-all duration-300 group relative
                                                             ${isVoting ? 'opacity-50 cursor-progress' : ''}
