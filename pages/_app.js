@@ -7,6 +7,7 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import { SuspenseLoader } from '../components';
 import * as gtag from '../lib/gtag';
 import { Analytics } from "@vercel/analytics/react"
+import { loadAdSenseScript, loadGAMScript } from '@/components/canva/RewardedAdTask';
 
 import NextTopLoader from 'nextjs-toploader';
 
@@ -17,8 +18,6 @@ const CommandBar = dynamic(() => import('../components/CommandBar'), { ssr: fals
 const Layout = lazy(() => import('../sections/Layout'));
 
 import { MyProvider } from '../contexts/MyContext';
-
-
 
 import '../styles/globals.scss';
 import '../styles/postDetail.css';
@@ -109,6 +108,9 @@ function MyApp({ Component, pageProps }) {
   ]
 
   const router = useRouter();
+
+  useEffect(() => { loadAdSenseScript(); }, []);
+  useEffect(() => { loadGAMScript(); }, []);
 
   useEffect(() => {
     const handleRouteChange = (url) => {

@@ -36,8 +36,8 @@ const RewardedAdTask = ({ onReward, isCompleted = false, minWatchTime = AD_WATCH
 
     // ─── GOOGLE AD MANAGER (GPT) INTEGRATION ────────────────────────
     // This will activate when NEXT_PUBLIC_GAM_AD_UNIT_ID is set
-    const gamAdUnitId = typeof window !== 'undefined' 
-        ? process.env.NEXT_PUBLIC_GAM_AD_UNIT_ID 
+    const gamAdUnitId = typeof window !== 'undefined'
+        ? process.env.NEXT_PUBLIC_GAM_AD_UNIT_ID
         : null;
 
     // ─── INTERSECTION OBSERVER — Track ad visibility ────────────────
@@ -232,17 +232,17 @@ const RewardedAdTask = ({ onReward, isCompleted = false, minWatchTime = AD_WATCH
                 onMouseEnter={handleAdInteraction}
                 className="relative p-4 min-h-[250px] flex items-center justify-center cursor-pointer"
             >
-                {/* Google AdSense slot — replace data-ad-client & data-ad-slot with your values */}
-                {/* When you add AdSense, the ins element will auto-fill with an actual ad */}
+                {/* Google AdSense slot*/}
+                {/* When AdSense is available, the ins element will auto-fill with an actual ad */}
                 <div className="w-full max-w-[336px] mx-auto">
                     {/* Standard AdSense unit placeholder */}
                     <ins
                         className="adsbygoogle"
                         style={{ display: 'block', width: '100%', height: '280px' }}
-                        data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-XXXXXXXXXXXXXXXX'}
-                        data-ad-slot={process.env.NEXT_PUBLIC_ADSENSE_REWARDED_SLOT || '1234567890'}
-                        data-ad-format="rectangle"
-                        data-full-width-responsive="false"
+                        data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-5021308603136043"}
+                        data-ad-slot="3167248456"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"
                     />
 
                     {/* Fallback display when AdSense isn't active */}
@@ -295,7 +295,7 @@ export function loadAdSenseScript() {
     if (typeof window === 'undefined') return;
     if (document.querySelector('script[src*="pagead2.googlesyndication.com"]')) return;
 
-    const clientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+    const clientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-5021308603136043";
     if (!clientId || clientId.includes('XXXXXXXX')) return; // Skip if not configured
 
     const script = document.createElement('script');
