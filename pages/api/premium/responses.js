@@ -49,6 +49,7 @@ export default async function handler(req, res) {
                         email: true,
                         userId: true,
                         tasksCompleted: true,
+                        quizResult: true,
                         createdAt: true,
                         status: true,
                     },

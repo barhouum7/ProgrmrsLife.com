@@ -5,6 +5,8 @@ import { FaLock, FaCrown, FaCheck, FaSpinner, FaTelegram, FaYoutube, FaFacebook,
 import MiniQuiz from './MiniQuiz';
 import FeedbackSurvey from './FeedbackSurvey';
 import RewardedAdTask from './RewardedAdTask';
+import UserFeedbackForm from './UserFeedbackForm';
+import UserReviews from './UserReviews';
 
 const TELEGRAM_LINKS = [
     { label: '@ProgrammersLife01', url: 'https://t.me/ProgrammersLife01' },
@@ -158,7 +160,7 @@ const PremiumTeamCard = () => {
                     if (data.status === 'approved') {
                         toast.success('🎉 Your request has been approved! Canva invite coming soon.', { duration: 8000 });
                     } else if (data.status === 'active') {
-                        toast.success('🎨 You now have Canva Pro access! Check your email for the invite.', { duration: 10000, icon: '🎨' });
+                        toast.success('🎨 You now have Canva Pro access! Check your email for the invite.', { duration: 10000 });
                     } else if (data.status === 'rejected') {
                         toast.error('Your request was not approved this time. You may try again.', { duration: 8000 });
                     }
@@ -190,7 +192,10 @@ const PremiumTeamCard = () => {
         });
     }, []);
 
-    const handleInlineComplete = useCallback((taskId) => {
+    // Keeps the quiz result in memory until the form is submitted
+    const [pendingQuizResult, setPendingQuizResult] = useState(null);
+
+    const handleInlineComplete = useCallback((taskId, ...args) => {
         setCompletedTasks(prev => {
             const next = new Set(prev);
             next.add(taskId);
@@ -198,6 +203,20 @@ const PremiumTeamCard = () => {
         });
         setActiveInlineTask(null);
         toast.success('Task completed! ✓');
+
+        // Store quiz score in state — will be sent with the POST on submit
+        if (taskId === 'mini_quiz') {
+            const [score, total, field] = args;
+            if (score !== undefined && total !== undefined) {
+                setPendingQuizResult({
+                    score,
+                    total,
+                    field: field || 'general',
+                    pct: Math.round((score / total) * 100),
+                    completedAt: new Date().toISOString(),
+                });
+            }
+        }
     }, []);
 
     const handleSubmit = useCallback(async () => {
@@ -221,6 +240,7 @@ const PremiumTeamCard = () => {
                 body: JSON.stringify({
                     email: email.trim(),
                     tasksCompleted: [...completedTasks],
+                    ...(pendingQuizResult ? { quizResult: pendingQuizResult } : {}),
                 }),
             });
 
@@ -301,16 +321,29 @@ const PremiumTeamCard = () => {
 
                     {/* Active Status */}
                     {isActive && (
-                        <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl border border-green-200/30 dark:border-green-700/20 mb-4">
-                            <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
-                                <FaCheck className="w-4 h-4" />
-                                <span className="font-medium">Your premium access is active!</span>
-                            </div>
-                            {expiresAt && (
+                        <div className="space-y-4 mb-4">
+                            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl border border-green-200/30 dark:border-green-700/20">
+                                <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
+                                    <FaCheck className="w-4 h-4" />
+                                    <span className="font-medium">Your premium access is active! 🎨</span>
+                                </div>
                                 <p className="text-sm text-green-600/80 dark:text-green-400/80 mt-1 ml-6">
-                                    Expires on {expiresAt.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                                    📧 Check your email for the invite.
                                 </p>
-                            )}
+                                {expiresAt && (
+                                    <p className="text-sm text-green-600/80 dark:text-green-400/80 mt-1 ml-6">
+                                        Expires on {expiresAt.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                                    </p>
+                                )}
+                            </div>
+                            {/* Feedback/review form for active members */}
+                            <div className="bg-white/50 dark:bg-gray-800/30 rounded-xl border border-gray-200/30 dark:border-gray-700/20 p-4">
+                                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-1.5">
+                                    <FaStar className="w-3.5 h-3.5 text-amber-400" />
+                                    Share your experience or report an issue
+                                </p>
+                                <UserFeedbackForm />
+                            </div>
                         </div>
                     )}
 
@@ -445,7 +478,7 @@ const PremiumTeamCard = () => {
                                                             >
                                                                 {task.id === 'mini_quiz' && (
                                                                     <MiniQuiz
-                                                                        onComplete={() => handleInlineComplete('mini_quiz')}
+                                                                        onComplete={(score, total, field) => handleInlineComplete('mini_quiz', score, total, field)}
                                                                         isCompleted={completed}
                                                                     />
                                                                 )}

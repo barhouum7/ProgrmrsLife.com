@@ -58,6 +58,12 @@ export default function PremiumAdminDashboard() {
     // Surveys & quizzes state
     const [responses, setResponses] = useState({ surveys: [], quizRequests: [], summary: {} });
     const [responsesLoading, setResponsesLoading] = useState(false);
+    const [surveysSubTab, setSurveysSubTab] = useState('surveys'); // 'surveys' | 'quiz' | 'reviews'
+
+    // Reviews/Feedback/Reports state
+    const [reviews, setReviews] = useState([]);
+    const [reviewsLoading, setReviewsLoading] = useState(false);
+    const [reviewAction, setReviewAction] = useState(null); // reviewId being actioned
 
     const fetchRequests = useCallback(async (filter = activeFilter) => {
         if (!adminKey) return;
@@ -142,6 +148,46 @@ export default function PremiumAdminDashboard() {
         }
     }, [adminKey]);
 
+    const fetchReviews = useCallback(async () => {
+        if (!adminKey) return;
+        setReviewsLoading(true);
+        try {
+            const ts = Date.now();
+            const res = await fetch(`/api/premium/review?key=${encodeURIComponent(adminKey)}&_t=${ts}`);
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error);
+            setReviews(data.reviews || []);
+        } catch (err) {
+            toast.error(err.message || 'Failed to fetch reviews');
+        } finally {
+            setReviewsLoading(false);
+        }
+    }, [adminKey]);
+
+    const handleReviewAction = useCallback(async (reviewId, action) => {
+        setReviewAction(`${reviewId}_${action}`);
+        // Optimistic: remove from pending list
+        setReviews(prev => action === 'reject'
+            ? prev.filter(r => r.id !== reviewId)
+            : prev.map(r => r.id === reviewId ? { ...r, approved: true } : r)
+        );
+        try {
+            const res = await fetch('/api/premium/review', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ key: adminKey, reviewId, action }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error);
+            toast.success(action === 'approve' ? 'Review approved ✓' : 'Review removed');
+        } catch (err) {
+            toast.error(err.message);
+            fetchReviews(); // rollback
+        } finally {
+            setReviewAction(null);
+        }
+    }, [adminKey, fetchReviews]);
+
     const handleAuth = useCallback((e) => {
         e.preventDefault();
         fetchRequests();
@@ -201,12 +247,12 @@ export default function PremiumAdminDashboard() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // Load community links / surveys when switching tabs
+    // Load community links / surveys / reviews when switching tabs
     useEffect(() => {
         if (!authenticated) return;
         if (activeTab === 'links') fetchCommunityLinks();
-        if (activeTab === 'surveys') fetchResponses();
-    }, [activeTab, authenticated, fetchCommunityLinks, fetchResponses]);
+        if (activeTab === 'surveys') { fetchResponses(); fetchReviews(); }
+    }, [activeTab, authenticated, fetchCommunityLinks, fetchResponses, fetchReviews]);
 
     const formatDate = (date) => {
         if (!date) return '—';
@@ -428,97 +474,249 @@ export default function PremiumAdminDashboard() {
 
                     {/* ── SURVEYS & QUIZZES TAB ───────────────── */}
                     {activeTab === 'surveys' && (
-                        <div className="space-y-6">
-                            {/* Stats row */}
-                            <div className="grid grid-cols-2 gap-3">
-                                <div className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-4">
-                                    <p className="text-xs text-gray-500 mb-1">Survey Responses</p>
+                        <div className="space-y-4">
+                            {/* Top Stats Row */}
+                            <div className="grid grid-cols-3 gap-3">
+                                <div className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-3 text-center">
+                                    <p className="text-xs text-gray-500 mb-0.5">Surveys</p>
                                     <p className="text-2xl font-bold text-teal-400">{responses.summary?.surveys || 0}</p>
                                 </div>
-                                <div className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-4">
-                                    <p className="text-xs text-gray-500 mb-1">Quiz Completions</p>
+                                <div className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-3 text-center">
+                                    <p className="text-xs text-gray-500 mb-0.5">Quiz Results</p>
                                     <p className="text-2xl font-bold text-amber-400">{responses.summary?.quizzes || 0}</p>
+                                </div>
+                                <div className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-3 text-center">
+                                    <p className="text-xs text-gray-500 mb-0.5">Reviews</p>
+                                    <p className="text-2xl font-bold text-violet-400">{reviews.length}</p>
                                 </div>
                             </div>
 
-                            {responsesLoading ? (
-                                <div className="flex items-center justify-center py-16">
-                                    <FaSpinner className="w-6 h-6 text-teal-400 animate-spin" />
-                                </div>
-                            ) : (
-                                <>
-                                    {/* Survey Responses */}
-                                    <div>
-                                        <h3 className="text-sm font-semibold text-teal-400 mb-3 flex items-center gap-2">
-                                            <FaClipboardList className="w-3.5 h-3.5" /> Survey Responses
-                                        </h3>
-                                        {responses.surveys?.length === 0 ? (
-                                            <p className="text-gray-500 text-sm py-6 text-center">No survey responses yet.</p>
-                                        ) : (
-                                            <div className="space-y-2">
-                                                {responses.surveys?.map(s => {
-                                                    const a = typeof s.answers === 'string' ? JSON.parse(s.answers) : s.answers;
-                                                    return (
-                                                        <div key={s.id} className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-4">
-                                                            <div className="flex items-center justify-between mb-2">
-                                                                <p className="text-xs text-gray-500">{formatDate(s.createdAt)}</p>
-                                                                <div className="flex gap-0.5">
-                                                                    {[1, 2, 3, 4, 5].map(n => (
-                                                                        <FaStar key={n} className={`w-3 h-3 ${n <= (a.rating || 0) ? 'text-amber-400' : 'text-gray-700'}`} />
-                                                                    ))}
-                                                                </div>
+                            {/* Sub-tab switcher */}
+                            <div className="flex bg-gray-800/60 rounded-xl p-1 gap-1">
+                                {[
+                                    { id: 'surveys', label: 'Surveys' },
+                                    { id: 'quiz', label: 'Quiz Results' },
+                                    { id: 'reviews', label: 'Reviews & Feedback' },
+                                ].map(t => (
+                                    <button
+                                        key={t.id}
+                                        onClick={() => setSurveysSubTab(t.id)}
+                                        className={`flex-1 py-2 px-2 rounded-lg text-xs font-semibold transition-all duration-200
+                                            ${surveysSubTab === t.id
+                                                ? 'bg-gray-700 text-white shadow-sm'
+                                                : 'text-gray-500 hover:text-gray-300'
+                                            }
+                                            `}
+                                    >
+                                        <span className={`flex items-center gap-2
+                                            ${t.id === 'surveys' && 'text-teal-400'}
+                                            ${t.id === 'quiz' && 'text-amber-400'}
+                                            ${t.id === 'reviews' && 'text-violet-400'}
+                                        `}>
+                                            {t.id === 'surveys' && <FaClipboardList className="w-3.5 h-3.5" />}
+                                            {t.id === 'quiz' && <FaPuzzlePiece className="w-3.5 h-3.5" />}
+                                            {t.id === 'reviews' && "⭐"}
+                                            {" "}
+                                            {t.label}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* ── SURVEYS sub-panel ─────────────────── */}
+                            {surveysSubTab === 'surveys' && (
+                                <div>
+                                    {responsesLoading ? (
+                                        <div className="flex justify-center py-12">
+                                            <FaSpinner className="w-6 h-6 text-teal-400 animate-spin" />
+                                        </div>
+                                    ) : responses.surveys?.length === 0 ? (
+                                        <p className="text-gray-500 text-sm py-8 text-center">No survey responses yet.</p>
+                                    ) : (
+                                        <div className="space-y-2">
+                                            {responses.surveys?.map(s => {
+                                                const a = typeof s.answers === 'string' ? JSON.parse(s.answers) : s.answers;
+                                                return (
+                                                    <div key={s.id} className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-4">
+                                                        <div className="flex items-center justify-between mb-2">
+                                                            <p className="text-xs text-gray-500">{formatDate(s.createdAt)}</p>
+                                                            <div className="flex gap-0.5">
+                                                                {[1, 2, 3, 4, 5].map(n => (
+                                                                    <FaStar key={n} className={`w-3 h-3 ${n <= (a.rating || 0) ? 'text-amber-400' : 'text-gray-700'}`} />
+                                                                ))}
                                                             </div>
-                                                            <div className="flex flex-wrap gap-2 mb-2">
-                                                                {a.discovery && (
-                                                                    <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full">
-                                                                        📍 {Array.isArray(a.discovery) ? a.discovery.join(', ') : a.discovery}
-                                                                    </span>
-                                                                )}
-                                                                {a.usage && (
-                                                                    <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full">
-                                                                        📅 {a.usage}
-                                                                    </span>
-                                                                )}
-                                                            </div>
-                                                            {a.improve && (
-                                                                <p className="text-xs text-gray-400 italic">&ldquo;{a.improve}&rdquo;</p>
+                                                        </div>
+                                                        <div className="flex flex-wrap gap-2 mb-2">
+                                                            {a.discovery && (
+                                                                <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full">
+                                                                    📍 {Array.isArray(a.discovery) ? a.discovery.join(', ') : a.discovery}
+                                                                </span>
+                                                            )}
+                                                            {a.usage && (
+                                                                <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full">
+                                                                    📅 {a.usage}
+                                                                </span>
                                                             )}
                                                         </div>
-                                                    );
-                                                })}
-                                            </div>
-                                        )}
-                                    </div>
+                                                        {a.improve && (
+                                                            <p className="text-xs text-gray-400 italic">&ldquo;{a.improve}&rdquo;</p>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
 
-                                    {/* Quiz completions (from premium requests) */}
-                                    <div>
-                                        <h3 className="text-sm font-semibold text-amber-400 mb-3 flex items-center gap-2">
-                                            <FaPuzzlePiece className="w-3.5 h-3.5" /> Quiz Completions
-                                        </h3>
-                                        {responses.quizRequests?.length === 0 ? (
-                                            <p className="text-gray-500 text-sm py-6 text-center">No quiz completions yet.</p>
-                                        ) : (
-                                            <div className="space-y-2">
-                                                {responses.quizRequests?.map(r => (
-                                                    <div key={r.id} className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-3 flex items-center justify-between">
-                                                        <div>
-                                                            <p className="text-sm text-gray-300 font-medium">{r.email}</p>
-                                                            <p className="text-xs text-gray-500">{formatDate(r.createdAt)}</p>
-                                                        </div>
-                                                        <div className="flex gap-1 flex-wrap justify-end max-w-[200px]">
-                                                            {(Array.isArray(r.tasksCompleted) ? r.tasksCompleted : []).map(t => {
-                                                                const cfg = TASK_ICONS[t];
-                                                                if (!cfg) return null;
-                                                                const Icon = cfg.icon;
-                                                                return <Icon key={t} className={`w-3.5 h-3.5 ${cfg.color}`} title={cfg.label} />;
-                                                            })}
+                            {/* ── QUIZ RESULTS sub-panel ──────────── */}
+                            {surveysSubTab === 'quiz' && (
+                                <div>
+                                    {responsesLoading ? (
+                                        <div className="flex justify-center py-12">
+                                            <FaSpinner className="w-6 h-6 text-amber-400 animate-spin" />
+                                        </div>
+                                    ) : responses.quizRequests?.length === 0 ? (
+                                        <p className="text-gray-500 text-sm py-8 text-center">No quiz completions yet.</p>
+                                    ) : (
+                                        <div className="space-y-2">
+                                            {responses.quizRequests?.map(r => {
+                                                const qr = r.quizResult && (typeof r.quizResult === 'string' ? JSON.parse(r.quizResult) : r.quizResult);
+                                                const pct = qr ? qr.pct : null;
+                                                const passed = pct !== null && pct >= 60;
+                                                return (
+                                                    <div key={r.id} className="bg-gray-800/40 rounded-xl border border-gray-700/30 p-4">
+                                                        <div className="flex items-start justify-between gap-3">
+                                                            <div className="flex-1 min-w-0">
+                                                                <p className="text-sm text-gray-200 font-medium truncate">{r.email}</p>
+                                                                <div className="flex items-center gap-2 mt-1 flex-wrap">
+                                                                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${r.status === 'active' ? 'bg-green-500/20 text-green-400'
+                                                                        : r.status === 'approved' ? 'bg-blue-500/20 text-blue-400'
+                                                                            : 'bg-gray-600/40 text-gray-400'
+                                                                        }`}>{r.status}</span>
+                                                                    {qr?.field && (
+                                                                        <span className="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full">
+                                                                            🎯 {qr.field}
+                                                                        </span>
+                                                                    )}
+                                                                    <span className="text-[10px] text-gray-500">{formatDate(qr?.completedAt || r.createdAt)}</span>
+                                                                </div>
+                                                            </div>
+                                                            {qr ? (
+                                                                <div className="text-right flex-shrink-0">
+                                                                    <p className={`text-lg font-bold ${passed ? 'text-green-400' : 'text-amber-400'}`}>
+                                                                        {qr.score}/{qr.total}
+                                                                    </p>
+                                                                    <p className="text-[10px] text-gray-500">{pct}% · {passed ? '✓ Passed' : 'Failed'}</p>
+                                                                    <div className="w-20 h-1.5 bg-gray-700 rounded-full overflow-hidden mt-1 ml-auto">
+                                                                        <div
+                                                                            className={`h-full rounded-full ${passed
+                                                                                ? 'bg-gradient-to-r from-green-400 to-emerald-500'
+                                                                                : 'bg-gradient-to-r from-amber-400 to-orange-500'
+                                                                                }`}
+                                                                            style={{ width: `${pct}%` }}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                <span className="text-[10px] text-gray-600 italic self-center">No score yet</span>
+                                                            )}
                                                         </div>
                                                     </div>
-                                                ))}
-                                            </div>
-                                        )}
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* ── REVIEWS sub-panel ─────────────────── */}
+                            {surveysSubTab === 'reviews' && (
+                                <div>
+                                    <div className="flex justify-between items-center mb-3">
+                                        <div className="text-xs flex gap-2 items-center">
+                                            <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-medium">
+                                                {reviews.filter(r => !r.approved).length} pending
+                                            </span> -
+                                            <span className="px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 font-medium">
+                                                {reviews.filter(r => r.approved).length} live
+                                            </span>
+                                        </div>
+                                        <button onClick={fetchReviews}
+                                            className="text-xs px-2 py-1 rounded-lg bg-gray-700/60 text-gray-400 hover:text-white transition-colors">
+                                            {reviewsLoading ? <FaSpinner className="w-3 h-3 animate-spin inline" /> : '↻ Refresh'}
+                                        </button>
                                     </div>
-                                </>
+                                    {reviewsLoading && reviews.length === 0 ? (
+                                        <div className="flex justify-center py-12">
+                                            <FaSpinner className="w-5 h-5 text-violet-400 animate-spin" />
+                                        </div>
+                                    ) : reviews.length === 0 ? (
+                                        <p className="text-gray-500 text-sm py-8 text-center">No reviews or feedback yet.</p>
+                                    ) : (
+                                        <div className="space-y-2">
+                                            {reviews.map(review => (
+                                                <div
+                                                    key={review.id}
+                                                    className={`rounded-xl border p-4 ${review.approved ? 'bg-green-900/10 border-green-700/20'
+                                                        : review.type === 'report' ? 'bg-red-900/10 border-red-700/20'
+                                                            : 'bg-gray-800/40 border-gray-700/30'
+                                                        }`}
+                                                >
+                                                    <div className="flex items-start justify-between gap-3">
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-center gap-2 flex-wrap mb-1">
+                                                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full uppercase ${review.type === 'review' ? 'bg-violet-500/20 text-violet-400'
+                                                                    : review.type === 'feedback' ? 'bg-blue-500/20 text-blue-400'
+                                                                        : 'bg-red-500/20 text-red-400'
+                                                                    }`}>{review.type}</span>
+                                                                {review.rating && (
+                                                                    <span className="text-amber-400 text-xs">
+                                                                        {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                                                                    </span>
+                                                                )}
+                                                                {review.approved && (
+                                                                    <span className="text-[10px] bg-green-500/20 text-green-400 px-1.5 py-0.5 rounded-full">✓ Public</span>
+                                                                )}
+                                                                <span className="text-xs text-gray-500 ml-auto">{formatDate(review.createdAt)}</span>
+                                                            </div>
+                                                            {review.displayName && (
+                                                                <p className="text-xs text-gray-400 font-medium mb-0.5">{review.displayName}</p>
+                                                            )}
+                                                            <p className="text-sm text-gray-300 leading-relaxed">{review.text}</p>
+                                                        </div>
+                                                        <div className="flex gap-1 flex-col flex-shrink-0">
+                                                            {!review.approved && (
+                                                                <button
+                                                                    onClick={() => handleReviewAction(review.id, 'approve')}
+                                                                    disabled={!!reviewAction}
+                                                                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium
+                                                                        bg-green-500/20 text-green-400 hover:bg-green-500/30 disabled:opacity-50 transition-colors"
+                                                                >
+                                                                    {reviewAction === `${review.id}_approve`
+                                                                        ? <FaSpinner className="w-3 h-3 animate-spin" />
+                                                                        : <FaCheck className="w-3 h-3" />}
+                                                                    Approve
+                                                                </button>
+                                                            )}
+                                                            <button
+                                                                onClick={() => handleReviewAction(review.id, 'reject')}
+                                                                disabled={!!reviewAction}
+                                                                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium
+                                                                    bg-red-500/20 text-red-400 hover:bg-red-500/30 disabled:opacity-50 transition-colors"
+                                                            >
+                                                                {reviewAction === `${review.id}_reject`
+                                                                    ? <FaSpinner className="w-3 h-3 animate-spin" />
+                                                                    : <FaTimes className="w-3 h-3" />}
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             )}
                         </div>
                     )}
@@ -543,7 +741,7 @@ export default function PremiumAdminDashboard() {
                                         key={stat.key}
                                         onClick={() => setActiveFilter(stat.key)}
                                         className={`relative p-4 rounded-xl border transition-all duration-200 text-left
-                                        ${isActiveFilter
+                                            ${isActiveFilter
                                                 ? 'bg-gray-700/60 border-amber-500/50 ring-1 ring-amber-500/30'
                                                 : 'bg-gray-800/40 border-gray-700/30 hover:bg-gray-800/60'
                                             }`}
@@ -567,7 +765,7 @@ export default function PremiumAdminDashboard() {
                             <button
                                 onClick={() => setActiveFilter('all')}
                                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors
-                                ${activeFilter === 'all'
+                                    ${activeFilter === 'all'
                                         ? 'bg-amber-500/20 text-amber-400 ring-1 ring-amber-500/30'
                                         : 'bg-gray-700/50 text-gray-400 hover:bg-gray-700'
                                     }`}
@@ -726,7 +924,7 @@ export default function PremiumAdminDashboard() {
                                                                             onChange={(e) => setAdminNotes(prev => ({ ...prev, [req.id]: e.target.value }))}
                                                                             placeholder="Admin notes (optional)..."
                                                                             className="w-full px-3 py-2 rounded-lg text-sm bg-gray-700/40 border border-gray-600/30
-                                                                            text-white placeholder:text-gray-500 focus:ring-1 focus:ring-amber-500"
+                                                                                text-white placeholder:text-gray-500 focus:ring-1 focus:ring-amber-500"
                                                                         />
 
                                                                         <div className="flex flex-wrap items-center gap-2">
@@ -736,8 +934,8 @@ export default function PremiumAdminDashboard() {
                                                                                     onClick={() => handleAction(req.id, 'approve')}
                                                                                     disabled={actionLoading === `${req.id}_approve`}
                                                                                     className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium
-                                                                                    bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors
-                                                                                    disabled:opacity-50"
+                                                                                        bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors
+                                                                                        disabled:opacity-50"
                                                                                 >
                                                                                     {actionLoading === `${req.id}_approve` ? <FaSpinner className="w-3 h-3 animate-spin" /> : <FaCheck className="w-3 h-3" />}
                                                                                     Approve
@@ -763,8 +961,8 @@ export default function PremiumAdminDashboard() {
                                                                                         onClick={() => handleAction(req.id, 'activate')}
                                                                                         disabled={actionLoading === `${req.id}_activate`}
                                                                                         className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium
-                                                                                        bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-colors
-                                                                                        disabled:opacity-50"
+                                                                                            bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-colors
+                                                                                            disabled:opacity-50"
                                                                                     >
                                                                                         {actionLoading === `${req.id}_activate` ? <FaSpinner className="w-3 h-3 animate-spin" /> : <FaRocket className="w-3 h-3" />}
                                                                                         Activate
@@ -777,8 +975,8 @@ export default function PremiumAdminDashboard() {
                                                                                 onClick={() => handleAction(req.id, 'reject')}
                                                                                 disabled={actionLoading === `${req.id}_reject`}
                                                                                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium
-                                                                                bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors
-                                                                                disabled:opacity-50 ml-auto"
+                                                                                    bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors
+                                                                                    disabled:opacity-50 ml-auto"
                                                                             >
                                                                                 {actionLoading === `${req.id}_reject` ? <FaSpinner className="w-3 h-3 animate-spin" /> : <FaTimes className="w-3 h-3" />}
                                                                                 Reject
@@ -794,8 +992,8 @@ export default function PremiumAdminDashboard() {
                                                                             onClick={() => handleAction(req.id, 'expire')}
                                                                             disabled={actionLoading === `${req.id}_expire`}
                                                                             className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium
-                                                                            bg-gray-600/30 text-gray-400 hover:bg-gray-600/50 transition-colors
-                                                                            disabled:opacity-50"
+                                                                                bg-gray-600/30 text-gray-400 hover:bg-gray-600/50 transition-colors
+                                                                                disabled:opacity-50"
                                                                         >
                                                                             {actionLoading === `${req.id}_expire` ? <FaSpinner className="w-3 h-3 animate-spin" /> : <FaHistory className="w-3 h-3" />}
                                                                             Expire Access

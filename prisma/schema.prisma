@@ -67,6 +67,7 @@ model PremiumRequest {
   userId         String // Cookie-based user ID
   status         String    @default("pending") // "pending" | "tasks_completed" | "approved" | "active" | "expired" | "rejected"
   tasksCompleted Json      @default("[]") // ["share_facebook", "join_telegram", "subscribe_youtube", "quiz", "survey"]
+  quizResult     Json? // { score: 4, total: 5, field: "design", pct: 80, completedAt: ISO }
   approvedAt     DateTime?
   expiresAt      DateTime? // 1 month from approval date
   adminNotes     String?
@@ -96,6 +97,24 @@ model SurveyResponse {
   answers   Json // { rating: 4, discovery: "google", usage: "weekly", improve: "..." }
   createdAt DateTime @default(now())
 
+  @@index([userId])
+  @@index([createdAt])
+}
+
+// ─── PREMIUM REVIEW ────────────────────────────────────────────────
+// User reviews, feedback, and issue reports for the Canva Pro team
+model PremiumReview {
+  id          String   @id @default(cuid())
+  userId      String // Cookie-based user ID
+  type        String   @default("review") // "review" | "feedback" | "report"
+  rating      Int? // 1-5 stars (for reviews)
+  displayName String? // Optional public name (e.g. "Ahmad from Morocco")
+  text        String // The review/feedback/report text
+  approved    Boolean  @default(false) // Admin-approved before public display
+  createdAt   DateTime @default(now())
+
+  @@index([type])
+  @@index([approved])
   @@index([userId])
   @@index([createdAt])
 }

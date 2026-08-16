@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import SubmitLinkForm from './canva/SubmitLinkForm';
 import PremiumTeamCard from './canva/PremiumTeamCard';
+import UserReviews, { ActiveUsersBadge } from './canva/UserReviews';
 import { BsInfoCircleFill } from 'react-icons/bs';
 
 // ─── SOURCE BADGES ─────────────────────────────────────────────────
@@ -530,11 +531,18 @@ const CanvaLinks = () => {
                 </div>
             </div>
 
+            {/* Live-count sticky badge — floats above PremiumTeamCard while scrolling */}
+            <div className="sticky top-16 z-20 mb-4 -mx-8 px-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-sm border-b border-green-200/30 dark:border-green-700/20">
+                <ActiveUsersBadge />
+            </div>
+
             {/* Premium Team Section */}
             <PremiumTeamCard />
 
-
-            <MockDataIndicator />
+            {/* ── Community Social Proof ───────────────────────────── */}
+            <div className="mt-2 mb-2">
+                <UserReviews />
+            </div>
 
             {/* ── STICKY FILTER TOOLBAR ─────────────────────────── */}
             {links.length > 0 && (

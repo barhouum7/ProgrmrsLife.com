@@ -284,10 +284,11 @@ const MiniQuiz = ({ onComplete, isCompleted = false }) => {
             setPhase('finished');
 
             if (finalScore >= requiredCorrect) {
-                onComplete?.();
+                // Pass score details so parent can store them
+                onComplete?.(finalScore, questions.length, selectedField);
             }
         }
-    }, [currentQ, questions, answers, requiredCorrect, onComplete]);
+    }, [currentQ, questions, answers, requiredCorrect, onComplete, selectedField]);
 
     const goPrev = useCallback(() => {
         if (currentQ > 0) {

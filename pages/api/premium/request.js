@@ -110,7 +110,7 @@ export default async function handler(req, res) {
     // ── POST: Submit premium request ────────────────────────────
     if (req.method === 'POST') {
         try {
-            const { email, tasksCompleted } = req.body;
+            const { email, tasksCompleted, quizResult } = req.body;
 
             if (!email || !email.includes('@')) {
                 return res.status(400).json({
@@ -181,6 +181,7 @@ export default async function handler(req, res) {
                         approvedAt: null,
                         expiresAt: null,
                         adminNotes: null,
+                        ...(quizResult ? { quizResult } : {}),
                     },
                 });
             } else {
@@ -190,6 +191,7 @@ export default async function handler(req, res) {
                         userId,
                         status: 'tasks_completed',
                         tasksCompleted: validTasks,
+                        ...(quizResult ? { quizResult } : {}),
                     },
                 });
             }
@@ -211,6 +213,32 @@ export default async function handler(req, res) {
         } catch (error) {
             console.error('Premium Request Error:', error);
             return res.status(500).json({ success: false, error: 'Failed to submit request' });
+        }
+    }
+
+    // ── PATCH: Save quiz result ──────────────────────────────────
+    if (req.method === 'PATCH') {
+        try {
+            const { action, quizResult } = req.body;
+            if (action !== 'save_quiz_result' || !quizResult) {
+                return res.status(400).json({ success: false, error: 'Invalid action or missing quizResult' });
+            }
+            // Find the user's existing request
+            const existing = await prisma.premiumRequest.findFirst({
+                where: { userId },
+                orderBy: { createdAt: 'desc' },
+            });
+            if (!existing) {
+                return res.status(200).json({ success: true, note: 'No request found to attach quiz result to — will save on submit.' });
+            }
+            await prisma.premiumRequest.update({
+                where: { id: existing.id },
+                data: { quizResult },
+            });
+            return res.status(200).json({ success: true });
+        } catch (err) {
+            console.error('Save quiz result error:', err);
+            return res.status(500).json({ success: false, error: err.message });
         }
     }
 
