@@ -36,6 +36,7 @@ const CanvaLinks = () => {
     const [autoRefreshEnabled, setAutoRefreshEnabled] = useState(true);
     const [cached, setCached] = useState(false);
     const [hasShownCacheToast, setHasShownCacheToast] = useState(false);
+    const [scraperStatus, setScraperStatus] = useState(null); // { lastScrapeMinutesAgo, cooldownMinsRemaining, lastScrapeFoundLinks, scraping }
 
     // ── Vote state ──────────────────────────────────────────────
     const [votes, setVotes] = useState({});
@@ -124,6 +125,12 @@ const CanvaLinks = () => {
             setLinks(data.links);
             setLastUpdated(new Date());
             setCached(data.cached || false);
+            // Pick up scraperStatus (new API) or synthesise from legacy `scraping` flag
+            if (data.scraperStatus) {
+                setScraperStatus(data.scraperStatus);
+            } else if (data.scraping) {
+                setScraperStatus({ scraping: true, cooldownMinsRemaining: 0, lastScrapeFoundLinks: true, lastScrapeMinutesAgo: 0 });
+            }
 
             if (force) {
                 toast.success(
@@ -140,7 +147,8 @@ const CanvaLinks = () => {
             }
 
             // Background scrape in progress — auto-reload once it completes
-            if (data.scraping && !force) {
+            const isScraping = data.scraperStatus?.scraping || data.scraping;
+            if (isScraping && !force) {
                 setTimeout(() => {
                     fetchCanvaLinks(true);
                 }, 30_000);
@@ -276,6 +284,24 @@ const CanvaLinks = () => {
             );
         }
     };
+
+
+    // A bit long visible toast on page load to say like
+    // "Welcome to Canva Links! Don't forget to report broken links for faster fresh links."
+    // Ensure only appears once on page load
+    const hasShownWelcomeToast = useRef(false);
+    useEffect(() => {
+        if (hasShownWelcomeToast.current) return;
+        hasShownWelcomeToast.current = true;
+        toast.success(
+            <div className="space-y-2">
+                <p className="font-medium">Welcome to Canva Links! 🎉</p>
+                <p className="text-sm">Don&apos;t forget to report broken links for faster fresh links.</p>
+            </div>,
+            { duration: 20000, icon: '🔗' }
+        );
+    }, []);
+
 
 
     const handleVote = async (linkId, voteType) => {
@@ -461,6 +487,30 @@ const CanvaLinks = () => {
                                 <span className="text-xs text-amber-500 dark:text-amber-400 font-medium">
                                     Showing cached data
                                 </span>
+                            )}
+
+                            {/* Scraper status pill */}
+                            {scraperStatus && (
+                                scraperStatus.scraping ? (
+                                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-blue-600 dark:text-blue-400">
+                                        <span className="relative flex h-2 w-2">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
+                                        </span>
+                                        Searching for fresh links…
+                                    </span>
+                                ) : !scraperStatus.lastScrapeFoundLinks && scraperStatus.lastScrapeMinutesAgo !== null ? (
+                                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-600 dark:text-amber-400">
+                                        <FaClock className="w-3 h-3" />
+                                        No new links found {scraperStatus.lastScrapeMinutesAgo}m ago
+                                        {scraperStatus.cooldownMinsRemaining > 0 && ` • retry in ~${scraperStatus.cooldownMinsRemaining}m`}
+                                    </span>
+                                ) : scraperStatus.cooldownMinsRemaining > 0 ? (
+                                    <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
+                                        <FaClock className="w-3 h-3" />
+                                        Next check in ~{scraperStatus.cooldownMinsRemaining}m
+                                    </span>
+                                ) : null
                             )}
                         </div>
 
