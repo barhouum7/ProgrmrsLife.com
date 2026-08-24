@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SubmitLinkForm from './canva/SubmitLinkForm';
 import PremiumTeamCard from './canva/PremiumTeamCard';
 import UserReviews, { ActiveUsersBadge } from './canva/UserReviews';
+import UserFeedbackForm from './canva/UserFeedbackForm';
 import { BsInfoCircleFill } from 'react-icons/bs';
 
 // ─── SOURCE BADGES ─────────────────────────────────────────────────
@@ -592,6 +593,23 @@ const CanvaLinks = () => {
             {/* ── Community Social Proof ───────────────────────────── */}
             <div className="mt-2 mb-2">
                 <UserReviews />
+            </div>
+
+            {/* ── Community Feedback / Report / Review form ────────── */}
+            {/* Visible to ALL visitors — no auth required */}
+            <div className="mt-2 mb-6 bg-white/70 dark:bg-gray-800/70 rounded-2xl border border-gray-200/40 dark:border-gray-700/30 shadow-sm p-5 backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-4">
+                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clipRule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">Share your experience</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Leave a review, suggestion, or report an issue</p>
+                    </div>
+                </div>
+                <UserFeedbackForm />
             </div>
 
             {/* ── STICKY FILTER TOOLBAR ─────────────────────────── */}

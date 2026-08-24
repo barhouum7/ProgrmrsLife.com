@@ -58,6 +58,17 @@ const RewardedAdTask = ({ onReward, isCompleted = false, minWatchTime = AD_WATCH
         return () => observerRef.current?.disconnect();
     }, [phase]);
 
+    // ─── ADSENSE PUSH — push the ad unit when entering watching phase ─
+    useEffect(() => {
+        if (phase !== 'watching') return;
+        if (typeof window === 'undefined') return;
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+            // AdSense not loaded — placeholder will remain visible
+        }
+    }, [phase]);
+
     // ─── COUNTDOWN TIMER — Only ticks when ad is visible ────────────
     useEffect(() => {
         if (phase !== 'watching' || countdown <= 0) return;
@@ -232,27 +243,26 @@ const RewardedAdTask = ({ onReward, isCompleted = false, minWatchTime = AD_WATCH
                 onMouseEnter={handleAdInteraction}
                 className="relative p-4 min-h-[250px] flex items-center justify-center cursor-pointer"
             >
-                {/* Google AdSense slot*/}
-                {/* When AdSense is available, the ins element will auto-fill with an actual ad */}
-                <div className="w-full max-w-[336px] mx-auto">
-                    {/* Standard AdSense unit placeholder */}
+                {/* Google AdSense slot — renders on top of placeholder */}
+                <div className="w-full max-w-[336px] mx-auto relative z-10">
+                    {/* Real ad unit — AdSense fills this when loaded */}
                     <ins
                         className="adsbygoogle"
-                        style={{ display: 'block', width: '100%', height: '280px' }}
+                        style={{ display: 'block', width: '100%', minHeight: '280px' }}
                         data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-5021308603136043"}
                         data-ad-slot="3167248456"
                         data-ad-format="auto"
                         data-full-width-responsive="true"
                     />
+                </div>
 
-                    {/* Fallback display when AdSense isn't active */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div className="text-center space-y-2 opacity-60">
-                            <div className="w-full h-[250px] rounded-lg bg-gradient-to-br from-violet-100 to-purple-100 dark:from-violet-900/30 dark:to-purple-900/30 border-2 border-dashed border-violet-300 dark:border-violet-700 flex flex-col items-center justify-center gap-2">
-                                <FaGift className="w-8 h-8 text-violet-400" />
-                                <p className="text-sm text-violet-500 dark:text-violet-400 font-medium">Sponsored Content</p>
-                                <p className="text-[10px] text-gray-400 dark:text-gray-500">Ad will appear here</p>
-                            </div>
+                {/* Fallback placeholder — sits BEHIND the ad (z-0), only visible when AdSense hasn't filled */}
+                <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+                    <div className="text-center space-y-2 opacity-50">
+                        <div className="w-full max-w-[336px] h-[250px] rounded-lg bg-gradient-to-br from-violet-100 to-purple-100 dark:from-violet-900/30 dark:to-purple-900/30 border-2 border-dashed border-violet-300 dark:border-violet-700 flex flex-col items-center justify-center gap-2">
+                            <FaGift className="w-8 h-8 text-violet-400" />
+                            <p className="text-sm text-violet-500 dark:text-violet-400 font-medium">Sponsored Content</p>
+                            <p className="text-[10px] text-gray-400 dark:text-gray-500">Ad loading...</p>
                         </div>
                     </div>
                 </div>

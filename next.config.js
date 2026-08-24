@@ -72,9 +72,9 @@ const withPWA = require('next-pwa')({
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,            // Enable SWC minification for improved performance
-  compiler: {
-    removeConsole: process.env.NODE_ENV !== "development"     // Remove console.log in production
-  },
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV !== "development"     // Remove console.log in production
+  // },
   typescript: {
     ignoreBuildErrors: false,
   },
