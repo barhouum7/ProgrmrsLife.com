@@ -47,7 +47,7 @@ export default async function handler(req, res) {
             // Simulate API delay
             await new Promise(resolve => setTimeout(resolve, 500));
         } else {
-            const result = await fetchCanvaLinks(forceFetch);
+            const result = await fetchCanvaLinks(forceFetch, req);
             links = result.links;
             sources = result.sources;
             cached = result.cached;
