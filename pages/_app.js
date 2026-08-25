@@ -1,13 +1,14 @@
 import React, { useEffect, lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import dynamic from 'next/dynamic';
+import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { defaultFont } from '../config/fonts';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { SuspenseLoader } from '../components';
 import * as gtag from '../lib/gtag';
 import { Analytics } from "@vercel/analytics/react"
-import { loadAdSenseScript, loadGAMScript } from '@/components/canva/RewardedAdTask';
+import { loadGAMScript } from '@/components/canva/RewardedAdTask';
 
 import NextTopLoader from 'nextjs-toploader';
 
@@ -109,7 +110,6 @@ function MyApp({ Component, pageProps }) {
 
   const router = useRouter();
 
-  useEffect(() => { loadAdSenseScript(); }, []);
   useEffect(() => { loadGAMScript(); }, []);
 
   useEffect(() => {
@@ -143,6 +143,20 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ErrorBoundary>
+      {/* Google AdSense — next/script handles SPA re-initialization automatically */}
+      <Script
+        id="adsense-script"
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-5021308603136043'}`}
+        strategy="afterInteractive"
+        crossOrigin="anonymous"
+        onLoad={() => {
+          // Push any queued ins elements that appeared before the script loaded
+          try {
+            const slots = document.querySelectorAll('ins.adsbygoogle:not([data-ad-status])');
+            slots.forEach(() => (window.adsbygoogle = window.adsbygoogle || []).push({}));
+          } catch { /* ignore */ }
+        }}
+      />
       <main className={`${defaultFont.className} min-h-screen flex flex-col`}>
         <ThemeProvider enableSystem={true} attribute="class">
           <KBarProvider actions={actions}

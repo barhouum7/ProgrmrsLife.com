@@ -1,16 +1,15 @@
 /**
  * POST /api/scrape/apify-callback
  *
- * Apify webhook endpoint — called automatically by Apify when an actor run
- * succeeds. Processes the dataset and saves new Canva links to the database.
+ * Apify webhook — called when an actor run succeeds.
+ * Fetches the dataset, saves new Canva links to DB, and responds 200.
  *
- * Security: validated via ?secret= query param (must match ADMIN_SECRET env var).
+ * All DB work is done BEFORE responding so Vercel doesn't kill the function
+ * mid-flight (background-after-response is unreliable on serverless).
  *
- * Apify webhook POST body shape (relevant fields):
- *   {
- *     eventType: 'ACTOR.RUN.SUCCEEDED',
- *     resource: { id: '<runId>', defaultDatasetId: '<datasetId>', ... }
- *   }
+ * Auth: ?secret= must match APIFY_WEBHOOK_SECRET env var.
+ *       If the env var is not set, the secret is skipped (open endpoint)
+ *       so the webhook works even without configuring an extra secret.
  */
 
 import { fetchDatasetFromApifyRun } from '../../../lib/sources/scraper';
@@ -25,35 +24,40 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    // ── Auth: secret must match ADMIN_SECRET ──────────────────────────
+    // ── Auth: secret must match APIFY_WEBHOOK_SECRET env var. ──────────────────────────────────────────────────────────
+    // Secret confirmed configured so Enforce it
+    const expectedSecret = process.env.APIFY_WEBHOOK_SECRET || '';
     const providedSecret = req.query.secret || '';
-    const expectedSecret = process.env.ADMIN_SECRET || '';
     if (!expectedSecret || providedSecret !== expectedSecret) {
         console.warn('[ApifyCallback] Unauthorized webhook call — rejecting.');
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    // ── Parse Apify webhook payload ───────────────────────────────────
-    const { eventType, resource } = req.body || {};
+    // ── Parse Apify payload ───────────────────────────────────────────
+    // Apify can nest the run details under `eventData` or `resource`
+    const body = req.body || {};
+    const eventType = body.eventType;
+    const datasetId =
+        body.resource?.defaultDatasetId ||
+        body.eventData?.defaultDatasetId ||
+        body.defaultDatasetId;
 
-    if (eventType !== 'ACTOR.RUN.SUCCEEDED' || !resource?.defaultDatasetId) {
-        console.log('[ApifyCallback] Unexpected event or missing datasetId:', eventType);
+    console.log(`[ApifyCallback] Received: eventType=${eventType} datasetId=${datasetId}`);
+
+    if (eventType !== 'ACTOR.RUN.SUCCEEDED' || !datasetId) {
+        console.log('[ApifyCallback] Unexpected payload — skipping.', JSON.stringify(body).slice(0, 200));
         return res.status(200).json({ ok: true, skipped: true });
     }
 
-    const datasetId = resource.defaultDatasetId;
-    console.log(`[ApifyCallback] Run succeeded. datasetId: ${datasetId}`);
-
-    // Respond immediately — Apify retries if we take too long
-    res.status(200).json({ ok: true, datasetId });
-
-    // ── Process dataset asynchronously (non-blocking after response sent) ──
+    // ── Fetch & save — synchronously before responding ──────────────
+    // Vercel may kill the function immediately after res.end(), so we
+    // do all the work first, then respond.
     try {
         const links = await fetchDatasetFromApifyRun(datasetId);
 
         if (links.length === 0) {
-            console.log('[ApifyCallback] No Canva links extracted from dataset.');
-            return;
+            console.log('[ApifyCallback] No Canva links extracted.');
+            return res.status(200).json({ ok: true, new: 0 });
         }
 
         // Load existing URLs to count truly new inserts
@@ -62,11 +66,11 @@ export default async function handler(req, res) {
                 .map(l => l.url.toLowerCase().trim())
         );
 
-        const newLinks = links.filter(l => !existingUrls.has(l.url?.toLowerCase().trim()));
-        console.log(`[ApifyCallback] ${newLinks.length} new / ${links.length - newLinks.length} dupes`);
-
-        // Save to DB
+        let newCount = 0;
         for (const link of links) {
+            const norm = link.url?.toLowerCase().trim();
+            if (!norm) continue;
+            const isNew = !existingUrls.has(norm);
             try {
                 await prisma.canvaLink.upsert({
                     where: { url: link.url },
@@ -81,34 +85,39 @@ export default async function handler(req, res) {
                     },
                     update: { fetchedAt: new Date() },
                 });
-            } catch { /* skip duplicate constraint errors */ }
+                if (isNew) newCount++;
+            } catch { /* skip constraint errors */ }
         }
 
-        // Cleanup: expire old links and trim to MAX_CACHED_LINKS
-        if (newLinks.length > 0) {
+        console.log(`[ApifyCallback] ${newCount} new / ${links.length - newCount} dupes saved.`);
+
+        // Cleanup if we added anything
+        if (newCount > 0) {
             const expiryDate = new Date(Date.now() - LINK_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
             await prisma.canvaLink.updateMany({
                 where: { createdAt: { lt: expiryDate }, status: { not: 'expired' } },
                 data: { status: 'expired' },
             }).catch(() => { });
 
-            const activeLinks = await prisma.canvaLink.findMany({
+            const active = await prisma.canvaLink.findMany({
                 where: { status: { not: 'expired' } },
                 orderBy: { createdAt: 'desc' },
                 select: { id: true },
             }).catch(() => []);
 
-            if (activeLinks.length > MAX_CACHED_LINKS) {
-                const idsToExpire = activeLinks.slice(MAX_CACHED_LINKS).map(l => l.id);
+            if (active.length > MAX_CACHED_LINKS) {
+                const idsToExpire = active.slice(MAX_CACHED_LINKS).map(l => l.id);
                 await prisma.canvaLink.updateMany({
                     where: { id: { in: idsToExpire } },
                     data: { status: 'expired' },
                 }).catch(() => { });
             }
-
-            console.log(`[ApifyCallback] Saved ${newLinks.length} new links. DB updated.`);
         }
+
+        return res.status(200).json({ ok: true, new: newCount, total: links.length });
+
     } catch (err) {
-        console.error('[ApifyCallback] Error processing dataset:', err.message);
+        console.error('[ApifyCallback] Error:', err.message);
+        return res.status(500).json({ error: err.message });
     }
 }
