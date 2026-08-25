@@ -114,8 +114,26 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      // console.log("Route changed to: ", url);
       gtag.pageview(url);
+
+      // Re-initialize AdSense for any ins elements added after the script first ran.
+      // Without this, ads don't load on SPA navigation — only on hard reload.
+      if (typeof window !== 'undefined') {
+        try {
+          // Push each unfilled AdSense slot so the script serves a fresh ad
+          const slots = document.querySelectorAll('ins.adsbygoogle:not([data-ad-status])');
+          slots.forEach(() => (window.adsbygoogle = window.adsbygoogle || []).push({}));
+        } catch { /* AdSense not yet loaded — individual components handle their own push */ }
+
+        try {
+          // Refresh high-paying DoubleClick/Google Ad Manager (GAM) ads
+          if (window.googletag && window.googletag.apiReady) {
+            window.googletag.cmd.push(() => {
+              window.googletag.pubads().refresh();
+            });
+          }
+        } catch { /* GAM not yet loaded */ }
+      }
     };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
