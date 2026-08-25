@@ -116,23 +116,24 @@ function MyApp({ Component, pageProps }) {
     const handleRouteChange = (url) => {
       gtag.pageview(url);
 
-      // Re-initialize AdSense for any ins elements added after the script first ran.
-      // Without this, ads don't load on SPA navigation — only on hard reload.
+      // Wait ~200ms after route change so React has time to paint the new
+      // page's ins.adsbygoogle elements before we push() to fill them.
+      // Without this delay, push() runs before the DOM is updated and finds nothing.
       if (typeof window !== 'undefined') {
-        try {
-          // Push each unfilled AdSense slot so the script serves a fresh ad
-          const slots = document.querySelectorAll('ins.adsbygoogle:not([data-ad-status])');
-          slots.forEach(() => (window.adsbygoogle = window.adsbygoogle || []).push({}));
-        } catch { /* AdSense not yet loaded — individual components handle their own push */ }
+        setTimeout(() => {
+          try {
+            // Push each unfilled AdSense slot so the script serves a fresh ad
+            const slots = document.querySelectorAll('ins.adsbygoogle:not([data-ad-status])');
+            slots.forEach(() => (window.adsbygoogle = window.adsbygoogle || []).push({}));
+          } catch { /* AdSense not yet loaded — individual components handle their own push */ }
 
-        try {
-          // Refresh high-paying DoubleClick/Google Ad Manager (GAM) ads
-          if (window.googletag && window.googletag.apiReady) {
-            window.googletag.cmd.push(() => {
-              window.googletag.pubads().refresh();
-            });
-          }
-        } catch { /* GAM not yet loaded */ }
+          try {
+            // Refresh high-paying DoubleClick/Google Ad Manager (GAM) ads
+            if (window.googletag && window.googletag.apiReady) {
+              window.googletag.cmd.push(() => window.googletag.pubads().refresh());
+            }
+          } catch { /* GAM not yet loaded */ }
+        }, 200);
       }
     };
     router.events.on('routeChangeComplete', handleRouteChange);
@@ -143,20 +144,6 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ErrorBoundary>
-      {/* Google AdSense — next/script handles SPA re-initialization automatically */}
-      <Script
-        id="adsense-script"
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-5021308603136043'}`}
-        strategy="afterInteractive"
-        crossOrigin="anonymous"
-        onLoad={() => {
-          // Push any queued ins elements that appeared before the script loaded
-          try {
-            const slots = document.querySelectorAll('ins.adsbygoogle:not([data-ad-status])');
-            slots.forEach(() => (window.adsbygoogle = window.adsbygoogle || []).push({}));
-          } catch { /* ignore */ }
-        }}
-      />
       <main className={`${defaultFont.className} min-h-screen flex flex-col`}>
         <ThemeProvider enableSystem={true} attribute="class">
           <KBarProvider actions={actions}
